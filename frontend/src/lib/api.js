@@ -86,3 +86,26 @@ export async function getRosterSlots() {
   const data = await fetchJsonFixture(`${import.meta.env.BASE_URL}mock/roster-slots.json`);
   return data || { slots: [] };
 }
+
+/**
+ * Fetch the broader, week-independent player pool (team-config spec section
+ * 3.2) -- the picker source for team configuration, and the fallback
+ * identity/status source for Weekly Report when an assigned player has no
+ * projection entry for the selected week.
+ * @returns {Promise<{players: object[]}>}
+ */
+export async function getPlayerPool() {
+  const data = await fetchJsonFixture(`${import.meta.env.BASE_URL}mock/player-pool.json`);
+  return data || { players: [] };
+}
+
+/**
+ * Fetch the one-time default team config seed (team-config spec section
+ * 3.4). Only ever read when localStorage has no saved config yet -- callers
+ * go through lib/teamConfig.js, never fetch this directly.
+ * @returns {Promise<{slotAssignments: (string|null)[]}|null>} null if the
+ *   fixture is missing/unreadable -- caller must handle gracefully.
+ */
+export async function getDefaultTeamConfig() {
+  return fetchJsonFixture(`${import.meta.env.BASE_URL}mock/default-team-config.json`);
+}

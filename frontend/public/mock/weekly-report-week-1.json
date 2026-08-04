@@ -2,204 +2,216 @@
   "week": 1,
   "leagueFormatAssumption": "half_ppr",
   "generatedAt": "2026-09-04T13:00:00Z",
-  "startSit": {
-    "start": [
-      {
-        "playerId": "p_00123",
-        "name": "Josh Allen",
-        "position": "QB",
-        "team": "BUF",
-        "opponent": "MIA",
-        "rosterSlot": "QB",
-        "projection": {
-          "tier": "consensus",
-          "points": 24.3,
-          "tierLabel": "Consensus projection",
-          "source": "FantasyPros"
-        },
-        "newsFlag": {
-          "riskLevel": "low",
-          "designation": "Questionable",
-          "summary": "Limited practice reps Wednesday/Thursday, full participant Friday. Expected to play."
-        }
+  "projections": [
+    {
+      "playerId": "p_00123",
+      "name": "Josh Allen",
+      "position": "QB",
+      "team": "BUF",
+      "opponent": "MIA",
+      "projection": {
+        "tier": "consensus",
+        "points": 24.3,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
-      {
-        "playerId": "p_00201",
-        "name": "Bijan Robinson",
-        "position": "RB",
-        "team": "ATL",
-        "opponent": "CAR",
-        "rosterSlot": "RB",
-        "projection": {
-          "tier": "consensus",
-          "points": 18.6,
-          "tierLabel": "Consensus projection",
-          "source": "FantasyPros"
-        },
-        "newsFlag": { "riskLevel": "none" }
-      },
-      {
-        "playerId": "p_00202",
-        "name": "Tony Pollard",
-        "position": "RB",
-        "team": "TEN",
-        "opponent": "CHI",
-        "rosterSlot": "RB",
-        "projection": {
-          "tier": "in_house_estimate",
-          "points": 12.4,
-          "tierLabel": "Our estimate",
-          "source": "In-house model"
-        },
-        "newsFlag": { "riskLevel": "none" }
-      },
-      {
-        "playerId": "p_00301",
-        "name": "CeeDee Lamb",
-        "position": "WR",
-        "team": "DAL",
-        "opponent": "NYG",
-        "rosterSlot": "WR",
-        "projection": {
-          "tier": "consensus",
-          "points": 17.9,
-          "tierLabel": "Consensus projection",
-          "source": "FantasyPros"
-        },
-        "newsFlag": { "riskLevel": "none" }
-      },
-      {
-        "playerId": "p_00302",
-        "name": "Chris Olave",
-        "position": "WR",
-        "team": "NO",
-        "opponent": "CAR",
-        "rosterSlot": "WR",
-        "projection": {
-          "tier": "consensus",
-          "points": 13.2,
-          "tierLabel": "Consensus projection",
-          "source": "FantasyPros"
-        },
-        "newsFlag": {
-          "riskLevel": "medium",
-          "designation": "Questionable",
-          "summary": "Ankle injury limited him to individual drills all week; game-time decision per beat reporters."
-        }
-      },
-      {
-        "playerId": "p_00401",
-        "name": "Trey McBride",
-        "position": "TE",
-        "team": "ARI",
-        "opponent": "LAR",
-        "rosterSlot": "TE",
-        "projection": {
-          "tier": "consensus",
-          "points": 13.8,
-          "tierLabel": "Consensus projection",
-          "source": "FantasyPros"
-        },
-        "newsFlag": { "riskLevel": "none" }
-      },
-      {
-        "playerId": "p_00303",
-        "name": "Rome Odunze",
-        "position": "WR",
-        "team": "CHI",
-        "opponent": "TEN",
-        "rosterSlot": "FLEX",
-        "projection": {
-          "tier": "in_house_estimate",
-          "points": 10.9,
-          "tierLabel": "Our estimate",
-          "source": "In-house model"
-        },
-        "newsFlag": { "riskLevel": "none" }
-      },
-      {
-        "playerId": "p_00501",
-        "name": "Ravens D/ST",
-        "position": "DST",
-        "team": "BAL",
-        "opponent": "LAC",
-        "rosterSlot": "DST",
-        "projection": {
-          "tier": "in_house_estimate",
-          "points": 8.5,
-          "tierLabel": "Our estimate",
-          "source": "In-house model"
-        },
-        "newsFlag": { "riskLevel": "none" }
-      },
-      {
-        "playerId": "p_00601",
-        "name": "Harrison Butker",
-        "position": "K",
-        "team": "KC",
-        "opponent": "LAC",
-        "rosterSlot": "K",
-        "projection": {
-          "tier": "in_house_estimate",
-          "points": 8.1,
-          "tierLabel": "Our estimate",
-          "source": "In-house model"
-        },
-        "newsFlag": { "riskLevel": "none" }
+      "newsFlag": {
+        "riskLevel": "low",
+        "designation": "Questionable",
+        "summary": "Limited practice reps Wednesday/Thursday, full participant Friday. Expected to play."
       }
-    ],
-    "sit": [
-      {
-        "playerId": "p_00203",
-        "name": "Zack Moss",
-        "position": "RB",
-        "team": "CIN",
-        "opponent": "NE",
-        "rosterSlot": "BENCH",
-        "projection": {
-          "tier": "in_house_estimate",
-          "points": 6.2,
-          "tierLabel": "Our estimate",
-          "source": "In-house model"
-        },
-        "newsFlag": { "riskLevel": "none" }
+    },
+    {
+      "playerId": "p_00201",
+      "name": "Bijan Robinson",
+      "position": "RB",
+      "team": "ATL",
+      "opponent": "CAR",
+      "projection": {
+        "tier": "consensus",
+        "points": 18.6,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
-      {
-        "playerId": "p_00304",
-        "name": "Michael Wilson",
-        "position": "WR",
-        "team": "ARI",
-        "opponent": "LAR",
-        "rosterSlot": "BENCH",
-        "projection": {
-          "tier": "in_house_estimate",
-          "points": 5.8,
-          "tierLabel": "Our estimate",
-          "source": "In-house model"
-        },
-        "newsFlag": {
-          "riskLevel": "low",
-          "designation": "Questionable",
-          "summary": "Listed with a hamstring issue, practiced fully Friday. Low concern."
-        }
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    },
+    {
+      "playerId": "p_00202",
+      "name": "Tony Pollard",
+      "position": "RB",
+      "team": "TEN",
+      "opponent": "CHI",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 12.4,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
       },
-      {
-        "playerId": "p_00402",
-        "name": "Cole Kmet",
-        "position": "TE",
-        "team": "CHI",
-        "opponent": "TEN",
-        "rosterSlot": "BENCH",
-        "projection": {
-          "tier": "in_house_estimate",
-          "points": 6.9,
-          "tierLabel": "Our estimate",
-          "source": "In-house model"
-        },
-        "newsFlag": { "riskLevel": "none" }
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    },
+    {
+      "playerId": "p_00204",
+      "name": "Kyren Williams",
+      "position": "RB",
+      "team": "LAR",
+      "opponent": "ARI",
+      "projection": {
+        "tier": "consensus",
+        "points": 16.8,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
+      },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    },
+    {
+      "playerId": "p_00301",
+      "name": "CeeDee Lamb",
+      "position": "WR",
+      "team": "DAL",
+      "opponent": "NYG",
+      "projection": {
+        "tier": "consensus",
+        "points": 17.9,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
+      },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    },
+    {
+      "playerId": "p_00302",
+      "name": "Chris Olave",
+      "position": "WR",
+      "team": "NO",
+      "opponent": "CAR",
+      "projection": {
+        "tier": "consensus",
+        "points": 13.2,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
+      },
+      "newsFlag": {
+        "riskLevel": "medium",
+        "designation": "Questionable",
+        "summary": "Ankle injury limited him to individual drills all week; game-time decision per beat reporters."
       }
-    ]
-  },
+    },
+    {
+      "playerId": "p_00310",
+      "name": "Amon-Ra St. Brown",
+      "position": "WR",
+      "team": "DET",
+      "opponent": "GB",
+      "projection": {
+        "tier": "consensus",
+        "points": 16.4,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
+      },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    },
+    {
+      "playerId": "p_00401",
+      "name": "Trey McBride",
+      "position": "TE",
+      "team": "ARI",
+      "opponent": "LAR",
+      "projection": {
+        "tier": "consensus",
+        "points": 13.8,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
+      },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    },
+    {
+      "playerId": "p_00303",
+      "name": "Rome Odunze",
+      "position": "WR",
+      "team": "CHI",
+      "opponent": "TEN",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 10.9,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
+      },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    },
+    {
+      "playerId": "p_00501",
+      "name": "Ravens D/ST",
+      "position": "DST",
+      "team": "BAL",
+      "opponent": "LAC",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 8.5,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
+      },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    },
+    {
+      "playerId": "p_00601",
+      "name": "Harrison Butker",
+      "position": "K",
+      "team": "KC",
+      "opponent": "LAC",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 8.1,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
+      },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    },
+    {
+      "playerId": "p_00203",
+      "name": "Zack Moss",
+      "position": "RB",
+      "team": "CIN",
+      "opponent": "NE",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 6.2,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
+      },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    },
+    {
+      "playerId": "p_00304",
+      "name": "Michael Wilson",
+      "position": "WR",
+      "team": "ARI",
+      "opponent": "LAR",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 5.8,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
+      },
+      "newsFlag": {
+        "riskLevel": "low",
+        "designation": "Questionable",
+        "summary": "Listed with a hamstring issue, practiced fully Friday. Low concern."
+      }
+    },
+    {
+      "playerId": "p_00402",
+      "name": "Cole Kmet",
+      "position": "TE",
+      "team": "CHI",
+      "opponent": "TEN",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 6.9,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
+      },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+    }
+  ],
   "waiverTargets": [
     {
       "playerId": "p_00456",
@@ -213,7 +225,7 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "riskLevel": "none" },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null },
       "rationale": "Lead back role trending up with committee-mate on the injury report."
     },
     {
@@ -247,7 +259,7 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "riskLevel": "none" },
+      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null },
       "rationale": "Slot target share has climbed each of the last two weeks with the outside receiver banged up."
     }
   ]

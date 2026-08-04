@@ -1,9 +1,11 @@
 import { useEffect, useState } from 'react'
 import WeeklyReportView from './components/WeeklyReportView.jsx'
+import TeamConfigView from './components/TeamConfigView.jsx'
 import TrackRecordView from './components/TrackRecordView.jsx'
 
 const TABS = [
   { id: 'report', label: 'Weekly Report' },
+  { id: 'my-team', label: 'My Team' },
   { id: 'track-record', label: 'Track Record' },
 ]
 
@@ -56,7 +58,9 @@ export default function App() {
       </header>
 
       <main className="app-main">
-        {activeTab === 'report' ? <WeeklyReportView /> : <TrackRecordView />}
+        {activeTab === 'report' && <WeeklyReportView />}
+        {activeTab === 'my-team' && <TeamConfigView />}
+        {activeTab === 'track-record' && <TrackRecordView />}
       </main>
 
       <footer className="app-footer">

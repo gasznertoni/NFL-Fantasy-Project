@@ -2,12 +2,15 @@ import { useEffect, useState } from 'react'
 import {
   getWeeklyReport,
   getRosterSlots,
+  getPlayerPool,
   LATEST_AVAILABLE_WEEK,
   MIN_SELECTABLE_WEEK,
   MAX_SELECTABLE_WEEK,
 } from '../lib/api.js'
+import { useTeamConfig, isPlayerRostered } from '../lib/teamConfig.js'
 import WeekSelector from './WeekSelector.jsx'
 import PlayerCard from './PlayerCard.jsx'
+import PlayerPickerRow from './PlayerPickerRow.jsx'
 import LoadingSkeleton from './LoadingSkeleton.jsx'
 import EmptyState from './EmptyState.jsx'
 
@@ -17,18 +20,15 @@ const FORMAT_LABEL = {
   standard: 'standard',
 }
 
-// Slot value used for the de-emphasized "sit" / bench group. Read from the
-// slot config at render time (see startingSlotOrder below) rather than
-// assumed -- this constant only names which value from that config we treat
-// as the bench pile.
+// Slot value used for the de-emphasized "sit" / bench group.
 const BENCH_SLOT = 'BENCH'
 
 /**
  * Derives the ordered list of *starting* slot names from the generic slot
- * config (spec section 3.3), deduplicated so e.g. two "RB" entries become
- * one "RB" group heading. Excludes the bench slot. This is the only place
- * slot grouping is computed -- no slot names/counts are hardcoded inline
- * anywhere else in this view.
+ * config, deduplicated so e.g. two "RB" entries become one "RB" group
+ * heading. Excludes the bench slot. This is the only place slot grouping
+ * is computed -- no slot names/counts are hardcoded inline anywhere else
+ * in this view.
  */
 function startingSlotOrder(slots) {
   const seen = new Set()
@@ -46,23 +46,84 @@ function startingSlotOrder(slots) {
 export default function WeeklyReportView() {
   const [week, setWeek] = useState(LATEST_AVAILABLE_WEEK)
   const [report, setReport] = useState(undefined) // undefined = loading, null = no data
-  const [slots, setSlots] = useState([])
+  const [slots, setSlots] = useState(null) // null = loading
+  const [pool, setPool] = useState(null) // null = loading, Map<playerId, poolEntry> once loaded
 
   useEffect(() => {
     let cancelled = false
     setReport(undefined)
-    Promise.all([getWeeklyReport(week), getRosterSlots()]).then(([reportData, slotData]) => {
-      if (cancelled) return
-      setReport(reportData)
-      setSlots(slotData.slots || [])
-    })
+    Promise.all([getWeeklyReport(week), getRosterSlots(), getPlayerPool()]).then(
+      ([reportData, slotData, poolData]) => {
+        if (cancelled) return
+        setReport(reportData)
+        setSlots(slotData.slots || [])
+        const map = new Map()
+        for (const p of poolData.players || []) map.set(p.playerId, p)
+        setPool(map)
+      },
+    )
     return () => {
       cancelled = true
     }
   }, [week])
 
-  const slotOrder = startingSlotOrder(slots)
-  const benchCount = slots.filter((s) => s === BENCH_SLOT).length
+  const { config } = useTeamConfig(slots ? slots.length : 0)
+
+  const metaReady = slots !== null && pool !== null && config !== undefined
+  const slotOrder = metaReady ? startingSlotOrder(slots) : []
+  const benchCount = metaReady ? slots.filter((s) => s === BENCH_SLOT).length : 0
+
+  const projectionsById = new Map((report?.projections || []).map((p) => [p.playerId, p]))
+
+  /**
+   * Renders one card for a given roster-slot index (spec section 4, the
+   * core join): empty-slot placeholder, normal PlayerCard (projection
+   * found), or a degraded card (player assigned but no projection entry
+   * for this week -- falls back to the player-pool entry). Never renders
+   * nothing and never throws, regardless of which of the three cases applies.
+   */
+  function renderSlotCard(index, slotName, { muted = false } = {}) {
+    const playerId = config.slotAssignments[index]
+
+    if (!playerId) {
+      return (
+        <article className="player-card player-card-empty-slot" key={`empty-${index}`}>
+          <span className="slot-empty-slot-label">{slotName}</span>
+          <p className="slot-empty-message">Empty &mdash; assign a player.</p>
+          <a className="slot-empty-link" href="#my-team">
+            Assign in My Team &rarr;
+          </a>
+        </article>
+      )
+    }
+
+    const projection = projectionsById.get(playerId)
+    if (projection) {
+      return <PlayerCard key={playerId} player={projection} muted={muted} />
+    }
+
+    // Assigned player has no projection entry for this week -- degrade to
+    // the player-pool fallback identity/status rather than dropping the
+    // card or crashing.
+    const poolEntry = pool.get(playerId) || {
+      name: `Player ${playerId}`,
+      position: '',
+      team: '',
+      newsFlag: { designation: 'Healthy', riskLevel: 'none', summary: null },
+    }
+    return (
+      <article className={`player-card player-card-degraded ${muted ? 'player-card-muted' : ''}`} key={`degraded-${playerId}`}>
+        <PlayerPickerRow player={poolEntry} />
+        <p className="player-card-degraded-note">No projection available for this player this week.</p>
+      </article>
+    )
+  }
+
+  const waiverTargets = report
+    ? [...(report.waiverTargets || [])]
+        .filter((p) => !metaReady || !isPlayerRostered(p.playerId, config))
+        .sort((a, b) => b.projection.points - a.projection.points)
+    : []
 
   return (
     <section aria-label="Weekly report">
@@ -80,7 +141,9 @@ export default function WeeklyReportView() {
 
       {report === null && <EmptyState message={`No data for week ${week} yet.`} />}
 
-      {report && (
+      {report && !metaReady && <LoadingSkeleton rows={6} label="Loading weekly report..." />}
+
+      {report && metaReady && (
         <>
           <p className="format-footnote">
             Projections shown assume <strong>{FORMAT_LABEL[report.leagueFormatAssumption] || report.leagueFormatAssumption}</strong> scoring, pending
@@ -89,16 +152,15 @@ export default function WeeklyReportView() {
 
           <div className="report-section">
             <h2>Start</h2>
-            {slotOrder.map((slot) => {
-              const players = report.startSit.start.filter((p) => p.rosterSlot === slot)
-              if (players.length === 0) return null
+            {slotOrder.map((slotName) => {
+              const indices = slots
+                .map((s, i) => (s === slotName ? i : -1))
+                .filter((i) => i !== -1)
               return (
-                <div className="slot-group" key={slot}>
-                  <h3 className="slot-group-heading">{slot}</h3>
+                <div className="slot-group" key={slotName}>
+                  <h3 className="slot-group-heading">{slotName}</h3>
                   <div className="player-card-grid">
-                    {players.map((p) => (
-                      <PlayerCard key={p.playerId} player={p} />
-                    ))}
+                    {indices.map((i) => renderSlotCard(i, slotName))}
                   </div>
                 </div>
               )
@@ -110,21 +172,24 @@ export default function WeeklyReportView() {
               Sit {benchCount > 0 && <span className="section-subcount">({benchCount} bench slots)</span>}
             </h2>
             <div className="player-card-grid">
-              {report.startSit.sit.map((p) => (
-                <PlayerCard key={p.playerId} player={p} muted />
-              ))}
+              {slots
+                .map((s, i) => (s === BENCH_SLOT ? i : -1))
+                .filter((i) => i !== -1)
+                .map((i) => renderSlotCard(i, BENCH_SLOT, { muted: true }))}
             </div>
           </div>
 
           <div className="report-section">
             <h2>Waiver Targets</h2>
-            <div className="player-card-grid">
-              {[...report.waiverTargets]
-                .sort((a, b) => b.projection.points - a.projection.points)
-                .map((p) => (
+            {waiverTargets.length === 0 ? (
+              <EmptyState message="No waiver targets available — this week's top candidates are already on your team." />
+            ) : (
+              <div className="player-card-grid">
+                {waiverTargets.map((p) => (
                   <PlayerCard key={p.playerId} player={p} rationale={p.rationale} />
                 ))}
-            </div>
+              </div>
+            )}
           </div>
         </>
       )}

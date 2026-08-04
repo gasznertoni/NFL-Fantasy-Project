@@ -1,5 +1,5 @@
 import TierBadge from './TierBadge.jsx'
-import RiskFlag from './RiskFlag.jsx'
+import StatusTag from './StatusTag.jsx'
 
 /**
  * Renders a single player projection (spec section 3.1) as a card. Used
@@ -28,7 +28,7 @@ export default function PlayerCard({ player, muted = false, rationale }) {
           <TierBadge projection={projection} />
         </div>
       </div>
-      <RiskFlag newsFlag={newsFlag} />
+      <StatusTag newsFlag={newsFlag} />
       {rationale && <p className="player-card-rationale">{rationale}</p>}
     </article>
   )
