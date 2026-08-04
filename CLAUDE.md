@@ -1,8 +1,8 @@
-# NFL Fantasy Value Assistant — Project Brief (v5)
+# NFL Fantasy Value Assistant — Project Brief (v6)
 
 This file is the standing reference for any agent (Claude Code or otherwise) working in this repo. Read it before making architectural or scope decisions.
 
-**2026-08-04 — v5.** DST/team-defense scoring field coverage is now fully resolved (probed hands-on, no data gap — see "Data Sources"), closing out the last open item from data-source selection. Data source selection as a whole is now fully done; remaining Next Steps are all build/engineering work, not research. (v4's two-track scoring-rules split, v3's FantasyPros-cap resolution and two-tier value engine design, and v2's NFL Fantasy App removal / free-source pivot, are carried forward, not repeated here.)
+**2026-08-04 — v6.** The scoring-rules "schema" track from v4 is done: `docs/research/espn-scoring-waivers-rules-summary.md` documents the full range of scoring/waiver options ESPN's platform supports (offensive categories, D/ST tiers, PPR toggle, waiver types and timing). This is still the *generic* schema, not the builder's real league's chosen values — the "real values" track (commissioner or self-view of the migrated league) is still open, see Next Steps item 1. (v5's DST field-coverage resolution, v4's two-track scoring-rules split, v3's FantasyPros-cap resolution and two-tier value engine design, and v2's NFL Fantasy App removal / free-source pivot, are carried forward, not repeated here.)
 
 ## Context / Purpose
 
@@ -48,7 +48,7 @@ v1's original plan was to evaluate two paid vendors (Fantasy Nerds, SportsDataIO
 | Matchup difficulty (defense vs. position) | Computed in-house from `nflreadpy` team stats | No source, free or paid, has this as a direct field. Doubles as an input to the in-house projection tier above. |
 | DST/team-defense scoring inputs | `nflreadpy` team stats + schedules | **Confirmed hands-on, fully resolved (2026-08-04).** No data gap. Forced fumbles (`def_fumbles_forced`), recovered-fumble yards (`fumble_recovery_opp`/`_yards_opp`), and return yards (`punt_return_yards`/`kickoff_return_yards`) are direct per-team fields. Blocked-kick credit and yards-allowed need a self-join of `team_stats` on `game_id` (reading the opponent's row — confirmed blocks are recorded on the blocked team, not the blocking team, against 64 real 2024–2025 rows); points-allowed needs a join with `load_schedules()`'s `home_score`/`away_score`. Detail: `docs/research/dst-scoring-fields.md`. |
 | News (free text, for the LLM summarization layer) | ESPN's unofficial API (`site.api.espn.com/.../news`) | Free, no key, but unofficial and unstable by nature — no ESPN ToS covers this use. The only free-text news source found; needs a degrade-gracefully fallback plan. |
-| League scoring rules & roster | Manual entry into a configurable schema (v1) | See "out of scope" above. Two separate tracks (see Next Steps item 1): the *schema* (what categories/values are possible) comes from a dummy ESPN league, unblocked and in progress; the *real values* for the builder's actual league still need the commissioner or a self-view of the migrated league's settings page — last known settings are 2025 NFL Fantasy rules (screenshotted), don't assume they carried over unchanged. |
+| League scoring rules & roster | Manual entry into a configurable schema (v1) | See "out of scope" above. Two separate tracks (see Next Steps item 1): the *schema* (what categories/values are possible) is **done** — `docs/research/espn-scoring-waivers-rules-summary.md` covers offensive scoring categories, D/ST tiers, PPR toggle, and waiver types/timing, compiled from ESPN's own support docs. The *real values* for the builder's actual league are still open — need the commissioner or a self-view of the migrated league's settings page; last known settings are 2025 NFL Fantasy rules (screenshotted), don't assume they carried over unchanged. |
 
 Full research trail, in order: `docs/research/free-data-sources.md` → `data-source-test-plan.md` → `phase1-probe-results.md` / `phase1-local-results.json` → `coverage-scorecard.md` / `data-points-spec.md` → `operational-reliability-and-crossvalidation.md` → `scope-note-draft.md`.
 
@@ -68,9 +68,7 @@ Full research trail, in order: `docs/research/free-data-sources.md` → `data-so
 
 ## Next Steps (in order)
 
-1. Two parallel tracks, not one blocking step:
-   - **Schema (unblocked, in progress):** create an ESPN account and a dummy league to inventory every scoring category/point-value option ESPN's platform supports — informs the configurable scoring schema below, without needing the real league to migrate or any ESPN API/auth access.
-   - **Real values (blocked on the commissioner):** get the actual 2026 scoring rules and roster settings for the builder's real league — from the commissioner, or by viewing the real league's ESPN settings page directly once migrated (self-view, not the ESPN API). Don't let this block the schema work in the meantime.
+1. **Real values (blocked on the commissioner):** get the actual 2026 scoring rules and roster settings for the builder's real league — from the commissioner, or by viewing the real league's ESPN settings page directly once migrated (self-view, not the ESPN API). (The schema track is done — see `docs/research/espn-scoring-waivers-rules-summary.md` and the Data Sources table above.)
 2. Design the in-house projection model for bench/waiver-tier players: rolling-window size (e.g., last 3–4 games), how to handle players with little/no recent data (rookies, players returning from injury), and how the matchup-difficulty adjustment factors in.
 3. Build the core value engine: both projection tiers, computing points from raw stat-line data using the league's real scoring formula — never trust a vendor's precomputed STD/PPR/Half-PPR field directly. Includes the DST self-join/schedule-join logic now confirmed necessary (see Data Sources — `docs/research/dst-scoring-fields.md`).
 4. Add news/injury summarization layer.
