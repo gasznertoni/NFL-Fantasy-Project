@@ -3,3 +3,5 @@
 __pycache__/
 *.pyc
 .DS_Store
+
+docs/research/phase1-local-results.json
