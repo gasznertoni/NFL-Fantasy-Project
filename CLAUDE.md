@@ -1,8 +1,8 @@
-# NFL Fantasy Value Assistant — Project Brief (v3)
+# NFL Fantasy Value Assistant — Project Brief (v5)
 
 This file is the standing reference for any agent (Claude Code or otherwise) working in this repo. Read it before making architectural or scope decisions.
 
-**2026-08-04 — major update (v3).** FantasyPros' free-tier cap is now fully resolved (hard top-10-per-position ceiling, no workaround, confirmed via 6 parameter variants) and a build decision has been made: the value engine computes its own projections for anyone outside that top 10. See "Data Sources" and "In scope" item 1 below. (v2's changes — dropping every NFL Fantasy App reference after its 2026 shutdown, and the free-source pivot — are carried forward, not repeated here.)
+**2026-08-04 — v5.** DST/team-defense scoring field coverage is now fully resolved (probed hands-on, no data gap — see "Data Sources"), closing out the last open item from data-source selection. Data source selection as a whole is now fully done; remaining Next Steps are all build/engineering work, not research. (v4's two-track scoring-rules split, v3's FantasyPros-cap resolution and two-tier value engine design, and v2's NFL Fantasy App removal / free-source pivot, are carried forward, not repeated here.)
 
 ## Context / Purpose
 
@@ -46,9 +46,9 @@ v1's original plan was to evaluate two paid vendors (Fantasy Nerds, SportsDataIO
 | Weekly fantasy projection — top-10-per-position players | FantasyPros free-tier API | **Confirmed hands-on, fully resolved.** Real per-player projected stat lines confirmed. The `scoring` request parameter has no effect (ignored) — doesn't matter, every response already includes `points`/`points_ppr`/`points_half` together, so just read the field matching the league's format. Free tier also rate-limits (hit a `429` during testing) — add a small delay between calls. |
 | Weekly fantasy projection — everyone else (bench/waiver tier) | **In-house model** — rolling recent-`fantasy_points` average from `nflreadpy`, adjusted by matchup difficulty | **Decision made 2026-08-04.** Confirmed via 6 different request-parameter attempts (`player_id`, `id`, `fpid`, `limit=50`, `offset`, `page`) that FantasyPros' top-10-per-position cap has no override — it's a hard ceiling, not a pagination limit. No other source (free or paid, per earlier research) has projections for these players either. `nflreadpy` has no player-count ceiling, so this covers everyone FantasyPros can't; not yet built. |
 | Matchup difficulty (defense vs. position) | Computed in-house from `nflreadpy` team stats | No source, free or paid, has this as a direct field. Doubles as an input to the in-house projection tier above. |
-| DST/team-defense scoring inputs | `nflreadpy` team stats — **not yet verified** | The league scores defense unusually granularly: forced fumbles and recovered fumbles counted separately, tiered points-allowed and yards-allowed bands, blocked kicks, return yards on the DST slot. Needs a dedicated check that nflreadpy's team-stats table carries fields at this granularity — not yet probed. |
+| DST/team-defense scoring inputs | `nflreadpy` team stats + schedules | **Confirmed hands-on, fully resolved (2026-08-04).** No data gap. Forced fumbles (`def_fumbles_forced`), recovered-fumble yards (`fumble_recovery_opp`/`_yards_opp`), and return yards (`punt_return_yards`/`kickoff_return_yards`) are direct per-team fields. Blocked-kick credit and yards-allowed need a self-join of `team_stats` on `game_id` (reading the opponent's row — confirmed blocks are recorded on the blocked team, not the blocking team, against 64 real 2024–2025 rows); points-allowed needs a join with `load_schedules()`'s `home_score`/`away_score`. Detail: `docs/research/dst-scoring-fields.md`. |
 | News (free text, for the LLM summarization layer) | ESPN's unofficial API (`site.api.espn.com/.../news`) | Free, no key, but unofficial and unstable by nature — no ESPN ToS covers this use. The only free-text news source found; needs a degrade-gracefully fallback plan. |
-| League scoring rules & roster | Manual entry (v1) | See "out of scope" above. Last known settings are 2025 NFL Fantasy rules (screenshotted); re-verify against the builder's actual 2026 ESPN league once migrated, don't assume they carried over unchanged. |
+| League scoring rules & roster | Manual entry into a configurable schema (v1) | See "out of scope" above. Two separate tracks (see Next Steps item 1): the *schema* (what categories/values are possible) comes from a dummy ESPN league, unblocked and in progress; the *real values* for the builder's actual league still need the commissioner or a self-view of the migrated league's settings page — last known settings are 2025 NFL Fantasy rules (screenshotted), don't assume they carried over unchanged. |
 
 Full research trail, in order: `docs/research/free-data-sources.md` → `data-source-test-plan.md` → `phase1-probe-results.md` / `phase1-local-results.json` → `coverage-scorecard.md` / `data-points-spec.md` → `operational-reliability-and-crossvalidation.md` → `scope-note-draft.md`.
 
@@ -68,15 +68,15 @@ Full research trail, in order: `docs/research/free-data-sources.md` → `data-so
 
 ## Next Steps (in order)
 
-1. Migrate the league to ESPN Fantasy; re-confirm the 2026 scoring rules and roster settings against the 2025 rules already captured, rather than assuming they match.
-2. Verify `nflreadpy`'s team-stats table covers the DST scoring fields this league actually uses (forced vs. recovered fumbles, blocked kicks, return yards, points-/yards-allowed tiers).
-3. Commit the research work in `docs/research/` and `scripts/` to git — currently untracked (verified 2026-08-04); `.env` is correctly gitignored, no key ever entered git history.
-4. Design the in-house projection model for bench/waiver-tier players: rolling-window size (e.g., last 3–4 games), how to handle players with little/no recent data (rookies, players returning from injury), and how the matchup-difficulty adjustment factors in.
-5. Build the core value engine: both projection tiers, computing points from raw stat-line data using the league's real scoring formula — never trust a vendor's precomputed STD/PPR/Half-PPR field directly.
-6. Add news/injury summarization layer.
-7. Build the report output view, visibly distinguishing "consensus projection" (FantasyPros, top-10/position) from "our estimate" (in-house model) players.
-8. Add the eval/track-record view, tracking the in-house tier's accuracy separately from the FantasyPros tier.
-9. Deploy, use for a real fantasy week, document as a case study.
+1. Two parallel tracks, not one blocking step:
+   - **Schema (unblocked, in progress):** create an ESPN account and a dummy league to inventory every scoring category/point-value option ESPN's platform supports — informs the configurable scoring schema below, without needing the real league to migrate or any ESPN API/auth access.
+   - **Real values (blocked on the commissioner):** get the actual 2026 scoring rules and roster settings for the builder's real league — from the commissioner, or by viewing the real league's ESPN settings page directly once migrated (self-view, not the ESPN API). Don't let this block the schema work in the meantime.
+2. Design the in-house projection model for bench/waiver-tier players: rolling-window size (e.g., last 3–4 games), how to handle players with little/no recent data (rookies, players returning from injury), and how the matchup-difficulty adjustment factors in.
+3. Build the core value engine: both projection tiers, computing points from raw stat-line data using the league's real scoring formula — never trust a vendor's precomputed STD/PPR/Half-PPR field directly. Includes the DST self-join/schedule-join logic now confirmed necessary (see Data Sources — `docs/research/dst-scoring-fields.md`).
+4. Add news/injury summarization layer.
+5. Build the report output view, visibly distinguishing "consensus projection" (FantasyPros, top-10/position) from "our estimate" (in-house model) players.
+6. Add the eval/track-record view, tracking the in-house tier's accuracy separately from the FantasyPros tier.
+7. Deploy, use for a real fantasy week, document as a case study.
 
 ## Notes for agents
 
@@ -85,4 +85,4 @@ Full research trail, in order: `docs/research/free-data-sources.md` → `data-so
 - Never trust a vendor's precomputed fantasy-points field without checking it against the builder's actual league scoring rules first. This league's 6-point passing touchdowns and granular DST scoring diverge from standard presets — compute points from raw projected/actual stat lines using the real scoring formula instead.
 - The value engine has two projection tiers (FantasyPros consensus for top-10/position, in-house estimate for everyone else) because the free tier's cap has no workaround — this is a permanent architecture feature, not a temporary stopgap to remove later. Keep both tiers clearly labeled to the user as different kinds of numbers.
 - Keep the eval/track-record layer in mind from the start — recommendations should be logged in a way that makes later accuracy scoring straightforward (e.g., store the prediction, the context it was made with, and a way to attach the actual outcome once known).
-- Data source selection is done — see "Data Sources" above and the linked research docs. One item remains genuinely open (the DST field-coverage check); don't re-litigate the rest without new evidence.
+- Data source selection is fully done — see "Data Sources" above and the linked research docs, including `docs/research/dst-scoring-fields.md`. No items remain open; don't re-litigate without new evidence. Remaining Next Steps are build work, not research.

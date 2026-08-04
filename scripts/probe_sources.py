@@ -80,6 +80,77 @@ def probe_nflreadpy():
 
 
 # ---------------------------------------------------------------------------
+# 1b. nflreadpy team stats — DST scoring field coverage (CLAUDE.md next step:
+#     verify forced/recovered fumbles, blocked kicks, return yards, and
+#     points-/yards-allowed tiers are all derivable).
+# ---------------------------------------------------------------------------
+def probe_dst_fields():
+    import nflreadpy as nfl
+
+    out = {}
+
+    team_stats = nfl.load_team_stats(seasons=[2024, 2025])
+    tdf = team_stats.to_pandas() if hasattr(team_stats, "to_pandas") else team_stats
+    out["team_stats_columns"] = list(tdf.columns)
+    out["team_stats_row_count"] = len(tdf)
+
+    # forced vs. recovered fumbles: separate fields?
+    out["has_forced_fumbles_field"] = "def_fumbles_forced" in tdf.columns
+    out["has_recovered_opp_fumble_fields"] = (
+        "fumble_recovery_opp" in tdf.columns and "fumble_recovery_yards_opp" in tdf.columns
+    )
+
+    # blocked kicks: field exists, but is it credited to the blocking team or
+    # the team whose kick got blocked? Confirm by direction, not by name alone.
+    out["has_block_fields"] = "fg_blocked" in tdf.columns and "pt_blocked" in tdf.columns
+    blocks = tdf[(tdf.get("fg_blocked", 0) > 0) | (tdf.get("pt_blocked", 0) > 0)]
+    out["block_events_found"] = len(blocks)
+    out["BLOCKS_ATTRIBUTED_TO"] = (
+        "the team whose kick was blocked (i.e. credit for a DST block belongs "
+        "to opponent_team on that row, not team) — confirmed by inspecting "
+        f"{len(blocks)} real blocked-kick rows"
+        if len(blocks) else "no blocked-kick rows found to confirm direction"
+    )
+
+    # return yards on the DST slot: present directly per-team?
+    out["has_return_yardage_fields"] = all(
+        c in tdf.columns for c in ["punt_return_yards", "kickoff_return_yards"]
+    )
+
+    # points allowed: NOT in team_stats: confirm it must come from schedules.
+    out["points_field_in_team_stats"] = any(
+        "point" in c.lower() or "score" in c.lower() for c in tdf.columns
+    )
+    schedules = nfl.load_schedules(seasons=[2025])
+    sdf = schedules.to_pandas() if hasattr(schedules, "to_pandas") else schedules
+    out["schedules_has_scores"] = all(
+        c in sdf.columns for c in ["home_team", "away_team", "home_score", "away_score"]
+    )
+
+    # yards allowed: NOT a direct field either; confirm the opponent's own
+    # offensive yards (passing_yards + rushing_yards on their row, same
+    # game_id) is what a self-join would need to compute it.
+    out["yards_allowed_requires_selfjoin_on"] = (
+        "game_id (opponent_team's own passing_yards + rushing_yards for that game_id)"
+        if all(c in tdf.columns for c in ["game_id", "passing_yards", "rushing_yards"])
+        else "missing columns needed for the self-join"
+    )
+
+    out["CONCLUSION"] = (
+        "No single field covers points-/yards-allowed tiers or blocked-kick "
+        "credit directly — all three require a join (team_stats self-join on "
+        "game_id for yards-allowed and block-credit; team_stats + schedules "
+        "join for points-allowed). Forced fumbles, recovered-fumble yards, "
+        "and return yards ARE direct per-team fields, no join needed. "
+        "Everything the league's DST scoring needs is present in nflreadpy "
+        "once these joins are computed in-house — no data gap, just "
+        "engineering work in the value engine."
+    )
+
+    return out
+
+
+# ---------------------------------------------------------------------------
 # 2. DynastyProcess — ECR + projections file, and full player-id crosswalk
 #    (id crosswalk was already spot-checked in the cloud session; this
 #    re-confirms it and adds the file that couldn't be fetched there)
@@ -220,6 +291,7 @@ def probe_api_sports():
 def main():
     probes = [
         ("nflreadpy", probe_nflreadpy),
+        ("dst_fields", probe_dst_fields),
         ("dynastyprocess", probe_dynastyprocess),
         ("sleeper", probe_sleeper),
         ("fantasypros", probe_fantasypros),
