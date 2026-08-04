@@ -7,7 +7,7 @@ import {
   MIN_SELECTABLE_WEEK,
   MAX_SELECTABLE_WEEK,
 } from '../lib/api.js'
-import { useTeamConfig, isPlayerRostered } from '../lib/teamConfig.js'
+import { useTeamConfig, isPlayerRostered, isPositionEligible } from '../lib/teamConfig.js'
 import WeekSelector from './WeekSelector.jsx'
 import PlayerCard from './PlayerCard.jsx'
 import PlayerPickerRow from './PlayerPickerRow.jsx'
@@ -125,6 +125,53 @@ export default function WeeklyReportView() {
         .sort((a, b) => b.projection.points - a.projection.points)
     : []
 
+  /**
+   * Read-only "who this would replace" suggestion for a waiver target: an
+   * open roster slot eligible for the target's position, if one exists,
+   * otherwise the eligible, currently-rostered player with the lowest
+   * projection this week. Purely informational -- picking a target doesn't
+   * change My Team, the user still makes the swap themselves there. Not an
+   * optimizer: it only compares this week's already-computed projections,
+   * it doesn't attempt to model anything beyond that.
+   *
+   * Only ever called from within the `metaReady` branch below, where
+   * `slots`/`config`/`pool` are guaranteed loaded -- this guard exists so a
+   * future call site added before that gate can't crash instead of just
+   * seeing no suggestion.
+   */
+  function suggestReplacement(position) {
+    if (!slots || !config || !pool) return null
+
+    let emptySlot = null
+    let worst = null
+
+    for (let i = 0; i < slots.length; i++) {
+      const slotName = slots[i]
+      if (!isPositionEligible(slotName, position)) continue
+
+      const playerId = config.slotAssignments[i]
+      if (!playerId) {
+        if (!emptySlot) emptySlot = slotName
+        continue
+      }
+
+      const proj = projectionsById.get(playerId)
+      const points = proj ? proj.projection.points : null
+      const name = proj ? proj.name : pool.get(playerId)?.name || playerId
+      if (!worst || (points ?? -Infinity) < (worst.points ?? -Infinity)) {
+        worst = { slotName, name, points }
+      }
+    }
+
+    if (emptySlot) return `Fills your open ${emptySlot} slot.`
+    if (worst) {
+      return worst.points === null
+        ? `Would replace ${worst.name} (${worst.slotName}).`
+        : `Would replace ${worst.name} (${worst.slotName}, ${worst.points.toFixed(1)} pts this week).`
+    }
+    return null
+  }
+
   return (
     <section aria-label="Weekly report">
       <div className="view-header">
@@ -186,7 +233,12 @@ export default function WeeklyReportView() {
             ) : (
               <div className="player-card-grid">
                 {waiverTargets.map((p) => (
-                  <PlayerCard key={p.playerId} player={p} rationale={p.rationale} />
+                  <PlayerCard
+                    key={p.playerId}
+                    player={p}
+                    rationale={p.rationale}
+                    replacement={suggestReplacement(p.position)}
+                  />
                 ))}
               </div>
             )}

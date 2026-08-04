@@ -9,8 +9,11 @@ import StatusTag from './StatusTag.jsx'
  * @param {object} player - a Player Projection object.
  * @param {boolean} [muted] - visually de-emphasize the card (used for Sit).
  * @param {string} [rationale] - waiver-target-only LLM-summarization stand-in.
+ * @param {string} [replacement] - waiver-target-only: which of the user's
+ *   current roster spots this player would fill (an open slot) or replace
+ *   (the lowest-projected eligible rostered player this week).
  */
-export default function PlayerCard({ player, muted = false, rationale }) {
+export default function PlayerCard({ player, muted = false, rationale, replacement }) {
   const { name, position, team, opponent, projection, newsFlag } = player
 
   return (
@@ -30,6 +33,7 @@ export default function PlayerCard({ player, muted = false, rationale }) {
       </div>
       <StatusTag newsFlag={newsFlag} />
       {rationale && <p className="player-card-rationale">{rationale}</p>}
+      {replacement && <p className="player-card-replacement">{replacement}</p>}
     </article>
   )
 }
