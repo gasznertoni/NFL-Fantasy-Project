@@ -161,6 +161,11 @@ body {
   margin-bottom: 32px;
 }
 
+.report-section + .report-section {
+  border-top: 1px solid var(--color-border);
+  padding-top: 28px;
+}
+
 .report-section h2 {
   font-size: 16px;
   text-transform: uppercase;
@@ -356,6 +361,16 @@ body {
   color: var(--color-text-muted);
   border-top: 1px solid var(--color-border);
   padding-top: 8px;
+}
+
+.player-card-replacement {
+  margin: 8px 0 0;
+  font-size: 12.5px;
+  font-weight: 600;
+  color: var(--color-accent);
+  background: var(--color-accent-soft);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
 }
 
 /* ---------- Status tag (universal player status; formerly risk-only flag) ---------- */
