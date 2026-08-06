@@ -1,0 +1,78 @@
+{
+  "_PLACEHOLDER": true,
+  "_note": "NOT the real league's scoring rules. CLAUDE.md Next Steps item 2 (real values, blocked on the commissioner) and item 3 (4 open ESPN schema questions) are both still open. The one value confirmed real per CLAUDE.md is pass_td=6. Everything else here is a reasonable ESPN-default-ish guess so the scoring engine and projection model can be built and unit-tested now -- swap this file, not the code, once real values land. reception=0.5 matches the frontend's existing half_ppr placeholder assumption (frontend/README.md) so the two placeholders agree with each other.",
+  "linear": {
+    "pass_yd": 0.04,
+    "pass_td": 6,
+    "pass_int": -2,
+    "pass_2pt": 2,
+    "rush_yd": 0.1,
+    "rush_td": 6,
+    "rush_2pt": 2,
+    "rec_yd": 0.1,
+    "rec_td": 6,
+    "rec_2pt": 2,
+    "reception": 0.5,
+    "fumble_lost": -2,
+    "fumble_forced": 0,
+    "def_sack": 1,
+    "def_int": 2,
+    "def_fumble_rec": 2,
+    "def_safety": 2,
+    "def_blocked_kick": 2,
+    "def_st_td": 6,
+    "def_return_yd": 0.02,
+    "fg_made_0_39": 3,
+    "fg_made_40_49": 4,
+    "fg_made_50_plus": 5,
+    "fg_missed": -1,
+    "pat_made": 1,
+    "pat_missed": -1
+  },
+  "_kicker_note": "fg_*/pat_* are a placeholder slot, same status as the rest of this file -- values are an ESPN-default-ish guess, unconfirmed for the real league. Unlike the offensive categories above, there is also no nflreadpy column mapping or stat-line assembly wired up for these yet (NFLREADPY_OFFENSE_COLUMN_MAP in scoring.py has no kicker entries) -- same class of gap as DST's self-join requirement in docs/research/dst-scoring-fields.md, just not yet documented there. Added so the config schema at least has a slot, per the frontend's K roster slot (frontend/public/mock/roster-slots.json) and docs/research/espn-scoring-waivers-rules-summary.md section 3.",
+  "milestones": {
+    "pass_yd": {
+      "mode": "highest",
+      "tiers": [
+        { "threshold": 300, "points": 3 },
+        { "threshold": 400, "points": 5 }
+      ]
+    },
+    "rush_yd": {
+      "mode": "highest",
+      "tiers": [
+        { "threshold": 100, "points": 3 },
+        { "threshold": 200, "points": 5 }
+      ]
+    },
+    "rec_yd": {
+      "mode": "highest",
+      "tiers": [
+        { "threshold": 100, "points": 3 },
+        { "threshold": 200, "points": 5 }
+      ]
+    }
+  },
+  "tiers": {
+    "def_points_allowed": [
+      { "max": 0, "points": 10 },
+      { "max": 6, "points": 7 },
+      { "max": 13, "points": 4 },
+      { "max": 20, "points": 1 },
+      { "max": 27, "points": 0 },
+      { "max": 34, "points": -1 },
+      { "max": 999, "points": -4 }
+    ],
+    "def_yards_allowed": [
+      { "max": 100, "points": 5 },
+      { "max": 199, "points": 3 },
+      { "max": 299, "points": 2 },
+      { "max": 349, "points": 0 },
+      { "max": 399, "points": -1 },
+      { "max": 449, "points": -3 },
+      { "max": 499, "points": -5 },
+      { "max": 549, "points": -6 },
+      { "max": 99999, "points": -7 }
+    ]
+  }
+}
