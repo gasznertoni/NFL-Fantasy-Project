@@ -1,0 +1,14 @@
+# Backend / value-engine dependencies.
+#
+# scoring.py and projections.py only need requests + pandas transitively
+# (pandas isn't a hard runtime dep of either module today, but nflreadpy
+# pulls it in). news.py needs requests (fetch) and anthropic (summarize).
+#
+# nflreadpy and anthropic were NOT installable from the Cowork cloud sandbox
+# this backend was built in (PyPI + nflverse's GitHub-release data host were
+# both unreachable there) -- install and run this locally, same as
+# scripts/probe_sources.py already documents for nflreadpy.
+
+requests>=2.31
+nflreadpy
+anthropic
