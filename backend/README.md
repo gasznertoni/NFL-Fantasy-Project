@@ -59,8 +59,56 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   not real-2026 point accuracy) are in its module docstring — read that
   before trusting its output. Needs `PLAYER_IDS` filled in and must run
   locally (network + nflreadpy).
-- **`tests/`** — 65 unit tests, all passing, covering the logic above with
-  synthetic data (no network, no API keys needed to run these).
+- **`waiver_targets.py`** — waiver-wire candidate selection + a
+  deterministic, templated (no LLM) `rationale` sentence, per
+  `docs/design/backend-frontend-integration-plan.md`'s gap #3. No real
+  roster-ownership-% source exists anywhere in this project, so
+  "waiver-eligible" is an in-house proxy: drop the top N ranked players
+  per position (assumed already rostered in a 14-team league), rank what's
+  left by **points above replacement** (not raw points — this league's
+  6-point passing TDs put QB's raw scale well above every other position,
+  which surfaced nothing but backup QBs when first tested against real
+  2025 data; ranking on the surplus over the last-rostered player at the
+  same position fixed that).
+- **`track_record.py`** — live, in-season "how has the tool done so far"
+  aggregation (`getTrackRecord()`'s shape), per gap #4. Distinct from
+  `backtest.py`: this reads the tool's own past `weekly-report-week-N.json`
+  snapshots back in as the prediction log (CLAUDE.md's eval-layer ask —
+  "recommendations should be logged in a way that makes later accuracy
+  scoring straightforward" — is satisfied by the reports themselves, no
+  separate database needed) and grades them against real results.
+  `HIT_RATE_THRESHOLD = 0.75` (a "start"/"waiver_add" call is correct if
+  the actual outcome met at least 75% of the projected points) was checked
+  to exactly reproduce every value — individual `outcomeCorrect` flags and
+  the aggregated `predictionsScored`/`startSitHitRate`/`meanAbsoluteError`
+  — in the existing `frontend/public/mock/track-record.json` mock fixture
+  before being written here.
+- **`generate_report.py`** — orchestration script tying `scoring.py` +
+  `projections.py` + `news.py` + `waiver_targets.py` together into
+  `weekly-report-week-N.json` and `player-pool.json`, in the exact shape
+  `frontend/src/lib/api.js` already expects. Implements the integration
+  plan's v0 build order: **real `nflreadpy` player IDs (`gsis_id`)
+  directly as `playerId`**, no invented `p_00123`-style scheme and no
+  permanent crosswalk (the plan's recommended resolution to its own
+  player-ID open question — no real users/saved data existed yet to
+  migrate), and **every player in the `in_house_estimate` tier** (an
+  actual FantasyPros pull + top-10/position tier selection is gap #2,
+  deliberately deferred by the plan itself, not a pending decision this
+  script is blocked on). Only QB/RB/WR/TE are covered — `scoring.py`'s
+  nflreadpy column map has no stat-line assembly for DST (needs the
+  self-join work in `docs/research/dst-scoring-fields.md`, out of scope
+  for this plan) or K (no column mapping exists for kickers yet either).
+  Confirmed working end-to-end against real 2025 data (see "Generating a
+  real report" below) and against the real, current 2026 season, where it
+  correctly degrades to an all-cold-start report (nflverse hasn't
+  published a 2026 stats file yet — no games have been played) instead of
+  crashing.
+- **`generate_track_record.py`** — separate CLI (can run on its own
+  cadence, per the plan) that reads back whatever `weekly-report-week-N.json`
+  files already exist and real actual results, and writes
+  `track-record.json` via `track_record.py`.
+- **`tests/`** — 129 unit tests, all passing, covering the logic above
+  with synthetic data (no network, no API keys needed to run these).
 
 ## What's deliberately NOT done here
 
@@ -68,26 +116,27 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   but assembling a real DST stat line needs the self-join/schedule-join
   logic already documented in `docs/research/dst-scoring-fields.md`
   (points-allowed, yards-allowed, block-credit). Not built yet — next
-  logical chunk of item 5.
-- **`matchup.py` isn't wired into `projections.py` yet** — `compute_opponent_multiplier()`
-  produces a number in the exact shape `project_player()`'s
-  `opponent_multiplier` parameter expects, but nothing calls the former to
-  populate the latter yet; that's glue code for whatever orchestration
-  layer eventually runs a full weekly report.
-- **Real ESPN/nflreadpy network calls untested** — this was built inside
-  the Cowork cloud sandbox, which could not reach either PyPI, GitHub's
-  release-asset host (nflverse's data host), or ESPN's news endpoint
-  (all confirmed blocked/unreachable during this build — same restriction
-  `scripts/probe_sources.py`'s header already flagged for nflreadpy).
-  `projections.load_recent_games_nflreadpy()` and `news.fetch_espn_news()`
-  are therefore untested against live data — **run them locally** (where
-  `scripts/probe_sources.py` already runs today) before trusting the
-  adapter/endpoint shape assumptions baked into them.
-- **No orchestration/API layer yet** — no FastAPI/Flask endpoint wiring
-  this to the frontend's `lib/api.js` yet. These are still standalone,
-  independently-tested modules — wiring them into a real service and
-  swapping the frontend's mock fixtures for live calls is a distinct next
-  step, not started here.
+  logical chunk of item 5. `generate_report.py` excludes DST (and K, same
+  underlying gap) from the generated pool entirely rather than emit a
+  silently-wrong zero.
+- **`matchup.py` isn't wired into `projections.py` (or `generate_report.py`)
+  yet** — `compute_opponent_multiplier()` produces a number in the exact
+  shape `project_player()`'s `opponent_multiplier` parameter expects, but
+  nothing calls the former to populate the latter. Per
+  `docs/design/backend-frontend-integration-plan.md`'s "explicitly out of
+  scope" section, this is deliberate: the backtest found no accuracy
+  benefit and a real bias cost from enabling it, so it stays built,
+  tested, and unwired.
+- **The FantasyPros tier** — `generate_report.py` ships 100%
+  `in_house_estimate` for now (gap #2 in the integration plan); a real
+  FantasyPros pull and top-10-per-position tier-selection logic is future
+  work, not started here.
+- **No live API/serverless layer** — `generate_report.py` is a script you
+  run before a deploy, not a service the deployed frontend calls at
+  request time. Deliberate for now, per the integration plan's own
+  architectural recommendation (a live endpoint adds hosting/CORS/secret-
+  management work this portfolio project doesn't need yet) — revisit once
+  the pipeline below has been run for real a few times.
 
 ## Run tests
 
@@ -98,6 +147,9 @@ python3 tests/test_projections.py -v
 python3 tests/test_news.py -v
 python3 tests/test_matchup.py -v
 python3 tests/test_backtest.py -v
+python3 tests/test_waiver_targets.py -v
+python3 tests/test_track_record.py -v
+python3 tests/test_generate_report.py -v
 ```
 
 No dependencies needed for the tests above (stdlib `unittest` only,
@@ -106,9 +158,40 @@ built in either, and `backtest.py`'s correlation helper is hand-rolled
 rather than `statistics.correlation` for the same reason it avoids that
 stdlib function: `scripts/.venv` is Python 3.9, and that function needs
 3.10+). Real runs (`news.fetch_espn_news`,
-`projections.load_recent_games_nflreadpy`, `backtest.py`) need
+`projections.load_recent_games_nflreadpy`, `backtest.py`,
+`generate_report.py`, `generate_track_record.py`) need
 `pip install -r requirements.txt` and, for the LLM summarization step,
-`ANTHROPIC_API_KEY` set in the environment.
+`ANTHROPIC_API_KEY` set in the environment (omitted, or `--skip-news`
+passed to `generate_report.py`, both degrade to the default healthy
+`newsFlag` for everyone rather than failing).
+
+## Generating a real report
+
+```bash
+cd backend
+pip install -r requirements.txt   # needs network + PyPI
+
+# One week's weekly-report-week-N.json + the full player-pool.json:
+python3 generate_report.py --season 2026 --week 1
+
+# Then, once at least one week is in the past:
+python3 generate_track_record.py --season 2026 --as-of-week 2
+```
+
+Both default to writing into `frontend/public/mock/` (the exact path
+`api.js` already fetches from — no frontend code changes needed to pick up
+real output). Pass `--out-dir`/`--reports-dir` to write elsewhere instead
+(useful for a dry run before overwriting the shipped fixtures). Confirmed
+working end-to-end against real 2025 data (`--season 2025 --week 10`,
+`--skip-news`: 438 active QB/RB/WR/TE players loaded, 383 projected that
+week, 3 waiver targets selected with real templated rationale text) and
+against real, current 2026 data (`--season 2026 --week 1`: correctly
+produces an all-`no_data`/0.0-point report rather than crashing or
+fabricating a number, since nflverse hasn't published any 2026 game stats
+yet — the season hasn't started). The shipped `frontend/public/mock/*.json`
+fixtures were deliberately left as the hand-authored demo data rather than
+overwritten with that degenerate pre-season output — regenerate them for
+real once actual 2026 games have been played.
 
 ## Running the backtest
 

@@ -1,22 +1,25 @@
 # Backend / value-engine dependencies.
 #
-# scoring.py and projections.py only need requests + pandas transitively
-# (pandas isn't a hard runtime dep of either module today, but nflreadpy
-# pulls it in). news.py needs requests (fetch) and anthropic (summarize).
+# news.py needs requests (fetch) and anthropic (summarize).
 #
 # nflreadpy returns polars DataFrames; every adapter in this backend calls
 # .to_pandas() on the result (to match the plain-dict/row style the rest of
-# the code expects), and that conversion requires pyarrow -- polars doesn't
-# install it automatically. Confirmed missing on a fresh venv install
-# 2026-08-06 (ModuleNotFoundError: No module named 'pyarrow' from inside
-# polars' to_pandas()) -- pinned here explicitly so it doesn't recur.
+# the code expects). That conversion needs BOTH pyarrow and pandas, and
+# neither is installed automatically by nflreadpy or polars -- confirmed on
+# a clean venv rebuild (ModuleNotFoundError: No module named 'pandas',
+# raised from inside pyarrow's own to_pandas() code path, after pyarrow
+# itself imported fine, and separately ModuleNotFoundError: No module named
+# 'pyarrow' from polars' to_pandas() before that). Both pinned here
+# explicitly so this doesn't recur.
 #
-# nflreadpy, pyarrow, and anthropic were NOT installable from the Cowork
-# cloud sandbox this backend was built in (PyPI + nflverse's GitHub-release
-# data host were both unreachable there) -- install and run this locally,
-# same as scripts/probe_sources.py already documents for nflreadpy.
+# nflreadpy, pyarrow, pandas, and anthropic were NOT installable from the
+# Cowork cloud sandbox this backend was built in (PyPI + nflverse's
+# GitHub-release data host were both unreachable there) -- install and run
+# this locally, same as scripts/probe_sources.py already documents for
+# nflreadpy.
 
 requests>=2.31
 nflreadpy
 pyarrow
+pandas
 anthropic
