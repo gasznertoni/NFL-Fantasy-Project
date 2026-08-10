@@ -61,6 +61,23 @@ class TestBacktestPlayer(unittest.TestCase):
         with self.assertRaises(ValueError):
             backtest_player(game_log, CONFIG, season=2025, weeks=[2], window=4, use_matchup=True)
 
+    def test_bye_week_is_skipped_not_raised_when_matchup_enabled(self):
+        """Regression test: a real run hit this exact case -- NFL bye weeks
+        commonly fall inside a mid-season tuning range, so a missing
+        opponent_by_week entry for one week (out of several tested) must be
+        skipped like any other ungraded week, not treated as a
+        misconfiguration that kills the whole batch."""
+        game_log = [game(2025, w, 50) for w in [1, 2, 4, 5]]  # week 3 is a bye
+        schedule = [{"season": 2025, "week": 1, "home_team": "BUF", "away_team": "MIA", "home_score": 20, "away_score": 17}]
+        opponent_by_week = {2: "MIA", 4: "NYJ", 5: "NE"}  # no entry for week 3, matching the bye
+        results = backtest_player(
+            game_log, CONFIG, season=2025, weeks=[2, 3, 4, 5], window=4,
+            use_matchup=True, schedule_games=schedule, opponent_by_week=opponent_by_week,
+        )
+        graded_weeks = {r["week"] for r in results}
+        self.assertNotIn(3, graded_weeks)          # bye week skipped, not an error
+        self.assertEqual(graded_weeks, {2, 4, 5})  # every other week still graded
+
 
 class TestAggregateMetrics(unittest.TestCase):
     def test_empty_results_returns_none_metrics_not_a_crash(self):

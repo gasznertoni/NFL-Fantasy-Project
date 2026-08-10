@@ -107,18 +107,30 @@ def backtest_player(
 ) -> list[dict[str, Any]]:
     """Run evaluate_player_week across a list of weeks for one player.
     Weeks with no recorded result (byes, weeks outside the loaded data)
-    are silently skipped -- see evaluate_player_week."""
+    are silently skipped -- see evaluate_player_week. The same applies to
+    a missing opponent lookup for a given week when use_matchup=True: a
+    bye week has no opponent_team entry either, and NFL byes commonly fall
+    within a mid-season tuning range (weeks 5-14) -- that's an expected
+    per-week gap, not a misconfiguration, so it's skipped the same way a
+    missing actual result is, not raised.
+
+    Raises ValueError only for the real misconfiguration case:
+    use_matchup=True with no schedule_games at all (nothing to compute any
+    multiplier from, for any week) -- that one fails loud rather than
+    silently producing an all-neutral-multiplier run.
+    """
+    if use_matchup and not schedule_games:
+        raise ValueError("use_matchup=True requires schedule_games")
+
     results = []
     for week in weeks:
         multiplier = 1.0
         if use_matchup:
-            if not (schedule_games and opponent_by_week and week in opponent_by_week):
-                raise ValueError(
-                    "use_matchup=True requires schedule_games and an opponent_by_week "
-                    "entry for every week being tested"
-                )
+            opponent_team = (opponent_by_week or {}).get(week)
+            if opponent_team is None:
+                continue  # no opponent recorded this week (e.g. a bye) -- nothing to grade
             multiplier = compute_opponent_multiplier(
-                schedule_games, opponent_by_week[week], season, week
+                schedule_games, opponent_team, season, week
             )["multiplier"]
         row = evaluate_player_week(game_log, scoring_config, season, week, window=window, opponent_multiplier=multiplier)
         if row is not None:
@@ -246,7 +258,25 @@ SEASON = 2025
 # spec's flagged "role-change discontinuity" failure mode, and the single
 # most informative test case available (see the design spec, section 3.2).
 PLAYER_IDS: list[str] = [
-    # "00-0034796",  # example -- replace with real player_ids
+    "00-0035676",
+    "00-0036963",
+    "00-0040122",
+    "00-0038542",
+    "00-0032398",
+    "00-0033280",
+    "00-0034827",
+    "00-0038933",
+    "00-0039851",
+    "00-0040129",
+    "00-0040663",
+    "00-0033106",
+    "00-0038543",
+    "00-0036945",
+    "00-0036322",
+    "00-0039849",
+    "00-0039075",
+    "00-0036139",
+    "00-0030506",
 ]
 TUNING_WEEKS = list(range(5, 15))    # weeks 5-14: tune window size / matchup on here
 HOLDOUT_WEEKS = list(range(15, 19))  # weeks 15-18: confirm the choice generalizes here
