@@ -17,6 +17,8 @@ from backtest import (  # noqa: E402
     backtest_player,
     compare_variants,
     evaluate_player_week,
+    paired_significance_test,
+    paired_variant_metric,
 )
 
 CONFIG = {"linear": {"rush_yd": 0.1, "rush_td": 6}}
@@ -60,6 +62,23 @@ class TestBacktestPlayer(unittest.TestCase):
         game_log = [game(2025, 1, 50), game(2025, 2, 50)]
         with self.assertRaises(ValueError):
             backtest_player(game_log, CONFIG, season=2025, weeks=[2], window=4, use_matchup=True)
+
+    def test_bye_week_is_skipped_not_raised_when_matchup_enabled(self):
+        """Regression test: a real run hit this exact case -- NFL bye weeks
+        commonly fall inside a mid-season tuning range, so a missing
+        opponent_by_week entry for one week (out of several tested) must be
+        skipped like any other ungraded week, not treated as a
+        misconfiguration that kills the whole batch."""
+        game_log = [game(2025, w, 50) for w in [1, 2, 4, 5]]  # week 3 is a bye
+        schedule = [{"season": 2025, "week": 1, "home_team": "BUF", "away_team": "MIA", "home_score": 20, "away_score": 17}]
+        opponent_by_week = {2: "MIA", 4: "NYJ", 5: "NE"}  # no entry for week 3, matching the bye
+        results = backtest_player(
+            game_log, CONFIG, season=2025, weeks=[2, 3, 4, 5], window=4,
+            use_matchup=True, schedule_games=schedule, opponent_by_week=opponent_by_week,
+        )
+        graded_weeks = {r["week"] for r in results}
+        self.assertNotIn(3, graded_weeks)          # bye week skipped, not an error
+        self.assertEqual(graded_weeks, {2, 4, 5})  # every other week still graded
 
 
 class TestAggregateMetrics(unittest.TestCase):
@@ -134,6 +153,83 @@ class TestCompareVariants(unittest.TestCase):
         # data either -> neutral multiplier=1.0) -- just confirm both variants ran without
         # error and matchup=on didn't silently no-op by comparing projected values exist.
         self.assertIsNotNone(results["matchup=on"]["mae"])
+
+
+class TestPairedSignificanceTest(unittest.TestCase):
+    def test_identical_samples_are_not_significant(self):
+        a = [10.0, 12.0, 8.0, 11.0, 9.0]
+        result = paired_significance_test(a, list(a))
+        self.assertEqual(result["mean_diff"], 0.0)
+        self.assertEqual(result["p_value"], 1.0)
+        self.assertFalse(result["significant"])
+
+    def test_small_mean_diff_amid_real_variance_is_not_significant(self):
+        """Mirrors the backtest findings doc's matchup-ablation call: a
+        tiny mean difference (0.2) sitting inside much larger per-pair
+        noise (diffs range -4 to +4) should NOT come back significant --
+        this is the exact "is 0.005 real or noise" judgment call the doc
+        made by eye, now made by the test itself. Hand-computed: diffs =
+        [2,-2,4,-4,1], mean=0.2, sample std~3.194, z~0.14, p~0.89."""
+        a = [12.0, 8.0, 14.0, 6.0, 11.0]
+        b = [10.0, 10.0, 10.0, 10.0, 10.0]
+        result = paired_significance_test(a, b)
+        self.assertAlmostEqual(result["mean_diff"], 0.2)
+        self.assertGreater(result["p_value"], 0.05)
+        self.assertFalse(result["significant"])
+
+    def test_consistent_large_diff_is_significant(self):
+        a = [3.0, 4.0] * 10  # n=20, mean diff 3.5, modest variance
+        b = [0.0] * 20
+        result = paired_significance_test(a, b)
+        self.assertAlmostEqual(result["mean_diff"], 3.5)
+        self.assertLess(result["p_value"], 0.001)
+        self.assertTrue(result["significant"])
+
+    def test_zero_variance_nonzero_diff_is_significant(self):
+        a = [5.0, 5.0, 5.0]
+        b = [3.0, 3.0, 3.0]
+        result = paired_significance_test(a, b)
+        self.assertEqual(result["p_value"], 0.0)
+        self.assertTrue(result["significant"])
+
+    def test_mismatched_lengths_raises(self):
+        with self.assertRaises(ValueError):
+            paired_significance_test([1.0, 2.0], [1.0])
+
+    def test_fewer_than_two_pairs_returns_none_fields(self):
+        result = paired_significance_test([1.0], [2.0])
+        self.assertIsNone(result["p_value"])
+        self.assertIsNone(result["significant"])
+
+
+class TestPairedVariantMetric(unittest.TestCase):
+    def test_matches_same_weeks_across_variants(self):
+        game_logs = {"p1": [game(2025, w, 10 * w) for w in range(1, 6)]}
+        values_a, values_b = paired_variant_metric(
+            game_logs, CONFIG, season=2025, weeks=[4, 5],
+            variant_a={"window": 2}, variant_b={"window": 4},
+        )
+        self.assertEqual(len(values_a), 2)
+        self.assertEqual(len(values_b), 2)
+
+    def test_drops_weeks_only_graded_by_one_variant(self):
+        """One variant (matchup=on) skips week 4 because opponent_by_week
+        has no entry for it (a data gap, not a bye -- actual results exist
+        for every week here); the other variant (matchup=off) doesn't skip
+        it. paired_variant_metric must drop week 4 from both sides rather
+        than pairing it with nothing."""
+        game_log = [game(2025, w, 50) for w in range(1, 6)]
+        schedule = [{"season": 2025, "week": 1, "home_team": "BUF", "away_team": "MIA", "home_score": 20, "away_score": 17}]
+        opponent_by_week = {2: "MIA", 3: "NYJ", 5: "NE"}  # no entry for week 4
+        values_off, values_on = paired_variant_metric(
+            {"p1": game_log}, CONFIG, season=2025, weeks=[2, 3, 4, 5],
+            variant_a={"window": 4, "use_matchup": False},
+            variant_b={"window": 4, "use_matchup": True},
+            schedule_games=schedule,
+            opponent_by_week_by_player={"p1": opponent_by_week},
+        )
+        self.assertEqual(len(values_off), 3)  # weeks 2, 3, 5 only
+        self.assertEqual(len(values_on), 3)
 
 
 if __name__ == "__main__":
