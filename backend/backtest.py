@@ -48,6 +48,7 @@ backend/README.md), so defenses aren't included here.
 from __future__ import annotations
 
 import json
+import math
 from typing import Any, Optional
 
 from matchup import compute_opponent_multiplier
@@ -160,6 +161,62 @@ def _pearson_correlation(xs: list[float], ys: list[float]) -> Optional[float]:
     return round(covariance / (var_x * var_y) ** 0.5, 3)
 
 
+def _std(values: list[float]) -> float:
+    """Sample standard deviation (ddof=1, i.e. divides by n-1) -- plain
+    stdlib for the same reason as _pearson_correlation above."""
+    n = len(values)
+    mean = _mean(values)
+    return (sum((v - mean) ** 2 for v in values) / (n - 1)) ** 0.5
+
+
+def _standard_normal_cdf(z: float) -> float:
+    return 0.5 * (1 + math.erf(z / math.sqrt(2)))
+
+
+def paired_significance_test(a: list[float], b: list[float], alpha: float = 0.05) -> dict[str, Any]:
+    """Is the difference between two variants (e.g. matchup=on vs off,
+    same players/weeks) a real effect or just noise -- the question the
+    backtest findings doc currently answers by eyeballing ("a 0.005
+    difference -- noise"). `a` and `b` must be paired and same-ordered
+    (index i in each list is the same player-week in both), e.g. from
+    paired_variant_metric below.
+
+    Uses a paired z-test on the per-pair differences (a[i] - b[i]) rather
+    than scipy's exact paired t-test: this project deliberately carries no
+    numpy/scipy dependency (see _pearson_correlation's docstring -- plain
+    stdlib, matching the pinned Python 3.9 venv), and for n>=30 the
+    t-distribution and the standard normal are close enough that the
+    p-value doesn't change any call this backtest makes. Below n=30 the
+    approximation gets rougher -- treat p-values from small samples as
+    directional, not exact.
+    """
+    if len(a) != len(b):
+        raise ValueError("paired_significance_test requires equal-length paired samples")
+    n = len(a)
+    if n < 2:
+        return {"n": n, "mean_diff": None, "p_value": None, "significant": None}
+
+    diffs = [x - y for x, y in zip(a, b)]
+    mean_diff = _mean(diffs)
+    std_diff = _std(diffs)
+
+    if std_diff == 0:
+        # Every pair differs by exactly the same amount -- there's no
+        # variance to test the mean against, so a nonzero difference is as
+        # significant as it gets, and a zero one trivially isn't.
+        p_value = 0.0 if mean_diff != 0 else 1.0
+    else:
+        z = mean_diff / (std_diff / math.sqrt(n))
+        p_value = round(2 * (1 - _standard_normal_cdf(abs(z))), 4)
+
+    return {
+        "n": n,
+        "mean_diff": round(mean_diff, 4),
+        "p_value": p_value,
+        "significant": p_value < alpha,
+    }
+
+
 def aggregate_metrics(results: list[dict[str, Any]]) -> dict[str, Any]:
     """Summarize a pooled list of evaluate_player_week rows (across
     however many players/weeks the caller passed in) into headline
@@ -230,6 +287,54 @@ def compare_variants(
             )
         out[variant["label"]] = aggregate_metrics(pooled)
     return out
+
+
+def paired_variant_metric(
+    game_logs_by_player: dict[str, list[dict[str, Any]]],
+    scoring_config: dict[str, Any],
+    season: int,
+    weeks: list[int],
+    variant_a: dict[str, Any],
+    variant_b: dict[str, Any],
+    metric: str = "abs_error",
+    schedule_games: Optional[list[dict[str, Any]]] = None,
+    opponent_by_week_by_player: Optional[dict[str, dict[int, str]]] = None,
+) -> tuple[list[float], list[float]]:
+    """Run two variants and return matched (values_a, values_b) for one
+    per-row metric ("abs_error" or "error"), restricted to (player, week)
+    pairs graded by BOTH variants -- feeds paired_significance_test, which
+    requires same-length, same-ordered samples.
+
+    A variant can grade a different set of weeks than another for the same
+    player (e.g. use_matchup=True skips a week with no opponent_by_week
+    entry, see backtest_player's docstring, while use_matchup=False
+    wouldn't skip that same week). Weeks only graded by one side of the
+    comparison are dropped from both rather than left mismatched.
+    """
+    values_a: list[float] = []
+    values_b: list[float] = []
+    for player_id, game_log in game_logs_by_player.items():
+        opponent_by_week = (opponent_by_week_by_player or {}).get(player_id)
+        rows_a = {
+            r["week"]: r[metric]
+            for r in backtest_player(
+                game_log, scoring_config, season, weeks,
+                window=variant_a["window"], use_matchup=variant_a.get("use_matchup", False),
+                schedule_games=schedule_games, opponent_by_week=opponent_by_week,
+            )
+        }
+        rows_b = {
+            r["week"]: r[metric]
+            for r in backtest_player(
+                game_log, scoring_config, season, weeks,
+                window=variant_b["window"], use_matchup=variant_b.get("use_matchup", False),
+                schedule_games=schedule_games, opponent_by_week=opponent_by_week,
+            )
+        }
+        for week in sorted(set(rows_a) & set(rows_b)):
+            values_a.append(rows_a[week])
+            values_b.append(rows_b[week])
+    return values_a, values_b
 
 
 def print_report(label: str, metrics: dict[str, Any]) -> None:
@@ -353,6 +458,32 @@ def main():
     )
     for label, metrics in ablation_results.items():
         print_report(label, metrics)
+
+    print("\n" + "#" * 60)
+    print("MATCHUP MULTIPLIER SIGNIFICANCE TEST (window=%d, tuning weeks)" % DEFAULT_WINDOW)
+    print("#" * 60)
+    off_variant = {"window": DEFAULT_WINDOW, "use_matchup": False}
+    on_variant = {"window": DEFAULT_WINDOW, "use_matchup": True}
+    off_abs_error, on_abs_error = paired_variant_metric(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, off_variant, on_variant,
+        metric="abs_error", schedule_games=schedule_games,
+        opponent_by_week_by_player=opponent_by_week_by_player,
+    )
+    mae_test = paired_significance_test(on_abs_error, off_abs_error)
+    print(
+        f"  abs_error (MAE):  n={mae_test['n']}  mean_diff(on-off)={mae_test['mean_diff']:+}"
+        f"  p={mae_test['p_value']}  significant={mae_test['significant']}"
+    )
+    off_error, on_error = paired_variant_metric(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, off_variant, on_variant,
+        metric="error", schedule_games=schedule_games,
+        opponent_by_week_by_player=opponent_by_week_by_player,
+    )
+    bias_test = paired_significance_test(on_error, off_error)
+    print(
+        f"  error (bias):      n={bias_test['n']}  mean_diff(on-off)={bias_test['mean_diff']:+}"
+        f"  p={bias_test['p_value']}  significant={bias_test['significant']}"
+    )
 
 
 if __name__ == "__main__":
