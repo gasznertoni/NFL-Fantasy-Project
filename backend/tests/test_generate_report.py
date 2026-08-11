@@ -147,5 +147,48 @@ class TestBuildWeeklyReportAndPool(unittest.TestCase):
             self.assertIn("rationale", target)
 
 
+class TestConsensusTierWiring(unittest.TestCase):
+    """CLAUDE.md v8 Next Steps item 3: a player present in
+    consensus_projections gets the FantasyPros tier instead of the
+    in-house estimate; everyone else is unaffected."""
+
+    def setUp(self):
+        self.pool = [
+            {"playerId": "qb1", "name": "Consensus QB", "position": "QB", "team": "BUF"},
+            {"playerId": "rb1", "name": "In-House RB", "position": "RB", "team": "BUF"},
+        ]
+        self.schedule = [{"season": 2026, "week": 1, "home_team": "BUF", "away_team": "MIA"}]
+        self.game_logs = {"rb1": [{"season": 2026, "week": w, "rush_yd": 50} for w in range(1, 1)]}
+
+    def test_player_in_consensus_projections_gets_the_consensus_tier(self):
+        consensus = {"qb1": {"source": "consensus", "fpid": 1, "projected_points": 30.5}}
+        weekly_report, _ = build_weekly_report_and_pool(
+            2026, 1, CONFIG, self.pool, self.schedule, self.game_logs, {}, consensus_projections=consensus
+        )
+        qb_entry = next(p for p in weekly_report["projections"] if p["playerId"] == "qb1")
+        self.assertEqual(
+            qb_entry["projection"],
+            {"tier": "consensus", "points": 30.5, "tierLabel": "Consensus projection", "source": "FantasyPros"},
+        )
+
+    def test_player_absent_from_consensus_projections_still_gets_in_house_estimate(self):
+        consensus = {"qb1": {"source": "consensus", "fpid": 1, "projected_points": 30.5}}
+        weekly_report, _ = build_weekly_report_and_pool(
+            2026, 1, CONFIG, self.pool, self.schedule, self.game_logs, {}, consensus_projections=consensus
+        )
+        rb_entry = next(p for p in weekly_report["projections"] if p["playerId"] == "rb1")
+        self.assertEqual(rb_entry["projection"]["tier"], "in_house_estimate")
+
+    def test_no_consensus_projections_is_identical_to_the_old_all_in_house_behavior(self):
+        with_none, _ = build_weekly_report_and_pool(
+            2026, 1, CONFIG, self.pool, self.schedule, self.game_logs, {}, consensus_projections=None
+        )
+        without_arg, _ = build_weekly_report_and_pool(2026, 1, CONFIG, self.pool, self.schedule, self.game_logs, {})
+        tiers_with_none = {p["playerId"]: p["projection"]["tier"] for p in with_none["projections"]}
+        tiers_without_arg = {p["playerId"]: p["projection"]["tier"] for p in without_arg["projections"]}
+        self.assertEqual(tiers_with_none, tiers_without_arg)
+        self.assertTrue(all(t == "in_house_estimate" for t in tiers_with_none.values()))
+
+
 if __name__ == "__main__":
     unittest.main()

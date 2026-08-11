@@ -184,31 +184,57 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   the aggregated `predictionsScored`/`startSitHitRate`/`meanAbsoluteError`
   — in the existing `frontend/public/mock/track-record.json` mock fixture
   before being written here.
+- **`fantasypros.py`** (added 2026-08-11) — the FantasyPros consensus tier,
+  closing gap #2 from the integration plan (CLAUDE.md v8 Next Steps item
+  3). One API call per position (QB/RB/WR/TE) for that position's real
+  top-10 projected players, confirmed hands-on against the live API —
+  field names for all four positions (`pass_yds`/`pass_tds`/`pass_ints`,
+  `rush_yds`/`rush_tds`, `rec_rec`/`rec_yds`/`rec_tds`, `fumbles`) were
+  pulled from a real 2025-week-1 response, not assumed. Same
+  "never trust the vendor's points field" rule as everywhere else in this
+  backend: the raw projected stat line is mapped into this project's
+  `stat_line` shape and run back through `scoring.compute_league_points`
+  — FantasyPros' own `points`/`points_ppr`/`points_half` fields are never
+  read as the projection. Player-ID resolution (FantasyPros' `fpid` →
+  this project's `playerId`/`gsis_id`) uses nflreadpy's
+  `load_ff_playerids()` (a wrapper around the DynastyProcess crosswalk
+  already in CLAUDE.md's Data Sources table) — confirmed hands-on that a
+  real `fpid` resolves to the correct `gsis_id` (Saquon Barkley,
+  `17240` → `00-0034844`). A player whose `fpid` doesn't resolve (the
+  documented rookie/`fantasypros_id`-lag gap) is silently dropped from
+  the consensus tier and falls back to the in-house estimate rather than
+  failing the whole report.
 - **`generate_report.py`** — orchestration script tying `scoring.py` +
-  `projections.py` + `news.py` + `waiver_targets.py` together into
-  `weekly-report-week-N.json` and `player-pool.json`, in the exact shape
-  `frontend/src/lib/api.js` already expects. Implements the integration
-  plan's v0 build order: **real `nflreadpy` player IDs (`gsis_id`)
-  directly as `playerId`**, no invented `p_00123`-style scheme and no
-  permanent crosswalk (the plan's recommended resolution to its own
-  player-ID open question — no real users/saved data existed yet to
-  migrate), and **every player in the `in_house_estimate` tier** (an
-  actual FantasyPros pull + top-10/position tier selection is gap #2,
-  deliberately deferred by the plan itself, not a pending decision this
-  script is blocked on). Only QB/RB/WR/TE are covered — `scoring.py`'s
-  nflreadpy column map has no stat-line assembly for DST (needs the
-  self-join work in `docs/research/dst-scoring-fields.md`, out of scope
-  for this plan) or K (no column mapping exists for kickers yet either).
-  Confirmed working end-to-end against real 2025 data (see "Generating a
-  real report" below) and against the real, current 2026 season, where it
-  correctly degrades to an all-cold-start report (nflverse hasn't
-  published a 2026 stats file yet — no games have been played) instead of
-  crashing.
+  `projections.py` + `fantasypros.py` + `news.py` + `waiver_targets.py`
+  together into `weekly-report-week-N.json` and `player-pool.json`, in the
+  exact shape `frontend/src/lib/api.js` already expects. Implements the
+  integration plan's v0 build order, with one update since the plan was
+  written: **real `nflreadpy` player IDs (`gsis_id`) directly as
+  `playerId`**, no invented `p_00123`-style scheme and no permanent
+  crosswalk (the plan's recommended resolution to its own player-ID open
+  question — no real users/saved data existed yet to migrate), and **every
+  QB/RB/WR/TE player in FantasyPros' top-10-per-position consensus tier,
+  everyone else in the in-house estimate tier** (gap #2's FantasyPros pull
+  was deliberately deferred by the plan's own v0 scoping, then wired in —
+  see `fantasypros.py` above). `--skip-fantasypros`, or
+  `FANTASYPROS_API_KEY` simply not being set, degrades to 100%
+  `in_house_estimate`, same "skip cleanly" contract `--skip-news`
+  already established for the news layer — a FantasyPros outage doesn't
+  block getting *a* report out. Only QB/RB/WR/TE are covered —
+  `scoring.py`'s nflreadpy column map has no stat-line assembly for DST
+  (needs the self-join work in `docs/research/dst-scoring-fields.md`, out
+  of scope for this plan) or K (no column mapping exists for kickers yet
+  either). Confirmed working end-to-end against real 2025 data (see
+  "Generating a real report" below — 40 of 2025-week-10's real top-10
+  FantasyPros players resolved to the consensus tier, 33 of them playable
+  that week) and against the real, current 2026 season, where it correctly
+  degrades to an all-cold-start report (nflverse hasn't published a 2026
+  stats file yet — no games have been played) instead of crashing.
 - **`generate_track_record.py`** — separate CLI (can run on its own
   cadence, per the plan) that reads back whatever `weekly-report-week-N.json`
   files already exist and real actual results, and writes
   `track-record.json` via `track_record.py`.
-- **`tests/`** — 200 unit tests, all passing, covering the logic above
+- **`tests/`** — 212 unit tests, all passing, covering the logic above
   with synthetic data (no network, no API keys needed to run these).
 
 ## What's deliberately NOT done here
@@ -228,10 +254,6 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   scope" section, this is deliberate: the backtest found no accuracy
   benefit and a real bias cost from enabling it, so it stays built,
   tested, and unwired.
-- **The FantasyPros tier** — `generate_report.py` ships 100%
-  `in_house_estimate` for now (gap #2 in the integration plan); a real
-  FantasyPros pull and top-10-per-position tier-selection logic is future
-  work, not started here.
 - **No live API/serverless layer** — `generate_report.py` is a script you
   run before a deploy, not a service the deployed frontend calls at
   request time. Deliberate for now, per the integration plan's own
@@ -251,6 +273,7 @@ python3 tests/test_backtest.py -v
 python3 tests/test_waiver_targets.py -v
 python3 tests/test_track_record.py -v
 python3 tests/test_generate_report.py -v
+python3 tests/test_fantasypros.py -v
 ```
 
 (9 of `test_backtest.py`'s cases cover the paired significance test —
@@ -269,7 +292,10 @@ stdlib function: `scripts/.venv` is Python 3.9, and that function needs
 `pip install -r requirements.txt` and, for the LLM summarization step,
 `ANTHROPIC_API_KEY` set in the environment (omitted, or `--skip-news`
 passed to `generate_report.py`, both degrade to the default healthy
-`newsFlag` for everyone rather than failing).
+`newsFlag` for everyone rather than failing). The FantasyPros consensus
+tier needs `FANTASYPROS_API_KEY` set the same way — omitted, or
+`--skip-fantasypros`, both degrade to 100% `in_house_estimate` rather than
+failing.
 
 ## Generating a real report
 
@@ -289,9 +315,11 @@ Both default to writing into `frontend/public/mock/` (the exact path
 real output). Pass `--out-dir`/`--reports-dir` to write elsewhere instead
 (useful for a dry run before overwriting the shipped fixtures). Confirmed
 working end-to-end against real 2025 data (`--season 2025 --week 10`,
-`--skip-news`: 438 active QB/RB/WR/TE players loaded, 383 projected that
-week, 3 waiver targets selected with real templated rationale text) and
-against real, current 2026 data (`--season 2026 --week 1`: correctly
+`--skip-news`: 438 active QB/RB/WR/TE players loaded, 40 resolved to the
+real FantasyPros consensus tier — 33 of them on a bye-free team that week
+— 383 total projected, 3 waiver targets selected with real templated
+rationale text) and against real, current 2026 data (`--season 2026
+--week 1`: correctly
 produces an all-`no_data`/0.0-point report rather than crashing or
 fabricating a number, since nflverse hasn't published any 2026 game stats
 yet — the season hasn't started). The shipped `frontend/public/mock/*.json`

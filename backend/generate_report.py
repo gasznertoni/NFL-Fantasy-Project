@@ -1,23 +1,22 @@
 """
-Orchestration script: wires scoring.py + projections.py + news.py +
-waiver_targets.py together and writes weekly-report-week-N.json and
-player-pool.json in the exact shape frontend/src/lib/api.js already
+Orchestration script: wires scoring.py + projections.py + fantasypros.py +
+news.py + waiver_targets.py together and writes weekly-report-week-N.json
+and player-pool.json in the exact shape frontend/src/lib/api.js already
 expects -- the "generation script, not a live API" architecture from
 docs/design/backend-frontend-integration-plan.md.
 
-Follows that plan's v0 build order exactly:
-  - Real player IDs (nflreadpy's gsis_id) as `playerId` directly, no
-    invented p_00123-style scheme and no permanent crosswalk table (the
-    plan's recommended resolution to its own "player-ID gap" open
-    question -- this project has no real users with saved localStorage
-    data yet to migrate).
-  - Every player in the `in_house_estimate` tier (gap #2 -- an actual
-    FantasyPros pull and top-10-per-position tier selection -- is
-    deliberately deferred, per the plan's own explicit v0 scoping: "ship
-    100% in-house first ... avoids blocking the whole integration on a
-    new data source").
-  - Waiver targets via waiver_targets.py's templated (non-LLM) rationale,
-    also per the plan's suggested v0 shortcut.
+Follows that plan's v0 build order, with one update since the plan was
+written: real player IDs (nflreadpy's gsis_id) as `playerId` directly, no
+invented p_00123-style scheme and no permanent crosswalk table (the plan's
+recommended resolution to its own "player-ID gap" open question -- this
+project has no real users with saved localStorage data yet to migrate).
+Gap #2 -- an actual FantasyPros pull and top-10-per-position tier
+selection, originally deferred per the plan's v0 scoping ("ship 100%
+in-house first") -- is now wired in via fantasypros.py (CLAUDE.md v8 Next
+Steps item 3): a player who resolves to FantasyPros' top-10-for-position
+consensus tier gets that projection; everyone else still gets the
+in-house estimate. Waiver targets still use waiver_targets.py's templated
+(non-LLM) rationale, per the plan's suggested v0 shortcut.
 
 Only QB/RB/WR/TE are covered -- same limitation backtest.py already
 documents: scoring.py's NFLREADPY_OFFENSE_COLUMN_MAP has no stat-line
@@ -169,11 +168,12 @@ def build_weekly_report_and_pool(
     news_flags_by_player: dict[str, dict[str, Any]],
     window: int = DEFAULT_WINDOW,
     generated_at: Optional[str] = None,
+    consensus_projections: Optional[dict[str, dict[str, Any]]] = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """The main assembly entry point, fully pure/injectable (all data
     already loaded by the caller) -- see the `load_*` adapters below for
     where `pool`/`schedule_games`/`game_logs_by_player`/
-    `news_flags_by_player` come from in a real run.
+    `news_flags_by_player`/`consensus_projections` come from in a real run.
 
     Args:
         pool: [{"playerId", "name", "position", "team"}, ...] -- the
@@ -185,6 +185,15 @@ def build_weekly_report_and_pool(
             gets DEFAULT_NEWS_FLAG, not an error -- "no news layer ran for
             this player" degrades the same way news.py itself degrades on
             a failed fetch.
+        consensus_projections: {playerId: {"projected_points", ...}} --
+            fantasypros.build_consensus_tier's output. A player present
+            here gets the FantasyPros consensus tier instead of the
+            in-house estimate; a player absent (the common case -- this
+            is only ever FantasyPros' top 10 per position) falls back to
+            the in-house tier exactly as before this parameter existed.
+            None/omitted (the default) means nobody gets the consensus
+            tier -- same "off means arithmetically identical to before"
+            contract as project_player's own optional parameters.
 
     Returns:
         (weekly_report, player_pool) -- weekly_report covers only players
@@ -192,33 +201,58 @@ def build_weekly_report_and_pool(
         skipped, not zero-projected); player_pool covers the full
         season-wide pool regardless of this week's schedule.
     """
+    consensus_projections = consensus_projections or {}
     candidates = []
     for player in pool:
         opponent = opponent_for_team_week(schedule_games, player["team"], season, week)
         if opponent is None:
             continue  # bye week (or a week outside the loaded schedule) -- not playable
-        game_log = game_logs_by_player.get(player["playerId"], [])
-        projection = project_player(game_log, scoring_config, season, week, window=window)
         news_flag = news_flags_by_player.get(player["playerId"]) or dict(DEFAULT_NEWS_FLAG)
-        candidates.append(
-            {
+        consensus = consensus_projections.get(player["playerId"])
+        if consensus is not None:
+            candidate = {
+                "playerId": player["playerId"],
+                "name": player["name"],
+                "position": player["position"],
+                "team": player["team"],
+                "opponent": opponent,
+                "points": consensus["projected_points"],
+                "tier": "consensus",
+                # Not meaningful for the consensus tier (FantasyPros doesn't
+                # expose a game-by-game history, only the projection) --
+                # harmless placeholders, not read by build_projection_entry.
+                # waiver_targets.py never sees these values in practice:
+                # its rostered-rank cutoff (>=14 per position) always
+                # exceeds FantasyPros' top-10-per-position depth, so a
+                # consensus-tier player is never in the waiver-eligible
+                # pool to begin with.
+                "games_used": 0,
+                "confidence": None,
+                "per_game_points": [],
+                "news_flag": news_flag,
+            }
+        else:
+            game_log = game_logs_by_player.get(player["playerId"], [])
+            projection = project_player(game_log, scoring_config, season, week, window=window)
+            candidate = {
                 "playerId": player["playerId"],
                 "name": player["name"],
                 "position": player["position"],
                 "team": player["team"],
                 "opponent": opponent,
                 "points": projection["projected_points"],
+                "tier": "in_house_estimate",
                 "games_used": projection["games_used"],
                 "confidence": projection["confidence"],
                 "per_game_points": projection["per_game_points"],
                 "news_flag": news_flag,
             }
-        )
+        candidates.append(candidate)
 
-    projection_entries = [build_projection_entry(c) for c in candidates]
+    projection_entries = [build_projection_entry(c, c["tier"]) for c in candidates]
 
     waiver_candidates = select_waiver_targets(candidates)
-    waiver_entries = [build_waiver_target_entry(c, generate_rationale(c)) for c in waiver_candidates]
+    waiver_entries = [build_waiver_target_entry(c, generate_rationale(c), c["tier"]) for c in waiver_candidates]
 
     weekly_report = assemble_weekly_report(week, generated_at or now_iso(), projection_entries, waiver_entries)
 
@@ -358,6 +392,31 @@ def load_all_game_logs_nflreadpy(season: int) -> dict[str, list[dict[str, Any]]]
         ) from exc
 
 
+def build_consensus_tier_or_empty(season: int, week: int, scoring_config: dict[str, Any]) -> dict[str, dict[str, Any]]:
+    """FANTASYPROS_API_KEY missing, or any part of the fetch/crosswalk
+    pipeline failing, degrades to an empty consensus tier -- every player
+    falls back to the in-house estimate. Same "skip cleanly" contract
+    build_news_client_or_none already establishes for the news layer,
+    extended to cover network/API failures too, not just a missing key --
+    a real, if unlikely, way for this to fail on the day of an actual
+    weekly-report run, since the whole point of running this script is
+    getting *a* report out, not blocking on one vendor's tier."""
+    import os
+
+    from fantasypros import build_consensus_tier, fetch_consensus_tier, load_fantasypros_id_crosswalk_nflreadpy
+
+    api_key = os.environ.get("FANTASYPROS_API_KEY")
+    if not api_key:
+        return {}
+    try:
+        raw_players_by_position = fetch_consensus_tier(season, week, api_key)
+        crosswalk = load_fantasypros_id_crosswalk_nflreadpy()
+        return build_consensus_tier(raw_players_by_position, scoring_config, crosswalk)
+    except Exception as exc:  # noqa: BLE001 -- degrade gracefully, don't block the report
+        print(f"  FantasyPros consensus tier fetch failed ({exc}) -- falling back to in-house estimate for everyone.")
+        return {}
+
+
 def build_news_client_or_none() -> Any:
     """None if ANTHROPIC_API_KEY isn't set, or if building the client
     fails for any reason -- callers treat None as "skip summarization,
@@ -396,6 +455,7 @@ def load_news_flags_nflreadpy(pool: list[dict[str, Any]], client: Any) -> dict[s
 
 def main(argv: Optional[list[str]] = None) -> None:
     import argparse
+    import os
 
     parser = argparse.ArgumentParser(
         description=(
@@ -413,6 +473,11 @@ def main(argv: Optional[list[str]] = None) -> None:
         "--skip-news",
         action="store_true",
         help="skip the ESPN news fetch + LLM summarization step; every player gets the default healthy newsFlag",
+    )
+    parser.add_argument(
+        "--skip-fantasypros",
+        action="store_true",
+        help="skip the FantasyPros consensus-tier pull; every player gets the in-house estimate tier",
     )
     args = parser.parse_args(argv)
 
@@ -439,6 +504,17 @@ def main(argv: Optional[list[str]] = None) -> None:
             print("Fetching + summarizing ESPN news...")
         news_flags = load_news_flags_nflreadpy(pool, client)
 
+    if args.skip_fantasypros:
+        print("--skip-fantasypros set: every player gets the in-house estimate tier.")
+        consensus_projections: dict[str, dict[str, Any]] = {}
+    elif os.environ.get("FANTASYPROS_API_KEY") is None:
+        print("FANTASYPROS_API_KEY not set -- consensus tier skipped, in-house estimate for everyone.")
+        consensus_projections = {}
+    else:
+        print(f"Fetching FantasyPros consensus tier ({'/'.join(POOL_POSITIONS)})...")
+        consensus_projections = build_consensus_tier_or_empty(args.season, args.week, scoring_config)
+        print(f"  {len(consensus_projections)} players resolved to the consensus tier")
+
     weekly_report, player_pool = build_weekly_report_and_pool(
         args.season,
         args.week,
@@ -448,6 +524,7 @@ def main(argv: Optional[list[str]] = None) -> None:
         game_logs,
         news_flags,
         window=args.window,
+        consensus_projections=consensus_projections,
     )
 
     args.out_dir.mkdir(parents=True, exist_ok=True)
