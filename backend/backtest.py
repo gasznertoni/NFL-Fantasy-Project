@@ -55,6 +55,7 @@ import math
 from typing import Any, Optional
 
 import baseline
+import usage
 from matchup import compute_opponent_multiplier
 from projections import DEFAULT_DECAY, DEFAULT_SHRINKAGE_STRENGTH, DEFAULT_WINDOW, project_player
 from scoring import compute_league_points, nflreadpy_row_to_stat_line
@@ -70,6 +71,7 @@ def evaluate_player_week(
     decay: float = DEFAULT_DECAY,
     positional_baseline: Optional[float] = None,
     shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
+    usage_multiplier: float = 1.0,
 ) -> Optional[dict[str, Any]]:
     """Grade one player's projection against one already-known week.
 
@@ -85,6 +87,7 @@ def evaluate_player_week(
     projection = project_player(
         game_log, scoring_config, season, week, window=window, opponent_multiplier=opponent_multiplier, decay=decay,
         positional_baseline=positional_baseline, shrinkage_strength=shrinkage_strength,
+        usage_multiplier=usage_multiplier,
     )
     actual_points = float(compute_league_points(actual_entry, scoring_config))
     projected_points = projection["projected_points"]
@@ -117,6 +120,9 @@ def backtest_player(
     use_shrinkage: bool = False,
     baseline_by_week: Optional[dict[int, float]] = None,
     shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
+    use_usage: bool = False,
+    usage_alpha: float = usage.DEFAULT_USAGE_ALPHA,
+    usage_metric: str = usage.DEFAULT_USAGE_METRIC,
 ) -> list[dict[str, Any]]:
     """Run evaluate_player_week across a list of weeks for one player.
     Weeks with no recorded result (byes, weeks outside the loaded data)
@@ -146,6 +152,12 @@ def backtest_player(
     (nothing to shrink, not a misconfiguration) -- see
     tests/test_baseline.py's test_full_player_is_omitted. Those fail loud
     rather than silently producing an all-neutral run; this doesn't.
+
+    use_usage=True needs no external lookup table and so has no equivalent
+    misconfiguration case: unlike matchup (a different data source,
+    schedule_games) or shrinkage (a pool-level aggregate, baseline_by_week),
+    usage.compute_usage_multiplier reads entirely from this player's own
+    game_log -- computed inline per week below.
     """
     if use_matchup and not schedule_games:
         raise ValueError("use_matchup=True requires schedule_games")
@@ -163,9 +175,15 @@ def backtest_player(
                 schedule_games, opponent_team, season, week
             )["multiplier"]
         positional_baseline = (baseline_by_week or {}).get(week) if use_shrinkage else None
+        usage_multiplier = 1.0
+        if use_usage:
+            usage_multiplier = usage.compute_usage_multiplier(
+                game_log, season, week, metric=usage_metric, alpha=usage_alpha,
+            )["multiplier"]
         row = evaluate_player_week(
             game_log, scoring_config, season, week, window=window, opponent_multiplier=multiplier, decay=decay,
             positional_baseline=positional_baseline, shrinkage_strength=shrinkage_strength,
+            usage_multiplier=usage_multiplier,
         )
         if row is not None:
             results.append(row)
@@ -299,14 +317,18 @@ def compare_variants(
     matchup-on/off ablation is one function call, not hand-copied loops.
 
     Each variant: {"label": str, "window": int, "use_matchup": bool,
-    "decay": float, "use_shrinkage": bool, "shrinkage_strength": float}.
-    "decay"/"shrinkage_strength" are optional per variant, defaulting to
-    DEFAULT_DECAY/DEFAULT_SHRINKAGE_STRENGTH same as project_player itself.
+    "decay": float, "use_shrinkage": bool, "shrinkage_strength": float,
+    "use_usage": bool, "usage_alpha": float, "usage_metric": str}.
+    "decay"/"shrinkage_strength"/"usage_alpha"/"usage_metric" are optional
+    per variant, defaulting the same as project_player/backtest_player.
     opponent_by_week_by_player: {player_id: {week: opponent_team}}, only
     required if any variant sets use_matchup=True.
     baseline_by_week_by_player: {player_id: {week: baseline}}, mirrors
     opponent_by_week_by_player's shape, only required if any variant sets
-    use_shrinkage=True (see baseline.baselines_by_player_week).
+    use_shrinkage=True (see baseline.baselines_by_player_week). No
+    equivalent lookup table parameter exists for use_usage=True -- usage
+    is computed entirely from each player's own game_log inside
+    backtest_player, no external data source needed.
     """
     out = {}
     for variant in variants:
@@ -328,6 +350,9 @@ def compare_variants(
                     use_shrinkage=variant.get("use_shrinkage", False),
                     baseline_by_week=baseline_by_week,
                     shrinkage_strength=variant.get("shrinkage_strength", DEFAULT_SHRINKAGE_STRENGTH),
+                    use_usage=variant.get("use_usage", False),
+                    usage_alpha=variant.get("usage_alpha", usage.DEFAULT_USAGE_ALPHA),
+                    usage_metric=variant.get("usage_metric", usage.DEFAULT_USAGE_METRIC),
                 )
             )
         out[variant["label"]] = aggregate_metrics(pooled)
@@ -388,6 +413,9 @@ def paired_variant_metric(
                 decay=variant_a.get("decay", DEFAULT_DECAY),
                 use_shrinkage=variant_a.get("use_shrinkage", False), baseline_by_week=baseline_by_week,
                 shrinkage_strength=variant_a.get("shrinkage_strength", DEFAULT_SHRINKAGE_STRENGTH),
+                use_usage=variant_a.get("use_usage", False),
+                usage_alpha=variant_a.get("usage_alpha", usage.DEFAULT_USAGE_ALPHA),
+                usage_metric=variant_a.get("usage_metric", usage.DEFAULT_USAGE_METRIC),
             )
         }
         rows_b = {
@@ -399,6 +427,9 @@ def paired_variant_metric(
                 decay=variant_b.get("decay", DEFAULT_DECAY),
                 use_shrinkage=variant_b.get("use_shrinkage", False), baseline_by_week=baseline_by_week,
                 shrinkage_strength=variant_b.get("shrinkage_strength", DEFAULT_SHRINKAGE_STRENGTH),
+                use_usage=variant_b.get("use_usage", False),
+                usage_alpha=variant_b.get("usage_alpha", usage.DEFAULT_USAGE_ALPHA),
+                usage_metric=variant_b.get("usage_metric", usage.DEFAULT_USAGE_METRIC),
             )
         }
         for week in sorted(set(rows_a) & set(rows_b)):
@@ -454,6 +485,11 @@ DECAY_VALUES_TO_SWEEP = [1.0, 0.95, 0.9, 0.85, 0.8, 0.7, 0.6]
 # docstring -- so its evaluation is a single baseline-on/off ablation, not
 # part of this sweep.
 SHRINKAGE_STRENGTHS_TO_SWEEP = [0.0, 0.25, 0.5, 0.75, 1.0]
+# Round 4, idea 3: candidate exponents for usage.py's recent-vs-baseline
+# usage-trend multiplier. alpha=0 (no adjustment) is included as the
+# baseline, matching DECAY_VALUES_TO_SWEEP's/SHRINKAGE_STRENGTHS_TO_SWEEP's
+# own convention.
+USAGE_ALPHAS_TO_SWEEP = [0.0, 0.25, 0.5, 0.75, 1.0]
 
 
 def load_full_pool_game_logs(season: int, positions: tuple[str, ...] = POSITIONS) -> dict[str, list[dict[str, Any]]]:
@@ -482,6 +518,10 @@ def load_full_pool_game_logs(season: int, positions: tuple[str, ...] = POSITIONS
         # position-specific window sweep (findings doc idea #4) can segment
         # the player pool without a separate roster join.
         stat_line["position"] = row.get("position")
+        # Also not a scoring category -- usage.py's compute_usage_multiplier
+        # reads these directly off the game log (Round 4, idea 3).
+        for col in usage.USAGE_COLUMNS:
+            stat_line[col] = row.get(col)
         game_logs.setdefault(row["player_id"], []).append(stat_line)
     return game_logs
 
@@ -928,6 +968,136 @@ def main():
     )
     print_report("population=debut+thin", debut_thin_metrics["population=debut+thin"])
     print_report("population=all", all_metrics["population=all"])
+
+    # -----------------------------------------------------------------
+    # Round 4, idea 3: usage/opportunity trend multiplier (usage.py).
+    # MAE-first, unlike idea 2 -- there's no equivalent "literal predict
+    # zero" bug forcing a bias-first framing here, so this stays on the
+    # same bar window/decay/matchup used.
+    # -----------------------------------------------------------------
+    print("\n" + "#" * 60)
+    print("USAGE DATA COVERAGE -- SANITY CHECK")
+    print("#" * 60)
+    usage_coverage_total = 0
+    usage_coverage_present = 0
+    for game_log in game_logs.values():
+        for week in all_weeks:
+            actual_entry = next((g for g in game_log if g["season"] == SEASON and g["week"] == week), None)
+            if actual_entry is None:
+                continue
+            usage_coverage_total += 1
+            if usage.compute_usage_multiplier(game_log, SEASON, week)["source"] == "current_season":
+                usage_coverage_present += 1
+    coverage_pct = 100 * usage_coverage_present / usage_coverage_total if usage_coverage_total else 0.0
+    print(f"  usage data present for {usage_coverage_present}/{usage_coverage_total} graded rows ({coverage_pct:.1f}%)")
+    print("  (if this is low, stop and fix the loader passthrough before trusting any sweep below)")
+
+    print("\n" + "#" * 60)
+    print("USAGE ALPHA SWEEP -- TUNING WEEKS")
+    print("#" * 60)
+    usage_variants = [
+        {"label": f"alpha={a}", "window": DEFAULT_WINDOW, "use_usage": True, "usage_alpha": a}
+        for a in USAGE_ALPHAS_TO_SWEEP
+    ]
+    tuning_usage_results = compare_variants(game_logs, scoring_config, SEASON, TUNING_WEEKS, usage_variants)
+    for label, metrics in tuning_usage_results.items():
+        print_report(label, metrics)
+
+    print("\n" + "#" * 60)
+    print("USAGE ALPHA SWEEP -- HOLDOUT WEEKS")
+    print("#" * 60)
+    for label, metrics in compare_variants(game_logs, scoring_config, SEASON, HOLDOUT_WEEKS, usage_variants).items():
+        print_report(label, metrics)
+
+    # MAE-first pick (unlike idea 2's bias-first pick) -- same programmatic
+    # "excluding the alpha=0 baseline itself" idiom DECAY_VALUES_TO_SWEEP's
+    # best_decay_label uses.
+    usage_candidates = [a for a in USAGE_ALPHAS_TO_SWEEP if a != 0.0]
+    best_alpha = min(usage_candidates, key=lambda a: tuning_usage_results[f"alpha={a}"]["mae"])
+    print(f"\nBest tuning-weeks MAE among alpha!=0.0 candidates: alpha={best_alpha}")
+
+    off_usage_variant = {"window": DEFAULT_WINDOW, "use_usage": False}
+    best_usage_variant = {"window": DEFAULT_WINDOW, "use_usage": True, "usage_alpha": best_alpha}
+    for weeks_label, weeks in (("tuning", TUNING_WEEKS), ("holdout", HOLDOUT_WEEKS)):
+        print("\n" + "#" * 60)
+        print(f"USAGE SIGNIFICANCE TEST -- pooled MAE, alpha={best_alpha} vs off ({weeks_label} weeks)")
+        print("#" * 60)
+        off_abs, best_abs = paired_variant_metric(
+            game_logs, scoring_config, SEASON, weeks, off_usage_variant, best_usage_variant, metric="abs_error",
+        )
+        usage_mae_test = paired_significance_test(best_abs, off_abs)
+        print(
+            f"  abs_error (MAE):  n={usage_mae_test['n']}  mean_diff(on-off)={usage_mae_test['mean_diff']:+}"
+            f"  p={usage_mae_test['p_value']}  significant={usage_mae_test['significant']}"
+        )
+
+    print("\n" + "#" * 60)
+    print(f"USAGE SIGNIFICANCE TEST -- low tier bias (secondary), alpha={best_alpha} vs off (tuning weeks)")
+    print("#" * 60)
+    off_err, best_err = paired_variant_metric(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, off_usage_variant, best_usage_variant, metric="error",
+        confidence_filter="low",
+    )
+    usage_low_bias_test = paired_significance_test(best_err, off_err)
+    print(
+        f"  error (bias):  n={usage_low_bias_test['n']}  mean_diff(on-off)={usage_low_bias_test['mean_diff']:+}"
+        f"  p={usage_low_bias_test['p_value']}  significant={usage_low_bias_test['significant']}"
+    )
+
+    print("\n" + "#" * 60)
+    print(f"USAGE PER-POSITION MAE, alpha={best_alpha} vs off (tuning weeks) -- QB should show ~0 delta")
+    print("#" * 60)
+    for position in positions:
+        position_game_logs = {pid: log for pid, log in game_logs.items() if positions_by_player[pid] == position}
+        off_abs_pos, best_abs_pos = paired_variant_metric(
+            position_game_logs, scoring_config, SEASON, TUNING_WEEKS, off_usage_variant, best_usage_variant,
+            metric="abs_error",
+        )
+        position_usage_test = paired_significance_test(best_abs_pos, off_abs_pos)
+        print(
+            f"  {position}: n={position_usage_test['n']}  mean_diff(on-off)={position_usage_test['mean_diff']}"
+            f"  p={position_usage_test['p_value']}  significant={position_usage_test['significant']}"
+        )
+
+    print("\n" + "#" * 60)
+    print(f"USAGE METRIC COMPARATOR (wopr vs target_share) -- TUNING WEEKS, alpha={best_alpha}")
+    print("#" * 60)
+    metric_comparator_variants = [
+        {"label": "metric=wopr", "window": DEFAULT_WINDOW, "use_usage": True, "usage_alpha": best_alpha, "usage_metric": "wopr"},
+        {"label": "metric=target_share", "window": DEFAULT_WINDOW, "use_usage": True, "usage_alpha": best_alpha, "usage_metric": "target_share"},
+    ]
+    metric_results = compare_variants(game_logs, scoring_config, SEASON, TUNING_WEEKS, metric_comparator_variants)
+    for label, metrics in metric_results.items():
+        print_report(label, metrics)
+
+    # -----------------------------------------------------------------
+    # Interaction check: shrinkage (idea 2, already shipped at
+    # DEFAULT_SHRINKAGE_STRENGTH) and usage together vs. each alone, since
+    # they can partially offset for a rising-role rookie (shrinkage pulls
+    # the average down toward a thin-sample baseline, usage pushes it up).
+    # Measuring the combined effect, not modeling an interaction term.
+    # -----------------------------------------------------------------
+    print("\n" + "#" * 60)
+    print("SHRINKAGE + USAGE INTERACTION -- TUNING WEEKS")
+    print("#" * 60)
+    both_on_variant = {
+        "label": "both=on", "window": DEFAULT_WINDOW,
+        "use_shrinkage": True, "shrinkage_strength": DEFAULT_SHRINKAGE_STRENGTH,
+        "use_usage": True, "usage_alpha": best_alpha,
+    }
+    interaction_variants = [
+        {"label": "neither", "window": DEFAULT_WINDOW},
+        {"label": "shrinkage_only", "window": DEFAULT_WINDOW,
+         "use_shrinkage": True, "shrinkage_strength": DEFAULT_SHRINKAGE_STRENGTH},
+        {"label": "usage_only", "window": DEFAULT_WINDOW, "use_usage": True, "usage_alpha": best_alpha},
+        both_on_variant,
+    ]
+    interaction_results = compare_variants(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, interaction_variants,
+        baseline_by_week_by_player=baseline_by_week_by_player,
+    )
+    for label, metrics in interaction_results.items():
+        print_report(label, metrics)
 
 
 if __name__ == "__main__":

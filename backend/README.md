@@ -40,7 +40,10 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   identical to omitting shrinkage entirely; a caller (`baseline.py`) injects
   a real value. `DEFAULT_SHRINKAGE_STRENGTH = 0.5` per the findings doc's
   Round 4 verdict (see `baseline.py`'s bullet below for the two confounds
-  that had to be fixed before that number meant anything).
+  that had to be fixed before that number meant anything). Also supports a
+  `usage_multiplier` parameter (Round 4, idea 3, `usage.py`) — tested and
+  **rejected**: `DEFAULT_USAGE_ALPHA = 0.0` (no-op) stays the default, same
+  treatment `DEFAULT_DECAY` got after Round 2's rejection.
 - **`matchup.py`** — opponent-strength adjustment feeding
   `projections.py`'s `opponent_multiplier` parameter. Deliberately simpler
   than the design spec's original §3.4 idea (defense-vs-position
@@ -67,6 +70,19 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   found empirically, not designed in from the start — the module docstring
   documents two real backtest confounds and the exact numbers that exposed
   them, worth reading before changing this module.
+- **`usage.py`** (added 2026-08-11, Round 4) — recent-vs-trailing
+  usage-share (`wopr`/`target_share`) trend multiplier for
+  `projections.py`, same injection pattern as `matchup.py`/`baseline.py`.
+  A read-only probe against real 2025 data caught a real bug before it
+  ran: `wopr` can be negative, and the naive `ratio ** alpha` formula
+  would raise/go complex on a negative base for a non-integer `alpha` --
+  fixed by clamping the ratio to `[0.1, 5.0]` before exponentiating, not
+  just clamping the output. Backtested and **rejected**: pooled MAE is not
+  significant at the best swept `alpha` on either tuning (p=0.51) or
+  holdout (p=0.75) weeks; a small `low`-tier bias effect is real (p=0.03)
+  but too small (~4.5% of baseline) to justify shipping what Round 3
+  flagged as "the highest-leverage untested idea." Code stays in the repo,
+  tested, documented, not wired in as a positive default.
 - **`news.py`** — News & injury layer (v1 scope item 2). Fetches ESPN's
   unofficial news endpoint, matches articles to a player (by ESPN athlete
   ID when the response's `categories` field has it, else a crude
@@ -104,7 +120,7 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   machine's `backend/.venv` on 2026-08-10 (unlike the Cowork cloud sandbox
   the rest of this backend was built in, where PyPI and nflverse's data
   host were both unreachable).
-- **`tests/`** — 128 unit tests, all passing, covering the logic above with
+- **`tests/`** — 154 unit tests, all passing, covering the logic above with
   synthetic data (no network, no API keys needed to run these).
 - **`docs/research/projection-model-backtest-findings.md`** — write-up of
   the backtest results across three rounds. Round 1 (19 hand-picked
@@ -136,10 +152,16 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   when the whole league's roster debuts at once — was excluded from it).
   Both fixes and the final bias-reduction numbers (`no_data`/`low` tier
   bias cut ~70-86% on both tuning and holdout weeks, small MAE guardrail
-  cost) are in the findings doc's Round 4 section. All four rounds' code is
-  in `projections.py`/`baseline.py`/`backtest.py`; Round 3's window=6 and
-  Round 4's shrinkage-strength=0.5 findings are both applied as shipped
-  defaults (`projections.py`'s `DEFAULT_WINDOW`/`DEFAULT_SHRINKAGE_STRENGTH`).
+  cost) are in the findings doc's Round 4 section. Round 4 also built and
+  tested idea 3 (`usage.py`, a usage-share trend multiplier) — **rejected**:
+  no significant pooled-MAE benefit at the best swept alpha on either week
+  set, despite being flagged as the highest-leverage untested idea going
+  in; a real but small `low`-tier bias effect wasn't enough on its own.
+  All four rounds' code is in `projections.py`/`baseline.py`/`usage.py`/
+  `backtest.py`; Round 3's window=6 and Round 4's shrinkage-strength=0.5
+  findings are applied as shipped defaults (`projections.py`'s
+  `DEFAULT_WINDOW`/`DEFAULT_SHRINKAGE_STRENGTH`) — `DEFAULT_USAGE_ALPHA`
+  stays 0.0 (rejected).
 
 ## What's deliberately NOT done here
 

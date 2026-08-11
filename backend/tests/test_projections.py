@@ -249,5 +249,52 @@ class TestPositionalShrinkage(unittest.TestCase):
             project_player(game_log, CONFIG, as_of_season=2026, as_of_week=2, shrinkage_strength=-0.1)
 
 
+class TestUsageMultiplier(unittest.TestCase):
+    """Round 4, idea 3 (docs/research/projection-model-backtest-findings.md):
+    usage.py's trend-based multiplier, injected the same way
+    opponent_multiplier is."""
+
+    def test_defaults_to_one_when_omitted(self):
+        game_log = [game(2026, 1, 100)]
+        result = project_player(game_log, CONFIG, as_of_season=2026, as_of_week=2, window=4)
+        self.assertEqual(result["usage_multiplier"], 1.0)
+        self.assertAlmostEqual(result["projected_points"], result["rolling_avg"])
+
+    def test_applied_when_provided(self):
+        game_log = [game(2026, 1, 100)]  # 10.0 rolling avg
+        result = project_player(
+            game_log, CONFIG, as_of_season=2026, as_of_week=2, window=4, usage_multiplier=1.2,
+        )
+        self.assertAlmostEqual(result["projected_points"], 12.0)
+
+    def test_composes_multiplicatively_with_opponent_multiplier(self):
+        game_log = [game(2026, 1, 100)]  # 10.0 rolling avg
+        result = project_player(
+            game_log, CONFIG, as_of_season=2026, as_of_week=2, window=4,
+            opponent_multiplier=1.1, usage_multiplier=1.2,
+        )
+        self.assertAlmostEqual(result["projected_points"], 10.0 * 1.1 * 1.2)
+
+    def test_composes_with_shrinkage_in_documented_order(self):
+        # shrinkage acts on the average first, multipliers apply after --
+        # games_used=1, window=4, strength=1.0 -> weight=0.25 (see
+        # TestPositionalShrinkage.test_strength_one_partial_window_is_hand_computed_blend)
+        game_log = [game(2026, 1, 100)]  # rolling_avg = 10.0
+        result = project_player(
+            game_log, CONFIG, as_of_season=2026, as_of_week=2, window=4,
+            positional_baseline=6.0, shrinkage_strength=1.0, usage_multiplier=1.5,
+        )
+        self.assertAlmostEqual(result["shrunk_avg"], 7.0)  # 0.25*10.0 + 0.75*6.0
+        self.assertAlmostEqual(result["projected_points"], 7.0 * 1.5)
+
+    def test_batch_wrapper_applies_per_player_usage_multiplier(self):
+        logs = {"p1": [game(2026, 1, 100)], "p2": [game(2026, 1, 50)]}
+        results = project_players(
+            logs, CONFIG, as_of_season=2026, as_of_week=2, usage_multipliers={"p1": 1.5}
+        )
+        self.assertAlmostEqual(results["p1"]["projected_points"], 15.0)  # 10.0 * 1.5
+        self.assertAlmostEqual(results["p2"]["usage_multiplier"], 1.0)  # untouched default
+
+
 if __name__ == "__main__":
     unittest.main()

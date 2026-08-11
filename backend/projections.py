@@ -144,6 +144,7 @@ def project_player(
     decay: float = DEFAULT_DECAY,
     positional_baseline: Optional[float] = None,
     shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
+    usage_multiplier: float = 1.0,
 ) -> dict[str, Any]:
     """Project one player's fantasy points for (as_of_season, as_of_week).
 
@@ -187,6 +188,15 @@ def project_player(
             a zero-game ("no_data") sample ignores this and always takes
             the baseline in full when one is supplied. Must be in [0, 1].
             Only has any effect when positional_baseline is not None.
+        usage_multiplier: recent-vs-trailing usage-share trend adjustment
+            (usage.py's compute_usage_multiplier -- "idea 3" in
+            docs/research/projection-model-backtest-findings.md), same
+            "compute externally, inject as a plain float" separation as
+            opponent_multiplier. Defaults to 1.0 (no adjustment), applied
+            multiplicatively alongside opponent_multiplier -- kept as its
+            own named parameter rather than folded into
+            opponent_multiplier so a future report view can attribute an
+            adjustment to "matchup" vs "usage trend" separately.
 
     Returns:
         Output contract per design spec section 5: player_id (left to the
@@ -249,7 +259,8 @@ def project_player(
         "shrinkage_strength": shrinkage_strength,
         "shrinkage_weight": round(shrinkage_weight, 4),
         "shrunk_avg": round(shrunk_avg, 2),
-        "projected_points": round(shrunk_avg * opponent_multiplier, 2),
+        "usage_multiplier": usage_multiplier,
+        "projected_points": round(shrunk_avg * opponent_multiplier * usage_multiplier, 2),
         "per_game_points": per_game_points,
     }
 
@@ -264,6 +275,7 @@ def project_players(
     decay: float = DEFAULT_DECAY,
     positional_baselines: Optional[dict[str, float]] = None,
     shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
+    usage_multipliers: Optional[dict[str, float]] = None,
 ) -> dict[str, dict[str, Any]]:
     """Batch wrapper over project_player for a slate of players. Kept
     separate from project_player so the single-player function stays the
@@ -274,9 +286,14 @@ def project_players(
     dict (or the dict omitted entirely) gets None, i.e. no shrinkage.
     Position resolution (which baseline a given player_id's position maps
     to) is the caller's job, e.g. baseline.baselines_by_player_week --
-    this function, like project_player, has no concept of position."""
+    this function, like project_player, has no concept of position.
+
+    usage_multipliers: {player_id: float}, exact mirror of
+    opponent_multipliers -- a player missing from the dict (or the dict
+    omitted entirely) gets 1.0, i.e. no usage adjustment."""
     opponent_multipliers = opponent_multipliers or {}
     positional_baselines = positional_baselines or {}
+    usage_multipliers = usage_multipliers or {}
     return {
         player_id: project_player(
             game_log,
@@ -288,6 +305,7 @@ def project_players(
             decay=decay,
             positional_baseline=positional_baselines.get(player_id),
             shrinkage_strength=shrinkage_strength,
+            usage_multiplier=usage_multipliers.get(player_id, 1.0),
         )
         for player_id, game_log in game_logs_by_player.items()
     }
@@ -306,6 +324,8 @@ def load_recent_games_nflreadpy(player_id: str, season: int, before_week: int) -
     """
     import nflreadpy as nfl  # local import: keeps this an optional/local-only dependency
     from scoring import nflreadpy_row_to_stat_line
+    from usage import USAGE_COLUMNS  # local import: avoids a module-level circular
+    # import (usage.py imports DEFAULT_WINDOW/games_before from this module)
 
     try:
         stats = nfl.load_player_stats(seasons=[season])
@@ -327,6 +347,10 @@ def load_recent_games_nflreadpy(player_id: str, season: int, before_week: int) -
             # positional-baseline shrinkage the same way backtest.py's
             # load_full_pool_game_logs already does.
             stat_line["position"] = row.get("position")
+            # Also not a scoring category -- usage.py's compute_usage_multiplier
+            # reads these directly off the game log, same passthrough pattern.
+            for col in USAGE_COLUMNS:
+                stat_line[col] = row.get(col)
             game_log.append(stat_line)
         return game_log
     except (KeyError, AttributeError) as exc:

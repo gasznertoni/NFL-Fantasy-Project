@@ -24,8 +24,11 @@ from backtest import (  # noqa: E402
 CONFIG = {"linear": {"rush_yd": 0.1, "rush_td": 6}}
 
 
-def game(season, week, rush_yd, rush_td=0, opponent_team=None):
-    return {"season": season, "week": week, "rush_yd": rush_yd, "rush_td": rush_td, "opponent_team": opponent_team}
+def game(season, week, rush_yd, rush_td=0, opponent_team=None, wopr=None):
+    g = {"season": season, "week": week, "rush_yd": rush_yd, "rush_td": rush_td, "opponent_team": opponent_team}
+    if wopr is not None:
+        g["wopr"] = wopr
+    return g
 
 
 class TestEvaluatePlayerWeek(unittest.TestCase):
@@ -177,6 +180,59 @@ class TestShrinkageThreading(unittest.TestCase):
         )
         self.assertEqual(len(values_off), 1)  # only p1's no_data row survives the filter
         self.assertEqual(len(values_on), 1)
+
+
+class TestUsageThreading(unittest.TestCase):
+    """usage_alpha/usage_metric must actually reach project_player through
+    every harness layer, same rationale as TestDecayThreading/
+    TestShrinkageThreading above. Unlike shrinkage, usage needs no external
+    lookup table (it reads entirely from the player's own game_log), so
+    there's no "use_usage=True with nothing supplied" misconfiguration case
+    to test -- only that the parameter is actually threaded through."""
+
+    def test_evaluate_player_week_passes_usage_multiplier_through(self):
+        game_log = [game(2025, 1, 0)]
+        result = evaluate_player_week(game_log, CONFIG, season=2025, week=2, window=4, usage_multiplier=1.5)
+        self.assertIsNone(result)  # no actual week-2 result -- nothing to grade
+
+        # rush_yd=0 -> rolling_avg=0.0, so usage_multiplier's effect isn't
+        # directly visible via projected != 0 here; confirm via a nonzero
+        # rolling_avg instead.
+        game_log = [game(2025, 1, 100), game(2025, 2, 999)]
+        result = evaluate_player_week(game_log, CONFIG, season=2025, week=2, window=4, usage_multiplier=1.5)
+        self.assertAlmostEqual(result["projected"], 10.0 * 1.5)
+
+    def test_compare_variants_use_usage_variants_produce_distinct_metrics(self):
+        # rising wopr (0.1 baseline -> 0.3 recent) over weeks 1-6, graded
+        # against an actual week-7 result.
+        game_logs = {
+            "p1": [game(2025, w, 100, wopr=0.1) for w in range(1, 5)]
+            + [game(2025, 5, 100, wopr=0.3), game(2025, 6, 100, wopr=0.3)]
+            + [game(2025, 7, 999)],
+        }
+        variants = [
+            {"label": "usage=off", "window": 6, "use_usage": False},
+            {"label": "usage=on", "window": 6, "use_usage": True, "usage_alpha": 1.0},
+        ]
+        results = compare_variants(game_logs, CONFIG, season=2025, weeks=[7], variants=variants)
+        self.assertNotEqual(results["usage=off"]["mae"], results["usage=on"]["mae"])
+
+    def test_usage_alpha_default_matches_omitted(self):
+        """A variant dict that omits "usage_alpha" entirely with
+        use_usage=True must behave exactly like usage_alpha=DEFAULT_USAGE_ALPHA
+        (0.0, i.e. a no-op multiplier) -- same contract decay's equivalent
+        test enforces."""
+        game_logs = {
+            "p1": [game(2025, w, 100, wopr=0.1) for w in range(1, 5)]
+            + [game(2025, 5, 100, wopr=0.3), game(2025, 6, 100, wopr=0.3)]
+            + [game(2025, 7, 999)],
+        }
+        values_omitted, values_explicit = paired_variant_metric(
+            game_logs, CONFIG, season=2025, weeks=[7],
+            variant_a={"window": 6, "use_usage": True},
+            variant_b={"window": 6, "use_usage": True, "usage_alpha": 0.0},
+        )
+        self.assertEqual(values_omitted, values_explicit)
 
 
 class TestBacktestPlayer(unittest.TestCase):
