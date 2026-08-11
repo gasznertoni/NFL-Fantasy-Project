@@ -25,8 +25,11 @@ rescaling of point values better than absolute error does -- not a
 replacement for MAE, an additional angle on the same results.
 
 Workflow:
-1. Edit SEASON / PLAYER_IDS / TUNING_WEEKS / HOLDOUT_WEEKS /
-   WINDOW_SIZES_TO_SWEEP below.
+1. Edit SEASON / POSITIONS / TUNING_WEEKS / HOLDOUT_WEEKS /
+   WINDOW_SIZES_TO_SWEEP below. main() loads the full active pool for
+   POSITIONS via load_full_pool_game_logs() -- every player nflreadpy has a
+   SEASON stat line for, not a hand-picked list -- so there's no per-player
+   sample to curate.
 2. Run locally: `python3 backtest.py` (needs nflreadpy + network, both
    confirmed unreachable from the Cowork cloud sandbox this was built in).
 3. Read the TUNING WEEKS table to pick a window size / decide whether the
@@ -52,7 +55,7 @@ import math
 from typing import Any, Optional
 
 from matchup import compute_opponent_multiplier
-from projections import DEFAULT_WINDOW, project_player
+from projections import DEFAULT_DECAY, DEFAULT_WINDOW, project_player
 from scoring import compute_league_points, nflreadpy_row_to_stat_line
 
 
@@ -63,6 +66,7 @@ def evaluate_player_week(
     week: int,
     window: int = DEFAULT_WINDOW,
     opponent_multiplier: float = 1.0,
+    decay: float = DEFAULT_DECAY,
 ) -> Optional[dict[str, Any]]:
     """Grade one player's projection against one already-known week.
 
@@ -76,7 +80,7 @@ def evaluate_player_week(
         return None
 
     projection = project_player(
-        game_log, scoring_config, season, week, window=window, opponent_multiplier=opponent_multiplier
+        game_log, scoring_config, season, week, window=window, opponent_multiplier=opponent_multiplier, decay=decay
     )
     actual_points = float(compute_league_points(actual_entry, scoring_config))
     projected_points = projection["projected_points"]
@@ -105,6 +109,7 @@ def backtest_player(
     use_matchup: bool = False,
     schedule_games: Optional[list[dict[str, Any]]] = None,
     opponent_by_week: Optional[dict[int, str]] = None,
+    decay: float = DEFAULT_DECAY,
 ) -> list[dict[str, Any]]:
     """Run evaluate_player_week across a list of weeks for one player.
     Weeks with no recorded result (byes, weeks outside the loaded data)
@@ -133,7 +138,9 @@ def backtest_player(
             multiplier = compute_opponent_multiplier(
                 schedule_games, opponent_team, season, week
             )["multiplier"]
-        row = evaluate_player_week(game_log, scoring_config, season, week, window=window, opponent_multiplier=multiplier)
+        row = evaluate_player_week(
+            game_log, scoring_config, season, week, window=window, opponent_multiplier=multiplier, decay=decay
+        )
         if row is not None:
             results.append(row)
     return results
@@ -264,7 +271,9 @@ def compare_variants(
     aggregated metrics per variant -- a window-size sweep or a
     matchup-on/off ablation is one function call, not hand-copied loops.
 
-    Each variant: {"label": str, "window": int, "use_matchup": bool}.
+    Each variant: {"label": str, "window": int, "use_matchup": bool,
+    "decay": float}. "decay" is optional per variant, defaulting to
+    DEFAULT_DECAY (1.0, unweighted mean) same as project_player itself.
     opponent_by_week_by_player: {player_id: {week: opponent_team}}, only
     required if any variant sets use_matchup=True.
     """
@@ -283,6 +292,7 @@ def compare_variants(
                     use_matchup=variant.get("use_matchup", False),
                     schedule_games=schedule_games,
                     opponent_by_week=opponent_by_week,
+                    decay=variant.get("decay", DEFAULT_DECAY),
                 )
             )
         out[variant["label"]] = aggregate_metrics(pooled)
@@ -321,6 +331,7 @@ def paired_variant_metric(
                 game_log, scoring_config, season, weeks,
                 window=variant_a["window"], use_matchup=variant_a.get("use_matchup", False),
                 schedule_games=schedule_games, opponent_by_week=opponent_by_week,
+                decay=variant_a.get("decay", DEFAULT_DECAY),
             )
         }
         rows_b = {
@@ -329,6 +340,7 @@ def paired_variant_metric(
                 game_log, scoring_config, season, weeks,
                 window=variant_b["window"], use_matchup=variant_b.get("use_matchup", False),
                 schedule_games=schedule_games, opponent_by_week=opponent_by_week,
+                decay=variant_b.get("decay", DEFAULT_DECAY),
             )
         }
         for week in sorted(set(rows_a) & set(rows_b)):
@@ -356,53 +368,53 @@ def print_report(label: str, metrics: dict[str, Any]) -> None:
 # ---------------------------------------------------------------------------
 
 SEASON = 2025
-# Fill in real nflreadpy player_ids before running. Deliberately mix
-# archetypes, not just top players: a weekly-consistent stud, a boom/bust
-# player, a committee/timeshare back, a rookie, and ideally one player who
-# took over a starting role mid-season -- that last case is the design
-# spec's flagged "role-change discontinuity" failure mode, and the single
-# most informative test case available (see the design spec, section 3.2).
-PLAYER_IDS: list[str] = [
-    "00-0035676",
-    "00-0036963",
-    "00-0040122",
-    "00-0038542",
-    "00-0032398",
-    "00-0033280",
-    "00-0034827",
-    "00-0038933",
-    "00-0039851",
-    "00-0040129",
-    "00-0040663",
-    "00-0033106",
-    "00-0038543",
-    "00-0036945",
-    "00-0036322",
-    "00-0039849",
-    "00-0039075",
-    "00-0036139",
-    "00-0030506",
-]
+# Findings doc "Round 2" conclusion: the 19-player hand-picked archetype
+# pool (established stars, breakout rookies, a committee back, a couple of
+# QBs) was enough to firm up the window/decay/matchup calls, but it's small
+# and curated -- not a sample the by_confidence / by-position breakdowns can
+# be trusted against. POSITIONS below drives load_full_pool_game_logs(),
+# which pulls every QB/RB/WR/TE nflreadpy has a 2025 stat line for (~600
+# players) instead of a hand-picked list -- a full census, not a random
+# subsample, so there's no sampling choice left to second-guess.
+POSITIONS = ("QB", "RB", "WR", "TE")
 TUNING_WEEKS = list(range(5, 15))    # weeks 5-14: tune window size / matchup on here
 HOLDOUT_WEEKS = list(range(15, 19))  # weeks 15-18: confirm the choice generalizes here
 WINDOW_SIZES_TO_SWEEP = [3, 4, 5, 6]
+# Findings doc "ideas for improving accuracy" #1: candidate exponential
+# decay factors to sweep against the DEFAULT_DECAY=1.0 (unweighted mean)
+# baseline, at DEFAULT_WINDOW. 1.0 included so the sweep table itself shows
+# the baseline alongside the candidates, not just implied by omission.
+DECAY_VALUES_TO_SWEEP = [1.0, 0.95, 0.9, 0.85, 0.8, 0.7, 0.6]
 
 
-def load_player_game_log(player_id: str, season: int) -> list[dict[str, Any]]:
+def load_full_pool_game_logs(season: int, positions: tuple[str, ...] = POSITIONS) -> dict[str, list[dict[str, Any]]]:
+    """Every player at `positions` nflreadpy has a stat line for in
+    `season` -- the full active pool, not a hand-picked list. One network
+    call total (unlike the old per-player load_player_game_log, which
+    called nfl.load_player_stats() once per player_id -- fine at 19 players,
+    would have re-fetched the entire season's stats table ~600 times at
+    full-pool scale), then grouped locally by player_id.
+    """
     import nflreadpy as nfl  # local import: optional/local-only dependency
 
     stats = nfl.load_player_stats(seasons=[season])
     df = stats.to_pandas() if hasattr(stats, "to_pandas") else stats
-    df = df[df["player_id"] == player_id]
+    df = df[df["position"].isin(positions)]
 
-    game_log = []
+    game_logs: dict[str, list[dict[str, Any]]] = {}
     for _, row in df.iterrows():
-        stat_line = nflreadpy_row_to_stat_line(row.to_dict())
+        row_dict = row.to_dict()
+        stat_line = nflreadpy_row_to_stat_line(row_dict)
         stat_line["season"] = season
         stat_line["week"] = int(row["week"])
         stat_line["opponent_team"] = row.get("opponent_team")
-        game_log.append(stat_line)
-    return game_log
+        # Not a scoring category (ignored by compute_league_points, same as
+        # opponent_team above) -- carried through so main()'s
+        # position-specific window sweep (findings doc idea #4) can segment
+        # the player pool without a separate roster join.
+        stat_line["position"] = row.get("position")
+        game_logs.setdefault(row["player_id"], []).append(stat_line)
+    return game_logs
 
 
 def load_schedule_games(season: int) -> list[dict[str, Any]]:
@@ -418,20 +430,18 @@ def load_schedule_games(season: int) -> list[dict[str, Any]]:
 
 
 def main():
-    if not PLAYER_IDS:
-        print("Set PLAYER_IDS at the top of this file before running -- see the module docstring.")
-        return
-
     with open("scoring_config.placeholder.json") as f:
         scoring_config = json.load(f)
 
-    game_logs = {pid: load_player_game_log(pid, SEASON) for pid in PLAYER_IDS}
+    game_logs = load_full_pool_game_logs(SEASON, POSITIONS)
+    print(f"Loaded full active pool: {len(game_logs)} players at {POSITIONS} for {SEASON}.")
 
     print("#" * 60)
     print("WINDOW SIZE SWEEP -- TUNING WEEKS")
     print("#" * 60)
     window_variants = [{"label": f"window={w}", "window": w, "use_matchup": False} for w in WINDOW_SIZES_TO_SWEEP]
-    for label, metrics in compare_variants(game_logs, scoring_config, SEASON, TUNING_WEEKS, window_variants).items():
+    tuning_window_results = compare_variants(game_logs, scoring_config, SEASON, TUNING_WEEKS, window_variants)
+    for label, metrics in tuning_window_results.items():
         print_report(label, metrics)
 
     print("\n" + "#" * 60)
@@ -439,6 +449,64 @@ def main():
     print("#" * 60)
     for label, metrics in compare_variants(game_logs, scoring_config, SEASON, HOLDOUT_WEEKS, window_variants).items():
         print_report(label, metrics)
+
+    # Round 1/2 (19-player pool) called the window-size choice by eyeballing
+    # the sweep table above -- every other "does X help" question in this
+    # file gets a real paired significance test, this one never did. Full
+    # pool has enough n to actually run it: pick the tuning-weeks MAE winner
+    # among the non-default candidates the same mechanical way
+    # best_decay_label is picked below, then test it against DEFAULT_WINDOW
+    # on both tuning and holdout weeks. Reuses tuning_window_results from
+    # the sweep above rather than recomputing it.
+    window_candidates = [w for w in WINDOW_SIZES_TO_SWEEP if w != DEFAULT_WINDOW]
+    best_window = min(window_candidates, key=lambda w: tuning_window_results[f"window={w}"]["mae"])
+    print(f"\nBest tuning-weeks MAE among window!={DEFAULT_WINDOW} candidates: window={best_window}")
+
+    print("\n" + "#" * 60)
+    print(f"WINDOW SIZE SIGNIFICANCE TEST (window={best_window} vs window={DEFAULT_WINDOW}, tuning weeks)")
+    print("#" * 60)
+    default_window_variant = {"window": DEFAULT_WINDOW}
+    best_window_variant = {"window": best_window}
+    tuning_default_abs_error, tuning_best_abs_error = paired_variant_metric(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, default_window_variant, best_window_variant, metric="abs_error",
+    )
+    window_tuning_test = paired_significance_test(tuning_best_abs_error, tuning_default_abs_error)
+    print(
+        f"  abs_error (MAE):  n={window_tuning_test['n']}  mean_diff({best_window}-{DEFAULT_WINDOW})={window_tuning_test['mean_diff']:+}"
+        f"  p={window_tuning_test['p_value']}  significant={window_tuning_test['significant']}"
+    )
+
+    print("\n" + "#" * 60)
+    print(f"WINDOW SIZE SIGNIFICANCE TEST (window={best_window} vs window={DEFAULT_WINDOW}, holdout weeks)")
+    print("#" * 60)
+    holdout_default_abs_error, holdout_best_abs_error = paired_variant_metric(
+        game_logs, scoring_config, SEASON, HOLDOUT_WEEKS, default_window_variant, best_window_variant, metric="abs_error",
+    )
+    window_holdout_test = paired_significance_test(holdout_best_abs_error, holdout_default_abs_error)
+    print(
+        f"  abs_error (MAE):  n={window_holdout_test['n']}  mean_diff({best_window}-{DEFAULT_WINDOW})={window_holdout_test['mean_diff']:+}"
+        f"  p={window_holdout_test['p_value']}  significant={window_holdout_test['significant']}"
+    )
+
+    # best_window beating DEFAULT_WINDOW doesn't establish it's the single
+    # best window -- the runner-up candidate (by tuning MAE) could be
+    # statistically indistinguishable from it. Test that directly instead
+    # of treating the sweep table's ranking as precise.
+    runner_up_candidates = [w for w in window_candidates if w != best_window]
+    if runner_up_candidates:
+        runner_up_window = min(runner_up_candidates, key=lambda w: tuning_window_results[f"window={w}"]["mae"])
+        print("\n" + "#" * 60)
+        print(f"WINDOW SIZE SIGNIFICANCE TEST (window={best_window} vs runner-up window={runner_up_window}, tuning weeks)")
+        print("#" * 60)
+        runner_up_window_variant = {"window": runner_up_window}
+        tuning_runner_up_abs_error, tuning_best_abs_error_2 = paired_variant_metric(
+            game_logs, scoring_config, SEASON, TUNING_WEEKS, runner_up_window_variant, best_window_variant, metric="abs_error",
+        )
+        window_runner_up_test = paired_significance_test(tuning_best_abs_error_2, tuning_runner_up_abs_error)
+        print(
+            f"  abs_error (MAE):  n={window_runner_up_test['n']}  mean_diff({best_window}-{runner_up_window})={window_runner_up_test['mean_diff']:+}"
+            f"  p={window_runner_up_test['p_value']}  significant={window_runner_up_test['significant']}"
+        )
 
     print("\n" + "#" * 60)
     print("MATCHUP MULTIPLIER ABLATION -- TUNING WEEKS (window=%d)" % DEFAULT_WINDOW)
@@ -484,6 +552,108 @@ def main():
         f"  error (bias):      n={bias_test['n']}  mean_diff(on-off)={bias_test['mean_diff']:+}"
         f"  p={bias_test['p_value']}  significant={bias_test['significant']}"
     )
+
+    # -----------------------------------------------------------------
+    # Findings doc "ideas for improving accuracy" #1: does a recency-
+    # decayed average beat the plain unweighted mean (decay=1.0)? Same
+    # tuning/holdout-weeks discipline as the window sweep above -- a decay
+    # factor is only trustworthy if it also holds up on weeks it wasn't
+    # picked on.
+    # -----------------------------------------------------------------
+    print("\n" + "#" * 60)
+    print("DECAY SWEEP -- TUNING WEEKS (window=%d)" % DEFAULT_WINDOW)
+    print("#" * 60)
+    decay_variants = [
+        {"label": f"decay={d}", "window": DEFAULT_WINDOW, "use_matchup": False, "decay": d}
+        for d in DECAY_VALUES_TO_SWEEP
+    ]
+    tuning_decay_results = compare_variants(game_logs, scoring_config, SEASON, TUNING_WEEKS, decay_variants)
+    for label, metrics in tuning_decay_results.items():
+        print_report(label, metrics)
+
+    print("\n" + "#" * 60)
+    print("DECAY SWEEP -- HOLDOUT WEEKS (confirm before committing)")
+    print("#" * 60)
+    holdout_decay_results = compare_variants(game_logs, scoring_config, SEASON, HOLDOUT_WEEKS, decay_variants)
+    for label, metrics in holdout_decay_results.items():
+        print_report(label, metrics)
+
+    # Best candidate by tuning-weeks MAE, excluding the decay=1.0 baseline
+    # itself -- picked programmatically so this stays a mechanical
+    # tuning-weeks decision, same discipline as the window-size sweep
+    # above; still confirmed against holdout below, and against the
+    # unweighted baseline via a real significance test, not just "lowest
+    # number wins."
+    candidates = [v for v in decay_variants if v["decay"] != 1.0]
+    best_decay_label = min(candidates, key=lambda v: tuning_decay_results[v["label"]]["mae"])["decay"]
+    print(f"\nBest tuning-weeks MAE among decay<1.0 candidates: decay={best_decay_label}")
+
+    print("\n" + "#" * 60)
+    print(f"DECAY SIGNIFICANCE TEST (decay={best_decay_label} vs decay=1.0, window={DEFAULT_WINDOW}, tuning weeks)")
+    print("#" * 60)
+    baseline_variant = {"window": DEFAULT_WINDOW, "decay": 1.0}
+    candidate_variant = {"window": DEFAULT_WINDOW, "decay": best_decay_label}
+    baseline_abs_error, candidate_abs_error = paired_variant_metric(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, baseline_variant, candidate_variant, metric="abs_error",
+    )
+    decay_mae_test = paired_significance_test(candidate_abs_error, baseline_abs_error)
+    print(
+        f"  abs_error (MAE):  n={decay_mae_test['n']}  mean_diff(decay-baseline)={decay_mae_test['mean_diff']:+}"
+        f"  p={decay_mae_test['p_value']}  significant={decay_mae_test['significant']}"
+    )
+    baseline_error, candidate_error = paired_variant_metric(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, baseline_variant, candidate_variant, metric="error",
+    )
+    decay_bias_test = paired_significance_test(candidate_error, baseline_error)
+    print(
+        f"  error (bias):      n={decay_bias_test['n']}  mean_diff(decay-baseline)={decay_bias_test['mean_diff']:+}"
+        f"  p={decay_bias_test['p_value']}  significant={decay_bias_test['significant']}"
+    )
+
+    # -----------------------------------------------------------------
+    # Findings doc idea #4: does the ideal window size differ by position?
+    # Segments the same pooled player list by `position` (carried on each
+    # game-log entry by load_full_pool_game_logs above) and re-runs the
+    # window sweep per position, tuning weeks only -- an exploratory check
+    # per the findings doc ("cheap to test"), not a full tuning/holdout
+    # split per position.
+    # -----------------------------------------------------------------
+    print("\n" + "#" * 60)
+    print("POSITION-SPECIFIC WINDOW SWEEP -- TUNING WEEKS")
+    print("#" * 60)
+    positions_by_player = {
+        pid: next((g["position"] for g in log if g.get("position")), None)
+        for pid, log in game_logs.items()
+    }
+    positions = sorted({pos for pos in positions_by_player.values() if pos})
+    for position in positions:
+        position_game_logs = {pid: log for pid, log in game_logs.items() if positions_by_player[pid] == position}
+        print(f"\n-- {position} (n_players={len(position_game_logs)}) --")
+        position_results = compare_variants(position_game_logs, scoring_config, SEASON, TUNING_WEEKS, window_variants)
+        for label, metrics in position_results.items():
+            print_report(label, metrics)
+
+        # Per-position sample sizes here (n_players in the single digits,
+        # n graded weeks in the 20s-70s) are small enough that "window=6
+        # has the lowest MAE for RBs" could easily be noise rather than a
+        # real per-position effect -- same "0.005 difference" trap the
+        # matchup ablation hit before it got a real significance test.
+        # Check the apparent best window against DEFAULT_WINDOW the same
+        # way, instead of eyeballing the table above.
+        position_best_window = min(WINDOW_SIZES_TO_SWEEP, key=lambda w: position_results[f"window={w}"]["mae"])
+        if position_best_window == DEFAULT_WINDOW:
+            print(f"   (best window for {position} is already DEFAULT_WINDOW={DEFAULT_WINDOW} -- nothing to test)")
+            continue
+        best_values, default_values = paired_variant_metric(
+            position_game_logs, scoring_config, SEASON, TUNING_WEEKS,
+            variant_a={"window": position_best_window}, variant_b={"window": DEFAULT_WINDOW}, metric="abs_error",
+        )
+        position_sig_test = paired_significance_test(best_values, default_values)
+        print(
+            f"   significance test: window={position_best_window} vs window={DEFAULT_WINDOW} (default) -- "
+            f"n={position_sig_test['n']}  mean_diff={position_sig_test['mean_diff']}"
+            f"  p={position_sig_test['p_value']}  significant={position_sig_test['significant']}"
+        )
 
 
 if __name__ == "__main__":

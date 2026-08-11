@@ -26,7 +26,15 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   guess. Swap this file once the commissioner responds.
 - **`projections.py`** — the in-house rolling-average model per
   `docs/design/in-house-projection-model-spec.md` §3.2–3.3 and §5's output
-  contract (`games_used`, `confidence`, `opponent_multiplier`).
+  contract (`games_used`, `confidence`, `opponent_multiplier`). Also
+  supports an exponentially-decayed average via `decay` (added 2026-08-10,
+  `_rolling_average()` / `project_player(..., decay=...)`) — `decay=1.0`
+  is the default and is arithmetically identical to the original unweighted
+  mean, not just close to it. This was backtested (see the findings doc
+  below) and found to make MAE significantly *worse*, not better, so
+  `DEFAULT_DECAY = 1.0` stays the shipped default; the parameter exists so
+  that finding is falsifiable against more data later without rebuilding
+  the code path.
 - **`matchup.py`** — opponent-strength adjustment feeding
   `projections.py`'s `opponent_multiplier` parameter. Deliberately simpler
   than the design spec's original §3.4 idea (defense-vs-position
@@ -55,12 +63,55 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   broken down by confidence tier, and runs a window-size sweep plus a
   matchup-multiplier on/off ablation with a tuning-weeks/holdout-weeks
   split to guard against overfitting the choice to one season's noise.
-  Full methodology and honest caveats (this validates model *mechanics*,
-  not real-2026 point accuracy) are in its module docstring — read that
-  before trusting its output. Needs `PLAYER_IDS` filled in and must run
-  locally (network + nflreadpy).
-- **`tests/`** — 65 unit tests, all passing, covering the logic above with
+  Also runs a **paired significance test** (`paired_significance_test()` +
+  `paired_variant_metric()`, added 2026-08-10) on the matchup ablation's
+  MAE and bias — a proper paired z-test on matched per-(player, week)
+  values, replacing an earlier version of this doc's "eyeballed" call that
+  a small MAE delta was noise. Plain-stdlib normal approximation rather
+  than scipy's exact paired t-test (consistent with `_pearson_correlation`
+  avoiding `statistics.correlation` for the same 3.9-venv-compatibility
+  reason) — accurate enough at this backtest's sample sizes (n~155/65),
+  rougher below n≈30. Also (added 2026-08-10) sweeps candidate `decay`
+  values against `projections.py`'s new recency-weighting option, and
+  segments the player pool by position for a position-specific window
+  sweep — both findings doc idea #1 and idea #4, each checked against
+  `DEFAULT_DECAY`/`DEFAULT_WINDOW` with the same paired significance test
+  used for the matchup ablation, not just an eyeballed MAE table. Full
+  methodology and honest caveats (this validates model *mechanics*, not
+  real-2026 point accuracy) are in the module docstring — read that before
+  trusting its output. Loads the full active QB/RB/WR/TE pool (no
+  hand-picked player list) and must run locally (network + nflreadpy) —
+  confirmed actually working end-to-end from this
+  machine's `backend/.venv` on 2026-08-10 (unlike the Cowork cloud sandbox
+  the rest of this backend was built in, where PyPI and nflverse's data
+  host were both unreachable).
+- **`tests/`** — 90 unit tests, all passing, covering the logic above with
   synthetic data (no network, no API keys needed to run these).
+- **`docs/research/projection-model-backtest-findings.md`** — write-up of
+  the backtest results across three rounds. Round 1 (19 hand-picked
+  players): window=4 confirmed as the right default, the win-record
+  matchup multiplier showed no benefit, plus a prioritized list of accuracy
+  ideas for later rounds (recency weighting, shrinkage for thin samples,
+  usage/opportunity features, position-specific tuning, a real
+  position-specific matchup model). Round 2 (same 19 players): tested two
+  of those ideas and rejected both — recency-weighted decay (MAE
+  significantly worse as decay drops, p=0.0105) and position-specific
+  window tuning (every position's apparent best window within noise of the
+  pooled default, p≥0.20). **Round 3 (2026-08-11, full active pool — 611
+  players, not hand-picked)** overturned or re-scoped several Round 1/2
+  calls now that the sample is large enough to test them properly:
+  window=6 now significantly beats window=4 on both tuning and holdout
+  weeks (applied as `projections.py`'s new `DEFAULT_WINDOW`); RB and TE individually
+  confirm a significant window=6 preference (Round 2's "no position needs
+  an override" was underpowered at 3-9 players/position); Round 2's decay
+  rejection doesn't replicate at full-pool scale (no longer significant —
+  looks like a small-sample artifact, though the conclusion not to ship it
+  is unchanged); and the `by_confidence` tier breakdown shows the
+  `no_data` tier (zero games logged) is a literal predict-zero with no
+  fallback, a sharper and more actionable version of the "shrinkage" idea
+  than originally scoped. All three rounds' code is in `projections.py`/
+  `backtest.py`; Round 3's window=6 finding is applied as the shipped
+  default (`projections.py`'s `DEFAULT_WINDOW`).
 
 ## What's deliberately NOT done here
 
@@ -100,6 +151,11 @@ python3 tests/test_matchup.py -v
 python3 tests/test_backtest.py -v
 ```
 
+(9 of `test_backtest.py`'s cases cover the paired significance test —
+noise/signal/degenerate-input cases and the metric-pairing logic,
+including the asymmetric-skip edge case where one variant grades a week
+the other doesn't.)
+
 No dependencies needed for the tests above (stdlib `unittest` only,
 deliberately — `pytest` wasn't installable from the cloud sandbox this was
 built in either, and `backtest.py`'s correlation helper is hand-rolled
@@ -115,15 +171,18 @@ stdlib function: `scripts/.venv` is Python 3.9, and that function needs
 1. `pip install -r requirements.txt` locally (this needs network + PyPI,
    confirmed unavailable from the Cowork cloud sandbox this repo section
    was built in).
-2. Get real `nflreadpy` player IDs for the players you want to test —
-   `db_playerids.csv` (already used elsewhere in this project, see
-   CLAUDE.md's Data Sources table) has the crosswalk, or filter
-   `nflreadpy.load_rosters()`'s output by name.
-3. Edit `PLAYER_IDS` near the bottom of `backtest.py` with those IDs — aim
-   for a mixed set of archetypes per the module docstring, not just top
-   players.
-4. `python3 backtest.py` from inside `backend/`. It prints three reports:
-   a window-size sweep on the tuning weeks, the same sweep on the holdout
-   weeks (only trust a window size that looks good on both), and a
-   matchup-multiplier on/off ablation — does `matchup.py`'s win-record
-   adjustment actually lower error, or just add noise?
+2. Optionally edit `SEASON` / `POSITIONS` near the bottom of `backtest.py`
+   — `main()` loads the full active pool for those positions via
+   `load_full_pool_game_logs()` (every player `nflreadpy` has a stat line
+   for that season, ~600 for the default QB/RB/WR/TE), not a hand-picked
+   player list.
+3. `python3 backtest.py` from inside `backend/`. It prints, in order: a
+   window-size sweep on tuning weeks, the same sweep on holdout weeks
+   (only trust a window size that looks good on both), a
+   matchup-multiplier on/off ablation plus its paired significance test,
+   a decay-value sweep on tuning and holdout weeks plus its significance
+   test against `decay=1.0`, and a position-specific window sweep (each
+   position's apparent best window checked for significance against
+   `DEFAULT_WINDOW`, same as the matchup/decay checks) — every "does X
+   actually help" question in the codebase gets an actual p-value, not an
+   eyeballed table.

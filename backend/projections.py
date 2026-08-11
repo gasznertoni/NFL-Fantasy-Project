@@ -18,7 +18,41 @@ from typing import Any, Optional
 
 from scoring import compute_league_points
 
-DEFAULT_WINDOW = 4  # games played, per design spec section 3.2's starting guess
+DEFAULT_WINDOW = 6  # games played -- design spec section 3.2's starting guess was 4;
+# raised to 6 per docs/research/projection-model-backtest-findings.md's Round 3
+# (2026-08-11, full 611-player pool): window=6 beat window=4 with significance on
+# both tuning weeks (p=0.0003) and holdout weeks (p=0.0325), the first time this
+# choice cleared a significance bar in either direction.
+DEFAULT_DECAY = 1.0  # unweighted mean by default -- see _rolling_average()
+
+
+def _rolling_average(per_game_points: list[float], decay: float = DEFAULT_DECAY) -> float:
+    """Exponentially-decayed average over `per_game_points` (chronological
+    order, oldest first -- matches project_player's existing sort). The
+    most recent game gets weight 1.0; each game further back is multiplied
+    by one more factor of `decay`. decay=1.0 (the default) makes every
+    weight equal to 1.0, which is arithmetically identical to the plain
+    unweighted mean this function replaces -- so the existing default
+    behavior (and TestRollingWindow.test_unweighted_mean_not_recency_weighted
+    in tests/test_projections.py) is preserved exactly, not approximated.
+
+    Motivated by the bias sign-flip in
+    docs/research/projection-model-backtest-findings.md ("Ideas for
+    improving accuracy" #1): an unweighted mean lags a player heating up
+    or cooling off, since a game from `window` games ago counts exactly as
+    much as last week's. Decay < 1.0 discounts older games so the average
+    reacts faster to a recent form change -- the tradeoff the findings doc
+    flags is reacting to noise (one big or bad game) rather than a real
+    trend, which is why decay is swept and paired-tested in backtest.py
+    rather than picked by feel.
+    """
+    if not (0 < decay <= 1):
+        raise ValueError(f"decay must be in (0, 1], got {decay}")
+    if not per_game_points:
+        return 0.0
+    n = len(per_game_points)
+    weights = [decay ** (n - 1 - i) for i in range(n)]
+    return sum(w * p for w, p in zip(weights, per_game_points)) / sum(weights)
 
 
 def _games_before(game_log: list[dict[str, Any]], season: int, week: int) -> list[dict[str, Any]]:
@@ -58,6 +92,7 @@ def project_player(
     as_of_week: int,
     window: int = DEFAULT_WINDOW,
     opponent_multiplier: float = 1.0,
+    decay: float = DEFAULT_DECAY,
 ) -> dict[str, Any]:
     """Project one player's fantasy points for (as_of_season, as_of_week).
 
@@ -81,6 +116,12 @@ def project_player(
             section 3.4). Defaults to 1.0 (no adjustment) since that piece
             is deferred -- passed as a parameter so it's a one-line addition
             later without changing this function's shape.
+        decay: exponential recency-decay factor for the rolling average,
+            per docs/research/projection-model-backtest-findings.md's
+            "ideas for improving accuracy" #1. Must be in (0, 1]. Defaults
+            to 1.0 (unweighted mean, i.e. today's behavior) -- see
+            _rolling_average()'s docstring for why 1.0 is exactly
+            equivalent, not just close, to the old plain-mean code path.
 
     Returns:
         Output contract per design spec section 5: player_id (left to the
@@ -111,7 +152,7 @@ def project_player(
 
     per_game_points = [float(compute_league_points(g, scoring_config)) for g in recent]
     games_used = len(per_game_points)
-    rolling_avg = sum(per_game_points) / games_used if games_used else 0.0
+    rolling_avg = _rolling_average(per_game_points, decay)
 
     return {
         "source": "in_house_estimate",
@@ -120,6 +161,7 @@ def project_player(
         "games_used": games_used,
         "confidence": _confidence(games_used, window),
         "rolling_avg": round(rolling_avg, 2),
+        "decay": decay,
         "opponent_multiplier": opponent_multiplier,
         "projected_points": round(rolling_avg * opponent_multiplier, 2),
         "per_game_points": per_game_points,
@@ -133,6 +175,7 @@ def project_players(
     as_of_week: int,
     window: int = DEFAULT_WINDOW,
     opponent_multipliers: Optional[dict[str, float]] = None,
+    decay: float = DEFAULT_DECAY,
 ) -> dict[str, dict[str, Any]]:
     """Batch wrapper over project_player for a slate of players. Kept
     separate from project_player so the single-player function stays the
@@ -146,6 +189,7 @@ def project_players(
             as_of_week,
             window=window,
             opponent_multiplier=opponent_multipliers.get(player_id, 1.0),
+            decay=decay,
         )
         for player_id, game_log in game_logs_by_player.items()
     }

@@ -51,6 +51,43 @@ class TestEvaluatePlayerWeek(unittest.TestCase):
         self.assertAlmostEqual(result["actual"], 10.0)  # unaffected by the multiplier
 
 
+class TestDecayThreading(unittest.TestCase):
+    """decay must actually reach project_player through every layer of the
+    harness (evaluate_player_week -> backtest_player -> compare_variants /
+    paired_variant_metric) -- the findings doc's decay sweep (idea #1) is
+    worthless if a decay value silently gets dropped somewhere in here and
+    every variant secretly runs decay=1.0."""
+
+    def test_evaluate_player_week_passes_decay_through(self):
+        # 0 pts, 10 pts, then a week-3 actual result to grade against (any
+        # value works -- only "projected" is asserted on here).
+        game_log = [game(2025, 1, 0), game(2025, 2, 100), game(2025, 3, 50)]
+        unweighted = evaluate_player_week(game_log, CONFIG, season=2025, week=3, window=4, decay=1.0)
+        decayed = evaluate_player_week(game_log, CONFIG, season=2025, week=3, window=4, decay=0.5)
+        self.assertAlmostEqual(unweighted["projected"], 5.0)      # plain mean of 0, 10
+        self.assertAlmostEqual(decayed["projected"], 10 / 1.5, places=2)  # weighted toward the more recent 10
+
+    def test_compare_variants_decay_variants_produce_distinct_metrics(self):
+        game_logs = {"p1": [game(2025, w, 0 if w % 2 else 100) for w in range(1, 6)]}
+        variants = [
+            {"label": "decay=1.0", "window": 4, "decay": 1.0},
+            {"label": "decay=0.5", "window": 4, "decay": 0.5},
+        ]
+        results = compare_variants(game_logs, CONFIG, season=2025, weeks=[5], variants=variants)
+        self.assertNotEqual(results["decay=1.0"]["mae"], results["decay=0.5"]["mae"])
+
+    def test_paired_variant_metric_decay_default_matches_omitted(self):
+        """A variant dict that omits "decay" entirely must behave exactly
+        like decay=1.0 (compare_variants/paired_variant_metric default to
+        DEFAULT_DECAY, same contract as project_player itself)."""
+        game_logs = {"p1": [game(2025, w, 10 * w) for w in range(1, 6)]}
+        values_omitted, values_explicit = paired_variant_metric(
+            game_logs, CONFIG, season=2025, weeks=[5],
+            variant_a={"window": 4}, variant_b={"window": 4, "decay": 1.0},
+        )
+        self.assertEqual(values_omitted, values_explicit)
+
+
 class TestBacktestPlayer(unittest.TestCase):
     def test_skips_ungraded_weeks_without_raising(self):
         game_log = [game(2025, 1, 50), game(2025, 3, 50)]  # week 2 is a bye

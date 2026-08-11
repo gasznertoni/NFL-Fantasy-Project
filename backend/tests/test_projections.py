@@ -64,6 +64,44 @@ class TestRollingWindow(unittest.TestCase):
         self.assertAlmostEqual(result["rolling_avg"], 6.0)  # simple mean, not weighted toward week 2
 
 
+class TestRecencyDecay(unittest.TestCase):
+    """decay=1.0 (default) must reproduce the plain unweighted mean exactly
+    -- decay<1.0 shifts the average toward the most recent game, the fix
+    for the bias sign-flip flagged in
+    docs/research/projection-model-backtest-findings.md ("ideas for
+    improving accuracy" #1)."""
+
+    def test_decay_one_is_identical_to_unweighted_mean(self):
+        game_log = [game(2026, w, 10 * w) for w in range(1, 5)]
+        unweighted = project_player(game_log, CONFIG, as_of_season=2026, as_of_week=5, window=4)
+        decayed = project_player(game_log, CONFIG, as_of_season=2026, as_of_week=5, window=4, decay=1.0)
+        self.assertAlmostEqual(unweighted["rolling_avg"], decayed["rolling_avg"])
+
+    def test_decay_below_one_weights_recent_games_more(self):
+        # week 1 -> 0 pts, week 2 -> 10 pts (10 rush_yd * 0.1)
+        game_log = [game(2026, 1, 0), game(2026, 2, 100)]
+        result = project_player(game_log, CONFIG, as_of_season=2026, as_of_week=3, window=4, decay=0.5)
+        # weights: week1 (oldest) = 0.5, week2 (most recent) = 1.0
+        # weighted avg = (0.5*0 + 1.0*10) / 1.5 = 6.6667, pulled toward the
+        # recent game -- above the unweighted mean of 5.0
+        self.assertAlmostEqual(result["rolling_avg"], 10 / 1.5, places=2)  # rolling_avg is rounded to 2dp
+        self.assertGreater(result["rolling_avg"], 5.0)
+
+    def test_decay_field_present_in_output(self):
+        game_log = [game(2026, 1, 100)]
+        result = project_player(game_log, CONFIG, as_of_season=2026, as_of_week=2, window=4, decay=0.8)
+        self.assertEqual(result["decay"], 0.8)
+
+    def test_decay_out_of_range_raises(self):
+        game_log = [game(2026, 1, 100)]
+        with self.assertRaises(ValueError):
+            project_player(game_log, CONFIG, as_of_season=2026, as_of_week=2, decay=0.0)
+        with self.assertRaises(ValueError):
+            project_player(game_log, CONFIG, as_of_season=2026, as_of_week=2, decay=1.1)
+        with self.assertRaises(ValueError):
+            project_player(game_log, CONFIG, as_of_season=2026, as_of_week=2, decay=-0.5)
+
+
 class TestColdStart(unittest.TestCase):
     def test_rookie_first_game_flagged_low_confidence(self):
         game_log = [game(2026, 1, 40, rush_td=1)]
