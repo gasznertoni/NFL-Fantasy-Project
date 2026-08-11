@@ -69,9 +69,13 @@ DST_DIRECT_COLUMN_MAP = {
 
 # def_st_td: nflreadpy splits defensive TDs (pick-sixes, fumble-return TDs)
 # from special-teams TDs (punt/kickoff return TDs) into two separate
-# columns; this league's single def_st_td category sums both. See the
-# module docstring's caveat -- this is a placeholder-config mapping
-# decision, not a confirmed-real one.
+# columns; this league's single def_st_td category sums both. Both
+# columns confirmed real and nonzero against 103 real 2024-2025 rows (see
+# docs/research/dst-scoring-fields.md's 2026-08-12 addendum) -- but unlike
+# the other categories in this module, that's "the columns exist and are
+# read correctly," not a box-score-level confirmation that the sum is
+# exactly right. See the module docstring's caveat -- this is a
+# placeholder-config mapping decision, not a confirmed-real one.
 DST_TD_COLUMNS = ("def_tds", "special_teams_tds")
 
 # Return yardage: punt + kickoff return yards, both direct per-team fields.

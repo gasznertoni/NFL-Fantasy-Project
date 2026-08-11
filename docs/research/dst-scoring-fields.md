@@ -26,3 +26,23 @@ in the value engine, not a data-source gap — no fallback source needed, nothin
 
 This closes the last open item from `coverage-scorecard.md`. See CLAUDE.md's Data Sources
 table for the resolved status.
+
+## Addendum (2026-08-12): `def_st_td` field confirmation
+
+This doc's original probe (above) covered the five fields the league's DST scoring needed
+*as scoped on 2026-08-04* — it doesn't mention `def_st_td` (defensive/special-teams
+touchdowns) at all, since that category wasn't part of the original ask. When
+`backend/dst.py` was built (closing CLAUDE.md Next Steps item 3), `def_st_td` needed a
+field too, so this was checked hands-on before shipping, same rigor as the five fields
+above: `load_team_stats()` has both `def_tds` (defensive TDs — pick-sixes, fumble-return
+TDs) and `special_teams_tds` (punt/kickoff-return TDs) as separate direct per-team fields,
+confirmed non-fabricated against real 2024–2025 data (103 real team-game rows with a
+nonzero value in one or both columns). `dst.py` sums both into `def_st_td`, since this
+league's single category doesn't distinguish the two. Not independently verified beyond
+"the columns are real and nonzero, consistent with what their names claim" — unlike the
+five fields above, there's no cross-check (e.g. against a specific known real touchdown)
+confirming the *sum* is exactly what a manual box-score count would produce for a given
+team-game. Given CLAUDE.md Next Steps item 2's open question about whether ESPN even
+credits defensive/return TDs to the DST slot at all, this field's real-world shape may
+still change regardless — treat this addendum as "the columns exist and are being read
+correctly," not as "the final DST-TD scoring rule is confirmed."

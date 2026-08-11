@@ -29,7 +29,7 @@
     "pat_made": 1,
     "pat_missed": -1
   },
-  "_kicker_note": "fg_*/pat_* are a placeholder slot, same status as the rest of this file -- values are an ESPN-default-ish guess, unconfirmed for the real league. Unlike the offensive categories above, there is also no nflreadpy column mapping or stat-line assembly wired up for these yet (NFLREADPY_OFFENSE_COLUMN_MAP in scoring.py has no kicker entries) -- same class of gap as DST's self-join requirement in docs/research/dst-scoring-fields.md, just not yet documented there. Added so the config schema at least has a slot, per the frontend's K roster slot (frontend/public/mock/roster-slots.json) and docs/research/espn-scoring-waivers-rules-summary.md section 3.",
+  "_kicker_note": "fg_*/pat_* are a placeholder slot, same status as the rest of this file -- values are an ESPN-default-ish guess, unconfirmed for the real league. Stat-line assembly IS wired up now (backend/kicker.py, added 2026-08-12, per docs/research/kicker-scoring-fields.md) -- kickers are a normal load_player_stats() row, no self-join needed unlike DST. The only remaining gap here is the point VALUES below, same as every other category in this file, pending the real league scoring rules (CLAUDE.md Next Steps item 1).",
   "milestones": {
     "pass_yd": {
       "mode": "highest",
