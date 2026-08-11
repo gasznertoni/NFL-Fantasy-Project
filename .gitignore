@@ -5,3 +5,4 @@ __pycache__/
 .DS_Store
 
 docs/research/phase1-local-results.json
+.claude/worktrees/
