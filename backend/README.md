@@ -170,7 +170,16 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   6-point passing TDs put QB's raw scale well above every other position,
   which surfaced nothing but backup QBs when first tested against real
   2025 data; ranking on the surplus over the last-rostered player at the
-  same position fixed that).
+  same position fixed that). `DEFAULT_ROSTERED_RANK_CUTOFF` gained `DST: 14`/
+  `K: 14` entries on 2026-08-12 when those two positions were wired into
+  the shared candidate pool for the first time — the same "raw points
+  aren't cross-position comparable" failure mode QB hit is what an
+  uncapped DST/K hit too: with no cutoff, all 32 DSTs (or ~30 rostered
+  kickers) were "waiver eligible," and their placeholder-config point
+  totals were competitive enough with thin skill-position totals to
+  produce an all-DST/K waiver-targets list against real 2025-week-10
+  data. 14 mirrors QB/TE's cutoff (this league's other two single-start
+  positions).
 - **`track_record.py`** — live, in-season "how has the tool done so far"
   aggregation (`getTrackRecord()`'s shape), per gap #4. Distinct from
   `backtest.py`: this reads the tool's own past `weekly-report-week-N.json`
@@ -204,48 +213,113 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   documented rookie/`fantasypros_id`-lag gap) is silently dropped from
   the consensus tier and falls back to the in-house estimate rather than
   failing the whole report.
+- **`dst.py`** (added 2026-08-12) — DST (team defense) stat-line assembly,
+  closing CLAUDE.md Next Steps item 3's DST half ("Wire in DST/K"). Turns
+  `nflreadpy`'s raw `load_team_stats()` + `load_schedules()` rows into the
+  exact `stat_line` shape `scoring.compute_league_points` already knows
+  how to score, per the self-join/schedule-join logic
+  `docs/research/dst-scoring-fields.md` documented back on 2026-08-04:
+  three categories (forced fumbles, recovered-opponent-fumble count,
+  return yards) are direct per-team fields; two (blocked-kick credit,
+  yards allowed) need a self-join of `team_stats` against itself on
+  `game_id`, reading the *opponent's* row; points allowed needs a join
+  against `load_schedules()`'s `home_score`/`away_score`. Confirmed
+  end-to-end against real 2025 data before merge (100% `game_id` overlap
+  between `load_team_stats()` and `load_schedules()` across the full
+  season; a real ARI@NO week-1 game hand-verified for the points-allowed
+  direction and yards-allowed sum). **Caveat carried forward, not
+  resolved here:** `def_st_td` (mapped from `def_tds` +
+  `special_teams_tds`) is built against the placeholder config as-is —
+  CLAUDE.md Next Steps item 2's still-open question about whether ESPN
+  even credits defensive/return TDs to the DST slot (it hasn't, generally,
+  since 2019) may mean this category needs to change shape once that
+  question closes, not just get a new point value.
+- **`kicker.py`** (added 2026-08-12) — Kicker (K) stat-line assembly,
+  closing CLAUDE.md Next Steps item 3's K half. Per
+  `docs/research/kicker-scoring-fields.md` (the probe this module
+  implements — no research doc existed for K before this): kickers are a
+  normal `position == "K"` row in `load_player_stats()`, the same table
+  QB/RB/WR/TE game logs come from, so no self-join is needed the way DST's
+  is — just a column map, kept in its own module rather than growing
+  `scoring.py`'s offense-only one (same separation `fantasypros.py`'s own
+  column map already established). Two modeling decisions, both flagged
+  in the module docstring and the research doc: nflreadpy's six real FG
+  distance buckets (0–19/20–29/30–39/40–49/50–59/60+) are re-bucketed into
+  the config's three bands losslessly (the six nest exactly inside the
+  three); blocked FGs/PATs (`fg_blocked`/`pat_blocked`, confirmed as their
+  own tracked outcome distinct from a normal miss) are folded into
+  `fg_missed`/`pat_missed` since the placeholder config has no separate
+  blocked-kick category on the kicker's own side — a modeling choice, not
+  a data gap, and easy to un-fold later if the real league scoring rules
+  turn out to define one.
 - **`generate_report.py`** — orchestration script tying `scoring.py` +
-  `projections.py` + `fantasypros.py` + `news.py` + `waiver_targets.py`
-  together into `weekly-report-week-N.json` and `player-pool.json`, in the
-  exact shape `frontend/src/lib/api.js` already expects. Implements the
-  integration plan's v0 build order, with one update since the plan was
-  written: **real `nflreadpy` player IDs (`gsis_id`) directly as
-  `playerId`**, no invented `p_00123`-style scheme and no permanent
-  crosswalk (the plan's recommended resolution to its own player-ID open
-  question — no real users/saved data existed yet to migrate), and **every
+  `projections.py` + `fantasypros.py` + `news.py` + `waiver_targets.py` +
+  `dst.py` + `kicker.py` together into `weekly-report-week-N.json` and
+  `player-pool.json`, in the exact shape `frontend/src/lib/api.js` already
+  expects. Implements the integration plan's v0 build order, with two
+  updates since the plan was written: **real `nflreadpy` player IDs
+  (`gsis_id`) directly as `playerId`** for QB/RB/WR/TE/K, and **a team
+  abbreviation (e.g. `"BUF"`) directly as `playerId` for DST** — no
+  invented `p_00123`-style scheme for either, and no permanent crosswalk
+  table (the plan's recommended resolution to its own player-ID open
+  question — no real users/saved data existed yet to migrate); and **every
   QB/RB/WR/TE player in FantasyPros' top-10-per-position consensus tier,
-  everyone else in the in-house estimate tier** (gap #2's FantasyPros pull
-  was deliberately deferred by the plan's own v0 scoping, then wired in —
-  see `fantasypros.py` above). `--skip-fantasypros`, or
-  `FANTASYPROS_API_KEY` simply not being set, degrades to 100%
+  everyone else (including all of DST/K) in the in-house estimate tier**
+  (gap #2's FantasyPros pull was deliberately deferred by the plan's own
+  v0 scoping, then wired in — see `fantasypros.py` above). `--skip-fantasypros`,
+  or `FANTASYPROS_API_KEY` simply not being set, degrades to 100%
   `in_house_estimate`, same "skip cleanly" contract `--skip-news`
   already established for the news layer — a FantasyPros outage doesn't
-  block getting *a* report out. Only QB/RB/WR/TE are covered —
-  `scoring.py`'s nflreadpy column map has no stat-line assembly for DST
-  (needs the self-join work in `docs/research/dst-scoring-fields.md`, out
-  of scope for this plan) or K (no column mapping exists for kickers yet
-  either). Confirmed working end-to-end against real 2025 data (see
-  "Generating a real report" below — 40 of 2025-week-10's real top-10
-  FantasyPros players resolved to the consensus tier, 33 of them playable
-  that week) and against the real, current 2026 season, where it correctly
-  degrades to an all-cold-start report (nflverse hasn't published a 2026
-  stats file yet — no games have been played) instead of crashing.
+  block getting *a* report out. **DST/K are now covered** (2026-08-12,
+  closing CLAUDE.md Next Steps item 3 — see `dst.py`/`kicker.py` above),
+  both in the `in_house_estimate` tier only: FantasyPros' free-tier
+  consensus pull stays scoped to its confirmed QB/RB/WR/TE top-10
+  coverage, not extended to DST/K here (a separate, unscoped decision).
+  `projections.py`'s rolling-average/shrinkage model is wired through
+  unmodified for DST/K — it was only backtested against QB/RB/WR/TE
+  (`docs/research/projection-model-backtest-findings.md`), so DST/K
+  projections haven't been through that same accuracy rigor, an honest
+  scope note rather than a blocker. Wiring DST/K into the shared candidate
+  pool also surfaced a real waiver-targets bug, fixed the same day: with
+  no rostered-rank cutoff entry for DST/K, `waiver_targets.py` ranked them
+  by raw points like every other uncapped position, and their placeholder-
+  config point totals turned out competitive enough with thin skill-
+  position totals to produce an all-DST/K waiver list against real
+  2025-week-10 data — `DEFAULT_ROSTERED_RANK_CUTOFF` now has `DST: 14`/
+  `K: 14` entries (mirroring QB/TE, this league's other two single-start
+  positions), confirmed against the same real week to fix it (see
+  `waiver_targets.py` above). Confirmed working end-to-end against real
+  2025 data (see "Generating a real report" below — 40 of 2025-week-10's
+  real top-10 FantasyPros players resolved to the consensus tier, 33 of
+  them playable that week; separately, 32 DSTs and 33 kickers all resolved
+  with real, stable IDs and sane projections) and against the real,
+  current 2026 season, where it correctly degrades to an all-cold-start
+  report (nflverse hasn't published a 2026 stats file yet — no games have
+  been played) instead of crashing.
 - **`generate_track_record.py`** — separate CLI (can run on its own
   cadence, per the plan) that reads back whatever `weekly-report-week-N.json`
   files already exist and real actual results, and writes
   `track-record.json` via `track_record.py`.
-- **`tests/`** — 212 unit tests, all passing, covering the logic above
+- **`tests/`** — 241 unit tests, all passing, covering the logic above
   with synthetic data (no network, no API keys needed to run these).
 
 ## What's deliberately NOT done here
 
-- **DST scoring** — `scoring.py`'s tier/linear mechanism can express it,
-  but assembling a real DST stat line needs the self-join/schedule-join
-  logic already documented in `docs/research/dst-scoring-fields.md`
-  (points-allowed, yards-allowed, block-credit). Not built yet — next
-  logical chunk of item 5. `generate_report.py` excludes DST (and K, same
-  underlying gap) from the generated pool entirely rather than emit a
-  silently-wrong zero.
+- **FantasyPros DST/K coverage** — DST and K are now in every generated
+  report (`dst.py`/`kicker.py`, added 2026-08-12), but only ever in the
+  `in_house_estimate` tier. FantasyPros' free-tier consensus pull
+  (`fantasypros.py`) stays scoped to its confirmed QB/RB/WR/TE top-10
+  coverage — extending it to DST/K would need confirming the API even
+  returns projections for those positions on the free tier at all, which
+  hasn't been checked; a separate, unscoped decision, not a silent gap.
+- **DST/K haven't been through the in-house model's backtest rigor** —
+  `projections.py`'s rolling-average/shrinkage model is wired through for
+  DST/K unmodified from the QB/RB/WR/TE version, but
+  `docs/research/projection-model-backtest-findings.md`'s four rounds of
+  tuning (window size, shrinkage strength, etc.) only ever tested against
+  QB/RB/WR/TE. DST/K projections are real numbers computed the same way,
+  not placeholders, but their accuracy hasn't been independently
+  validated the way the offensive positions' has.
 - **`matchup.py` isn't wired into `projections.py` (or `generate_report.py`)
   yet** — `compute_opponent_multiplier()` produces a number in the exact
   shape `project_player()`'s `opponent_multiplier` parameter expects, but
@@ -274,6 +348,8 @@ python3 tests/test_waiver_targets.py -v
 python3 tests/test_track_record.py -v
 python3 tests/test_generate_report.py -v
 python3 tests/test_fantasypros.py -v
+python3 tests/test_dst.py -v
+python3 tests/test_kicker.py -v
 ```
 
 (9 of `test_backtest.py`'s cases cover the paired significance test —
@@ -318,14 +394,21 @@ working end-to-end against real 2025 data (`--season 2025 --week 10`,
 `--skip-news`: 438 active QB/RB/WR/TE players loaded, 40 resolved to the
 real FantasyPros consensus tier — 33 of them on a bye-free team that week
 — 383 total projected, 3 waiver targets selected with real templated
-rationale text) and against real, current 2026 data (`--season 2026
---week 1`: correctly
+rationale text — confirmed before DST/K existed) and against real, current
+2026 data (`--season 2026 --week 1`: correctly
 produces an all-`no_data`/0.0-point report rather than crashing or
 fabricating a number, since nflverse hasn't published any 2026 game stats
-yet — the season hasn't started). The shipped `frontend/public/mock/*.json`
-fixtures were deliberately left as the hand-authored demo data rather than
-overwritten with that degenerate pre-season output — regenerate them for
-real once actual 2026 games have been played.
+yet — the season hasn't started). **Re-confirmed 2026-08-12 with DST/K
+now wired in** (`--season 2025 --week 10 --skip-news --skip-fantasypros`):
+471 active QB/RB/WR/TE/K players loaded (K joining the roster pool for the
+first time) plus 32 DSTs (all 32 with at least one game logged), 440 total
+projected that week, 3 waiver targets selected — all three genuine
+skill-position adds (RB/TE/WR), not DST/K, confirming the
+`DEFAULT_ROSTERED_RANK_CUTOFF` fix above actually worked against real
+data, not just the synthetic regression test. The shipped
+`frontend/public/mock/*.json` fixtures were deliberately left as the
+hand-authored demo data rather than overwritten with either run's
+output — regenerate them for real once actual 2026 games have been played.
 
 ## Running the backtest
 

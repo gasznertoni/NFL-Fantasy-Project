@@ -34,7 +34,18 @@ from typing import Any, Optional
 # Deliberately generous (skips more than a literal 14-team QB1 count would)
 # since flex/bench/handcuff rostering pushes real depth further down the
 # position list than starters alone would suggest.
-DEFAULT_ROSTERED_RANK_CUTOFF: dict[str, int] = {"QB": 14, "RB": 30, "WR": 30, "TE": 14}
+#
+# DST/K added 2026-08-12 when wiring those two positions into the pool for
+# the first time (CLAUDE.md Next Steps item 3) surfaced the same failure
+# mode raw-points ranking already caused for QB (module docstring above):
+# with no cutoff entry, every one of the league's 32 DSTs (or ~30 rostered
+# kickers) is "waiver eligible," and DST/K's placeholder-config point
+# totals are competitive enough with thin skill-position totals that a
+# real 2025-week-10 run produced a waiver list of DST/K/DST -- not a
+# useful "waiver wire" recommendation for two single-start positions.
+# 14 mirrors QB/TE's cutoff (this league also starts exactly one DST and
+# one K per roster, same as QB/TE -- see frontend/public/mock/roster-slots.json).
+DEFAULT_ROSTERED_RANK_CUTOFF: dict[str, int] = {"QB": 14, "RB": 30, "WR": 30, "TE": 14, "DST": 14, "K": 14}
 
 DEFAULT_TOP_N = 3
 

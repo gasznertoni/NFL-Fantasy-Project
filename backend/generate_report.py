@@ -18,12 +18,20 @@ consensus tier gets that projection; everyone else still gets the
 in-house estimate. Waiver targets still use waiver_targets.py's templated
 (non-LLM) rationale, per the plan's suggested v0 shortcut.
 
-Only QB/RB/WR/TE are covered -- same limitation backtest.py already
-documents: scoring.py's NFLREADPY_OFFENSE_COLUMN_MAP has no stat-line
-assembly for DST (needs the self-join/schedule-join logic in
-docs/research/dst-scoring-fields.md, explicitly out of scope for this
-plan) or K (no nflreadpy column mapping exists yet either -- same class of
-gap, just not yet documented as its own research doc).
+DST and K are now covered too (2026-08-12, closing CLAUDE.md Next Steps
+item 3 -- see dst.py and kicker.py), both in the in_house_estimate tier
+only: FantasyPros' free-tier consensus pull (fantasypros.py) stays scoped
+to its confirmed QB/RB/WR/TE top-10-per-position coverage, not extended to
+DST/K here (a separate, unscoped decision -- see backend/README.md).
+projections.py's rolling-average/shrinkage model is wired through
+unmodified for DST/K (no new modeling logic), but it was only backtested
+against QB/RB/WR/TE (docs/research/projection-model-backtest-findings.md)
+-- DST/K projections haven't been through that same rigor, an honest scope
+note, not a blocker. A DST's `playerId` is its team abbreviation (e.g.
+"BUF"), not a gsis_id -- a DST isn't a per-player entity, and a real,
+stable ID already exists for it (see load_dst_pool_nflreadpy below and
+dst.py's own docstring). A K's `playerId` is a real gsis_id, same
+mechanism QB/RB/WR/TE already use.
 
 Split, like every other module in this backend, into pure/testable
 assembly functions (this module's top half) and network adapter functions
@@ -49,11 +57,22 @@ from waiver_targets import generate_rationale, select_waiver_targets
 # single known mismatch.
 TEAM_ABBR_DISPLAY_MAP = {"LA": "LAR"}
 
-# scoring.py's NFLREADPY_OFFENSE_COLUMN_MAP only covers these; DST and K
-# both need stat-line assembly work that doesn't exist yet (see module
-# docstring) so they're excluded from the generated pool entirely rather
-# than included with a silently-wrong zero projection.
+# The positions projections.py's model was actually backtested against
+# (docs/research/projection-model-backtest-findings.md) and the scope of
+# fantasypros.py's consensus tier (fantasypros.POSITIONS mirrors this).
+# Kept separate from ROSTER_POSITIONS below since K resolves to a real
+# player via load_rosters() the same way these four do, but is excluded
+# from the backtest/FantasyPros scope both still describe.
 POOL_POSITIONS = ("QB", "RB", "WR", "TE")
+
+KICKER_POSITION = "K"
+
+# Positions resolvable via nflreadpy's load_rosters() with a real gsis_id
+# -- K joins QB/RB/WR/TE here since it's a per-player entity too, just not
+# part of POOL_POSITIONS' backtest/FantasyPros scope. DST is NOT in this
+# list -- it isn't a per-player roster entity at all, see
+# load_dst_pool_nflreadpy below.
+ROSTER_POSITIONS = POOL_POSITIONS + (KICKER_POSITION,)
 
 TIER_METADATA = {
     "consensus": {"tierLabel": "Consensus projection", "source": "FantasyPros"},
@@ -280,13 +299,21 @@ def load_player_pool_nflreadpy(season: int) -> list[dict[str, Any]]:
     """Interim player-pool source per the integration plan's orchestration
     section: real ESPN league roster access doesn't exist yet, so this
     uses nflreadpy's full active-roster snapshot as a stand-in -- covers
-    the general player pool, not this specific league's rostered players."""
+    the general player pool, not this specific league's rostered players.
+
+    Covers ROSTER_POSITIONS (QB/RB/WR/TE/K), not just POOL_POSITIONS --
+    kickers resolve to a real gsis_id via this exact same roster snapshot
+    (confirmed hands-on 2026-08-12: 33 real active 2025 kickers, e.g.
+    Chris Boswell -> 00-0031136), so there's no reason to give them a
+    separate pool-loading path the way DST needs (see
+    load_dst_pool_nflreadpy, which is NOT sourced from this function --
+    a DST is a team, not a roster entry)."""
     import nflreadpy as nfl
 
     try:
         rosters = nfl.load_rosters(seasons=[season])
         df = rosters.to_pandas() if hasattr(rosters, "to_pandas") else rosters
-        df = df[(df["status"] == "ACT") & (df["position"].isin(POOL_POSITIONS))]
+        df = df[(df["status"] == "ACT") & (df["position"].isin(ROSTER_POSITIONS))]
 
         pool = []
         seen_ids = set()
@@ -345,9 +372,22 @@ def load_all_game_logs_nflreadpy(season: int) -> dict[str, list[dict[str, Any]]]
     load_player_stats() call for the whole season instead of one per
     player, then grouped by player_id -- generating a full weekly report
     means every player in the pool needs a game log, so a per-player
-    network call each would be needlessly slow."""
+    network call each would be needlessly slow.
+
+    Merges scoring.nflreadpy_row_to_stat_line (offense) with
+    kicker.nflreadpy_kicker_row_to_stat_line (K) on every row rather than
+    branching on position: a QB/RB/WR/TE row has none of the kicker
+    columns and a K row has none of the offense columns, and the two
+    modules' output category names are confirmed disjoint (see
+    tests/test_kicker.py), so the union is always exactly the row's real
+    stat line either way -- no position check needed. This function
+    already iterates every position in load_player_stats(), not just
+    ROSTER_POSITIONS, so K rows were already reaching this loop before
+    today; they just produced an empty stat_line (silently unused, since
+    K wasn't in the pool) until this merge."""
     import nflreadpy as nfl
 
+    from kicker import nflreadpy_kicker_row_to_stat_line
     from scoring import nflreadpy_row_to_stat_line
 
     try:
@@ -377,7 +417,8 @@ def load_all_game_logs_nflreadpy(season: int) -> dict[str, list[dict[str, Any]]]
             player_id = row.get("player_id")
             if not player_id:
                 continue
-            stat_line = nflreadpy_row_to_stat_line(row.to_dict())
+            row_dict = row.to_dict()
+            stat_line = {**nflreadpy_row_to_stat_line(row_dict), **nflreadpy_kicker_row_to_stat_line(row_dict)}
             stat_line["season"] = season
             stat_line["week"] = int(row["week"])
             stat_line["opponent_team"] = normalize_team(row.get("opponent_team"))
@@ -390,6 +431,36 @@ def load_all_game_logs_nflreadpy(season: int) -> dict[str, list[dict[str, Any]]]
             "'week', 'season_type', 'opponent_team'). Check nflreadpy's actual column names "
             "for your installed version and update this function."
         ) from exc
+
+
+def load_dst_pool_and_game_logs_nflreadpy(season: int) -> tuple[list[dict[str, Any]], dict[str, list[dict[str, Any]]]]:
+    """DST equivalent of load_player_pool_nflreadpy + load_all_game_logs_nflreadpy
+    combined into one adapter, since dst.py's pool and game-log sources
+    (load_schedules(), load_teams(), load_team_stats()) are distinct calls
+    from the player-roster/player-stats ones those two functions use, and
+    a DST's game log needs the pool's own team list anyway to know which
+    teams to build for.
+
+    Same season-not-published-yet degrade-gracefully contract as
+    load_all_game_logs_nflreadpy: nflverse's team-stats file 404s
+    (ConnectionError) exactly when its player-stats file does, for the
+    same reason (no games played yet this season) -- the DST pool itself
+    still loads fine (it only needs the schedule + team list, both
+    published pre-season), it's only the game logs that go empty, giving
+    every DST the same week-1 cold start every offensive player already
+    gets in that scenario."""
+    from dst import build_dst_game_logs, load_dst_pool_nflreadpy, load_schedule_with_scores_nflreadpy, load_team_stats_nflreadpy
+
+    pool = load_dst_pool_nflreadpy(season)
+    try:
+        team_stats_rows = load_team_stats_nflreadpy(season)
+    except ConnectionError:
+        print(f"  no nflreadpy team-stats file for season {season} yet -- DST treated as a full cold start too.")
+        return pool, {}
+
+    schedule_games = load_schedule_with_scores_nflreadpy(season)
+    game_logs = build_dst_game_logs(team_stats_rows, schedule_games)
+    return pool, game_logs
 
 
 def build_consensus_tier_or_empty(season: int, week: int, scoring_config: dict[str, Any]) -> dict[str, dict[str, Any]]:
@@ -485,13 +556,19 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     print(f"Loading {args.season} player pool (nflreadpy rosters)...")
     pool = load_player_pool_nflreadpy(args.season)
-    print(f"  {len(pool)} active {'/'.join(POOL_POSITIONS)} players")
+    print(f"  {len(pool)} active {'/'.join(ROSTER_POSITIONS)} players")
+
+    print(f"Loading {args.season} DST pool (nflreadpy schedules/teams)...")
+    dst_pool, dst_game_logs = load_dst_pool_and_game_logs_nflreadpy(args.season)
+    print(f"  {len(dst_pool)} DSTs, {len(dst_game_logs)} with at least one game logged")
+    pool = pool + dst_pool
 
     print(f"Loading {args.season} schedule...")
     schedule_games = load_schedule_nflreadpy(args.season)
 
     print(f"Loading {args.season} game logs (nflreadpy player stats)...")
     game_logs = load_all_game_logs_nflreadpy(args.season)
+    game_logs.update(dst_game_logs)  # DST keyed by team abbreviation, players by gsis_id -- no collision
 
     if args.skip_news:
         print("--skip-news set: every player gets the default healthy newsFlag.")

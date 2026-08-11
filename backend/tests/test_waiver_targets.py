@@ -10,6 +10,7 @@ import unittest
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from waiver_targets import (  # noqa: E402
+    DEFAULT_ROSTERED_RANK_CUTOFF,
     describe_trend,
     generate_rationale,
     select_waiver_targets,
@@ -65,6 +66,19 @@ class TestWaiverEligibleCandidates(unittest.TestCase):
         eligible = waiver_eligible_candidates(candidates, rostered_rank_cutoff={})
         self.assertEqual(len(eligible), 2)
 
+    def test_default_cutoff_has_entries_for_dst_and_k(self):
+        """Regression guard: DST/K added to the default cutoff table
+        2026-08-12 after wiring those positions in for the first time
+        surfaced that raw-points ranking with no cutoff let them dominate
+        a real waiver-targets list (see the constant's own comment)."""
+        self.assertIn("DST", DEFAULT_ROSTERED_RANK_CUTOFF)
+        self.assertIn("K", DEFAULT_ROSTERED_RANK_CUTOFF)
+
+    def test_dst_and_k_get_excluded_by_default_cutoff_not_just_raw_points(self):
+        candidates = [candidate(f"dst{i}", "DST", 12.0 - i) for i in range(20)]
+        eligible = waiver_eligible_candidates(candidates)  # uses DEFAULT_ROSTERED_RANK_CUTOFF
+        self.assertEqual(len(eligible), 20 - DEFAULT_ROSTERED_RANK_CUTOFF["DST"])
+
 
 class TestSelectWaiverTargets(unittest.TestCase):
     def test_ranks_by_points_across_positions_not_per_position(self):
@@ -81,6 +95,22 @@ class TestSelectWaiverTargets(unittest.TestCase):
         candidates = [candidate(str(i), "RB", float(i)) for i in range(10)]
         selected = select_waiver_targets(candidates, top_n=3, rostered_rank_cutoff={})
         self.assertEqual(len(selected), 3)
+
+    def test_default_cutoff_stops_dst_and_k_from_dominating_the_list(self):
+        """Reproduces the shape of the real 2025-week-10 run that motivated
+        DST/K's default cutoff entries: with no cutoff at all, every DST/K
+        in the league is "waiver eligible" and out-ranks a genuinely
+        below-replacement WR just by there being more of them. cutoff=0
+        for WR here isolates that this test is specifically about DST/K's
+        own cutoff working, not re-testing WR's separately-covered cutoff
+        behavior."""
+        cutoff = dict(DEFAULT_ROSTERED_RANK_CUTOFF, WR=0)
+        candidates = [candidate(f"dst{i}", "DST", 13.0) for i in range(32)]
+        candidates += [candidate(f"k{i}", "K", 12.0) for i in range(29)]
+        candidates.append(candidate("wr_sleeper", "WR", 9.0))
+        selected = select_waiver_targets(candidates, top_n=3, rostered_rank_cutoff=cutoff)
+        positions = [c["position"] for c in selected]
+        self.assertIn("WR", positions)
 
 
 class TestDescribeTrend(unittest.TestCase):
