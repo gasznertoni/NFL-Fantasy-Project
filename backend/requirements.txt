@@ -9,8 +9,9 @@
 # version of this file assumed pandas came along transitively; confirmed
 # wrong on a clean venv rebuild 2026-08-11 (ModuleNotFoundError: No module
 # named 'pandas', raised from inside pyarrow's own to_pandas() code path,
-# after pyarrow itself imported fine). Both pinned here explicitly now so
-# this doesn't recur a third time.
+# after pyarrow itself imported fine, and separately ModuleNotFoundError: No
+# module named 'pyarrow' from polars' to_pandas() before that). Both pinned
+# here explicitly now so this doesn't recur a third time.
 #
 # nflreadpy, pyarrow, pandas, and anthropic were NOT installable from the
 # Cowork cloud sandbox this backend was built in (PyPI + nflverse's
