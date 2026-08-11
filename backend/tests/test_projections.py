@@ -168,6 +168,86 @@ class TestBatchWrapper(unittest.TestCase):
         self.assertAlmostEqual(results["p1"]["projected_points"], 15.0)  # 10.0 * 1.5
         self.assertAlmostEqual(results["p2"]["opponent_multiplier"], 1.0)  # untouched default
 
+    def test_project_players_applies_per_player_positional_baseline(self):
+        logs = {"p1": [], "p2": [game(2026, 1, 100)]}  # p1 no_data, p2 low (1 game, window=4)
+        results = project_players(
+            logs, CONFIG, as_of_season=2026, as_of_week=2, window=4,
+            positional_baselines={"p1": 8.0}, shrinkage_strength=1.0,
+        )
+        self.assertAlmostEqual(results["p1"]["projected_points"], 8.0)  # pure baseline
+        self.assertIsNone(results["p2"]["positional_baseline"])  # untouched default (missing from dict)
+        self.assertAlmostEqual(results["p2"]["projected_points"], results["p2"]["rolling_avg"])
+
+
+class TestPositionalShrinkage(unittest.TestCase):
+    """Round 4 (docs/research/projection-model-backtest-findings.md): a
+    positional baseline to blend the rolling average toward for thin
+    samples, per _shrinkage_weight()'s three-case formula. Mirrors
+    TestOpponentMultiplier/TestRecencyDecay's "defaults to a no-op, applied
+    when provided" structure."""
+
+    def test_baseline_omitted_leaves_output_unchanged(self):
+        game_log = [game(2026, 1, 100)]
+        result = project_player(game_log, CONFIG, as_of_season=2026, as_of_week=2, window=4)
+        self.assertIsNone(result["positional_baseline"])
+        self.assertEqual(result["shrinkage_weight"], 1.0)
+        self.assertAlmostEqual(result["shrunk_avg"], result["rolling_avg"])
+        self.assertAlmostEqual(result["projected_points"], result["rolling_avg"])
+
+    def test_no_data_with_baseline_returns_pure_baseline(self):
+        # Round 3's finding, encoded as a regression test: a player with
+        # zero games logged used to project a literal 0.0. With a baseline
+        # supplied, games_used==0 takes it in full regardless of strength.
+        result = project_player([], CONFIG, as_of_season=2026, as_of_week=1, window=4, positional_baseline=7.5)
+        self.assertEqual(result["games_used"], 0)
+        self.assertEqual(result["shrinkage_weight"], 0.0)
+        self.assertAlmostEqual(result["projected_points"], 7.5)
+
+    def test_no_data_with_baseline_and_opponent_multiplier_compose(self):
+        result = project_player(
+            [], CONFIG, as_of_season=2026, as_of_week=1, window=4,
+            positional_baseline=7.5, opponent_multiplier=1.2,
+        )
+        self.assertAlmostEqual(result["projected_points"], 9.0)  # 7.5 * 1.2
+
+    def test_strength_zero_is_a_no_op_for_partial_window(self):
+        game_log = [game(2026, 1, 100)]  # 1 game, window=4 -> "low" tier
+        result = project_player(
+            game_log, CONFIG, as_of_season=2026, as_of_week=2, window=4,
+            positional_baseline=999.0, shrinkage_strength=0.0,
+        )
+        self.assertAlmostEqual(result["shrunk_avg"], result["rolling_avg"])
+        self.assertAlmostEqual(result["projected_points"], result["rolling_avg"])
+
+    def test_strength_one_partial_window_is_hand_computed_blend(self):
+        game_log = [game(2026, 1, 100)]  # 1 game -> rolling_avg = 10.0
+        result = project_player(
+            game_log, CONFIG, as_of_season=2026, as_of_week=2, window=4,
+            positional_baseline=6.0, shrinkage_strength=1.0,
+        )
+        # games_used=1, window=4 -> weight = 1 - 1.0*(1 - 1/4) = 0.25
+        # shrunk_avg = 0.25*10.0 + 0.75*6.0 = 7.0
+        self.assertAlmostEqual(result["shrinkage_weight"], 0.25)
+        self.assertAlmostEqual(result["shrunk_avg"], 7.0)
+        self.assertAlmostEqual(result["projected_points"], 7.0)
+
+    def test_full_window_is_never_shrunk_regardless_of_strength(self):
+        game_log = [game(2026, w, 40) for w in range(1, 5)]  # 4 games = full window
+        result = project_player(
+            game_log, CONFIG, as_of_season=2026, as_of_week=5, window=4,
+            positional_baseline=0.0, shrinkage_strength=1.0,
+        )
+        self.assertEqual(result["confidence"], "full")
+        self.assertEqual(result["shrinkage_weight"], 1.0)
+        self.assertAlmostEqual(result["shrunk_avg"], result["rolling_avg"])
+
+    def test_shrinkage_strength_out_of_range_raises(self):
+        game_log = [game(2026, 1, 100)]
+        with self.assertRaises(ValueError):
+            project_player(game_log, CONFIG, as_of_season=2026, as_of_week=2, shrinkage_strength=1.5)
+        with self.assertRaises(ValueError):
+            project_player(game_log, CONFIG, as_of_season=2026, as_of_week=2, shrinkage_strength=-0.1)
+
 
 if __name__ == "__main__":
     unittest.main()

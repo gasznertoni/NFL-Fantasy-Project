@@ -54,8 +54,9 @@ import json
 import math
 from typing import Any, Optional
 
+import baseline
 from matchup import compute_opponent_multiplier
-from projections import DEFAULT_DECAY, DEFAULT_WINDOW, project_player
+from projections import DEFAULT_DECAY, DEFAULT_SHRINKAGE_STRENGTH, DEFAULT_WINDOW, project_player
 from scoring import compute_league_points, nflreadpy_row_to_stat_line
 
 
@@ -67,6 +68,8 @@ def evaluate_player_week(
     window: int = DEFAULT_WINDOW,
     opponent_multiplier: float = 1.0,
     decay: float = DEFAULT_DECAY,
+    positional_baseline: Optional[float] = None,
+    shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
 ) -> Optional[dict[str, Any]]:
     """Grade one player's projection against one already-known week.
 
@@ -80,7 +83,8 @@ def evaluate_player_week(
         return None
 
     projection = project_player(
-        game_log, scoring_config, season, week, window=window, opponent_multiplier=opponent_multiplier, decay=decay
+        game_log, scoring_config, season, week, window=window, opponent_multiplier=opponent_multiplier, decay=decay,
+        positional_baseline=positional_baseline, shrinkage_strength=shrinkage_strength,
     )
     actual_points = float(compute_league_points(actual_entry, scoring_config))
     projected_points = projection["projected_points"]
@@ -110,6 +114,9 @@ def backtest_player(
     schedule_games: Optional[list[dict[str, Any]]] = None,
     opponent_by_week: Optional[dict[int, str]] = None,
     decay: float = DEFAULT_DECAY,
+    use_shrinkage: bool = False,
+    baseline_by_week: Optional[dict[int, float]] = None,
+    shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
 ) -> list[dict[str, Any]]:
     """Run evaluate_player_week across a list of weeks for one player.
     Weeks with no recorded result (byes, weeks outside the loaded data)
@@ -120,13 +127,30 @@ def backtest_player(
     per-week gap, not a misconfiguration, so it's skipped the same way a
     missing actual result is, not raised.
 
+    A week missing from `baseline_by_week` when use_shrinkage=True is
+    handled differently: unlike a missing opponent (a bye -- the week
+    genuinely didn't happen), a missing baseline just means the pool had no
+    eligible data for that position/week yet (e.g. before any prior-season
+    fallback exists). The week is still graded, with positional_baseline=
+    None -- i.e. project_player's normal no-shrinkage behavior for that one
+    row -- rather than skipped, so a shrinkage sweep doesn't quietly lose
+    rows a non-shrinkage variant would still grade (which would break
+    paired_variant_metric's pairing).
+
     Raises ValueError only for the real misconfiguration case:
-    use_matchup=True with no schedule_games at all (nothing to compute any
-    multiplier from, for any week) -- that one fails loud rather than
-    silently producing an all-neutral-multiplier run.
+    use_matchup=True with no schedule_games at all, or use_shrinkage=True
+    with baseline_by_week never supplied (None) -- nothing to look up for
+    any week. An empty dict ({}) is deliberately NOT treated the same as
+    None here: baseline.baselines_by_player_week_for_shrinkage legitimately
+    returns {} for a player who's "full" tier for every requested week
+    (nothing to shrink, not a misconfiguration) -- see
+    tests/test_baseline.py's test_full_player_is_omitted. Those fail loud
+    rather than silently producing an all-neutral run; this doesn't.
     """
     if use_matchup and not schedule_games:
         raise ValueError("use_matchup=True requires schedule_games")
+    if use_shrinkage and baseline_by_week is None:
+        raise ValueError("use_shrinkage=True requires baseline_by_week")
 
     results = []
     for week in weeks:
@@ -138,8 +162,10 @@ def backtest_player(
             multiplier = compute_opponent_multiplier(
                 schedule_games, opponent_team, season, week
             )["multiplier"]
+        positional_baseline = (baseline_by_week or {}).get(week) if use_shrinkage else None
         row = evaluate_player_week(
-            game_log, scoring_config, season, week, window=window, opponent_multiplier=multiplier, decay=decay
+            game_log, scoring_config, season, week, window=window, opponent_multiplier=multiplier, decay=decay,
+            positional_baseline=positional_baseline, shrinkage_strength=shrinkage_strength,
         )
         if row is not None:
             results.append(row)
@@ -266,22 +292,28 @@ def compare_variants(
     variants: list[dict[str, Any]],
     schedule_games: Optional[list[dict[str, Any]]] = None,
     opponent_by_week_by_player: Optional[dict[str, dict[int, str]]] = None,
+    baseline_by_week_by_player: Optional[dict[str, dict[int, float]]] = None,
 ) -> dict[str, dict[str, Any]]:
     """Run the full player pool through each variant config and return
     aggregated metrics per variant -- a window-size sweep or a
     matchup-on/off ablation is one function call, not hand-copied loops.
 
     Each variant: {"label": str, "window": int, "use_matchup": bool,
-    "decay": float}. "decay" is optional per variant, defaulting to
-    DEFAULT_DECAY (1.0, unweighted mean) same as project_player itself.
+    "decay": float, "use_shrinkage": bool, "shrinkage_strength": float}.
+    "decay"/"shrinkage_strength" are optional per variant, defaulting to
+    DEFAULT_DECAY/DEFAULT_SHRINKAGE_STRENGTH same as project_player itself.
     opponent_by_week_by_player: {player_id: {week: opponent_team}}, only
     required if any variant sets use_matchup=True.
+    baseline_by_week_by_player: {player_id: {week: baseline}}, mirrors
+    opponent_by_week_by_player's shape, only required if any variant sets
+    use_shrinkage=True (see baseline.baselines_by_player_week).
     """
     out = {}
     for variant in variants:
         pooled: list[dict[str, Any]] = []
         for player_id, game_log in game_logs_by_player.items():
             opponent_by_week = (opponent_by_week_by_player or {}).get(player_id)
+            baseline_by_week = (baseline_by_week_by_player or {}).get(player_id)
             pooled.extend(
                 backtest_player(
                     game_log,
@@ -293,6 +325,9 @@ def compare_variants(
                     schedule_games=schedule_games,
                     opponent_by_week=opponent_by_week,
                     decay=variant.get("decay", DEFAULT_DECAY),
+                    use_shrinkage=variant.get("use_shrinkage", False),
+                    baseline_by_week=baseline_by_week,
+                    shrinkage_strength=variant.get("shrinkage_strength", DEFAULT_SHRINKAGE_STRENGTH),
                 )
             )
         out[variant["label"]] = aggregate_metrics(pooled)
@@ -309,6 +344,8 @@ def paired_variant_metric(
     metric: str = "abs_error",
     schedule_games: Optional[list[dict[str, Any]]] = None,
     opponent_by_week_by_player: Optional[dict[str, dict[int, str]]] = None,
+    baseline_by_week_by_player: Optional[dict[str, dict[int, float]]] = None,
+    confidence_filter: Optional[str] = None,
 ) -> tuple[list[float], list[float]]:
     """Run two variants and return matched (values_a, values_b) for one
     per-row metric ("abs_error" or "error"), restricted to (player, week)
@@ -320,32 +357,56 @@ def paired_variant_metric(
     entry, see backtest_player's docstring, while use_matchup=False
     wouldn't skip that same week). Weeks only graded by one side of the
     comparison are dropped from both rather than left mismatched.
+
+    confidence_filter: restrict the paired sample to one confidence tier
+    ("no_data"/"low"/"full"), e.g. to test a shrinkage variant's effect on
+    just the "low" tier rather than diluting it across a pooled sample
+    where that tier is a small minority of rows. Shrinkage doesn't change
+    games_used/confidence (see projections.project_player), so variant_a
+    and variant_b agree on confidence for the same (player, week) as long
+    as they share the same `window` -- true for every call site in this
+    file today (shrinkage/matchup/decay ablations all hold window fixed),
+    but not guaranteed in general if a future caller pairs two different
+    window values under a confidence_filter; only row_a's confidence is
+    consulted, so that combination would silently filter on variant_a's
+    tier only.
     """
+    if confidence_filter is not None and confidence_filter not in ("no_data", "low", "full"):
+        raise ValueError(f"confidence_filter must be one of 'no_data', 'low', 'full', got {confidence_filter!r}")
+
     values_a: list[float] = []
     values_b: list[float] = []
     for player_id, game_log in game_logs_by_player.items():
         opponent_by_week = (opponent_by_week_by_player or {}).get(player_id)
+        baseline_by_week = (baseline_by_week_by_player or {}).get(player_id)
         rows_a = {
-            r["week"]: r[metric]
+            r["week"]: r
             for r in backtest_player(
                 game_log, scoring_config, season, weeks,
                 window=variant_a["window"], use_matchup=variant_a.get("use_matchup", False),
                 schedule_games=schedule_games, opponent_by_week=opponent_by_week,
                 decay=variant_a.get("decay", DEFAULT_DECAY),
+                use_shrinkage=variant_a.get("use_shrinkage", False), baseline_by_week=baseline_by_week,
+                shrinkage_strength=variant_a.get("shrinkage_strength", DEFAULT_SHRINKAGE_STRENGTH),
             )
         }
         rows_b = {
-            r["week"]: r[metric]
+            r["week"]: r
             for r in backtest_player(
                 game_log, scoring_config, season, weeks,
                 window=variant_b["window"], use_matchup=variant_b.get("use_matchup", False),
                 schedule_games=schedule_games, opponent_by_week=opponent_by_week,
                 decay=variant_b.get("decay", DEFAULT_DECAY),
+                use_shrinkage=variant_b.get("use_shrinkage", False), baseline_by_week=baseline_by_week,
+                shrinkage_strength=variant_b.get("shrinkage_strength", DEFAULT_SHRINKAGE_STRENGTH),
             )
         }
         for week in sorted(set(rows_a) & set(rows_b)):
-            values_a.append(rows_a[week])
-            values_b.append(rows_b[week])
+            row_a, row_b = rows_a[week], rows_b[week]
+            if confidence_filter is not None and row_a["confidence"] != confidence_filter:
+                continue
+            values_a.append(row_a[metric])
+            values_b.append(row_b[metric])
     return values_a, values_b
 
 
@@ -385,6 +446,14 @@ WINDOW_SIZES_TO_SWEEP = [3, 4, 5, 6]
 # baseline, at DEFAULT_WINDOW. 1.0 included so the sweep table itself shows
 # the baseline alongside the candidates, not just implied by omission.
 DECAY_VALUES_TO_SWEEP = [1.0, 0.95, 0.9, 0.85, 0.8, 0.7, 0.6]
+# Round 4 (docs/research/projection-model-backtest-findings.md): candidate
+# blend strengths for the "low" tier's shrinkage toward a positional
+# baseline (see baseline.py / projections._shrinkage_weight). The "no_data"
+# tier is unaffected by this sweep -- games_used==0 always takes the
+# baseline in full regardless of strength, see _shrinkage_weight's
+# docstring -- so its evaluation is a single baseline-on/off ablation, not
+# part of this sweep.
+SHRINKAGE_STRENGTHS_TO_SWEEP = [0.0, 0.25, 0.5, 0.75, 1.0]
 
 
 def load_full_pool_game_logs(season: int, positions: tuple[str, ...] = POSITIONS) -> dict[str, list[dict[str, Any]]]:
@@ -654,6 +723,211 @@ def main():
             f"n={position_sig_test['n']}  mean_diff={position_sig_test['mean_diff']}"
             f"  p={position_sig_test['p_value']}  significant={position_sig_test['significant']}"
         )
+
+    # -----------------------------------------------------------------
+    # Round 4, idea 2: shrinkage toward a positional baseline for thin
+    # samples. Judged bias-first on the tiers it targets (see the findings
+    # doc) -- pooled MAE is checked as a guardrail, not the primary gate,
+    # unlike every earlier round's window/decay/matchup calls.
+    # -----------------------------------------------------------------
+    print("\n" + "#" * 60)
+    print("POSITIONAL BASELINES -- SANITY CHECK")
+    print("#" * 60)
+    all_weeks = sorted(set(TUNING_WEEKS) | set(HOLDOUT_WEEKS))
+    # Two separately-scoped populations, per baseline.py's module docstring:
+    # "debut" (games_played_before==0, excluding week 1 via
+    # DEFAULT_DEBUT_MIN_WEEK -- the whole-league roster-debut week is a
+    # different population from a genuine in-season call-up) feeds the
+    # no_data tier; "thin" (0..window-1, unchanged) feeds the low tier.
+    # Both a pooled "thin"-for-everyone population AND an unfiltered
+    # "debut" population (including week 1) were confirmed, in this exact
+    # run, to badly overshoot the no_data tier -- see the module docstring
+    # for both confounds and the actual numbers.
+    debut_baselines_by_week = baseline.positional_baselines_by_week(
+        game_logs, scoring_config, SEASON, all_weeks, population="debut",
+        min_week=baseline.DEFAULT_DEBUT_MIN_WEEK,
+    )
+    thin_baselines_by_week = baseline.positional_baselines_by_week(
+        game_logs, scoring_config, SEASON, all_weeks, population="thin",
+    )
+    baseline_by_week_by_player = baseline.baselines_by_player_week_for_shrinkage(
+        game_logs, SEASON, DEFAULT_WINDOW, debut_baselines_by_week, thin_baselines_by_week,
+    )
+    for week in (TUNING_WEEKS[0], HOLDOUT_WEEKS[0]):
+        print(f"  week {week} debut: {debut_baselines_by_week[week]}")
+        print(f"  week {week} thin:  {thin_baselines_by_week[week]}")
+
+    print("\n" + "#" * 60)
+    print("BASELINE ABLATION (fallback-only, strength=0.0) -- TUNING WEEKS")
+    print("#" * 60)
+    baseline_ablation_variants = [
+        {"label": "baseline=off", "window": DEFAULT_WINDOW, "use_shrinkage": False},
+        {"label": "baseline=on", "window": DEFAULT_WINDOW, "use_shrinkage": True, "shrinkage_strength": 0.0},
+    ]
+    for label, metrics in compare_variants(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, baseline_ablation_variants,
+        baseline_by_week_by_player=baseline_by_week_by_player,
+    ).items():
+        print_report(label, metrics)
+
+    print("\n" + "#" * 60)
+    print("BASELINE ABLATION (fallback-only, strength=0.0) -- HOLDOUT WEEKS")
+    print("#" * 60)
+    for label, metrics in compare_variants(
+        game_logs, scoring_config, SEASON, HOLDOUT_WEEKS, baseline_ablation_variants,
+        baseline_by_week_by_player=baseline_by_week_by_player,
+    ).items():
+        print_report(label, metrics)
+
+    off_variant = {"window": DEFAULT_WINDOW, "use_shrinkage": False}
+    fallback_variant = {"window": DEFAULT_WINDOW, "use_shrinkage": True, "shrinkage_strength": 0.0}
+    for weeks_label, weeks in (("tuning", TUNING_WEEKS), ("holdout", HOLDOUT_WEEKS)):
+        print("\n" + "#" * 60)
+        print(f"BASELINE SIGNIFICANCE TEST -- no_data tier bias ({weeks_label} weeks)")
+        print("#" * 60)
+        off_err, on_err = paired_variant_metric(
+            game_logs, scoring_config, SEASON, weeks, off_variant, fallback_variant, metric="error",
+            baseline_by_week_by_player=baseline_by_week_by_player, confidence_filter="no_data",
+        )
+        no_data_bias_test = paired_significance_test(on_err, off_err)
+        print(
+            f"  error (bias):  n={no_data_bias_test['n']}  mean_diff(on-off)={no_data_bias_test['mean_diff']:+}"
+            f"  p={no_data_bias_test['p_value']}  significant={no_data_bias_test['significant']}"
+        )
+
+    print("\n" + "#" * 60)
+    print("BASELINE SIGNIFICANCE TEST -- pooled MAE guardrail (tuning weeks)")
+    print("#" * 60)
+    off_abs, on_abs = paired_variant_metric(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, off_variant, fallback_variant, metric="abs_error",
+        baseline_by_week_by_player=baseline_by_week_by_player,
+    )
+    pooled_mae_guardrail_test = paired_significance_test(on_abs, off_abs)
+    print(
+        f"  abs_error (MAE):  n={pooled_mae_guardrail_test['n']}  mean_diff(on-off)={pooled_mae_guardrail_test['mean_diff']:+}"
+        f"  p={pooled_mae_guardrail_test['p_value']}  significant={pooled_mae_guardrail_test['significant']}"
+    )
+
+    # -----------------------------------------------------------------
+    # Strength sweep -- only the "low" tier can vary with strength (see
+    # SHRINKAGE_STRENGTHS_TO_SWEEP's comment above); by_confidence's "low"
+    # row in each printed report is what this sweep is actually about.
+    # -----------------------------------------------------------------
+    print("\n" + "#" * 60)
+    print("SHRINKAGE STRENGTH SWEEP (low tier) -- TUNING WEEKS")
+    print("#" * 60)
+    strength_variants = [
+        {"label": f"strength={s}", "window": DEFAULT_WINDOW, "use_shrinkage": True, "shrinkage_strength": s}
+        for s in SHRINKAGE_STRENGTHS_TO_SWEEP
+    ]
+    tuning_strength_results = compare_variants(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, strength_variants,
+        baseline_by_week_by_player=baseline_by_week_by_player,
+    )
+    for label, metrics in tuning_strength_results.items():
+        print_report(label, metrics)
+
+    print("\n" + "#" * 60)
+    print("SHRINKAGE STRENGTH SWEEP (low tier) -- HOLDOUT WEEKS")
+    print("#" * 60)
+    for label, metrics in compare_variants(
+        game_logs, scoring_config, SEASON, HOLDOUT_WEEKS, strength_variants,
+        baseline_by_week_by_player=baseline_by_week_by_player,
+    ).items():
+        print_report(label, metrics)
+
+    # Bias-first pick: minimize |low-tier bias| on tuning weeks, not MAE --
+    # per the findings doc's Round 4 ship criteria for this idea.
+    best_strength = min(
+        SHRINKAGE_STRENGTHS_TO_SWEEP,
+        key=lambda s: abs(tuning_strength_results[f"strength={s}"]["by_confidence"].get("low", {"bias": 0})["bias"]),
+    )
+    print(f"\nBest tuning-weeks |low-tier bias| among swept strengths: strength={best_strength}")
+
+    best_strength_variant = {"window": DEFAULT_WINDOW, "use_shrinkage": True, "shrinkage_strength": best_strength}
+    for weeks_label, weeks in (("tuning", TUNING_WEEKS), ("holdout", HOLDOUT_WEEKS)):
+        print("\n" + "#" * 60)
+        print(f"SHRINKAGE SIGNIFICANCE TEST -- low tier bias, strength={best_strength} vs off ({weeks_label} weeks)")
+        print("#" * 60)
+        off_err, best_err = paired_variant_metric(
+            game_logs, scoring_config, SEASON, weeks, off_variant, best_strength_variant, metric="error",
+            baseline_by_week_by_player=baseline_by_week_by_player, confidence_filter="low",
+        )
+        low_bias_test = paired_significance_test(best_err, off_err)
+        print(
+            f"  error (bias):  n={low_bias_test['n']}  mean_diff(on-off)={low_bias_test['mean_diff']:+}"
+            f"  p={low_bias_test['p_value']}  significant={low_bias_test['significant']}"
+        )
+
+    for weeks_label, weeks in (("tuning", TUNING_WEEKS), ("holdout", HOLDOUT_WEEKS)):
+        print("\n" + "#" * 60)
+        print(f"SHRINKAGE SIGNIFICANCE TEST -- pooled MAE guardrail, strength={best_strength} vs off ({weeks_label} weeks)")
+        print("#" * 60)
+        off_abs, best_abs = paired_variant_metric(
+            game_logs, scoring_config, SEASON, weeks, off_variant, best_strength_variant, metric="abs_error",
+            baseline_by_week_by_player=baseline_by_week_by_player,
+        )
+        strength_mae_guardrail_test = paired_significance_test(best_abs, off_abs)
+        print(
+            f"  abs_error (MAE):  n={strength_mae_guardrail_test['n']}  mean_diff(on-off)={strength_mae_guardrail_test['mean_diff']:+}"
+            f"  p={strength_mae_guardrail_test['p_value']}  significant={strength_mae_guardrail_test['significant']}"
+        )
+
+    # best_strength beating "off" doesn't establish it's the single best
+    # strength -- same "check the runner-up directly" discipline the
+    # window-size decision (Round 3) used, rather than trusting the sweep
+    # table's tuning-weeks ranking at face value.
+    runner_up_candidates = [s for s in SHRINKAGE_STRENGTHS_TO_SWEEP if s != best_strength]
+    if runner_up_candidates:
+        runner_up_strength = min(
+            runner_up_candidates,
+            key=lambda s: abs(tuning_strength_results[f"strength={s}"]["by_confidence"].get("low", {"bias": 0})["bias"]),
+        )
+        runner_up_variant = {"window": DEFAULT_WINDOW, "use_shrinkage": True, "shrinkage_strength": runner_up_strength}
+        for weeks_label, weeks in (("tuning", TUNING_WEEKS), ("holdout", HOLDOUT_WEEKS)):
+            print("\n" + "#" * 60)
+            print(
+                f"SHRINKAGE SIGNIFICANCE TEST -- low tier bias, strength={best_strength} vs "
+                f"runner-up strength={runner_up_strength} ({weeks_label} weeks)"
+            )
+            print("#" * 60)
+            runner_up_err, best_err_2 = paired_variant_metric(
+                game_logs, scoring_config, SEASON, weeks, runner_up_variant, best_strength_variant, metric="error",
+                baseline_by_week_by_player=baseline_by_week_by_player, confidence_filter="low",
+            )
+            runner_up_bias_test = paired_significance_test(best_err_2, runner_up_err)
+            print(
+                f"  error (bias):  n={runner_up_bias_test['n']}  mean_diff({best_strength}-{runner_up_strength})={runner_up_bias_test['mean_diff']:+}"
+                f"  p={runner_up_bias_test['p_value']}  significant={runner_up_bias_test['significant']}"
+            )
+
+    # -----------------------------------------------------------------
+    # Population comparator -- the debut+thin dual resolver (the default
+    # above) vs a single flat "all" population applied to everyone -- to
+    # empirically demonstrate the population choice matters, per
+    # baseline.py's module docstring, rather than just asserting it.
+    # -----------------------------------------------------------------
+    print("\n" + "#" * 60)
+    print("BASELINE POPULATION COMPARATOR (debut+thin vs flat \"all\") -- TUNING WEEKS, strength=1.0")
+    print("#" * 60)
+    all_pop_baselines_by_week = baseline.positional_baselines_by_week(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, population="all",
+    )
+    all_pop_baseline_by_week_by_player = baseline.baselines_by_player_week(game_logs, all_pop_baselines_by_week)
+    population_variants = [
+        {"label": "population=debut+thin", "window": DEFAULT_WINDOW, "use_shrinkage": True, "shrinkage_strength": 1.0},
+        {"label": "population=all", "window": DEFAULT_WINDOW, "use_shrinkage": True, "shrinkage_strength": 1.0},
+    ]
+    debut_thin_metrics = compare_variants(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, [population_variants[0]],
+        baseline_by_week_by_player=baseline_by_week_by_player,
+    )
+    all_metrics = compare_variants(
+        game_logs, scoring_config, SEASON, TUNING_WEEKS, [population_variants[1]],
+        baseline_by_week_by_player=all_pop_baseline_by_week_by_player,
+    )
+    print_report("population=debut+thin", debut_thin_metrics["population=debut+thin"])
+    print_report("population=all", all_metrics["population=all"])
 
 
 if __name__ == "__main__":

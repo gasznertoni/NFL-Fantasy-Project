@@ -34,7 +34,13 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   below) and found to make MAE significantly *worse*, not better, so
   `DEFAULT_DECAY = 1.0` stays the shipped default; the parameter exists so
   that finding is falsifiable against more data later without rebuilding
-  the code path.
+  it. Also supports thin-sample shrinkage toward a positional baseline
+  (added 2026-08-11, Round 4) via `positional_baseline`/`shrinkage_strength`
+  — `positional_baseline=None` (the default) is a no-op, arithmetically
+  identical to omitting shrinkage entirely; a caller (`baseline.py`) injects
+  a real value. `DEFAULT_SHRINKAGE_STRENGTH = 0.5` per the findings doc's
+  Round 4 verdict (see `baseline.py`'s bullet below for the two confounds
+  that had to be fixed before that number meant anything).
 - **`matchup.py`** — opponent-strength adjustment feeding
   `projections.py`'s `opponent_multiplier` parameter. Deliberately simpler
   than the design spec's original §3.4 idea (defense-vs-position
@@ -48,6 +54,19 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   "tough" here even though its defense specifically might be easy to score
   on — a real simplification versus a position-specific model, not an
   oversight.
+- **`baseline.py`** (added 2026-08-11, Round 4) — positional-baseline
+  computation for `projections.py`'s thin-sample shrinkage, mirroring
+  `matchup.py`'s "compute externally, inject as a plain float" pattern.
+  Two separately-scoped populations, resolved per player-week by
+  `baselines_by_player_week_for_shrinkage`: `population="debut"` (a
+  player's literal first game of the season, excluding week 1 via
+  `min_week=DEFAULT_DEBUT_MIN_WEEK` — see the module docstring for why
+  week 1 alone is a different population from a genuine in-season
+  call-up) feeds the `no_data` tier; `population="thin"` (fewer than
+  `DEFAULT_WINDOW` prior games) feeds the `low` tier. Both fixes were
+  found empirically, not designed in from the start — the module docstring
+  documents two real backtest confounds and the exact numbers that exposed
+  them, worth reading before changing this module.
 - **`news.py`** — News & injury layer (v1 scope item 2). Fetches ESPN's
   unofficial news endpoint, matches articles to a player (by ESPN athlete
   ID when the response's `categories` field has it, else a crude
@@ -85,7 +104,7 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   machine's `backend/.venv` on 2026-08-10 (unlike the Cowork cloud sandbox
   the rest of this backend was built in, where PyPI and nflverse's data
   host were both unreachable).
-- **`tests/`** — 90 unit tests, all passing, covering the logic above with
+- **`tests/`** — 128 unit tests, all passing, covering the logic above with
   synthetic data (no network, no API keys needed to run these).
 - **`docs/research/projection-model-backtest-findings.md`** — write-up of
   the backtest results across three rounds. Round 1 (19 hand-picked
@@ -109,9 +128,18 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   is unchanged); and the `by_confidence` tier breakdown shows the
   `no_data` tier (zero games logged) is a literal predict-zero with no
   fallback, a sharper and more actionable version of the "shrinkage" idea
-  than originally scoped. All three rounds' code is in `projections.py`/
-  `backtest.py`; Round 3's window=6 finding is applied as the shipped
-  default (`projections.py`'s `DEFAULT_WINDOW`).
+  than originally scoped. **Round 4 (2026-08-11)** built that shrinkage
+  idea (`baseline.py`) and shipped it — but only after two real population
+  confounds were found and fixed by actually running it against the full
+  pool (a pooled "thin" population overshot the `no_data` tier badly, and
+  even a properly-scoped "debut" population still overshot until week 1 —
+  when the whole league's roster debuts at once — was excluded from it).
+  Both fixes and the final bias-reduction numbers (`no_data`/`low` tier
+  bias cut ~70-86% on both tuning and holdout weeks, small MAE guardrail
+  cost) are in the findings doc's Round 4 section. All four rounds' code is
+  in `projections.py`/`baseline.py`/`backtest.py`; Round 3's window=6 and
+  Round 4's shrinkage-strength=0.5 findings are both applied as shipped
+  defaults (`projections.py`'s `DEFAULT_WINDOW`/`DEFAULT_SHRINKAGE_STRENGTH`).
 
 ## What's deliberately NOT done here
 

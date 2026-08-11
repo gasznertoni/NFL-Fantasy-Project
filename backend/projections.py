@@ -24,6 +24,15 @@ DEFAULT_WINDOW = 6  # games played -- design spec section 3.2's starting guess w
 # both tuning weeks (p=0.0003) and holdout weeks (p=0.0325), the first time this
 # choice cleared a significance bar in either direction.
 DEFAULT_DECAY = 1.0  # unweighted mean by default -- see _rolling_average()
+DEFAULT_SHRINKAGE_STRENGTH = 0.5  # see _shrinkage_weight(). Set per
+# docs/research/projection-model-backtest-findings.md's Round 4: strength=0.5
+# gave the smallest |low-tier bias| on tuning weeks and held up on holdout
+# (bias magnitude cut by ~70%+ on both week sets, both significant, p=0.0),
+# with only a small, guardrail-level pooled MAE cost (+0.09, ~2%). Only
+# takes effect when a caller supplies positional_baseline -- with the
+# default None, shrinkage never activates regardless of this constant, same
+# "inert until wired in" status decay/window had before Round 3/4.
+# games_used == 0 (no_data) ignores this constant entirely -- see below.
 
 
 def _rolling_average(per_game_points: list[float], decay: float = DEFAULT_DECAY) -> float:
@@ -55,7 +64,7 @@ def _rolling_average(per_game_points: list[float], decay: float = DEFAULT_DECAY)
     return sum(w * p for w, p in zip(weights, per_game_points)) / sum(weights)
 
 
-def _games_before(game_log: list[dict[str, Any]], season: int, week: int) -> list[dict[str, Any]]:
+def games_before(game_log: list[dict[str, Any]], season: int, week: int) -> list[dict[str, Any]]:
     """As-of filter (design spec sections 3.1 and 3.2): games strictly
     before the target week, same season only. A bye week or missed game
     simply isn't in game_log at all (it's a log of games *played*), so no
@@ -66,7 +75,13 @@ def _games_before(game_log: list[dict[str, Any]], season: int, week: int) -> lis
     the prior season by default -- a player's role can change completely
     between seasons"), not just a temporal-ordering filter -- a week-1
     projection with no current-season games yet correctly returns zero
-    eligible games (cold start), not last season's log."""
+    eligible games (cold start), not last season's log.
+
+    Public (not `_`-prefixed): this is the one as-of guarantee every
+    module that reads a game_log needs -- projections.py itself,
+    baseline.py's positional-baseline aggregation, and usage.py's
+    usage-trend calculation all reuse this exact filter rather than each
+    reimplementing it slightly differently."""
     return [
         g for g in game_log
         if g["season"] == season and g["week"] < week
@@ -85,6 +100,40 @@ def _confidence(games_used: int, window: int) -> str:
     return "full"
 
 
+def _shrinkage_weight(games_used: int, window: int, strength: float) -> float:
+    """How much weight the player's own rolling average keeps when blended
+    toward a positional baseline (see baseline.py) -- `1 - weight` is the
+    weight on the baseline. Three cases, matching the three tiers
+    _confidence() already defines:
+
+    games_used == 0   -> weight = 0.0   (pure baseline, ignores `strength`
+                          entirely -- see rationale below)
+    0 < games_used < window -> weight = 1 - strength * (1 - games_used/window)
+    games_used >= window    -> weight = 1.0   (the "full" tier is never shrunk)
+
+    Why games_used == 0 is hard-coded rather than strength-scaled like the
+    partial-window case: with zero games, `rolling_avg` isn't a thin
+    estimate of anything -- it's `_rolling_average([])`'s structural 0.0,
+    not data. Weighting a non-observation at all doesn't make sense. This
+    split also makes the feature separately ablatable at three settings
+    with one knob: strength=0.0 is "fallback-only" (no_data gets the
+    baseline, low tier is untouched); strength=1.0 is a full blend of both;
+    positional_baseline=None (the caller's choice, not this function's) is
+    "off" (see project_player).
+
+    Why `games_used / window` rather than an empirical-Bayes `n / (n + k)`
+    form: it's continuous at the tier boundary (no jump right as a
+    player's `window`-th game lands), and it reuses the same notion of
+    sample completeness _confidence() already uses, rather than
+    introducing a second, uncalibrated cutoff `k`.
+    """
+    if games_used == 0:
+        return 0.0
+    if games_used >= window:
+        return 1.0
+    return 1 - strength * (1 - games_used / window)
+
+
 def project_player(
     game_log: list[dict[str, Any]],
     scoring_config: dict[str, Any],
@@ -93,6 +142,8 @@ def project_player(
     window: int = DEFAULT_WINDOW,
     opponent_multiplier: float = 1.0,
     decay: float = DEFAULT_DECAY,
+    positional_baseline: Optional[float] = None,
+    shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
 ) -> dict[str, Any]:
     """Project one player's fantasy points for (as_of_season, as_of_week).
 
@@ -122,6 +173,20 @@ def project_player(
             to 1.0 (unweighted mean, i.e. today's behavior) -- see
             _rolling_average()'s docstring for why 1.0 is exactly
             equivalent, not just close, to the old plain-mean code path.
+        positional_baseline: a scalar to blend the rolling average toward
+            for thin samples -- computed externally by baseline.py (this
+            module has zero awareness of positions or the player pool,
+            same separation opponent_multiplier/matchup.py already
+            established) and injected as a plain float. None (the default)
+            means no shrinkage at all: output is arithmetically identical
+            to omitting this parameter entirely, matching decay=1.0's
+            "exact, not approximate" no-op contract.
+        shrinkage_strength: how strongly a partial-window ("low"
+            confidence) sample is pulled toward `positional_baseline`; see
+            _shrinkage_weight()'s docstring for the exact formula and why
+            a zero-game ("no_data") sample ignores this and always takes
+            the baseline in full when one is supplied. Must be in [0, 1].
+            Only has any effect when positional_baseline is not None.
 
     Returns:
         Output contract per design spec section 5: player_id (left to the
@@ -134,25 +199,42 @@ def project_player(
         "keep both tiers clearly labeled" rule -- a fixed marker so a
         report/eval layer merging this with the FantasyPros tier later can
         tell them apart from the data alone, not just from which function
-        produced it).
+        produced it), rolling_avg (the pre-shrinkage average -- kept
+        separate from shrunk_avg below so the chain rolling_avg ->
+        shrunk_avg -> projected_points stays inspectable), positional_baseline
+        and shrinkage_strength (echoed, like decay/opponent_multiplier),
+        shrinkage_weight (the weight _shrinkage_weight() actually applied --
+        1.0 whenever positional_baseline is None), shrunk_avg (the
+        post-shrinkage, pre-multiplier average that projected_points is
+        actually computed from).
 
     Raises:
         ValueError: if window is not a positive integer. Python slicing
         makes eligible[-0:] return the *whole* list rather than an empty
         one, so window=0 would otherwise silently mean "no limit" instead
         of "no games" -- reject it outright rather than let that surprise
-        a future caller.
+        a future caller. Also raised if shrinkage_strength is outside
+        [0, 1], mirroring _rolling_average()'s decay guard.
     """
     if window <= 0:
         raise ValueError(f"window must be a positive integer, got {window}")
+    if not (0 <= shrinkage_strength <= 1):
+        raise ValueError(f"shrinkage_strength must be in [0, 1], got {shrinkage_strength}")
 
-    eligible = _games_before(game_log, as_of_season, as_of_week)
+    eligible = games_before(game_log, as_of_season, as_of_week)
     eligible.sort(key=lambda g: (g["season"], g["week"]))
     recent = eligible[-window:]
 
     per_game_points = [float(compute_league_points(g, scoring_config)) for g in recent]
     games_used = len(per_game_points)
     rolling_avg = _rolling_average(per_game_points, decay)
+
+    if positional_baseline is None:
+        shrinkage_weight = 1.0
+        shrunk_avg = rolling_avg
+    else:
+        shrinkage_weight = _shrinkage_weight(games_used, window, shrinkage_strength)
+        shrunk_avg = shrinkage_weight * rolling_avg + (1 - shrinkage_weight) * positional_baseline
 
     return {
         "source": "in_house_estimate",
@@ -163,7 +245,11 @@ def project_player(
         "rolling_avg": round(rolling_avg, 2),
         "decay": decay,
         "opponent_multiplier": opponent_multiplier,
-        "projected_points": round(rolling_avg * opponent_multiplier, 2),
+        "positional_baseline": positional_baseline,
+        "shrinkage_strength": shrinkage_strength,
+        "shrinkage_weight": round(shrinkage_weight, 4),
+        "shrunk_avg": round(shrunk_avg, 2),
+        "projected_points": round(shrunk_avg * opponent_multiplier, 2),
         "per_game_points": per_game_points,
     }
 
@@ -176,11 +262,21 @@ def project_players(
     window: int = DEFAULT_WINDOW,
     opponent_multipliers: Optional[dict[str, float]] = None,
     decay: float = DEFAULT_DECAY,
+    positional_baselines: Optional[dict[str, float]] = None,
+    shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
 ) -> dict[str, dict[str, Any]]:
     """Batch wrapper over project_player for a slate of players. Kept
     separate from project_player so the single-player function stays the
-    one unit tests exercise directly and this stays a thin loop."""
+    one unit tests exercise directly and this stays a thin loop.
+
+    positional_baselines: {player_id: float}, exact mirror of
+    opponent_multipliers's per-player-id shape -- a player missing from the
+    dict (or the dict omitted entirely) gets None, i.e. no shrinkage.
+    Position resolution (which baseline a given player_id's position maps
+    to) is the caller's job, e.g. baseline.baselines_by_player_week --
+    this function, like project_player, has no concept of position."""
     opponent_multipliers = opponent_multipliers or {}
+    positional_baselines = positional_baselines or {}
     return {
         player_id: project_player(
             game_log,
@@ -190,6 +286,8 @@ def project_players(
             window=window,
             opponent_multiplier=opponent_multipliers.get(player_id, 1.0),
             decay=decay,
+            positional_baseline=positional_baselines.get(player_id),
+            shrinkage_strength=shrinkage_strength,
         )
         for player_id, game_log in game_logs_by_player.items()
     }
@@ -224,6 +322,11 @@ def load_recent_games_nflreadpy(player_id: str, season: int, before_week: int) -
             # backtest.py can build a matchup-multiplier lookup straight from
             # the game log, no separate roster/schedule join needed.
             stat_line["opponent_team"] = row.get("opponent_team")
+            # Also not a scoring category -- carried through so a live caller
+            # can resolve this player's position for baseline.py's
+            # positional-baseline shrinkage the same way backtest.py's
+            # load_full_pool_game_logs already does.
+            stat_line["position"] = row.get("position")
             game_log.append(stat_line)
         return game_log
     except (KeyError, AttributeError) as exc:

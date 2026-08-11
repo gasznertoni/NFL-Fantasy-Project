@@ -88,6 +88,97 @@ class TestDecayThreading(unittest.TestCase):
         self.assertEqual(values_omitted, values_explicit)
 
 
+class TestShrinkageThreading(unittest.TestCase):
+    """positional_baseline/shrinkage_strength must actually reach
+    project_player through every harness layer, same rationale as
+    TestDecayThreading above -- Round 4's shrinkage sweep is worthless if a
+    baseline silently gets dropped somewhere and every variant secretly
+    runs with no shrinkage at all."""
+
+    def test_evaluate_player_week_passes_baseline_through(self):
+        result = evaluate_player_week(
+            [], CONFIG, season=2025, week=1, window=4, positional_baseline=8.0, shrinkage_strength=1.0,
+        )
+        self.assertIsNone(result)  # no actual week-1 result in an empty log -- nothing to grade
+
+        game_log = [game(2025, 1, 0), game(2025, 2, 100), game(2025, 3, 999)]  # 0 pts, 10 pts, week-3 actual
+        result = evaluate_player_week(
+            game_log, CONFIG, season=2025, week=3, window=4, positional_baseline=8.0, shrinkage_strength=1.0,
+        )
+        # games_used=2 < window=4 -> weight = 1 - 1.0*(1 - 2/4) = 0.5
+        # shrunk_avg = 0.5*5.0 + 0.5*8.0 = 6.5
+        self.assertAlmostEqual(result["projected"], 6.5)
+
+    def test_compare_variants_use_shrinkage_without_baselines_raises(self):
+        game_logs = {"p1": [game(2025, 1, 50)]}
+        variants = [{"label": "shrink=on", "window": 4, "use_shrinkage": True}]
+        with self.assertRaises(ValueError):
+            compare_variants(game_logs, CONFIG, season=2025, weeks=[2], variants=variants)
+
+    def test_empty_per_player_baseline_dict_does_not_raise(self):
+        """Regression: baseline.baselines_by_player_week_for_shrinkage
+        legitimately returns {} (not omits the key) for a player who's
+        "full" tier for every requested week -- that's "nothing to shrink,"
+        not a misconfiguration. `{}` used to trip the same guard that
+        catches a genuinely missing baseline (None), since `not {}` is True
+        in Python -- the guard must only fire on None."""
+        game_logs = {"p1": [game(2025, 1, 50), game(2025, 2, 999)]}
+        results = backtest_player(
+            game_logs["p1"], CONFIG, season=2025, weeks=[2], window=4,
+            use_shrinkage=True, baseline_by_week={},  # present, deliberately empty
+        )
+        self.assertEqual(len(results), 1)  # week 2 still graded, no shrinkage applied
+
+    def test_compare_variants_shrinkage_variants_produce_distinct_metrics(self):
+        # weeks 1,2 -> 0 pts each -> rolling_avg=0 as of week 3; week 3's own
+        # actual result (999) is what evaluate_player_week grades against.
+        game_logs = {"p1": [game(2025, w, 0) for w in range(1, 3)] + [game(2025, 3, 999)]}
+        baseline_by_week_by_player = {"p1": {3: 20.0}}
+        variants = [
+            {"label": "shrink=off", "window": 4, "use_shrinkage": False},
+            {"label": "shrink=on", "window": 4, "use_shrinkage": True, "shrinkage_strength": 1.0},
+        ]
+        results = compare_variants(
+            game_logs, CONFIG, season=2025, weeks=[3], variants=variants,
+            baseline_by_week_by_player=baseline_by_week_by_player,
+        )
+        self.assertNotEqual(results["shrink=off"]["mae"], results["shrink=on"]["mae"])
+
+    def test_missing_week_in_baseline_by_week_is_graded_not_skipped(self):
+        """Unlike a missing opponent (a bye -- the week didn't happen), a
+        missing baseline just means no pool baseline exists yet for that
+        week -- the row must still be graded (with no shrinkage applied),
+        not silently dropped."""
+        game_log = [game(2025, 1, 50), game(2025, 2, 50), game(2025, 3, 50)]
+        baseline_by_week = {2: 99.0}  # no entry for week 3
+        results = backtest_player(
+            game_log, CONFIG, season=2025, weeks=[2, 3], window=4,
+            use_shrinkage=True, baseline_by_week=baseline_by_week, shrinkage_strength=1.0,
+        )
+        graded_weeks = {r["week"] for r in results}
+        self.assertEqual(graded_weeks, {2, 3})  # week 3 still graded despite the gap
+
+    def test_confidence_filter_restricts_and_keeps_pairs_aligned(self):
+        # p1: no_data at week 5 (only a week-5 actual result, no prior
+        # games -- games_used counts games strictly BEFORE the target
+        # week, so this game itself doesn't count toward it).
+        # p2: full window at week 5 (4 prior games, weeks 1-4, window=4).
+        game_logs = {
+            "p1": [game(2025, 5, 999)],
+            "p2": [game(2025, w, 40) for w in range(1, 5)] + [game(2025, 5, 999)],
+        }
+        baseline_by_week_by_player = {"p1": {5: 5.0}, "p2": {5: 5.0}}
+        values_off, values_on = paired_variant_metric(
+            game_logs, CONFIG, season=2025, weeks=[5],
+            variant_a={"window": 4, "use_shrinkage": False},
+            variant_b={"window": 4, "use_shrinkage": True, "shrinkage_strength": 1.0},
+            baseline_by_week_by_player=baseline_by_week_by_player,
+            confidence_filter="no_data",
+        )
+        self.assertEqual(len(values_off), 1)  # only p1's no_data row survives the filter
+        self.assertEqual(len(values_on), 1)
+
+
 class TestBacktestPlayer(unittest.TestCase):
     def test_skips_ungraded_weeks_without_raising(self):
         game_log = [game(2025, 1, 50), game(2025, 3, 50)]  # week 2 is a bye
