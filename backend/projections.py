@@ -18,6 +18,21 @@ from typing import Any, Optional
 
 from scoring import compute_league_points
 
+# Per-position calibration multipliers derived from 2025 season validation
+# (docs/research/projection-model-backtest-findings.md + 2025 FantasyPros actuals CSV,
+# 3 749 player-week pairs across weeks 6-18). Only QB shows a statistically
+# robust bias (+1.10 pts even after excluding DNP/injury games, optimal scale 0.84);
+# RB/WR/TE biases in played-only games are small (<1-2% MAE improvement) and may
+# be season-specific noise -- left at 1.0. DST/K have no CSV validation data.
+POSITION_CALIBRATION_SCALE: dict[str, float] = {
+    "QB": 0.85,
+    "RB": 1.0,
+    "WR": 1.0,
+    "TE": 1.0,
+    "DST": 1.0,
+    "K": 1.0,
+}
+
 DEFAULT_WINDOW = 6  # games played -- design spec section 3.2's starting guess was 4;
 # raised to 6 per docs/research/projection-model-backtest-findings.md's Round 3
 # (2026-08-11, full 611-player pool): window=6 beat window=4 with significance on
@@ -145,6 +160,7 @@ def project_player(
     positional_baseline: Optional[float] = None,
     shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
     usage_multiplier: float = 1.0,
+    calibration_scale: float = 1.0,
 ) -> dict[str, Any]:
     """Project one player's fantasy points for (as_of_season, as_of_week).
 
@@ -260,7 +276,8 @@ def project_player(
         "shrinkage_weight": round(shrinkage_weight, 4),
         "shrunk_avg": round(shrunk_avg, 2),
         "usage_multiplier": usage_multiplier,
-        "projected_points": round(shrunk_avg * opponent_multiplier * usage_multiplier, 2),
+        "calibration_scale": calibration_scale,
+        "projected_points": round(shrunk_avg * opponent_multiplier * usage_multiplier * calibration_scale, 2),
         "per_game_points": per_game_points,
     }
 
@@ -276,6 +293,7 @@ def project_players(
     positional_baselines: Optional[dict[str, float]] = None,
     shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
     usage_multipliers: Optional[dict[str, float]] = None,
+    calibration_scales: Optional[dict[str, float]] = None,
 ) -> dict[str, dict[str, Any]]:
     """Batch wrapper over project_player for a slate of players. Kept
     separate from project_player so the single-player function stays the
@@ -290,10 +308,15 @@ def project_players(
 
     usage_multipliers: {player_id: float}, exact mirror of
     opponent_multipliers -- a player missing from the dict (or the dict
-    omitted entirely) gets 1.0, i.e. no usage adjustment."""
+    omitted entirely) gets 1.0, i.e. no usage adjustment.
+
+    calibration_scales: {player_id: float} -- per-player position calibration
+    multiplier (see POSITION_CALIBRATION_SCALE). Missing → 1.0 (no adjustment).
+    Caller builds this from POSITION_CALIBRATION_SCALE keyed by position."""
     opponent_multipliers = opponent_multipliers or {}
     positional_baselines = positional_baselines or {}
     usage_multipliers = usage_multipliers or {}
+    calibration_scales = calibration_scales or {}
     return {
         player_id: project_player(
             game_log,
@@ -306,6 +329,7 @@ def project_players(
             positional_baseline=positional_baselines.get(player_id),
             shrinkage_strength=shrinkage_strength,
             usage_multiplier=usage_multipliers.get(player_id, 1.0),
+            calibration_scale=calibration_scales.get(player_id, 1.0),
         )
         for player_id, game_log in game_logs_by_player.items()
     }

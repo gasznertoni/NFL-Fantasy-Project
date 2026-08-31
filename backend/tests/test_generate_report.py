@@ -244,8 +244,13 @@ class TestDualLeagueScoring(unittest.TestCase):
         )
         pts_a = self._get_qb_points(report_a)
         pts_b = self._get_qb_points(report_b)
-        self.assertEqual(pts_a, 12.0, f"Expected 12.0 under pass_td=6, got {pts_a}")
-        self.assertEqual(pts_b, 8.0, f"Expected 8.0 under pass_td=4, got {pts_b}")
+        # QB calibration scale (0.85) applies: 2 TDs * 6 * 0.85 = 10.2, * 4 * 0.85 = 6.8
+        from projections import POSITION_CALIBRATION_SCALE
+        qb_scale = POSITION_CALIBRATION_SCALE.get("QB", 1.0)
+        self.assertAlmostEqual(pts_a, round(12.0 * qb_scale, 2), places=5,
+                               msg=f"Expected {round(12.0*qb_scale,2)} under pass_td=6*scale, got {pts_a}")
+        self.assertAlmostEqual(pts_b, round(8.0 * qb_scale, 2), places=5,
+                               msg=f"Expected {round(8.0*qb_scale,2)} under pass_td=4*scale, got {pts_b}")
         self.assertNotEqual(pts_a, pts_b)
 
     def test_league_id_and_format_flow_through_to_report_json(self):

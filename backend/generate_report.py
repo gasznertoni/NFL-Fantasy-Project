@@ -48,7 +48,7 @@ from pathlib import Path
 from typing import Any, Optional
 
 from news import DEFAULT_NEWS_FLAG
-from projections import DEFAULT_WINDOW, project_player
+from projections import DEFAULT_WINDOW, POSITION_CALIBRATION_SCALE, project_player
 from waiver_targets import generate_rationale, select_waiver_targets
 
 # nflreadpy (2025 season, confirmed hands-on) uses "LA" for the Rams; the
@@ -288,7 +288,11 @@ def build_weekly_report_and_pool(
             }
         else:
             game_log = game_logs_by_player.get(player["playerId"], [])
-            projection = project_player(game_log, scoring_config, season, week, window=window)
+            cal_scale = POSITION_CALIBRATION_SCALE.get(player["position"], 1.0)
+            projection = project_player(
+                game_log, scoring_config, season, week,
+                window=window, calibration_scale=cal_scale,
+            )
             candidate = {
                 "playerId": player["playerId"],
                 "name": player["name"],
