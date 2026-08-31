@@ -1,0 +1,21 @@
+{
+  "leagues": [
+    {
+      "leagueId": "league-1",
+      "displayName": "ESPN 14-team PPR",
+      "teamCount": 14,
+      "leagueFormat": "ppr",
+      "scoringConfigPath": "leagues/league-1/scoring-config.json",
+      "outDir": "../frontend/public/mock/league-1"
+    },
+    {
+      "leagueId": "league-2",
+      "displayName": "Second League",
+      "teamCount": 12,
+      "leagueFormat": "half_ppr",
+      "_placeholder": true,
+      "scoringConfigPath": "leagues/league-2/scoring-config.json",
+      "outDir": "../frontend/public/mock/league-2"
+    }
+  ]
+}

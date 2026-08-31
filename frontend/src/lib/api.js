@@ -53,23 +53,25 @@ async function fetchJsonFixture(path) {
 }
 
 /**
- * Fetch the weekly report for a given week.
+ * Fetch the weekly report for a given week and league.
  * @param {number} [week] - defaults to the latest available week.
+ * @param {string} [leagueId] - defaults to 'league-1'.
  * @returns {Promise<object|null>} the WeeklyReport object, or null if no
  *   fixture exists for that week (renders the "no data" empty state).
  */
-export async function getWeeklyReport(week = LATEST_AVAILABLE_WEEK) {
-  return fetchJsonFixture(`${import.meta.env.BASE_URL}mock/weekly-report-week-${week}.json`);
+export async function getWeeklyReport(week = LATEST_AVAILABLE_WEEK, leagueId = 'league-1') {
+  return fetchJsonFixture(`${import.meta.env.BASE_URL}mock/${leagueId}/weekly-report-week-${week}.json`);
 }
 
 /**
- * Fetch the season-to-date track record.
+ * Fetch the season-to-date track record for a given league.
  * @param {number} [season] - defaults to the current mock season (2026).
+ * @param {string} [leagueId] - defaults to 'league-1'.
  * @returns {Promise<object|null>} the TrackRecord object, or null if no
  *   fixture exists for that season.
  */
-export async function getTrackRecord(season = DEFAULT_SEASON) {
-  const data = await fetchJsonFixture(`${import.meta.env.BASE_URL}mock/track-record.json`);
+export async function getTrackRecord(season = DEFAULT_SEASON, leagueId = 'league-1') {
+  const data = await fetchJsonFixture(`${import.meta.env.BASE_URL}mock/${leagueId}/track-record.json`);
   if (!data || data.season !== season) {
     return null;
   }
@@ -80,6 +82,7 @@ export async function getTrackRecord(season = DEFAULT_SEASON) {
  * Fetch the generic roster slot config (spec section 3.3). Stored as its own
  * small fixture so it stays trivially swappable once the real league roster
  * is confirmed -- no component should hardcode slot names/counts.
+ * Shared across all leagues -- do NOT add a leagueId parameter here.
  * @returns {Promise<{slots: string[]}>}
  */
 export async function getRosterSlots() {
@@ -92,10 +95,11 @@ export async function getRosterSlots() {
  * 3.2) -- the picker source for team configuration, and the fallback
  * identity/status source for Weekly Report when an assigned player has no
  * projection entry for the selected week.
+ * @param {string} [leagueId] - defaults to 'league-1'.
  * @returns {Promise<{players: object[]}>}
  */
-export async function getPlayerPool() {
-  const data = await fetchJsonFixture(`${import.meta.env.BASE_URL}mock/player-pool.json`);
+export async function getPlayerPool(leagueId = 'league-1') {
+  const data = await fetchJsonFixture(`${import.meta.env.BASE_URL}mock/${leagueId}/player-pool.json`);
   return data || { players: [] };
 }
 
@@ -103,9 +107,10 @@ export async function getPlayerPool() {
  * Fetch the one-time default team config seed (team-config spec section
  * 3.4). Only ever read when localStorage has no saved config yet -- callers
  * go through lib/teamConfig.js, never fetch this directly.
+ * @param {string} [leagueId] - defaults to 'league-1'.
  * @returns {Promise<{slotAssignments: (string|null)[]}|null>} null if the
  *   fixture is missing/unreadable -- caller must handle gracefully.
  */
-export async function getDefaultTeamConfig() {
-  return fetchJsonFixture(`${import.meta.env.BASE_URL}mock/default-team-config.json`);
+export async function getDefaultTeamConfig(leagueId = 'league-1') {
+  return fetchJsonFixture(`${import.meta.env.BASE_URL}mock/${leagueId}/default-team-config.json`);
 }

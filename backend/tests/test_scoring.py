@@ -145,6 +145,22 @@ class TestNflreadpyColumnMap(unittest.TestCase):
         mapped = nflreadpy_row_to_stat_line(row)
         self.assertEqual(mapped["fumble_lost"], 2)
 
+    def test_sums_fumble_across_three_source_columns_independent_of_lost(self):
+        # Added 2026-08-16 alongside the "fumble" (total, not just lost)
+        # category -- the real league scores a plain fumble (-1) AND a
+        # fumble lost (-2) as separate, stacking categories, so a fumble
+        # that WAS lost must populate both "fumble" and "fumble_lost"
+        # simultaneously from the same row, not just whichever happened.
+        row = {
+            "sack_fumbles": 1,
+            "rushing_fumbles": 1,
+            "receiving_fumbles": 0,
+            "rushing_fumbles_lost": 1,
+        }
+        mapped = nflreadpy_row_to_stat_line(row)
+        self.assertEqual(mapped["fumble"], 2)
+        self.assertEqual(mapped["fumble_lost"], 1)
+
     def test_zero_and_missing_values_are_skipped(self):
         row = {"passing_yards": 0, "passing_tds": None}
         mapped = nflreadpy_row_to_stat_line(row)

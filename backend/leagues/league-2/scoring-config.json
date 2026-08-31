@@ -1,9 +1,9 @@
 {
   "_PLACEHOLDER": true,
-  "_note": "NOT the real league's scoring rules. CLAUDE.md Next Steps item 2 (real values, blocked on the commissioner) and item 3 (4 open ESPN schema questions) are both still open. The one value confirmed real per CLAUDE.md is pass_td=6. Everything else here is a reasonable ESPN-default-ish guess so the scoring engine and projection model can be built and unit-tested now -- swap this file, not the code, once real values land. reception=0.5 matches the frontend's existing half_ppr placeholder assumption (frontend/README.md) so the two placeholders agree with each other.",
+  "_note": "League-2 scoring config — fill in real values from your league's scoring settings before using this config for projections. The structure mirrors backend/leagues/league-1/scoring-config.json exactly. Values here are illustrative defaults (standard half-PPR) and will produce inaccurate projections until replaced with your real league's numbers. Check all three sections: 'linear' (per-stat point values), 'milestones' (yardage-bonus thresholds), and 'tiers' (DST points-allowed/yards-allowed bands).",
   "linear": {
     "pass_yd": 0.04,
-    "pass_td": 6,
+    "pass_td": 4,
     "pass_int": -2,
     "pass_2pt": 2,
     "rush_yd": 0.1,
@@ -13,6 +13,7 @@
     "rec_td": 6,
     "rec_2pt": 2,
     "reception": 0.5,
+    "fumble": 0,
     "fumble_lost": -2,
     "fumble_forced": 0,
     "def_sack": 1,
@@ -21,7 +22,7 @@
     "def_safety": 2,
     "def_blocked_kick": 2,
     "def_st_td": 6,
-    "def_return_yd": 0.02,
+    "def_return_yd": 0.0,
     "fg_made_0_39": 3,
     "fg_made_40_49": 4,
     "fg_made_50_plus": 5,
@@ -29,7 +30,6 @@
     "pat_made": 1,
     "pat_missed": -1
   },
-  "_kicker_note": "fg_*/pat_* are a placeholder slot, same status as the rest of this file -- values are an ESPN-default-ish guess, unconfirmed for the real league. Stat-line assembly IS wired up now (backend/kicker.py, added 2026-08-12, per docs/research/kicker-scoring-fields.md) -- kickers are a normal load_player_stats() row, no self-join needed unlike DST. The only remaining gap here is the point VALUES below, same as every other category in this file, pending the real league scoring rules (CLAUDE.md Next Steps item 1).",
   "milestones": {
     "pass_yd": {
       "mode": "highest",

@@ -1,5 +1,6 @@
 {
   "week": 1,
+  "leagueId": "league-1",
   "leagueFormatAssumption": "half_ppr",
   "generatedAt": "2026-09-04T13:00:00Z",
   "projections": [
@@ -33,7 +34,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00202",
@@ -47,7 +52,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00204",
@@ -61,7 +70,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00301",
@@ -75,7 +88,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00302",
@@ -107,7 +124,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00401",
@@ -121,7 +142,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00303",
@@ -135,7 +160,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00501",
@@ -149,7 +178,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00601",
@@ -163,7 +196,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00203",
@@ -177,7 +214,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00304",
@@ -209,7 +250,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     }
   ],
   "waiverTargets": [
@@ -225,7 +270,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null },
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      },
       "rationale": "Lead back role trending up with committee-mate on the injury report."
     },
     {
@@ -259,7 +308,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null },
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      },
       "rationale": "Slot target share has climbed each of the last two weeks with the outside receiver banged up."
     }
   ]

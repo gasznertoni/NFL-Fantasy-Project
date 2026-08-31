@@ -87,6 +87,36 @@ body {
   color: var(--color-text-muted);
 }
 
+.app-header-controls {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.league-selector-label {
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
+.league-selector {
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--color-text);
+  background: var(--color-bg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 6px 10px;
+  cursor: pointer;
+  appearance: auto;
+}
+
+.league-selector:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+}
+
 .tabs {
   display: flex;
   gap: 4px;

@@ -22,8 +22,8 @@ from typing import Any
 
 from track_record import build_track_record
 
-DEFAULT_REPORTS_DIR = Path(__file__).resolve().parent.parent / "frontend" / "public" / "mock"
-DEFAULT_SCORING_CONFIG_PATH = Path(__file__).resolve().parent / "scoring_config.placeholder.json"
+DEFAULT_REPORTS_DIR = Path(__file__).resolve().parent.parent / "frontend" / "public" / "mock" / "league-1"
+DEFAULT_SCORING_CONFIG_PATH = Path(__file__).resolve().parent / "leagues" / "league-1" / "scoring-config.json"
 
 
 def load_weekly_reports(reports_dir: Path, up_to_week: int) -> dict[int, dict[str, Any]]:
@@ -101,29 +101,95 @@ def main(argv: list[str] | None = None) -> None:
     )
     parser.add_argument("--season", type=int, default=2026)
     parser.add_argument("--as-of-week", type=int, required=True)
-    parser.add_argument("--reports-dir", type=Path, default=DEFAULT_REPORTS_DIR)
     parser.add_argument("--out-path", type=Path, default=None)
     parser.add_argument("--scoring-config", type=Path, default=DEFAULT_SCORING_CONFIG_PATH)
+    # --leagues-config and --reports-dir are mutually exclusive: passing both
+    # is an argparse error. When neither is provided, --reports-dir defaults to
+    # DEFAULT_REPORTS_DIR (single-league path, same behavior as before).
+    dir_group = parser.add_mutually_exclusive_group()
+    dir_group.add_argument(
+        "--leagues-config",
+        type=Path,
+        default=None,
+        help=(
+            "path to leagues.json manifest; when set, generates one track-record.json "
+            "per league. Mutually exclusive with --reports-dir."
+        ),
+    )
+    dir_group.add_argument(
+        "--reports-dir",
+        type=Path,
+        default=DEFAULT_REPORTS_DIR,
+        help=(
+            "directory containing weekly-report-week-N.json snapshots (single-league). "
+            "Mutually exclusive with --leagues-config."
+        ),
+    )
     args = parser.parse_args(argv)
 
-    out_path = args.out_path or (args.reports_dir / "track-record.json")
-    scoring_config = json.loads(args.scoring_config.read_text())
+    # ---------------------------------------------------------------------------
+    # Multi-league path: loop over all leagues in the manifest.
+    # ---------------------------------------------------------------------------
 
-    weekly_reports = load_weekly_reports(args.reports_dir, args.as_of_week)
-    if not weekly_reports:
-        print(f"No weekly-report-week-N.json files found in {args.reports_dir} for weeks 1..{args.as_of_week}.")
+    if args.leagues_config:
+        leagues_manifest = json.loads(args.leagues_config.read_text())
+        backend_dir = Path(__file__).resolve().parent
 
-    weeks_to_grade = list(range(1, args.as_of_week))  # strictly before the current week
-    if weeks_to_grade:
-        print(f"Loading {args.season} actual results for weeks {weeks_to_grade}...")
-        actual_points = load_actual_points_nflreadpy(args.season, weeks_to_grade, scoring_config)
+        for league in leagues_manifest["leagues"]:
+            league_id: str = league["leagueId"]
+            out_dir = backend_dir / league["outDir"]
+            scoring_config_path = backend_dir / league["scoringConfigPath"]
+            scoring_config = json.loads(scoring_config_path.read_text())
+
+            reports_dir = out_dir
+            out_path = out_dir / "track-record.json"
+
+            print(f"\n--- Track record for {league_id} ({league['displayName']}) ---")
+
+            weekly_reports = load_weekly_reports(reports_dir, args.as_of_week)
+            if not weekly_reports:
+                print(
+                    f"  No weekly-report-week-N.json files found in {reports_dir} "
+                    f"for weeks 1..{args.as_of_week} -- skipping."
+                )
+                continue
+
+            weeks_to_grade = list(range(1, args.as_of_week))
+            if weeks_to_grade:
+                print(f"  Loading {args.season} actual results for weeks {weeks_to_grade}...")
+                actual_points = load_actual_points_nflreadpy(args.season, weeks_to_grade, scoring_config)
+            else:
+                actual_points = {}
+
+            track_record = build_track_record(args.season, args.as_of_week, weekly_reports, actual_points)
+
+            out_dir.mkdir(parents=True, exist_ok=True)
+            out_path.write_text(json.dumps(track_record, indent=2) + "\n")
+            print(f"  Wrote {out_path} ({len(track_record['history'])} history rows across weeks 1-{args.as_of_week})")
+
+    # ---------------------------------------------------------------------------
+    # Single-league path: backward-compatible behavior, unchanged.
+    # ---------------------------------------------------------------------------
+
     else:
-        actual_points = {}
+        out_path = args.out_path or (args.reports_dir / "track-record.json")
+        scoring_config = json.loads(args.scoring_config.read_text())
 
-    track_record = build_track_record(args.season, args.as_of_week, weekly_reports, actual_points)
+        weekly_reports = load_weekly_reports(args.reports_dir, args.as_of_week)
+        if not weekly_reports:
+            print(f"No weekly-report-week-N.json files found in {args.reports_dir} for weeks 1..{args.as_of_week}.")
 
-    out_path.write_text(json.dumps(track_record, indent=2) + "\n")
-    print(f"Wrote {out_path} ({len(track_record['history'])} history rows across weeks 1-{args.as_of_week})")
+        weeks_to_grade = list(range(1, args.as_of_week))  # strictly before the current week
+        if weeks_to_grade:
+            print(f"Loading {args.season} actual results for weeks {weeks_to_grade}...")
+            actual_points = load_actual_points_nflreadpy(args.season, weeks_to_grade, scoring_config)
+        else:
+            actual_points = {}
+
+        track_record = build_track_record(args.season, args.as_of_week, weekly_reports, actual_points)
+
+        out_path.write_text(json.dumps(track_record, indent=2) + "\n")
+        print(f"Wrote {out_path} ({len(track_record['history'])} history rows across weeks 1-{args.as_of_week})")
 
 
 if __name__ == "__main__":

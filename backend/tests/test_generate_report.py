@@ -94,9 +94,21 @@ class TestAssemblyShapes(unittest.TestCase):
     def test_assemble_weekly_report_top_level_keys(self):
         report = assemble_weekly_report(1, "2026-09-04T13:00:00Z", [], [])
         self.assertEqual(
-            set(report.keys()), {"week", "leagueFormatAssumption", "generatedAt", "projections", "waiverTargets"}
+            set(report.keys()),
+            {"week", "leagueId", "leagueFormatAssumption", "generatedAt", "projections", "waiverTargets"},
         )
         self.assertEqual(report["leagueFormatAssumption"], "ppr")
+        self.assertEqual(report["leagueId"], "league-1")
+
+    def test_assemble_weekly_report_league_id_and_format_kwargs(self):
+        """New kwargs pass through to the returned dict; defaults preserved for
+        callers that don't supply them (backward-compat contract)."""
+        report = assemble_weekly_report(
+            5, "2026-10-01T12:00:00Z", [], [],
+            league_id="league-2", league_format="half_ppr",
+        )
+        self.assertEqual(report["leagueId"], "league-2")
+        self.assertEqual(report["leagueFormatAssumption"], "half_ppr")
 
     def test_assemble_player_pool_shape(self):
         self.assertEqual(assemble_player_pool([{"playerId": "x"}]), {"players": [{"playerId": "x"}]})
@@ -188,6 +200,78 @@ class TestConsensusTierWiring(unittest.TestCase):
         tiers_without_arg = {p["playerId"]: p["projection"]["tier"] for p in without_arg["projections"]}
         self.assertEqual(tiers_with_none, tiers_without_arg)
         self.assertTrue(all(t == "in_house_estimate" for t in tiers_with_none.values()))
+
+
+class TestDualLeagueScoring(unittest.TestCase):
+    """Acceptance criterion: calling build_weekly_report_and_pool with two
+    scoring configs that differ only in pass_td produces different QB
+    projected points for the same player -- confirming that the scoring
+    isolation property holds (no module-level state bleeds between calls).
+
+    Setup: one QB with a single game log entry (week 1 of 2026) with
+    pass_td=2. Projecting for week 2 with the in-house estimate tier.
+    Config A: pass_td=6 → 2*6 = 12.0 pts.
+    Config B: pass_td=4 → 2*4 = 8.0 pts.
+
+    No shrinkage applies (positional_baseline is None, the default in
+    build_weekly_report_and_pool → project_player), so the result is
+    exactly the scoring-config-weighted average of the one game's stats.
+    """
+
+    def setUp(self):
+        self.pool = [
+            {"playerId": "qb-dual-test", "name": "Dual Test QB", "position": "QB", "team": "BUF"}
+        ]
+        # Week 2 is the target; week 1 is the only game in the log (as-of
+        # discipline: games_before includes weeks < as_of_week same season).
+        self.schedule = [{"season": 2026, "week": 2, "home_team": "BUF", "away_team": "MIA"}]
+        self.game_logs = {
+            "qb-dual-test": [{"season": 2026, "week": 1, "pass_td": 2}]
+        }
+        self.config_a = {"linear": {"pass_td": 6}}   # 2 TDs * 6 = 12.0
+        self.config_b = {"linear": {"pass_td": 4}}   # 2 TDs * 4 = 8.0
+
+    def _get_qb_points(self, report: dict) -> float:
+        entry = next(p for p in report["projections"] if p["playerId"] == "qb-dual-test")
+        return entry["projection"]["points"]
+
+    def test_different_scoring_configs_produce_different_qb_projected_points(self):
+        report_a, _ = build_weekly_report_and_pool(
+            2026, 2, self.config_a, self.pool, self.schedule, self.game_logs, {}
+        )
+        report_b, _ = build_weekly_report_and_pool(
+            2026, 2, self.config_b, self.pool, self.schedule, self.game_logs, {}
+        )
+        pts_a = self._get_qb_points(report_a)
+        pts_b = self._get_qb_points(report_b)
+        self.assertEqual(pts_a, 12.0, f"Expected 12.0 under pass_td=6, got {pts_a}")
+        self.assertEqual(pts_b, 8.0, f"Expected 8.0 under pass_td=4, got {pts_b}")
+        self.assertNotEqual(pts_a, pts_b)
+
+    def test_league_id_and_format_flow_through_to_report_json(self):
+        """league_id and league_format kwargs on build_weekly_report_and_pool
+        appear as leagueId / leagueFormatAssumption in the report JSON."""
+        report, _ = build_weekly_report_and_pool(
+            2026, 2, self.config_a, self.pool, self.schedule, self.game_logs, {},
+            league_id="league-2", league_format="half_ppr",
+        )
+        self.assertEqual(report["leagueId"], "league-2")
+        self.assertEqual(report["leagueFormatAssumption"], "half_ppr")
+
+    def test_same_player_pool_and_game_logs_used_for_both_leagues(self):
+        """Both calls with different configs produce the same player in
+        projections -- confirms the shared pool/schedule/game_logs are not
+        mutated between calls."""
+        report_a, _ = build_weekly_report_and_pool(
+            2026, 2, self.config_a, self.pool, self.schedule, self.game_logs, {}
+        )
+        report_b, _ = build_weekly_report_and_pool(
+            2026, 2, self.config_b, self.pool, self.schedule, self.game_logs, {}
+        )
+        ids_a = {p["playerId"] for p in report_a["projections"]}
+        ids_b = {p["playerId"] for p in report_b["projections"]}
+        self.assertEqual(ids_a, ids_b)
+        self.assertIn("qb-dual-test", ids_a)
 
 
 if __name__ == "__main__":

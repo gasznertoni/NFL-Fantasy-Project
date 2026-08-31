@@ -18,18 +18,18 @@ function orderedTiers(summary) {
   return [...known, ...rest]
 }
 
-export default function TrackRecordView() {
+export default function TrackRecordView({ leagueId = 'league-1' }) {
   const [track, setTrack] = useState(undefined) // undefined = loading, null = no data
 
   useEffect(() => {
     let cancelled = false
-    getTrackRecord().then((data) => {
+    getTrackRecord(undefined, leagueId).then((data) => {
       if (!cancelled) setTrack(data)
     })
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [leagueId])
 
   return (
     <section aria-label="Track record">

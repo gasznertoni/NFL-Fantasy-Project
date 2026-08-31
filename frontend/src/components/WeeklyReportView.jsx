@@ -43,7 +43,7 @@ function startingSlotOrder(slots) {
   return order
 }
 
-export default function WeeklyReportView() {
+export default function WeeklyReportView({ leagueId = 'league-1' }) {
   const [week, setWeek] = useState(LATEST_AVAILABLE_WEEK)
   const [report, setReport] = useState(undefined) // undefined = loading, null = no data
   const [slots, setSlots] = useState(null) // null = loading
@@ -52,7 +52,7 @@ export default function WeeklyReportView() {
   useEffect(() => {
     let cancelled = false
     setReport(undefined)
-    Promise.all([getWeeklyReport(week), getRosterSlots(), getPlayerPool()]).then(
+    Promise.all([getWeeklyReport(week, leagueId), getRosterSlots(), getPlayerPool(leagueId)]).then(
       ([reportData, slotData, poolData]) => {
         if (cancelled) return
         setReport(reportData)
@@ -65,9 +65,9 @@ export default function WeeklyReportView() {
     return () => {
       cancelled = true
     }
-  }, [week])
+  }, [week, leagueId])
 
-  const { config } = useTeamConfig(slots ? slots.length : 0)
+  const { config } = useTeamConfig(slots ? slots.length : 0, leagueId)
 
   const metaReady = slots !== null && pool !== null && config !== undefined
   const slotOrder = metaReady ? startingSlotOrder(slots) : []

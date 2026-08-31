@@ -539,7 +539,7 @@ def load_schedule_games(season: int) -> list[dict[str, Any]]:
 
 
 def main():
-    with open("scoring_config.placeholder.json") as f:
+    with open("leagues/league-1/scoring-config.json") as f:
         scoring_config = json.load(f)
 
     game_logs = load_full_pool_game_logs(SEASON, POSITIONS)

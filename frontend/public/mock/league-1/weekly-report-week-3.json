@@ -1,5 +1,6 @@
 {
   "week": 3,
+  "leagueId": "league-1",
   "leagueFormatAssumption": "half_ppr",
   "generatedAt": "2026-09-18T13:00:00Z",
   "projections": [
@@ -15,7 +16,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00201",
@@ -29,7 +34,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00458",
@@ -61,7 +70,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00301",
@@ -75,7 +88,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00302",
@@ -89,7 +106,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00310",
@@ -103,7 +124,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00401",
@@ -117,7 +142,11 @@
         "tierLabel": "Consensus projection",
         "source": "FantasyPros"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00303",
@@ -131,7 +160,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00501",
@@ -145,7 +178,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00502",
@@ -159,7 +196,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00601",
@@ -173,7 +214,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00602",
@@ -187,7 +232,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00202",
@@ -219,7 +268,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     },
     {
       "playerId": "p_00402",
@@ -233,7 +286,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null }
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
     }
   ],
   "waiverTargets": [
@@ -249,7 +306,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null },
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      },
       "rationale": "Rookie seeing a growing red-zone role; three touchdowns over the last three games and target share climbing weekly."
     },
     {
@@ -264,7 +325,11 @@
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
-      "newsFlag": { "designation": "Healthy", "riskLevel": "none", "summary": null },
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      },
       "rationale": "Passing-down role has been stable; matchup vs. a run defense allowing the 4th-most fantasy points to RBs."
     },
     {

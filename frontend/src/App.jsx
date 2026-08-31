@@ -9,6 +9,11 @@ const TABS = [
   { id: 'track-record', label: 'Track Record' },
 ]
 
+const LEAGUES = [
+  { id: 'league-1', label: 'ESPN 14-team PPR' },
+  { id: 'league-2', label: 'Second League' },
+]
+
 function tabFromHash() {
   const hash = window.location.hash.replace('#', '')
   return TABS.some((t) => t.id === hash) ? hash : 'report'
@@ -22,11 +27,29 @@ export default function App() {
   // for shareability.
   const [activeTab, setActiveTab] = useState(tabFromHash)
 
+  // Active league is persisted to localStorage so the selection survives a
+  // page reload. Defaults to 'league-1' if nothing stored yet.
+  const [activeLeagueId, setActiveLeagueId] = useState(() => {
+    try {
+      return localStorage.getItem('nfl-fantasy-assistant:active-league') || 'league-1'
+    } catch {
+      return 'league-1'
+    }
+  })
+
   useEffect(() => {
     const onHashChange = () => setActiveTab(tabFromHash())
     window.addEventListener('hashchange', onHashChange)
     return () => window.removeEventListener('hashchange', onHashChange)
   }, [])
+
+  useEffect(() => {
+    try {
+      localStorage.setItem('nfl-fantasy-assistant:active-league', activeLeagueId)
+    } catch {
+      // localStorage unavailable -- ignore
+    }
+  }, [activeLeagueId])
 
   function selectTab(id) {
     setActiveTab(id)
@@ -40,6 +63,23 @@ export default function App() {
           <div className="app-brand">
             <span className="app-brand-name">NFL Fantasy Value Assistant</span>
             <span className="app-brand-tag">start/sit &amp; waiver recommendations, tracked against real outcomes</span>
+          </div>
+          <div className="app-header-controls">
+            <label className="league-selector-label" htmlFor="league-selector">
+              League:
+            </label>
+            <select
+              id="league-selector"
+              className="league-selector"
+              value={activeLeagueId}
+              onChange={(e) => setActiveLeagueId(e.target.value)}
+            >
+              {LEAGUES.map((league) => (
+                <option key={league.id} value={league.id}>
+                  {league.label}
+                </option>
+              ))}
+            </select>
           </div>
           <nav className="tabs" role="tablist" aria-label="Main view">
             {TABS.map((tab) => (
@@ -58,9 +98,9 @@ export default function App() {
       </header>
 
       <main className="app-main">
-        {activeTab === 'report' && <WeeklyReportView />}
-        {activeTab === 'my-team' && <TeamConfigView />}
-        {activeTab === 'track-record' && <TrackRecordView />}
+        {activeTab === 'report' && <WeeklyReportView leagueId={activeLeagueId} />}
+        {activeTab === 'my-team' && <TeamConfigView leagueId={activeLeagueId} />}
+        {activeTab === 'track-record' && <TrackRecordView leagueId={activeLeagueId} />}
       </main>
 
       <footer className="app-footer">

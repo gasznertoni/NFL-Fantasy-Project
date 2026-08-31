@@ -156,6 +156,23 @@ NFLREADPY_OFFENSE_COLUMN_MAP = {
     "sack_fumbles_lost": "fumble_lost",
     "rushing_fumbles_lost": "fumble_lost",
     "receiving_fumbles_lost": "fumble_lost",
+    # Added 2026-08-16 once the real league settings confirmed a plain
+    # "Total Fumbles" penalty (-1) exists as its own category, separate
+    # from and stacking with fumble_lost (-2) -- see
+    # scoring_config.placeholder.json's _schema_questions_answered note.
+    # Named by direct analogy to the _lost columns immediately above
+    # (nflreadpy/nflverse's established naming convention pairs a
+    # "<type>_fumbles" total count with a "<type>_fumbles_lost" subset of
+    # it) -- NOT yet confirmed hands-on against a real load_player_stats()
+    # response the way every other column in this map was. Low risk if
+    # wrong: a missing/renamed column just means `fumble` silently stays
+    # 0 (same graceful-miss behavior nflreadpy_row_to_stat_line already
+    # has for every other column here), not a crash or a wrong value --
+    # but confirm the real column names before trusting this category's
+    # output.
+    "sack_fumbles": "fumble",
+    "rushing_fumbles": "fumble",
+    "receiving_fumbles": "fumble",
 }
 
 
@@ -164,7 +181,9 @@ def nflreadpy_row_to_stat_line(row: dict[str, Any]) -> dict[str, float]:
     module's stat_line shape via NFLREADPY_OFFENSE_COLUMN_MAP. fumble_lost
     is summed across nflreadpy's three separate fumble-lost columns (sack/
     rushing/receiving) since this league scores fumbles lost as one flat
-    category, not split by how the fumble happened."""
+    category, not split by how the fumble happened. `fumble` (added
+    2026-08-16) is summed the same way across the parallel non-"_lost"
+    columns -- unconfirmed column names, see the map's own comment."""
     out: dict[str, float] = {}
     for nfl_col, our_col in NFLREADPY_OFFENSE_COLUMN_MAP.items():
         val = row.get(nfl_col)

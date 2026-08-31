@@ -11,7 +11,7 @@ import LoadingSkeleton from './LoadingSkeleton.jsx'
  * no week selector, no projection numbers, just identity + status + slot
  * assignment (spec section 2).
  */
-export default function TeamConfigView() {
+export default function TeamConfigView({ leagueId = 'league-1' }) {
   const [slots, setSlots] = useState(null) // null = loading
   const [pool, setPool] = useState(null) // null = loading
   const [openIndex, setOpenIndex] = useState(null)
@@ -19,7 +19,7 @@ export default function TeamConfigView() {
 
   useEffect(() => {
     let cancelled = false
-    Promise.all([getRosterSlots(), getPlayerPool()]).then(([slotData, poolData]) => {
+    Promise.all([getRosterSlots(), getPlayerPool(leagueId)]).then(([slotData, poolData]) => {
       if (cancelled) return
       setSlots(slotData.slots || [])
       setPool(poolData.players || [])
@@ -27,9 +27,9 @@ export default function TeamConfigView() {
     return () => {
       cancelled = true
     }
-  }, [])
+  }, [leagueId])
 
-  const { config, assign, clear, reset } = useTeamConfig(slots ? slots.length : 0)
+  const { config, assign, clear, reset } = useTeamConfig(slots ? slots.length : 0, leagueId)
 
   const poolById = useMemo(() => {
     const map = new Map()

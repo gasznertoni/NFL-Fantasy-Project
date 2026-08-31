@@ -79,14 +79,19 @@ TIER_METADATA = {
     "in_house_estimate": {"tierLabel": "Our estimate", "source": "In-house model"},
 }
 
-# Matches scoring_config.placeholder.json's reception=0.5 note ("matches
-# the frontend's existing half_ppr placeholder assumption") -- both
-# placeholders deliberately agree with each other until real league
-# scoring values land (CLAUDE.md Next Steps item 2).
-LEAGUE_FORMAT_ASSUMPTION = "half_ppr"
+# Updated 2026-08-16 once real league values landed: reception=1 in
+# leagues/league-1/scoring-config.json (was the half_ppr placeholder's 0.5) --
+# this is a full-PPR league, confirmed hands-on from the real ESPN
+# settings, not a guess. "ppr" is already a recognized key in the
+# frontend's WeeklyReportView.jsx FORMAT_LABEL map (renders as "PPR"),
+# so this is the only code change needed -- no frontend edit required.
+# Kept as a module-level constant for backward compatibility; in the
+# multi-league path (--leagues-config), each league's leagueFormat from
+# leagues.json is passed explicitly and this constant is not used.
+LEAGUE_FORMAT_ASSUMPTION = "ppr"
 
 DEFAULT_OUT_DIR = Path(__file__).resolve().parent.parent / "frontend" / "public" / "mock"
-DEFAULT_SCORING_CONFIG_PATH = Path(__file__).resolve().parent / "scoring_config.placeholder.json"
+DEFAULT_SCORING_CONFIG_PATH = Path(__file__).resolve().parent / "leagues" / "league-1" / "scoring-config.json"
 
 
 def normalize_team(team: Optional[str]) -> Optional[str]:
@@ -163,10 +168,24 @@ def assemble_weekly_report(
     generated_at: str,
     projection_entries: list[dict[str, Any]],
     waiver_entries: list[dict[str, Any]],
+    league_id: str = "league-1",
+    league_format: str = "ppr",
 ) -> dict[str, Any]:
+    """Assemble the weekly-report JSON dict.
+
+    Args:
+        league_id: stable string identifier for the league (keys output
+            directories and localStorage). Defaults to "league-1" so callers
+            that don't pass the kwarg get the same behavior as before.
+        league_format: one of "ppr", "half_ppr", "standard". Passed through
+            from the manifest's leagueFormat in the multi-league path so
+            the report's leagueFormatAssumption field reflects the real
+            per-league setting rather than the module-level constant.
+    """
     return {
         "week": week,
-        "leagueFormatAssumption": LEAGUE_FORMAT_ASSUMPTION,
+        "leagueId": league_id,
+        "leagueFormatAssumption": league_format,
         "generatedAt": generated_at,
         "projections": projection_entries,
         "waiverTargets": waiver_entries,
@@ -188,6 +207,9 @@ def build_weekly_report_and_pool(
     window: int = DEFAULT_WINDOW,
     generated_at: Optional[str] = None,
     consensus_projections: Optional[dict[str, dict[str, Any]]] = None,
+    league_id: str = "league-1",
+    league_format: str = "ppr",
+    rostered_rank_cutoff: Optional[dict[str, int]] = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """The main assembly entry point, fully pure/injectable (all data
     already loaded by the caller) -- see the `load_*` adapters below for
@@ -213,6 +235,20 @@ def build_weekly_report_and_pool(
             None/omitted (the default) means nobody gets the consensus
             tier -- same "off means arithmetically identical to before"
             contract as project_player's own optional parameters.
+        league_id: stable string identifier passed through to
+            assemble_weekly_report; appears as "leagueId" in the report
+            JSON so the track-record layer and frontend can identify which
+            league a file belongs to without depending on its directory
+            path. Defaults to "league-1" for backward compatibility.
+        league_format: one of "ppr", "half_ppr", "standard"; passed
+            through to assemble_weekly_report as leagueFormatAssumption.
+            In the multi-league path this comes from the manifest's
+            leagueFormat field, not the module-level constant.
+        rostered_rank_cutoff: per-position dict passed to
+            select_waiver_targets to define the boundary between "rostered"
+            and "waiver-eligible" players. None (the default) falls back to
+            waiver_targets.py's DEFAULT_ROSTERED_RANK_CUTOFF (the 14-team
+            default). The multi-league caller derives this from teamCount.
 
     Returns:
         (weekly_report, player_pool) -- weekly_report covers only players
@@ -270,10 +306,19 @@ def build_weekly_report_and_pool(
 
     projection_entries = [build_projection_entry(c, c["tier"]) for c in candidates]
 
-    waiver_candidates = select_waiver_targets(candidates)
+    # Pass rostered_rank_cutoff through only when explicitly provided; None
+    # means "use waiver_targets.py's own DEFAULT_ROSTERED_RANK_CUTOFF" so
+    # the single-league code path is arithmetically identical to before.
+    if rostered_rank_cutoff is not None:
+        waiver_candidates = select_waiver_targets(candidates, rostered_rank_cutoff=rostered_rank_cutoff)
+    else:
+        waiver_candidates = select_waiver_targets(candidates)
     waiver_entries = [build_waiver_target_entry(c, generate_rationale(c), c["tier"]) for c in waiver_candidates]
 
-    weekly_report = assemble_weekly_report(week, generated_at or now_iso(), projection_entries, waiver_entries)
+    weekly_report = assemble_weekly_report(
+        week, generated_at or now_iso(), projection_entries, waiver_entries,
+        league_id=league_id, league_format=league_format,
+    )
 
     pool_entries = [
         build_player_pool_entry(p, news_flags_by_player.get(p["playerId"]) or dict(DEFAULT_NEWS_FLAG))
@@ -539,7 +584,6 @@ def main(argv: Optional[list[str]] = None) -> None:
     parser.add_argument("--week", type=int, required=True)
     parser.add_argument("--window", type=int, default=DEFAULT_WINDOW)
     parser.add_argument("--out-dir", type=Path, default=DEFAULT_OUT_DIR)
-    parser.add_argument("--scoring-config", type=Path, default=DEFAULT_SCORING_CONFIG_PATH)
     parser.add_argument(
         "--skip-news",
         action="store_true",
@@ -550,9 +594,35 @@ def main(argv: Optional[list[str]] = None) -> None:
         action="store_true",
         help="skip the FantasyPros consensus-tier pull; every player gets the in-house estimate tier",
     )
+    # --leagues-config and --scoring-config are mutually exclusive: passing
+    # both is an argparse error. When neither is provided, --scoring-config
+    # defaults to DEFAULT_SCORING_CONFIG_PATH (single-league path, same
+    # behavior as before this argument existed).
+    config_group = parser.add_mutually_exclusive_group()
+    config_group.add_argument(
+        "--leagues-config",
+        type=Path,
+        default=None,
+        help=(
+            "path to leagues.json manifest; when set, generates one report per "
+            "league defined in the manifest. Mutually exclusive with --scoring-config."
+        ),
+    )
+    config_group.add_argument(
+        "--scoring-config",
+        type=Path,
+        default=DEFAULT_SCORING_CONFIG_PATH,
+        help=(
+            "path to a single-league scoring config JSON. "
+            "Mutually exclusive with --leagues-config."
+        ),
+    )
     args = parser.parse_args(argv)
 
-    scoring_config = json.loads(args.scoring_config.read_text())
+    # ---------------------------------------------------------------------------
+    # Shared data loading -- happens once regardless of single vs multi-league.
+    # Scoring-config-dependent steps (consensus-tier scoring) happen per-league.
+    # ---------------------------------------------------------------------------
 
     print(f"Loading {args.season} player pool (nflreadpy rosters)...")
     pool = load_player_pool_nflreadpy(args.season)
@@ -581,40 +651,139 @@ def main(argv: Optional[list[str]] = None) -> None:
             print("Fetching + summarizing ESPN news...")
         news_flags = load_news_flags_nflreadpy(pool, client)
 
+    # Fetch raw FantasyPros data once (network call); scoring is applied per-
+    # league below so each league's projected_points reflect its own config.
+    raw_fp_players_by_position: Optional[dict[str, Any]] = None
+    fp_crosswalk: Optional[dict[str, Any]] = None
     if args.skip_fantasypros:
         print("--skip-fantasypros set: every player gets the in-house estimate tier.")
-        consensus_projections: dict[str, dict[str, Any]] = {}
     elif os.environ.get("FANTASYPROS_API_KEY") is None:
         print("FANTASYPROS_API_KEY not set -- consensus tier skipped, in-house estimate for everyone.")
-        consensus_projections = {}
     else:
         print(f"Fetching FantasyPros consensus tier ({'/'.join(POOL_POSITIONS)})...")
-        consensus_projections = build_consensus_tier_or_empty(args.season, args.week, scoring_config)
-        print(f"  {len(consensus_projections)} players resolved to the consensus tier")
+        try:
+            from fantasypros import fetch_consensus_tier, load_fantasypros_id_crosswalk_nflreadpy
 
-    weekly_report, player_pool = build_weekly_report_and_pool(
-        args.season,
-        args.week,
-        scoring_config,
-        pool,
-        schedule_games,
-        game_logs,
-        news_flags,
-        window=args.window,
-        consensus_projections=consensus_projections,
-    )
+            raw_fp_players_by_position = fetch_consensus_tier(
+                args.season, args.week, os.environ["FANTASYPROS_API_KEY"]
+            )
+            fp_crosswalk = load_fantasypros_id_crosswalk_nflreadpy()
+        except Exception as exc:  # noqa: BLE001
+            print(f"  FantasyPros fetch failed ({exc}) -- falling back to in-house estimate for everyone.")
+            raw_fp_players_by_position = None
+            fp_crosswalk = None
 
-    args.out_dir.mkdir(parents=True, exist_ok=True)
-    report_path = args.out_dir / f"weekly-report-week-{args.week}.json"
-    pool_path = args.out_dir / "player-pool.json"
-    report_path.write_text(json.dumps(weekly_report, indent=2) + "\n")
-    pool_path.write_text(json.dumps(player_pool, indent=2) + "\n")
+    def _build_consensus_for_config(scoring_config: dict[str, Any]) -> dict[str, dict[str, Any]]:
+        """Apply the given scoring config to the already-fetched raw FantasyPros
+        data. Returns an empty dict (all in-house) if the raw fetch didn't run
+        or failed."""
+        if raw_fp_players_by_position is None:
+            return {}
+        try:
+            from fantasypros import build_consensus_tier
 
-    print(
-        f"Wrote {report_path} "
-        f"({len(weekly_report['projections'])} projections, {len(weekly_report['waiverTargets'])} waiver targets)"
-    )
-    print(f"Wrote {pool_path} ({len(player_pool['players'])} players)")
+            result = build_consensus_tier(raw_fp_players_by_position, scoring_config, fp_crosswalk)
+            print(f"  {len(result)} players resolved to the consensus tier")
+            return result
+        except Exception as exc:  # noqa: BLE001
+            print(f"  FantasyPros consensus scoring failed ({exc}) -- falling back to in-house for this league.")
+            return {}
+
+    # ---------------------------------------------------------------------------
+    # Multi-league path: load manifest, loop over leagues.
+    # ---------------------------------------------------------------------------
+
+    if args.leagues_config:
+        leagues_manifest = json.loads(args.leagues_config.read_text())
+        backend_dir = Path(__file__).resolve().parent
+
+        for league in leagues_manifest["leagues"]:
+            league_id: str = league["leagueId"]
+            league_format: str = league["leagueFormat"]
+            team_count: int = league["teamCount"]
+
+            scoring_config_path = backend_dir / league["scoringConfigPath"]
+            scoring_config = json.loads(scoring_config_path.read_text())
+
+            if scoring_config.get("_PLACEHOLDER"):
+                print(
+                    f"WARNING: {league_id} scoring config is still a placeholder -- "
+                    "projections will be inaccurate until real values are entered"
+                )
+
+            # Per-position waiver cutoff derived from team count -- reproduces
+            # DEFAULT_ROSTERED_RANK_CUTOFF's formula (see waiver_targets.py).
+            rostered_rank_cutoff = {
+                "QB": team_count,
+                "RB": team_count * 2,
+                "WR": team_count * 2,
+                "TE": team_count,
+                "DST": team_count,
+                "K": team_count,
+            }
+
+            print(f"\n--- Generating report for {league_id} ({league['displayName']}) ---")
+            consensus_projections = _build_consensus_for_config(scoring_config)
+
+            out_dir = backend_dir / league["outDir"]
+            out_dir.mkdir(parents=True, exist_ok=True)
+
+            weekly_report, player_pool = build_weekly_report_and_pool(
+                args.season,
+                args.week,
+                scoring_config,
+                pool,
+                schedule_games,
+                game_logs,
+                news_flags,
+                window=args.window,
+                consensus_projections=consensus_projections,
+                league_id=league_id,
+                league_format=league_format,
+                rostered_rank_cutoff=rostered_rank_cutoff,
+            )
+
+            report_path = out_dir / f"weekly-report-week-{args.week}.json"
+            pool_path = out_dir / "player-pool.json"
+            report_path.write_text(json.dumps(weekly_report, indent=2) + "\n")
+            pool_path.write_text(json.dumps(player_pool, indent=2) + "\n")
+            print(
+                f"Wrote {report_path} "
+                f"({len(weekly_report['projections'])} projections, {len(weekly_report['waiverTargets'])} waiver targets)"
+            )
+            print(f"Wrote {pool_path} ({len(player_pool['players'])} players)")
+
+    # ---------------------------------------------------------------------------
+    # Single-league path: backward-compatible behavior, unchanged.
+    # ---------------------------------------------------------------------------
+
+    else:
+        scoring_config = json.loads(args.scoring_config.read_text())
+        consensus_projections = _build_consensus_for_config(scoring_config)
+
+        weekly_report, player_pool = build_weekly_report_and_pool(
+            args.season,
+            args.week,
+            scoring_config,
+            pool,
+            schedule_games,
+            game_logs,
+            news_flags,
+            window=args.window,
+            consensus_projections=consensus_projections,
+        )
+
+        args.out_dir.mkdir(parents=True, exist_ok=True)
+        report_path = args.out_dir / f"weekly-report-week-{args.week}.json"
+        pool_path = args.out_dir / "player-pool.json"
+        report_path.write_text(json.dumps(weekly_report, indent=2) + "\n")
+        pool_path.write_text(json.dumps(player_pool, indent=2) + "\n")
+
+        print(
+            f"Wrote {report_path} "
+            f"({len(weekly_report['projections'])} projections, {len(weekly_report['waiverTargets'])} waiver targets)"
+        )
+        print(f"Wrote {pool_path} ({len(player_pool['players'])} players)")
 
 
 if __name__ == "__main__":

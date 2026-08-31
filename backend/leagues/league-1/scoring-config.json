@@ -1,0 +1,80 @@
+{
+  "_PLACEHOLDER": true,
+  "_note": "MOSTLY REAL as of 2026-08-16 (updated same day: 2pt conversions and FG 50+ confirmed absent from ESPN's League Info screen entirely, not just missing from the original screenshots -- see _linear_category_notes). Real values confirmed hands-on from the builder's actual ESPN league settings (League Info > Scoring) -- CLAUDE.md Next Steps items 1-2 (real values + the 4 schema questions) are now answered for every category below except the DST points-allowed/yards-allowed tiers (see _tiers_note -- the one remaining gap, still being tracked down, not yet confirmed either way). Two things confirmed real but NOT YET BUILT in code -- see _new_mechanics_not_yet_built below and CLAUDE.md's Next Steps -- so this file alone isn't sufficient to produce fully correct real points yet, just closer than the pure guess it replaces. reception=1 (changed from the old 0.5 half-PPR guess) is the single biggest change: this is a FULL PPR league, not half-PPR -- the frontend's leagueFormatAssumption ('half_ppr') needs to change to match, that's a frontend/generate_report.py follow-up, not something this file alone fixes.",
+  "_schema_questions_answered_2026_08_16": "CLAUDE.md Next Steps item 2's four open questions, now answered from the real settings: (a) forced fumble is its own category, separate from recovered -- YES, 'Each Fumble Forced (FF)' = 1 (was guessed at 0). (b) a plain non-lost 'Fumble' penalty exists as its own category, separate from 'Fumble Lost' -- YES, 'Total Fumbles (FUM)' = -1 stacks with 'Total Fumbles Lost (FUML)' = -2 (a lost fumble costs -3 total, not just -2) -- this league has BOTH categories, the placeholder only ever modeled fumble_lost. (c) offensive yardage-milestone bonuses ARE configurable -- YES, but the real bands are narrower than guessed: only ONE tier each (400+ passing=2.5, 200+ rush/rec=1), not the two-tier 300/400 and 100/200 structure this file used to guess -- see the milestones section below, already updated. There's also a genuinely NEW mechanic the placeholder never modeled at all: a flat +1 bonus for any TD play (pass/rush/rec) covering 50+ yards, on top of the base 6 -- see _new_mechanics_not_yet_built. (d) defensive/return TD handling -- ANSWERED, and it changes backend/dst.py's def_st_td shape, not just its value: the real settings show only ONE explicit TD-credit line under Miscellaneous, 'Fumble Recovered for TD (FTD)' = 6 -- no separate 'Interception Return TD' or 'Punt/Kickoff Return TD' bonus line appears anywhere in the settings (Passing/Rushing/Receiving/Kicking/Miscellaneous/Defensive-Players sections were all captured top to bottom with no visible gaps). dst.py's DST_TD_COLUMNS currently sums nflreadpy's def_tds (which bundles INT-return AND fumble-return TDs together) plus special_teams_tds into one def_st_td bucket, crediting all of them at the same rate -- the real rule looks narrower (fumble-recovery TDs only get the +6; INT-return and kick/punt-return TDs may get nothing beyond the base def_int/return-yardage points already awarded). Needs a code follow-up to confirm nflreadpy can actually separate fumble-return TDs from INT-return TDs within def_tds, and narrow dst.py's mapping if so -- not just a config-value change. Flagged in CLAUDE.md Next Steps.",
+  "_new_mechanics_not_yet_built": "Two things the real settings confirmed exist but nothing in backend/ produces yet: (1) the 50+ yard TD distance bonus (PTD50/RTD50/RETD50, all +1) -- this is a per-play stat ('was this specific TD 50+ yards'), not a cumulative-yardage milestone like the existing milestones mechanism handles, so it can't just be added as a JSON value -- it needs a real data-source check (does nflreadpy's weekly-aggregated player_stats carry a count of long TD plays, or does this need play-by-play data instead) before it can be built at all. (2) def_st_td's shape narrowing per the schema-questions note above. Both are new Next Steps items, not done by this file.",
+  "linear": {
+    "pass_yd": 0.04,
+    "pass_td": 6,
+    "pass_int": -2,
+    "pass_2pt": 0,
+    "rush_yd": 0.1,
+    "rush_td": 6,
+    "rush_2pt": 0,
+    "rec_yd": 0.1,
+    "rec_td": 6,
+    "rec_2pt": 0,
+    "reception": 1,
+    "fumble": -1,
+    "fumble_lost": -2,
+    "fumble_forced": 1,
+    "def_sack": 1,
+    "def_int": 2,
+    "def_fumble_rec": 1,
+    "def_safety": 2,
+    "def_blocked_kick": 2,
+    "def_st_td": 6,
+    "def_return_yd": 0.1,
+    "fg_made_0_39": 3,
+    "fg_made_40_49": 3,
+    "fg_made_50_plus": 3,
+    "fg_missed": -2,
+    "pat_made": 1,
+    "pat_missed": -1
+  },
+  "_linear_category_notes": "Confirmed real 2026-08-16 (matches or replaces the old guess -- see git diff for exact before/after): pass_yd, pass_td, pass_int, rush_yd, rush_td, rec_yd, rec_td, reception (0.5->1, full PPR), fumble_lost, fumble_forced (0->1), def_sack, def_int, def_fumble_rec (2->1), def_safety, def_blocked_kick, def_return_yd (0.02->0.1), fg_made_0_39, fg_made_40_49 (4->3), fg_missed (-1->-2, and confirmed flat across both observed distance bands rather than the old single-value guess being wrong about structure too), pat_made, pat_missed. NEW category added, confirmed real, needs a stat-line-assembly mapping added to scoring.py's column map before it does anything (currently just sits in config unused): 'fumble' = -1 (any fumble, stacks with fumble_lost). NEW category added, confirmed real, needs BOTH a column mapping AND doesn't exist as data yet -- see _new_mechanics_not_yet_built: none, pass_sacked/PTD50/RTD50/RETD50 style per-play bonuses aren't in this linear block at all yet, deliberately, since there's no stat_line field to map them from. UPDATED 2026-08-16 (second pass) -- confirmed by checking ESPN's League Info screen directly, not just absent from the first round of screenshots: pass_2pt/rush_2pt/rec_2pt (2->0 -- this league genuinely does not award points for 2-point conversions, no line exists for it anywhere in League Info). fg_made_50_plus (5->3 -- no separate 50+ band exists in this league's Kicking settings either; treated as a '40+' catch-all at the same rate as fg_made_40_49 (3), since ESPN has to score a 50+ yard make somehow and the highest defined band is the only reasonable read -- fg_missed's single flat -2 already covers a 50+ miss the same way, no separate value needed there). def_st_td's VALUE (6) happens to already match the real 'Fumble Recovered for TD' line, but its SHAPE is flagged separately above -- don't read the value match as the shape question being closed too.",
+  "milestones": {
+    "pass_yd": {
+      "mode": "highest",
+      "tiers": [
+        { "threshold": 400, "points": 2.5 }
+      ]
+    },
+    "rush_yd": {
+      "mode": "highest",
+      "tiers": [
+        { "threshold": 200, "points": 1 }
+      ]
+    },
+    "rec_yd": {
+      "mode": "highest",
+      "tiers": [
+        { "threshold": 200, "points": 1 }
+      ]
+    }
+  },
+  "_milestones_note": "Replaced 2026-08-16 -- the old guess had a two-tier structure (300/400 passing at 3/5, 100/200 rush/rec at 3/5) that doesn't match the real league at all. The real settings show exactly one tier each, at different thresholds and much lower point values: 400+ passing yards = 2.5, 200+ rushing yards = 1, 200+ receiving yards = 1 -- no 300+ or 100+ tier exists. High confidence this is the complete list (the real Passing/Rushing/Receiving sections were each captured start-to-finish with no visible gaps), but this replaced a real structural assumption the old milestones bore no resemblance to, worth double-checking against the app directly once.",
+  "tiers": {
+    "def_points_allowed": [
+      { "max": 0, "points": 10 },
+      { "max": 6, "points": 7 },
+      { "max": 13, "points": 4 },
+      { "max": 20, "points": 1 },
+      { "max": 27, "points": 0 },
+      { "max": 34, "points": -1 },
+      { "max": 999, "points": -4 }
+    ],
+    "def_yards_allowed": [
+      { "max": 100, "points": 5 },
+      { "max": 199, "points": 3 },
+      { "max": 299, "points": 2 },
+      { "max": 349, "points": 0 },
+      { "max": 399, "points": -1 },
+      { "max": 449, "points": -3 },
+      { "max": 499, "points": -5 },
+      { "max": 549, "points": -6 },
+      { "max": 99999, "points": -7 }
+    ]
+  },
+  "_tiers_note": "STILL FULLY PLACEHOLDER -- unlike everything else in this file, the 2026-08-16 screenshots never showed a Points Allowed or Yards Allowed settings screen (these are usually their own dedicated sub-page in ESPN's D/ST scoring settings, separate from the general Scoring list this file's other values came from). Both tier tables below are still the original guess, completely unconfirmed. This is the single biggest remaining gap in this file -- get screenshots of those two specific settings screens next."
+}

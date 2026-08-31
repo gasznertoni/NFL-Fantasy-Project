@@ -1,0 +1,259 @@
+{
+  "season": 2026,
+  "asOfWeek": 3,
+  "summary": {
+    "in_house_estimate": {
+      "tierLabel": "Our estimate",
+      "predictionsScored": 5,
+      "startSitHitRate": 0.6,
+      "meanAbsoluteError": 3.8
+    },
+    "consensus": {
+      "tierLabel": "Consensus projection",
+      "predictionsScored": 7,
+      "startSitHitRate": 0.71,
+      "meanAbsoluteError": 3.9
+    }
+  },
+  "history": [
+    {
+      "predictionId": "pred_0001",
+      "week": 1,
+      "player": {
+        "playerId": "p_00123",
+        "name": "Josh Allen",
+        "position": "QB"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 24.3,
+      "actualPoints": 27.1,
+      "outcomeCorrect": true
+    },
+    {
+      "predictionId": "pred_0002",
+      "week": 1,
+      "player": {
+        "playerId": "p_00201",
+        "name": "Bijan Robinson",
+        "position": "RB"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 18.6,
+      "actualPoints": 15.9,
+      "outcomeCorrect": true
+    },
+    {
+      "predictionId": "pred_0003",
+      "week": 1,
+      "player": {
+        "playerId": "p_00202",
+        "name": "Tony Pollard",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.4,
+      "actualPoints": 8.6,
+      "outcomeCorrect": false
+    },
+    {
+      "predictionId": "pred_0004",
+      "week": 1,
+      "player": {
+        "playerId": "p_00301",
+        "name": "CeeDee Lamb",
+        "position": "WR"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 17.9,
+      "actualPoints": 19.4,
+      "outcomeCorrect": true
+    },
+    {
+      "predictionId": "pred_0005",
+      "week": 1,
+      "player": {
+        "playerId": "p_00302",
+        "name": "Chris Olave",
+        "position": "WR"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 13.2,
+      "actualPoints": 5.8,
+      "outcomeCorrect": false
+    },
+    {
+      "predictionId": "pred_0006",
+      "week": 1,
+      "player": {
+        "playerId": "p_00456",
+        "name": "Jaylen Warren",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 9.8,
+      "actualPoints": 11.6,
+      "outcomeCorrect": true
+    },
+    {
+      "predictionId": "pred_0007",
+      "week": 2,
+      "player": {
+        "playerId": "p_00123",
+        "name": "Josh Allen",
+        "position": "QB"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 23.1,
+      "actualPoints": 21.4,
+      "outcomeCorrect": true
+    },
+    {
+      "predictionId": "pred_0008",
+      "week": 2,
+      "player": {
+        "playerId": "p_00201",
+        "name": "Bijan Robinson",
+        "position": "RB"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 19.4,
+      "actualPoints": 24.2,
+      "outcomeCorrect": true
+    },
+    {
+      "predictionId": "pred_0009",
+      "week": 2,
+      "player": {
+        "playerId": "p_00202",
+        "name": "Tony Pollard",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.7,
+      "actualPoints": 3.2,
+      "outcomeCorrect": false
+    },
+    {
+      "predictionId": "pred_0010",
+      "week": 2,
+      "player": {
+        "playerId": "p_00458",
+        "name": "Ray Davis",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 10.4,
+      "actualPoints": 14.7,
+      "outcomeCorrect": true
+    },
+    {
+      "predictionId": "pred_0011",
+      "week": 2,
+      "player": {
+        "playerId": "p_00301",
+        "name": "CeeDee Lamb",
+        "position": "WR"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 18.2,
+      "actualPoints": 12.1,
+      "outcomeCorrect": false
+    },
+    {
+      "predictionId": "pred_0012",
+      "week": 2,
+      "player": {
+        "playerId": "p_00456",
+        "name": "Jaylen Warren",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.2,
+      "actualPoints": 10.8,
+      "outcomeCorrect": true
+    },
+    {
+      "predictionId": "pred_0013",
+      "week": 3,
+      "player": {
+        "playerId": "p_00123",
+        "name": "Josh Allen",
+        "position": "QB"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 25.7,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_0014",
+      "week": 3,
+      "player": {
+        "playerId": "p_00201",
+        "name": "Bijan Robinson",
+        "position": "RB"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 20.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_0015",
+      "week": 3,
+      "player": {
+        "playerId": "p_00458",
+        "name": "Ray Davis",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 13.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_0016",
+      "week": 3,
+      "player": {
+        "playerId": "p_00308",
+        "name": "Xavier Legette",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 10.7,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_0017",
+      "week": 3,
+      "player": {
+        "playerId": "p_00457",
+        "name": "Jerome Ford",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 8.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    }
+  ],
+  "_stub": true
+}
