@@ -41,10 +41,21 @@ class TestAssembleDstStatLine(unittest.TestCase):
         self.assertEqual(stat_line["def_safety"], 1)
         self.assertEqual(stat_line["fumble_forced"], 2)
 
-    def test_st_td_sums_def_tds_and_special_teams_tds(self):
-        own_row = {"def_tds": 1, "special_teams_tds": 1}
+    def test_st_td_uses_fumble_recovery_tds_only(self):
+        """fumble_recovery_tds (direct column, confirmed real 2026-08-31)
+        maps to def_st_td -- the one TD-credit line in the real ESPN settings
+        ('Fumble Recovered for TD, FTD = 6'). def_tds and special_teams_tds
+        are NOT credited: def_tds bundles INT-return TDs too (broader than
+        the real rule), special_teams_tds covers return TDs that have no
+        explicit bonus line in ESPN's settings at all. See
+        docs/research/dst-td-decomposition.md."""
+        own_row = {"fumble_recovery_tds": 1, "def_tds": 2, "special_teams_tds": 1}
         stat_line = assemble_dst_stat_line(own_row, {}, points_allowed=0)
-        self.assertEqual(stat_line["def_st_td"], 2)
+        self.assertEqual(stat_line["def_st_td"], 1)
+        # def_tds and special_teams_tds must NOT produce any def_st_td credit
+        own_row_no_fumble_td = {"def_tds": 1, "special_teams_tds": 1}
+        stat_line_no_fumble = assemble_dst_stat_line(own_row_no_fumble_td, {}, points_allowed=0)
+        self.assertNotIn("def_st_td", stat_line_no_fumble)
 
     def test_return_yards_sums_punt_and_kickoff(self):
         own_row = {"punt_return_yards": 15, "kickoff_return_yards": 22}

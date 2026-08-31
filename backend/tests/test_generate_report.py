@@ -96,7 +96,7 @@ class TestAssemblyShapes(unittest.TestCase):
         self.assertEqual(
             set(report.keys()), {"week", "leagueFormatAssumption", "generatedAt", "projections", "waiverTargets"}
         )
-        self.assertEqual(report["leagueFormatAssumption"], "half_ppr")
+        self.assertEqual(report["leagueFormatAssumption"], "ppr")
 
     def test_assemble_player_pool_shape(self):
         self.assertEqual(assemble_player_pool([{"playerId": "x"}]), {"players": [{"playerId": "x"}]})

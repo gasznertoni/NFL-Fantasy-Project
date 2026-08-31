@@ -213,27 +213,30 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   documented rookie/`fantasypros_id`-lag gap) is silently dropped from
   the consensus tier and falls back to the in-house estimate rather than
   failing the whole report.
-- **`dst.py`** (added 2026-08-12) — DST (team defense) stat-line assembly,
-  closing CLAUDE.md Next Steps item 3's DST half ("Wire in DST/K"). Turns
-  `nflreadpy`'s raw `load_team_stats()` + `load_schedules()` rows into the
-  exact `stat_line` shape `scoring.compute_league_points` already knows
-  how to score, per the self-join/schedule-join logic
-  `docs/research/dst-scoring-fields.md` documented back on 2026-08-04:
-  three categories (forced fumbles, recovered-opponent-fumble count,
-  return yards) are direct per-team fields; two (blocked-kick credit,
-  yards allowed) need a self-join of `team_stats` against itself on
-  `game_id`, reading the *opponent's* row; points allowed needs a join
-  against `load_schedules()`'s `home_score`/`away_score`. Confirmed
-  end-to-end against real 2025 data before merge (100% `game_id` overlap
-  between `load_team_stats()` and `load_schedules()` across the full
-  season; a real ARI@NO week-1 game hand-verified for the points-allowed
-  direction and yards-allowed sum). **Caveat carried forward, not
-  resolved here:** `def_st_td` (mapped from `def_tds` +
-  `special_teams_tds`) is built against the placeholder config as-is —
-  CLAUDE.md Next Steps item 2's still-open question about whether ESPN
-  even credits defensive/return TDs to the DST slot (it hasn't, generally,
-  since 2019) may mean this category needs to change shape once that
-  question closes, not just get a new point value.
+- **`dst.py`** (added 2026-08-12; `def_st_td` narrowed 2026-08-31) — DST
+  (team defense) stat-line assembly, closing CLAUDE.md Next Steps item 3's
+  DST half ("Wire in DST/K"). Turns `nflreadpy`'s raw `load_team_stats()` +
+  `load_schedules()` rows into the exact `stat_line` shape
+  `scoring.compute_league_points` already knows how to score, per the
+  self-join/schedule-join logic `docs/research/dst-scoring-fields.md`
+  documented back on 2026-08-04: three categories (forced fumbles,
+  recovered-opponent-fumble count, return yards) are direct per-team
+  fields; two (blocked-kick credit, yards allowed) need a self-join of
+  `team_stats` against itself on `game_id`, reading the *opponent's* row;
+  points allowed needs a join against `load_schedules()`'s
+  `home_score`/`away_score`. Confirmed end-to-end against real 2025 data
+  before merge (100% `game_id` overlap between `load_team_stats()` and
+  `load_schedules()` across the full season; a real ARI@NO week-1 game
+  hand-verified for the points-allowed direction and yards-allowed sum).
+  **`def_st_td` narrowed 2026-08-31** (CLAUDE.md Next Steps item 1):
+  the real ESPN settings show only "Fumble Recovered for TD (FTD) = 6" as
+  the one explicit TD-credit line for DST — no separate INT-return-TD or
+  return-TD bonus exists. `nflreadpy`'s `fumble_recovery_tds` column
+  (confirmed direct field on `load_team_stats()`, 18 nonzero game rows in
+  2025) matches this exactly. The previous `def_tds + special_teams_tds`
+  mapping was crediting INT-return TDs and punt/kickoff return TDs that
+  have no bonus line in the real settings; both dropped. See
+  `docs/research/dst-td-decomposition.md`.
 - **`kicker.py`** (added 2026-08-12) — Kicker (K) stat-line assembly,
   closing CLAUDE.md Next Steps item 3's K half. Per
   `docs/research/kicker-scoring-fields.md` (the probe this module
@@ -300,7 +303,17 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   cadence, per the plan) that reads back whatever `weekly-report-week-N.json`
   files already exist and real actual results, and writes
   `track-record.json` via `track_record.py`.
-- **`tests/`** — 241 unit tests, all passing, covering the logic above
+- **`season_week.py`** (added 2026-08-16) — pure `current_week_from_schedule()`
+  + network adapter `load_current_week_nflreadpy()`, same split as every
+  other module here. Closes CLAUDE.md Next Steps item 3's decision (stay
+  script-based, but stop requiring a human to supply `--week` by hand):
+  returns the earliest week in a season that still has an unplayed game
+  (falling back to the last loaded week once the whole season's played).
+  Its CLI prints just the week number to stdout, so
+  `.github/workflows/weekly-report.yml`'s scheduled run can capture it
+  directly (`week=$(python3 season_week.py --season 2026)`) without
+  needing a human to pick the week each time.
+- **`tests/`** — 248 unit tests, all passing, covering the logic above
   with synthetic data (no network, no API keys needed to run these).
 
 ## What's deliberately NOT done here
@@ -328,12 +341,21 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   scope" section, this is deliberate: the backtest found no accuracy
   benefit and a real bias cost from enabling it, so it stays built,
   tested, and unwired.
-- **No live API/serverless layer** — `generate_report.py` is a script you
-  run before a deploy, not a service the deployed frontend calls at
-  request time. Deliberate for now, per the integration plan's own
-  architectural recommendation (a live endpoint adds hosting/CORS/secret-
-  management work this portfolio project doesn't need yet) — revisit once
-  the pipeline below has been run for real a few times.
+- **No live API/serverless layer** — `generate_report.py` is a script, not
+  a service the deployed frontend calls at request time. Decided, not
+  just deferred (2026-08-16, CLAUDE.md Next Steps item 3): the pipeline
+  calls a rate-limited FantasyPros API and an LLM per player's news, so a
+  literal request-time version would still need a caching/precompute
+  layer in front of it to be usably fast — which converges back to
+  "compute on a schedule, serve the cached result," the same thing this
+  script already does, just with hosting/CORS/secret-management work added
+  for no real gain at this project's cadence. What *was* automated instead
+  (2026-08-16): `.github/workflows/weekly-report.yml` runs this script (and
+  `generate_track_record.py`) on a schedule and commits the refreshed
+  fixtures, closing the "a human has to remember to run this" gap without
+  adding a live endpoint. Revisit the live-API question once Next Steps
+  items 1–2 (real scoring config, real roster) land and there's an actual
+  product reason for sub-weekly freshness.
 
 ## Run tests
 
@@ -350,6 +372,7 @@ python3 tests/test_generate_report.py -v
 python3 tests/test_fantasypros.py -v
 python3 tests/test_dst.py -v
 python3 tests/test_kicker.py -v
+python3 tests/test_season_week.py -v
 ```
 
 (9 of `test_backtest.py`'s cases cover the paired significance test —

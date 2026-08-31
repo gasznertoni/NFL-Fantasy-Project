@@ -18,17 +18,20 @@ a real ARI/NO 2025 game respectively); points allowed needs a join against
 load_schedules()'s home_score/away_score (confirmed: 100% game_id overlap
 between load_team_stats() and load_schedules() for the full 2025 season).
 
-CAVEAT (carry forward, don't resolve here): def_st_td is mapped from
-nflreadpy's def_tds + special_teams_tds fields, but CLAUDE.md Next Steps
-item 2 has an open question about whether ESPN even credits defensive/
-return TDs to the DST slot at all -- ESPN hasn't done so, generally, since
-2019, which may be a genuine incompatibility with this league's old
-"DST Touchdowns: 6 points" rule rather than just a value to carry over.
-def_st_td here is built against the placeholder config as it stands today,
-same "placeholder now, swap later" pattern the whole project follows --
-this module doesn't block on item 2 closing, but a def_st_td value coming
-out of this module should not be read as confirmed-correct for the real
-league until that question does.
+def_st_td resolution (2026-08-31, CLAUDE.md Next Steps item 1):
+The real ESPN settings show only one explicit TD-credit line: "Fumble
+Recovered for TD (FTD) = 6." No separate INT-return-TD or
+punt/kickoff-return-TD bonus line exists. nflreadpy's load_team_stats()
+carries a direct `fumble_recovery_tds` column (18 nonzero games in 2025,
+confirmed against real data -- see docs/research/dst-td-decomposition.md)
+that is precisely this category. The previous mapping summed `def_tds`
+(which bundles INT-return TDs + fumble-return TDs, 28 nonzero games) plus
+`special_teams_tds` (punt/kickoff return TDs, 26 nonzero games) -- both
+broader than the real rule and confirmed impossible to narrow further from
+weekly-aggregate data alone (def_tds has no per-return-type breakdown at
+this granularity). `fumble_recovery_tds` replaces both; `def_tds` and
+`special_teams_tds` are no longer read. See docs/research/dst-td-
+decomposition.md for the full probe results.
 
 Split, like every other module here, into pure assembly (top half --
 exercised by tests/test_dst.py with synthetic team_stats/schedule rows, no
@@ -58,25 +61,21 @@ def normalize_team(team: Optional[str]) -> Optional[str]:
 
 # Direct per-team fields (docs/research/dst-scoring-fields.md) -> this
 # project's linear stat_line category names. All read off the DST's own
-# team_stats row -- no join needed for these three.
+# team_stats row -- no join needed for these.
 DST_DIRECT_COLUMN_MAP = {
     "def_sacks": "def_sack",
     "def_interceptions": "def_int",
     "fumble_recovery_opp": "def_fumble_rec",
     "def_safeties": "def_safety",
     "def_fumbles_forced": "fumble_forced",
+    # fumble_recovery_tds: direct column in load_team_stats() confirmed
+    # against real 2025 data (18 nonzero games). Matches the one TD-credit
+    # line in the real ESPN settings exactly ("Fumble Recovered for TD,
+    # FTD = 6"). The previous def_tds + special_teams_tds mapping was
+    # broader and has been dropped -- see module docstring and
+    # docs/research/dst-td-decomposition.md.
+    "fumble_recovery_tds": "def_st_td",
 }
-
-# def_st_td: nflreadpy splits defensive TDs (pick-sixes, fumble-return TDs)
-# from special-teams TDs (punt/kickoff return TDs) into two separate
-# columns; this league's single def_st_td category sums both. Both
-# columns confirmed real and nonzero against 103 real 2024-2025 rows (see
-# docs/research/dst-scoring-fields.md's 2026-08-12 addendum) -- but unlike
-# the other categories in this module, that's "the columns exist and are
-# read correctly," not a box-score-level confirmation that the sum is
-# exactly right. See the module docstring's caveat -- this is a
-# placeholder-config mapping decision, not a confirmed-real one.
-DST_TD_COLUMNS = ("def_tds", "special_teams_tds")
 
 # Return yardage: punt + kickoff return yards, both direct per-team fields.
 DST_RETURN_YARD_COLUMNS = ("punt_return_yards", "kickoff_return_yards")
@@ -120,9 +119,6 @@ def assemble_dst_stat_line(
         val = own_row.get(nfl_col)
         if val:
             stat_line[our_col] = val
-    st_td = _sum_columns(own_row, DST_TD_COLUMNS)
-    if st_td:
-        stat_line["def_st_td"] = st_td
     return_yd = _sum_columns(own_row, DST_RETURN_YARD_COLUMNS)
     if return_yd:
         stat_line["def_return_yd"] = return_yd
