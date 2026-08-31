@@ -2,7 +2,7 @@
   "week": 18,
   "leagueId": "league-2",
   "leagueFormatAssumption": "half_ppr",
-  "generatedAt": "2026-08-31T22:17:32Z",
+  "generatedAt": "2026-08-31T22:31:12Z",
   "projections": [
     {
       "playerId": "00-0023459",
@@ -12,7 +12,7 @@
       "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.15,
+        "points": 10.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -66,7 +66,7 @@
       "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.8,
+        "points": 12.58,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -84,7 +84,7 @@
       "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.32,
+        "points": 4.52,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -102,7 +102,7 @@
       "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 23.72,
+        "points": 20.16,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -120,7 +120,7 @@
       "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.88,
+        "points": 2.45,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -138,7 +138,7 @@
       "opponent": "NO",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.82,
+        "points": 13.45,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -318,7 +318,7 @@
       "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.96,
+        "points": 0.82,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -336,7 +336,7 @@
       "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.35,
+        "points": -0.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -426,7 +426,7 @@
       "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.59,
+        "points": 14.1,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -696,7 +696,7 @@
       "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 23.32,
+        "points": 19.82,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -732,7 +732,7 @@
       "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 20.5,
+        "points": 17.43,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -768,7 +768,7 @@
       "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.84,
+        "points": 16.86,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -894,7 +894,7 @@
       "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.16,
+        "points": -0.14,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -912,7 +912,7 @@
       "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.72,
+        "points": 2.31,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1164,7 +1164,7 @@
       "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.75,
+        "points": 0.64,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1254,7 +1254,7 @@
       "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.39,
+        "points": 0.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1542,7 +1542,7 @@
       "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.15,
+        "points": -0.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1596,7 +1596,7 @@
       "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.8,
+        "points": 3.23,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1650,7 +1650,7 @@
       "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.48,
+        "points": 9.76,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1740,7 +1740,7 @@
       "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.9,
+        "points": 13.51,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1758,7 +1758,7 @@
       "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 20.55,
+        "points": 17.46,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1794,7 +1794,7 @@
       "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.66,
+        "points": 12.46,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2010,7 +2010,7 @@
       "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.1,
+        "points": -0.09,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2442,7 +2442,7 @@
       "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.03,
+        "points": 6.82,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2694,7 +2694,7 @@
       "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.58,
+        "points": 13.24,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2820,7 +2820,7 @@
       "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.18,
+        "points": 13.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2856,7 +2856,7 @@
       "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.46,
+        "points": 15.69,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2964,7 +2964,7 @@
       "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.75,
+        "points": 16.79,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3324,7 +3324,7 @@
       "opponent": "IND",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.59,
+        "points": 11.55,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3468,7 +3468,7 @@
       "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 27.96,
+        "points": 23.76,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3486,7 +3486,7 @@
       "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.58,
+        "points": 8.99,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3558,7 +3558,7 @@
       "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.73,
+        "points": 1.47,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3576,7 +3576,7 @@
       "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.46,
+        "points": 0.39,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4080,7 +4080,7 @@
       "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.44,
+        "points": 5.47,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4512,7 +4512,7 @@
       "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 25.13,
+        "points": 21.36,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4656,7 +4656,7 @@
       "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.14,
+        "points": 1.82,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4710,7 +4710,7 @@
       "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.79,
+        "points": 10.88,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4818,7 +4818,7 @@
       "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.61,
+        "points": 0.52,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4836,7 +4836,7 @@
       "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.29,
+        "points": 1.1,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6042,7 +6042,7 @@
       "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.26,
+        "points": 16.37,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6060,7 +6060,7 @@
       "opponent": "IND",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.44,
+        "points": 11.43,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6294,14 +6294,14 @@
       "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.37,
+        "points": 2.01,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Joe Milton III was waived by the Cowboys on Monday and is no longer on the team's roster."
       }
     },
     {
@@ -6528,7 +6528,7 @@
       "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.04,
+        "points": -0.03,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6798,7 +6798,7 @@
       "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 22.92,
+        "points": 19.48,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7014,7 +7014,7 @@
       "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.34,
+        "points": 16.44,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7068,7 +7068,7 @@
       "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.91,
+        "points": 12.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7554,7 +7554,7 @@
       "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.1,
+        "points": 2.63,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7608,7 +7608,7 @@
       "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.43,
+        "points": 8.02,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7806,7 +7806,7 @@
       "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.34,
+        "points": 7.09,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7914,7 +7914,7 @@
       "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.99,
+        "points": 1.69,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8202,7 +8202,7 @@
       "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.56,
+        "points": 14.08,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8238,7 +8238,7 @@
       "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.57,
+        "points": 13.23,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8256,7 +8256,7 @@
       "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.72,
+        "points": 16.76,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8274,7 +8274,7 @@
       "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.4,
+        "points": 6.29,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8454,7 +8454,7 @@
       "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.28,
+        "points": 16.39,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9087,7 +9087,7 @@
       "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.26,
+        "points": 16.37,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9096,7 +9096,7 @@
         "riskLevel": "none",
         "summary": null
       },
-      "rationale": "Averaging 19.3 pts over the last 6 games, though production cooled the last time out."
+      "rationale": "Averaging 16.4 pts over the last 6 games, though production cooled the last time out."
     },
     {
       "playerId": "00-0037809",

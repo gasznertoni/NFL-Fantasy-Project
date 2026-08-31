@@ -3845,9 +3845,9 @@
       "position": "QB",
       "team": "DAL",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Joe Milton III was waived by the Cowboys on Monday and is no longer on the team's roster."
       }
     },
     {
