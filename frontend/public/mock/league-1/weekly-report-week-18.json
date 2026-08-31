@@ -2,7 +2,7 @@
   "week": 18,
   "leagueId": "league-1",
   "leagueFormatAssumption": "ppr",
-  "generatedAt": "2026-08-31T22:31:12Z",
+  "generatedAt": "2026-08-31T22:38:22Z",
   "projections": [
     {
       "playerId": "00-0023459",
@@ -6299,9 +6299,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Joe Milton III was waived by the Cowboys on Monday and is no longer on the team's roster."
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
