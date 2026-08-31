@@ -61,13 +61,25 @@ class TestArticleMatching(unittest.TestCase):
         self.assertEqual(len(matched), 1)
         self.assertEqual(matched[0]["headline"], "Weekend roundup")
 
-    def test_falls_back_to_name_substring_match(self):
+    def test_falls_back_to_full_name_substring_match(self):
+        """Fallback requires full name (not last-name-only) to avoid spurious
+        LLM calls for players sharing a common surname with unrelated articles."""
         articles = [
-            {"headline": "McCaffrey limited in practice", "description": "", "categories": []},
+            {"headline": "Christian McCaffrey limited in practice", "description": "", "categories": []},
             {"headline": "Totally different player news", "description": "", "categories": []},
         ]
         matched = articles_for_player(articles, "Christian McCaffrey", player_espn_id=None)
         self.assertEqual(len(matched), 1)
+
+    def test_last_name_only_no_longer_matches(self):
+        """Last-name-only headlines do NOT trigger a match (intentional cost
+        control -- last-name matching caused spurious LLM calls for common
+        surnames like Brown/Williams/Hill with no injury-news benefit)."""
+        articles = [
+            {"headline": "McCaffrey limited in practice", "description": "", "categories": []},
+        ]
+        matched = articles_for_player(articles, "Christian McCaffrey", player_espn_id=None)
+        self.assertEqual(matched, [])
 
     def test_no_match_returns_empty_list(self):
         articles = [{"headline": "Unrelated", "description": "nothing here", "categories": []}]

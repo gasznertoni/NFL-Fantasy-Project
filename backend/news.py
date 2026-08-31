@@ -86,7 +86,6 @@ def articles_for_player(articles: list[dict[str, Any]], player_name: str, player
     # only the full name would miss most real headlines. Last-name-only
     # matching is deliberately crude (over-matches common surnames); see
     # the docstring above for why that's an acceptable tradeoff here.
-    last_name_lower = player_name.split()[-1].lower() if player_name.strip() else name_lower
     for article in articles:
         categories = article.get("categories") or []
         id_hit = player_espn_id is not None and any(
@@ -98,11 +97,15 @@ def articles_for_player(articles: list[dict[str, Any]], player_name: str, player
             matched.append(article)
             continue
         if not player_name.strip():
-            # No usable name to substring-match on (e.g. an id was given
-            # but the name is blank) -- an id-only miss is just a miss.
             continue
         text = f"{article.get('headline', '')} {article.get('description', '')}".lower()
-        if name_lower in text or last_name_lower in text:
+        # Full-name match only (not last-name-alone): last-name-only matching
+        # triggered LLM calls for every player sharing a common surname (Brown,
+        # Williams, Hill, etc.) against unrelated articles -- expensive with no
+        # quality benefit since the ESPN-ID primary match already covers exact
+        # hits. Full-name match misses "McCaffrey runs for 80" headlines but
+        # those are not injury/availability news we need to summarize anyway.
+        if name_lower in text:
             matched.append(article)
     return matched
 
@@ -170,7 +173,7 @@ def summarize_player_news(player_name: str, articles: list[dict[str, Any]], clie
     prompt = build_summary_prompt(player_name, articles)
     try:
         response = client.messages.create(
-            model="claude-sonnet-4-5",
+            model="claude-haiku-4-5-20251001",
             max_tokens=300,
             messages=[{"role": "user", "content": prompt}],
         )
