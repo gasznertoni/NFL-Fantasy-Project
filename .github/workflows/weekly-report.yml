@@ -1,0 +1,90 @@
+name: Weekly report generation
+
+# Closes CLAUDE.md's Next Steps item 3 (2026-08-16 decision: stay
+# script-based, automate the manual regeneration step rather than build a
+# live API -- see docs/design/backend-frontend-integration-plan.md and
+# CLAUDE.md's Next Steps for the reasoning). Runs backend/generate_report.py
+# + generate_track_record.py -- the exact commands backend/README.md
+# already documents for local use -- on a schedule, and commits the
+# refreshed frontend/public/mock/ fixtures. Wiring an actual deploy trigger
+# is a separate, later step once a host is chosen (CLAUDE.md's "Deployment"
+# item is still unresolved).
+
+on:
+  schedule:
+    # Tuesday 09:00 UTC -- after Monday Night Football, ahead of the week's
+    # start/sit decisions.
+    - cron: "0 9 * * 2"
+  workflow_dispatch:
+    inputs:
+      season:
+        description: "NFL season"
+        required: false
+        default: "2026"
+      week:
+        description: "Week to generate (leave blank to auto-detect the next unplayed week from the real schedule via season_week.py)"
+        required: false
+
+permissions:
+  contents: write
+
+jobs:
+  generate-report:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Install backend dependencies
+        run: pip install -r backend/requirements.txt
+
+      - name: Determine season/week
+        id: vars
+        run: |
+          SEASON="${{ github.event.inputs.season }}"
+          if [ -z "$SEASON" ]; then SEASON=2026; fi
+          WEEK="${{ github.event.inputs.week }}"
+          if [ -z "$WEEK" ]; then
+            WEEK=$(python3 backend/season_week.py --season "$SEASON")
+          fi
+          echo "season=$SEASON" >> "$GITHUB_OUTPUT"
+          echo "week=$WEEK" >> "$GITHUB_OUTPUT"
+
+      - name: Generate weekly report
+        working-directory: backend
+        env:
+          ANTHROPIC_API_KEY: ${{ secrets.ANTHROPIC_API_KEY }}
+          FANTASYPROS_API_KEY: ${{ secrets.FANTASYPROS_API_KEY }}
+        run: |
+          python3 generate_report.py \
+            --season "${{ steps.vars.outputs.season }}" \
+            --week "${{ steps.vars.outputs.week }}" \
+            --leagues-config ../leagues.json
+
+      - name: Generate track record (as of the prior completed week)
+        working-directory: backend
+        run: |
+          PRIOR_WEEK=$(( ${{ steps.vars.outputs.week }} - 1 ))
+          if [ "$PRIOR_WEEK" -ge 1 ]; then
+            python3 generate_track_record.py \
+              --season "${{ steps.vars.outputs.season }}" \
+              --as-of-week "$PRIOR_WEEK" \
+              --leagues-config ../leagues.json
+          else
+            echo "No completed weeks yet this season -- skipping track-record generation."
+          fi
+
+      - name: Commit refreshed fixtures
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add frontend/public/mock/
+          if git diff --cached --quiet; then
+            echo "No fixture changes -- nothing to commit."
+          else
+            git commit -m "Regenerate weekly report fixtures (season ${{ steps.vars.outputs.season }}, week ${{ steps.vars.outputs.week }})"
+            git push
+          fi
