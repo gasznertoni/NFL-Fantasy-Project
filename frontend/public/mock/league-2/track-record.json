@@ -1,6 +1,6 @@
 {
   "season": 2025,
-  "asOfWeek": 5,
+  "asOfWeek": 6,
   "summary": {
     "consensus": {
       "tierLabel": "Consensus projection",
@@ -783,6 +783,6642 @@
       "tier": "in_house_estimate",
       "recommendationType": "waiver_add",
       "predictedPoints": 7.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0023459_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0023459",
+        "name": "Aaron Rodgers",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 16.63,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0023853_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0023853",
+        "name": "Matt Prater",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0025565_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0025565",
+        "name": "Nick Folk",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0026158_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0026158",
+        "name": "Joe Flacco",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.47,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0026300_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0026300",
+        "name": "Josh Johnson",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0026498_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0026498",
+        "name": "Matthew Stafford",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 21.54,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0027973_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0027973",
+        "name": "Andy Dalton",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.11,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0029604_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0029604",
+        "name": "Kirk Cousins",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.16,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0029822_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0029822",
+        "name": "Brandon McManus",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.25,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0029892_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0029892",
+        "name": "Kyle Juszczyk",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0030035_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0030035",
+        "name": "Adam Thielen",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.92,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0030279_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0030279",
+        "name": "Keenan Allen",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.28,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0030506_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0030506",
+        "name": "Travis Kelce",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.46,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0030564_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0030564",
+        "name": "DeAndre Hopkins",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.26,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031136_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031136",
+        "name": "Chris Boswell",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031203_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031203",
+        "name": "Cairo Santos",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.75,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031236_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031236",
+        "name": "Brandin Cooks",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.26,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031237_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031237",
+        "name": "Teddy Bridgewater",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031345_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031345",
+        "name": "Jimmy Garoppolo",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031381_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031381",
+        "name": "Davante Adams",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 13.54,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031408_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031408",
+        "name": "Mike Evans",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031484_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031484",
+        "name": "Chris Manhertz",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031492_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031492",
+        "name": "Jason Myers",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 10.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031503_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031503",
+        "name": "Jameis Winston",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0031588_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0031588",
+        "name": "Stefon Diggs",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.28,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032104_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032104",
+        "name": "Ameer Abdullah",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032211_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032211",
+        "name": "Tyler Lockett",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.74,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032392_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032392",
+        "name": "Austin Hooper",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.38,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032398_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032398",
+        "name": "Chris Moore",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.08,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032434_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032434",
+        "name": "Brandon Allen",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032436_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032436",
+        "name": "Jeff Driskel",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032464_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032464",
+        "name": "Kalif Raymond",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.72,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032569_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032569",
+        "name": "Wil Lutz",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032764_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032764",
+        "name": "Derrick Henry",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.06,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032775_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032775",
+        "name": "Demarcus Robinson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.95,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0032951_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0032951",
+        "name": "Laquon Treadwell",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033077_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033077",
+        "name": "Dak Prescott",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 22.65,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033090_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033090",
+        "name": "Hunter Henry",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 10.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033106_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033106",
+        "name": "Jared Goff",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 19.48,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033110_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033110",
+        "name": "Tyler Higbee",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033119_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033119",
+        "name": "Jacoby Brissett",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033217_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033217",
+        "name": "Mo Alie-Cox",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033246_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033246",
+        "name": "Johnny Mundt",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033280_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033280",
+        "name": "Christian McCaffrey",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 20.88,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033282_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033282",
+        "name": "Curtis Samuel",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033303_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033303",
+        "name": "Harrison Butker",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033307_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033307",
+        "name": "Kendrick Bourne",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.72,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033319_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033319",
+        "name": "Nick Mullens",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033357_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033357",
+        "name": "Taysom Hill",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.66,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033375_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033375",
+        "name": "Tim Patrick",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.62,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033376_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033376",
+        "name": "Patrick Ricard",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033439_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033439",
+        "name": "Pharaoh Brown",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033455_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033455",
+        "name": "Anthony Firkser",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033526_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033526",
+        "name": "Samaje Perine",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033555_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033555",
+        "name": "Mack Hollins",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.93,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033576_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033576",
+        "name": "Eric Saubert",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.42,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033757_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033757",
+        "name": "Robert Tonyan",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033787_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033787",
+        "name": "Jake Elliott",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033857_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033857",
+        "name": "JuJu Smith-Schuster",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.16,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033858_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033858",
+        "name": "Jonnu Smith",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.03,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033862_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033862",
+        "name": "Zane Gonzalez",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033869_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033869",
+        "name": "Mitchell Trubisky",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.98,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033881_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033881",
+        "name": "Evan Engram",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.38,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033908_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033908",
+        "name": "Cooper Kupp",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.52,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033921_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033921",
+        "name": "Chris Godwin Jr.",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033923_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033923",
+        "name": "Kareem Hunt",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.36,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033949_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033949",
+        "name": "Joshua Dobbs",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": -0.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0033955_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0033955",
+        "name": "Jeremy McNichols",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.85,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034054_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034054",
+        "name": "River Cracraft",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034084_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034084",
+        "name": "Mike Badgley",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034115_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034115",
+        "name": "Jeff Wilson",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034159_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034159",
+        "name": "Will Dissly",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.75,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034161_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034161",
+        "name": "Daniel Carlson",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034173_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034173",
+        "name": "Eddy Pineiro",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.25,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034272_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034272",
+        "name": "Marquez Valdes-Scantling",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.93,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034348_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034348",
+        "name": "Courtland Sutton",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 14.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034351_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034351",
+        "name": "Dallas Goedert",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034365_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034365",
+        "name": "Ian Thomas",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.17,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034367_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034367",
+        "name": "Nyheim Hines",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034418_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034418",
+        "name": "Cedrick Wilson Jr.",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034577_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034577",
+        "name": "Kyle Allen",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": -0.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034613_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034613",
+        "name": "Tanner Hudson",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034753_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034753",
+        "name": "Mark Andrews",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.14,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034771_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034771",
+        "name": "Mason Rudolph",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.48,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034796_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034796",
+        "name": "Lamar Jackson",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 23.84,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034798_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034798",
+        "name": "Durham Smythe",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034827_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034827",
+        "name": "DJ Moore",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034829_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034829",
+        "name": "Mike Gesicki",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.02,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034844_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034844",
+        "name": "Saquon Barkley",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 14.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034855_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034855",
+        "name": "Baker Mayfield",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 22.14,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034857_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034857",
+        "name": "Josh Allen",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 24.98,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034860_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034860",
+        "name": "Dante Pettis",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034869_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034869",
+        "name": "Sam Darnold",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 18.13,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034928_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034928",
+        "name": "Steven Sims",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034959_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034959",
+        "name": "Andrew Beck",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0034960_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0034960",
+        "name": "Jakobi Meyers",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035021_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035021",
+        "name": "Ashton Dulin",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.06,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035125_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035125",
+        "name": "Alec Ingold",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.97,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035140_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035140",
+        "name": "Mecole Hardman",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035192_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035192",
+        "name": "Joey Slye",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 10.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035208_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035208",
+        "name": "Olamide Zaccheaus",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.25,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035250_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035250",
+        "name": "Devin Singletary",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.64,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035261_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035261",
+        "name": "Tony Pollard",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 10.38,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035264_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035264",
+        "name": "Jarrett Stidham",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035282_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035282",
+        "name": "Easton Stick",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035291_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035291",
+        "name": "Trayveon Williams",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035298_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035298",
+        "name": "Scott Miller",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035358_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035358",
+        "name": "Chase McLaughlin",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 10.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035359_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035359",
+        "name": "David Sills",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035406_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035406",
+        "name": "Lil'Jordan Humphrey",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035535_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035535",
+        "name": "Darius Slayton",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.12,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035544_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035544",
+        "name": "Tom Kennedy",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035594_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035594",
+        "name": "Travis Homer",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035602_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035602",
+        "name": "Alex Bachman",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.7,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035628_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035628",
+        "name": "D'Ernest Johnson",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035631_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035631",
+        "name": "Drew Sample",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.65,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035640_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035640",
+        "name": "DK Metcalf",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 13.65,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035644_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035644",
+        "name": "Noah Fant",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035645_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035645",
+        "name": "Gunner Olszewski",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035659_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035659",
+        "name": "Terry McLaurin",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.63,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035662_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035662",
+        "name": "Marquise Brown",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.94,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035676_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035676",
+        "name": "A.J. Brown",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.58,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035685_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035685",
+        "name": "David Montgomery",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 13.94,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035689_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035689",
+        "name": "Dawson Knox",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035700_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035700",
+        "name": "Josh Jacobs",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 16.88,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035704_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035704",
+        "name": "Drew Lock",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035719_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035719",
+        "name": "Deebo Samuel Sr.",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 14.72,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0035993_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0035993",
+        "name": "Tyler Huntley",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036032_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036032",
+        "name": "Sean McKeon",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036040_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036040",
+        "name": "Juwan Johnson",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.02,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036133_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036133",
+        "name": "James Proche",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036139_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036139",
+        "name": "Rico Dowdle",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 10.94,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036165_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036165",
+        "name": "Isaiah Hodgins",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036176_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036176",
+        "name": "Mason Kinsey",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036182_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036182",
+        "name": "Nick Westbrook-Ikhine",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.15,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036187_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036187",
+        "name": "Reggie Gilliam",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036223_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036223",
+        "name": "Jonathan Taylor",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 23.86,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036244_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036244",
+        "name": "Colby Parkinson",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.37,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036252_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036252",
+        "name": "Michael Pittman",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.86,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036259_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036259",
+        "name": "Jauan Jennings",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.47,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036264_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036264",
+        "name": "Jordan Love",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 19.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036275_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036275",
+        "name": "D'Andre Swift",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 10.93,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036290_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036290",
+        "name": "Cole Kmet",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.28,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036309_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036309",
+        "name": "Darnell Mooney",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036331_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036331",
+        "name": "Devin Duvernay",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036332_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036332",
+        "name": "Josiah Deguara",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036355_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036355",
+        "name": "Justin Herbert",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 20.49,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036358_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036358",
+        "name": "CeeDee Lamb",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 18.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036389_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036389",
+        "name": "Jalen Hurts",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 20.75,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036407_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036407",
+        "name": "Jerry Jeudy",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.44,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036410_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036410",
+        "name": "Tee Higgins",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.86,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036414_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036414",
+        "name": "Cam Akers",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.59,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036422_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036422",
+        "name": "Adam Trautman",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.06,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036429_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036429",
+        "name": "Charlie Woerner",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036442_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036442",
+        "name": "Joe Burrow",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.93,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036497_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036497",
+        "name": "Tim Jones",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036534_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036534",
+        "name": "Shane Zylstra",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036555_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036555",
+        "name": "Chuba Hubbard",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036590_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036590",
+        "name": "Quintin Morris",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036628_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036628",
+        "name": "John Bates",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036630_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036630",
+        "name": "Tylan Wallace",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.85,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036637_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036637",
+        "name": "Noah Gray",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036727_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036727",
+        "name": "Adam Prentice",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.7,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036755_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036755",
+        "name": "Jaret Patterson",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036816_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036816",
+        "name": "Riley Patterson",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036825_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036825",
+        "name": "Feleipe Franks",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036842_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036842",
+        "name": "Kene Nwangwu",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036854_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036854",
+        "name": "Evan McPherson",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036862_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036862",
+        "name": "Ben Skowronek",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.17,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036875_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036875",
+        "name": "Rhamondre Stevenson",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.76,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036876_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036876",
+        "name": "Kylen Granson",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.32,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036879_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036879",
+        "name": "Sam Ehlinger",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036887_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036887",
+        "name": "Luke Farrell",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.93,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036894_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036894",
+        "name": "Pat Freiermuth",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.33,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036900_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036900",
+        "name": "Ja'Marr Chase",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 15.26,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036906_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036906",
+        "name": "Khalil Herbert",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036912_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036912",
+        "name": "DeVonta Smith",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.74,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036919_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036919",
+        "name": "Kenneth Gainwell",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036924_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036924",
+        "name": "Michael Carter",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.95,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036963_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036963",
+        "name": "Amon-Ra St. Brown",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 20.18,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036970_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036970",
+        "name": "Kyle Pitts",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.12,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036971_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036971",
+        "name": "Trevor Lawrence",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 17.05,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036972_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036972",
+        "name": "Mac Jones",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 20.73,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036973_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036973",
+        "name": "Travis Etienne",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 15.38,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0036980_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0036980",
+        "name": "Elijah Moore",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.22,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037005_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037005",
+        "name": "Tommy Tremble",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.14,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037012_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037012",
+        "name": "Trey Lance",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.86,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037013_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037013",
+        "name": "Zach Wilson",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.58,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037015_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037015",
+        "name": "Sal Cannella",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037031_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037031",
+        "name": "Nikola Kalinic",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037078_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037078",
+        "name": "Cole Turner",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037085_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037085",
+        "name": "Tyler Badie",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037086_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037086",
+        "name": "Grant Calcaterra",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037093_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037093",
+        "name": "Dareke Young",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.45,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037098_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037098",
+        "name": "Samori Toure",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037112_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037112",
+        "name": "Jake Tonges",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.82,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037120_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037120",
+        "name": "Tyler Goodson",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.55,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037132_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037132",
+        "name": "Britain Covey",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037224_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037224",
+        "name": "Cameron Dicker",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037228_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037228",
+        "name": "Jaylen Warren",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.97,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037231_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037231",
+        "name": "Kevin Austin Jr.",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037238_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037238",
+        "name": "Drake London",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.47,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037240_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037240",
+        "name": "Jameson Williams",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.38,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037247_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037247",
+        "name": "George Pickens",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 16.04,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037248_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037248",
+        "name": "James Cook",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 19.78,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037252_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037252",
+        "name": "Greg Dulcich",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037256_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037256",
+        "name": "Rachaad White",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.06,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037258_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037258",
+        "name": "Dameon Pierce",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037261_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037261",
+        "name": "Khalil Shakir",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037263_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037263",
+        "name": "Tyler Allgeier",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.22,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037277_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037277",
+        "name": "Teagan Quitoriano",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037282_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037282",
+        "name": "James Mitchell",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.15,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037304_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037304",
+        "name": "Connor Heyward",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.43,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037324_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037324",
+        "name": "Chris Oladokun",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037348_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037348",
+        "name": "Tanner Conner",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.85,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037429_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037429",
+        "name": "Raheem Blackshear",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037475_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037475",
+        "name": "Stone Smartt",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037487_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037487",
+        "name": "Deven Thompkins",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037545_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037545",
+        "name": "Rashid Shaheed",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.06,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037557_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037557",
+        "name": "Ronnie Rivers",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037594_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037594",
+        "name": "Julius Chestnut",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.78,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037614_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037614",
+        "name": "John Metchie III",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.95,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037617_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037617",
+        "name": "Hassan Haskins",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037654_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037654",
+        "name": "Tucker Fisk",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037664_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037664",
+        "name": "Alec Pierce",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037666_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037666",
+        "name": "Jalen Tolbert",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.42,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037692_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037692",
+        "name": "Brandon Aubrey",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037741_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037741",
+        "name": "Jahan Dotson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.48,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037742_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037742",
+        "name": "Treylon Burks",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037744_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037744",
+        "name": "Trey McBride",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037745_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037745",
+        "name": "Velus Jones Jr.",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037746_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037746",
+        "name": "Brian Robinson",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.42,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037801_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037801",
+        "name": "KaVontae Turpin",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.43,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037805_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037805",
+        "name": "Jeremy Ruckert",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037809_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037809",
+        "name": "Chig Okonkwo",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.14,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037816_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037816",
+        "name": "Romeo Doubs",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037834_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037834",
+        "name": "Brock Purdy",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 22.72,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037837_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037837",
+        "name": "Calvin Austin III",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.73,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037838_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037838",
+        "name": "Isaiah Likely",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.7,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0037840_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0037840",
+        "name": "Kyren Williams",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 15.32,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038040_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038040",
+        "name": "Zamir White",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.97,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038041_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038041",
+        "name": "Jake Ferguson",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 13.14,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038046_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038046",
+        "name": "Charlie Kolar",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.35,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038090_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038090",
+        "name": "Skyy Moore",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.32,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038102_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038102",
+        "name": "Kenny Pickett",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038115_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038115",
+        "name": "Daniel Bellinger",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038124_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038124",
+        "name": "Christian Watson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038128_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038128",
+        "name": "Malik Willis",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038129_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038129",
+        "name": "Cade Otton",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.12,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038134_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038134",
+        "name": "Kenneth Walker III",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.66,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038359_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038359",
+        "name": "Xavier Smith",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.82,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038396_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038396",
+        "name": "Eric Gray",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038397_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038397",
+        "name": "Evan Hull",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038400_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038400",
+        "name": "Tanner McKee",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038416_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038416",
+        "name": "Tyson Bagent",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.78,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038428_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038428",
+        "name": "Andre Szmyt",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038454_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038454",
+        "name": "Keaton Mitchell",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038488_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038488",
+        "name": "Brady Russell",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038492_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038492",
+        "name": "Jason Brownlee",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038496_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038496",
+        "name": "Xavier Gipson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038542_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038542",
+        "name": "Bijan Robinson",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 22.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038543_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038543",
+        "name": "Jaxon Smith-Njigba",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 18.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038544_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038544",
+        "name": "Quentin Johnston",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 14.68,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038547_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038547",
+        "name": "Luke Schoonmaker",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.72,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038550_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038550",
+        "name": "Hendon Hooker",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038555_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038555",
+        "name": "Tank Bigsby",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038559_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038559",
+        "name": "Michael Wilson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.04,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038562_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038562",
+        "name": "Jake Moody",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038563_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038563",
+        "name": "Tre Tucker",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 13.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038564_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038564",
+        "name": "Cameron Latu",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038567_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038567",
+        "name": "Chad Ryland",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038573_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038573",
+        "name": "Derius Davis",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.17,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038579_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038579",
+        "name": "Aidan O'Connell",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038589_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038589",
+        "name": "Josh Whyle",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038597_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038597",
+        "name": "Chase Brown",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038606_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038606",
+        "name": "Parker Washington",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038608_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038608",
+        "name": "Kayshon Boutte",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.26,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038611_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038611",
+        "name": "Chris Rodriguez Jr.",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038614_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038614",
+        "name": "Scott Matlock",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038619_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038619",
+        "name": "Andrei Iosivas",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038621_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038621",
+        "name": "DeMario Douglas",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.22,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038640_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038640",
+        "name": "Jalen Brooks",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038643_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038643",
+        "name": "Brayden Willis",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038647_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038647",
+        "name": "Ronnie Bell",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038685_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038685",
+        "name": "Chris Brooks",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038705_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038705",
+        "name": "Emari Demercado",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038710_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038710",
+        "name": "Blake Whiteheart",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038720_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038720",
+        "name": "Julian Hill",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.38,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038738_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038738",
+        "name": "Hunter Luepke",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.7,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038752_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038752",
+        "name": "Jake Bobo",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038783_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038783",
+        "name": "Nate Adkins",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.75,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038794_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038794",
+        "name": "Jaleel McLaughlin",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038797_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038797",
+        "name": "Emanuel Wilson",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.12,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038839_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038839",
+        "name": "Mitchell Tinsley",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.07,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038840_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038840",
+        "name": "Brycen Tremayne",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.06,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038891_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038891",
+        "name": "Shedrick Jackson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038896_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038896",
+        "name": "Jacob Saylors",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.22,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038905_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038905",
+        "name": "Blake Grupe",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038933_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038933",
+        "name": "Dalton Kincaid",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.94,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038935_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038935",
+        "name": "Brenton Strange",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.08,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038951_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038951",
+        "name": "Sean Tucker",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.32,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038953_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038953",
+        "name": "Dylan Drummond",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038976_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038976",
+        "name": "Marvin Mims Jr.",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.68,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038979_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038979",
+        "name": "Cedric Tillman",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.03,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038997_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038997",
+        "name": "Josh Downs",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0038998_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0038998",
+        "name": "Jake Haener",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039032_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039032",
+        "name": "Tyjae Spears",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039041_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039041",
+        "name": "Elijah Higgins",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039050_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039050",
+        "name": "Payne Durham",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039062_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039062",
+        "name": "Jonathan Mingo",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039064_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039064",
+        "name": "Zay Flowers",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.38,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039066_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039066",
+        "name": "Michael Mayer",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.57,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039074_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039074",
+        "name": "Davis Allen",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.96,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039075_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039075",
+        "name": "Puka Nacua",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 23.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039139_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039139",
+        "name": "Jahmyr Gibbs",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 16.94,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039144_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039144",
+        "name": "Luke Musgrave",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.07,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039146_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039146",
+        "name": "Jayden Reed",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039150_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039150",
+        "name": "Bryce Young",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 14.89,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039172_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039172",
+        "name": "Jake Bates",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039229_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039229",
+        "name": "Charlie Smyth",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039299_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039299",
+        "name": "George Holani",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.64,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039305_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039305",
+        "name": "Jack Westover",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039342_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039342",
+        "name": "Xavier Legette",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039361_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039361",
+        "name": "Bucky Irving",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 16.38,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039364_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039364",
+        "name": "Sione Vaki",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039373_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039373",
+        "name": "Audric Estim\u00e9",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039384_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039384",
+        "name": "Tyrone Tracy Jr.",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039391_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039391",
+        "name": "Kimani Vidal",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039397_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039397",
+        "name": "Tejhaun Palmer",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039398_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039398",
+        "name": "Joe Milton III",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.64,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039407_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039407",
+        "name": "Dylan Laube",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.58,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039409_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039409",
+        "name": "Cam Little",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039410_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039410",
+        "name": "Ryan Flournoy",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.27,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039451_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039451",
+        "name": "Isaiah Williams",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039458_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039458",
+        "name": "Brenden Bates",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039471_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039471",
+        "name": "Frank Gore Jr.",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039491_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039491",
+        "name": "Jalen Coker",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039498_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039498",
+        "name": "Harrison Mevis",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039518_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039518",
+        "name": "Treyton Welch",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039521_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039521",
+        "name": "Xavier Weaver",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039530_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039530",
+        "name": "Brevyn Spann-Ford",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039577_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039577",
+        "name": "Kedon Slovis",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039589_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039589",
+        "name": "Kameron Johnson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.04,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039648_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039648",
+        "name": "David Martin-Robinson",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039650_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039650",
+        "name": "Bryce Oliver",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.65,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039686_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039686",
+        "name": "Colson Yankoff",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039738_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039738",
+        "name": "Blake Corum",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.34,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039746_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039746",
+        "name": "Will Shipley",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.17,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039751_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039751",
+        "name": "Jordan Whittington",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.72,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039754_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039754",
+        "name": "Devin Culp",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039792_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039792",
+        "name": "Devontez Walker",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.88,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039793_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039793",
+        "name": "AJ Barner",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.96,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039796_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039796",
+        "name": "Rasheen Ali",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039824_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039824",
+        "name": "Jared Wiley",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039851_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039851",
+        "name": "Drake Maye",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 20.03,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039855_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039855",
+        "name": "Jalen McMillan",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039874_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039874",
+        "name": "Jaylen Wright",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039875_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039875",
+        "name": "Ray Davis",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.68,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039880_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039880",
+        "name": "Malik Washington",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.34,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039884_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039884",
+        "name": "Tahj Washington",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039890_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039890",
+        "name": "Adonai Mitchell",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.04,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039893_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039893",
+        "name": "Brian Thomas Jr.",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039901_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039901",
+        "name": "Keon Coleman",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.22,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039912_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039912",
+        "name": "Ben Sinnott",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039915_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039915",
+        "name": "Ladd McConkey",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.56,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039916_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039916",
+        "name": "Ricky Pearsall",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.08,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039918_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039918",
+        "name": "Caleb Williams",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 21.52,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039919_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039919",
+        "name": "Rome Odunze",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 18.15,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039920_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039920",
+        "name": "Malachi Corley",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040021_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040021",
+        "name": "Phil Mafah",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040024_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040024",
+        "name": "Darius Cooper",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040074_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040074",
+        "name": "Tyler Loop",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040075_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040075",
+        "name": "LaJohntay Wester",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040078_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040078",
+        "name": "Brashard Smith",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.34,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040120_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040120",
+        "name": "Jimmy Holiday",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040122_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040122",
+        "name": "Ashton Jeanty",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 14.42,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040124_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040124",
+        "name": "Tetairoa McMillan",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 10.02,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040126_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040126",
+        "name": "Colston Loveland",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.93,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040128_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040128",
+        "name": "Tyler Warren",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 10.96,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040129_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040129",
+        "name": "Emeka Egbuka",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 19.18,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040131_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040131",
+        "name": "Kyle Williams",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.93,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040134_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040134",
+        "name": "Pat Bryant",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.93,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040162_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040162",
+        "name": "Dylan Sampson",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.68,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040170_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040170",
+        "name": "Elic Ayomanor",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.18,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040177_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040177",
+        "name": "Jordan James",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040179_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040179",
+        "name": "DJ Giddens",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.65,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040187_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040187",
+        "name": "Mitchell Evans",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.88,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040189_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040189",
+        "name": "Oronde Gadsden II",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.87,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040194_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040194",
+        "name": "Jackson Hawes",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.35,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040198_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040198",
+        "name": "Ollie Gordon II",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.64,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040200_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040200",
+        "name": "Andy Borregales",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040205_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040205",
+        "name": "Kalel Mullings",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040206_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040206",
+        "name": "Riley Leonard",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040208_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040208",
+        "name": "Tahj Brooks",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.42,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040218_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040218",
+        "name": "Jimmy Horn Jr.",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040234_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040234",
+        "name": "Quinn Ewers",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040236_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040236",
+        "name": "Kyle Monangai",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040237_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040237",
+        "name": "Tez Johnson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.43,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040238_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040238",
+        "name": "LeQuint Allen Jr.",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040242_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040242",
+        "name": "Jacory Croskey-Merritt",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 12.24,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040244_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040244",
+        "name": "Moliki Matavao",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040259_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040259",
+        "name": "Gage Larvadain",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040279_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040279",
+        "name": "Ryan Fitzgerald",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040311_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040311",
+        "name": "Theo Wease Jr.",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040330_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040330",
+        "name": "Seth Henigan",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040387_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040387",
+        "name": "Zach Horton",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040398_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040398",
+        "name": "Brady Cook",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040400_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040400",
+        "name": "Donovan Edwards",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040406_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040406",
+        "name": "Quentin Skinner",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040431_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040431",
+        "name": "Dalen Cambre",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040466_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040466",
+        "name": "Raheim Sanders",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040488_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040488",
+        "name": "Carter Runyon",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040530_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040530",
+        "name": "Ben Sauls",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040534_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040534",
+        "name": "Ke'Shawn Williams",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040547_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040547",
+        "name": "Nate Carter",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040556_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040556",
+        "name": "Corey Kiner",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040558_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040558",
+        "name": "Isaiah Neyor",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040581_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040581",
+        "name": "Dont'e Thornton Jr.",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.38,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040582_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040582",
+        "name": "Arian Smith",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.85,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040586_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040586",
+        "name": "Jaydon Blue",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.7,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040590_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040590",
+        "name": "Konata Mumpfield",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040644_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040644",
+        "name": "Trevor Etienne",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.56,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040646_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040646",
+        "name": "Jalen Royals",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040666_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040666",
+        "name": "Omarion Hampton",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 14.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040667_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040667",
+        "name": "Matthew Golden",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.25,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040668_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040668",
+        "name": "Shedeur Sanders",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040669_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040669",
+        "name": "Isaac TeSlaa",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.72,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040676_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040676",
+        "name": "Cam Ward",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.55,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040691_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040691",
+        "name": "Jaxson Dart",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.86,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040704_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040704",
+        "name": "Dillon Gabriel",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.95,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040705_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040705",
+        "name": "Chimere Dike",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040719_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040719",
+        "name": "Bhayshul Tuten",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.58,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040727_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040727",
+        "name": "Tre Harris",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040729_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040729",
+        "name": "Jack Bech",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.12,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040730_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040730",
+        "name": "RJ Harvey",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.14,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040734_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040734",
+        "name": "TreVeyon Henderson",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.92,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040735_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040735",
+        "name": "Luther Burden III",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.78,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040737_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040737",
+        "name": "Terrance Ferguson",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040739_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040739",
+        "name": "Elijah Arroyo",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.44,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040743_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040743",
+        "name": "Tyler Shough",
+        "position": "QB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0040782_start",
+      "week": 6,
+      "player": {
+        "playerId": "00-0040782",
+        "name": "Isaiah Bond",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.36,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_ARI_start",
+      "week": 6,
+      "player": {
+        "playerId": "ARI",
+        "name": "Cardinals D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_ATL_start",
+      "week": 6,
+      "player": {
+        "playerId": "ATL",
+        "name": "Falcons D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_BAL_start",
+      "week": 6,
+      "player": {
+        "playerId": "BAL",
+        "name": "Ravens D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": -2.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_BUF_start",
+      "week": 6,
+      "player": {
+        "playerId": "BUF",
+        "name": "Bills D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_CAR_start",
+      "week": 6,
+      "player": {
+        "playerId": "CAR",
+        "name": "Panthers D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_CHI_start",
+      "week": 6,
+      "player": {
+        "playerId": "CHI",
+        "name": "Bears D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_CIN_start",
+      "week": 6,
+      "player": {
+        "playerId": "CIN",
+        "name": "Bengals D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_CLE_start",
+      "week": 6,
+      "player": {
+        "playerId": "CLE",
+        "name": "Browns D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_DAL_start",
+      "week": 6,
+      "player": {
+        "playerId": "DAL",
+        "name": "Cowboys D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": -2.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_DEN_start",
+      "week": 6,
+      "player": {
+        "playerId": "DEN",
+        "name": "Broncos D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_DET_start",
+      "week": 6,
+      "player": {
+        "playerId": "DET",
+        "name": "Lions D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_GB_start",
+      "week": 6,
+      "player": {
+        "playerId": "GB",
+        "name": "Packers D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.75,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_IND_start",
+      "week": 6,
+      "player": {
+        "playerId": "IND",
+        "name": "Colts D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_JAX_start",
+      "week": 6,
+      "player": {
+        "playerId": "JAX",
+        "name": "Jaguars D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_KC_start",
+      "week": 6,
+      "player": {
+        "playerId": "KC",
+        "name": "Chiefs D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_LAC_start",
+      "week": 6,
+      "player": {
+        "playerId": "LAC",
+        "name": "Chargers D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_LAR_start",
+      "week": 6,
+      "player": {
+        "playerId": "LAR",
+        "name": "Rams D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_LV_start",
+      "week": 6,
+      "player": {
+        "playerId": "LV",
+        "name": "Raiders D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 2.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_MIA_start",
+      "week": 6,
+      "player": {
+        "playerId": "MIA",
+        "name": "Dolphins D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 1.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_NE_start",
+      "week": 6,
+      "player": {
+        "playerId": "NE",
+        "name": "Patriots D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_NO_start",
+      "week": 6,
+      "player": {
+        "playerId": "NO",
+        "name": "Saints D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_NYG_start",
+      "week": 6,
+      "player": {
+        "playerId": "NYG",
+        "name": "Giants D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 0.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_NYJ_start",
+      "week": 6,
+      "player": {
+        "playerId": "NYJ",
+        "name": "Jets D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": -0.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_PHI_start",
+      "week": 6,
+      "player": {
+        "playerId": "PHI",
+        "name": "Eagles D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_PIT_start",
+      "week": 6,
+      "player": {
+        "playerId": "PIT",
+        "name": "Steelers D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.75,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_SEA_start",
+      "week": 6,
+      "player": {
+        "playerId": "SEA",
+        "name": "Seahawks D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_SF_start",
+      "week": 6,
+      "player": {
+        "playerId": "SF",
+        "name": "49ers D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 4.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_TB_start",
+      "week": 6,
+      "player": {
+        "playerId": "TB",
+        "name": "Buccaneers D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_TEN_start",
+      "week": 6,
+      "player": {
+        "playerId": "TEN",
+        "name": "Titans D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 3.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_WAS_start",
+      "week": 6,
+      "player": {
+        "playerId": "WAS",
+        "name": "Commanders D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.0,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_PIT_waiver_add",
+      "week": 6,
+      "player": {
+        "playerId": "PIT",
+        "name": "Steelers D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 5.75,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_00-0039172_waiver_add",
+      "week": 6,
+      "player": {
+        "playerId": "00-0039172",
+        "name": "Jake Bates",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 8.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2025_06_KC_waiver_add",
+      "week": 6,
+      "player": {
+        "playerId": "KC",
+        "name": "Chiefs D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 5.6,
       "actualPoints": null,
       "outcomeCorrect": null
     }
