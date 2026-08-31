@@ -62,7 +62,7 @@ jobs:
           python3 generate_report.py \
             --season "${{ steps.vars.outputs.season }}" \
             --week "${{ steps.vars.outputs.week }}" \
-            --leagues-config ../leagues.json
+            --leagues-config leagues.json
 
       - name: Generate track record (as of the prior completed week)
         working-directory: backend
@@ -72,7 +72,7 @@ jobs:
             python3 generate_track_record.py \
               --season "${{ steps.vars.outputs.season }}" \
               --as-of-week "$PRIOR_WEEK" \
-              --leagues-config ../leagues.json
+              --leagues-config leagues.json
           else
             echo "No completed weeks yet this season -- skipping track-record generation."
           fi
