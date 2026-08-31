@@ -1,18 +1,18 @@
 {
-  "week": 18,
+  "week": 11,
   "leagueId": "league-1",
   "leagueFormatAssumption": "ppr",
-  "generatedAt": "2026-08-31T22:17:32Z",
+  "generatedAt": "2026-08-31T22:17:08Z",
   "projections": [
     {
       "playerId": "00-0023459",
       "name": "Aaron Rodgers",
       "position": "QB",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.57,
+        "points": 19.36,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -27,10 +27,10 @@
       "name": "Matt Prater",
       "position": "K",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.67,
+        "points": 4.83,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -45,10 +45,10 @@
       "name": "Nick Folk",
       "position": "K",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.5,
+        "points": 8.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -63,10 +63,10 @@
       "name": "Joe Flacco",
       "position": "QB",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.55,
+        "points": 22.2,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -81,10 +81,10 @@
       "name": "Josh Johnson",
       "position": "QB",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.82,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -99,10 +99,10 @@
       "name": "Matthew Stafford",
       "position": "QB",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 27.64,
+        "points": 30.07,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -117,7 +117,7 @@
       "name": "Andy Dalton",
       "position": "QB",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
         "points": 2.88,
@@ -135,10 +135,10 @@
       "name": "Kirk Cousins",
       "position": "QB",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 17.82,
+        "points": 4.14,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -153,10 +153,10 @@
       "name": "Brandon McManus",
       "position": "K",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.67,
+        "points": 4.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -171,10 +171,10 @@
       "name": "Kyle Juszczyk",
       "position": "RB",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.87,
+        "points": 2.52,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -189,10 +189,10 @@
       "name": "Adam Thielen",
       "position": "WR",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.83,
+        "points": 2.22,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -207,10 +207,10 @@
       "name": "Keenan Allen",
       "position": "WR",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.87,
+        "points": 10.63,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -225,10 +225,10 @@
       "name": "Travis Kelce",
       "position": "TE",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.32,
+        "points": 13.93,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -243,10 +243,10 @@
       "name": "DeAndre Hopkins",
       "position": "WR",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.35,
+        "points": 2.77,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -261,10 +261,10 @@
       "name": "Chris Boswell",
       "position": "K",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.83,
+        "points": 7.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -279,10 +279,10 @@
       "name": "Cairo Santos",
       "position": "K",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.17,
+        "points": 7.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -297,10 +297,10 @@
       "name": "Brandin Cooks",
       "position": "WR",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.2,
+        "points": 3.32,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -315,10 +315,10 @@
       "name": "Teddy Bridgewater",
       "position": "QB",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.96,
+        "points": -0.1,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -333,10 +333,10 @@
       "name": "Jimmy Garoppolo",
       "position": "QB",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.35,
+        "points": -0.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -351,10 +351,10 @@
       "name": "Davante Adams",
       "position": "WR",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.97,
+        "points": 17.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -369,10 +369,10 @@
       "name": "Mike Evans",
       "position": "WR",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.55,
+        "points": 8.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -387,10 +387,10 @@
       "name": "Chris Manhertz",
       "position": "TE",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.57,
+        "points": 0.85,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -405,10 +405,10 @@
       "name": "Jason Myers",
       "position": "K",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.33,
+        "points": 8.17,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -423,10 +423,10 @@
       "name": "Jameis Winston",
       "position": "QB",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.76,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -441,28 +441,10 @@
       "name": "Stefon Diggs",
       "position": "WR",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.27,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0032104",
-      "name": "Ameer Abdullah",
-      "position": "RB",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 2.57,
+        "points": 13.85,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -477,10 +459,10 @@
       "name": "Tyler Lockett",
       "position": "WR",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.48,
+        "points": 2.63,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -495,10 +477,10 @@
       "name": "Austin Hooper",
       "position": "TE",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.03,
+        "points": 3.8,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -513,10 +495,10 @@
       "name": "Chris Moore",
       "position": "WR",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.8,
+        "points": 4.48,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -531,7 +513,7 @@
       "name": "Brandon Allen",
       "position": "QB",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -549,7 +531,7 @@
       "name": "Jeff Driskel",
       "position": "QB",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -567,10 +549,10 @@
       "name": "Kalif Raymond",
       "position": "WR",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.05,
+        "points": 2.98,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -585,10 +567,10 @@
       "name": "Wil Lutz",
       "position": "K",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.17,
+        "points": 5.17,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -603,10 +585,10 @@
       "name": "Ka'imi Fairbairn",
       "position": "K",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.0,
+        "points": 9.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -621,10 +603,10 @@
       "name": "Derrick Henry",
       "position": "RB",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 21.63,
+        "points": 12.45,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -639,10 +621,10 @@
       "name": "Demarcus Robinson",
       "position": "WR",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.27,
+        "points": 3.7,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -657,28 +639,10 @@
       "name": "C.J. Ham",
       "position": "RB",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.32,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0032951",
-      "name": "Laquon Treadwell",
-      "position": "WR",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 0.0,
+        "points": 0.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -693,10 +657,10 @@
       "name": "Dak Prescott",
       "position": "QB",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 23.48,
+        "points": 26.48,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -711,10 +675,10 @@
       "name": "Hunter Henry",
       "position": "TE",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.75,
+        "points": 6.38,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -729,10 +693,10 @@
       "name": "Jared Goff",
       "position": "QB",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 22.5,
+        "points": 22.03,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -747,10 +711,10 @@
       "name": "Tyler Higbee",
       "position": "TE",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.22,
+        "points": 6.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -765,28 +729,10 @@
       "name": "Jacoby Brissett",
       "position": "QB",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 22.5,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0033217",
-      "name": "Mo Alie-Cox",
-      "position": "TE",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 2.75,
+        "points": 16.15,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -801,10 +747,10 @@
       "name": "Johnny Mundt",
       "position": "TE",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.95,
+        "points": 1.52,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -819,10 +765,10 @@
       "name": "Christian McCaffrey",
       "position": "RB",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 25.85,
+        "points": 25.47,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -837,10 +783,10 @@
       "name": "Curtis Samuel",
       "position": "WR",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.52,
+        "points": 3.44,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -855,10 +801,10 @@
       "name": "Harrison Butker",
       "position": "K",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.0,
+        "points": 6.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -873,10 +819,10 @@
       "name": "Kendrick Bourne",
       "position": "WR",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.53,
+        "points": 10.42,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -891,28 +837,10 @@
       "name": "Nick Mullens",
       "position": "QB",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.16,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0033357",
-      "name": "Taysom Hill",
-      "position": "QB",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 3.14,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -927,10 +855,10 @@
       "name": "Tim Patrick",
       "position": "WR",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.67,
+        "points": 2.72,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -945,10 +873,10 @@
       "name": "Patrick Ricard",
       "position": "RB",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.07,
+        "points": 0.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -963,10 +891,10 @@
       "name": "Pharaoh Brown",
       "position": "TE",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.53,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -981,10 +909,10 @@
       "name": "Anthony Firkser",
       "position": "TE",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.77,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -999,10 +927,10 @@
       "name": "Samaje Perine",
       "position": "RB",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.73,
+        "points": 5.18,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1017,10 +945,10 @@
       "name": "Mack Hollins",
       "position": "WR",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.72,
+        "points": 9.15,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1035,10 +963,10 @@
       "name": "Eric Saubert",
       "position": "TE",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.68,
+        "points": 0.44,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1053,10 +981,10 @@
       "name": "Robert Tonyan",
       "position": "TE",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.55,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1071,10 +999,10 @@
       "name": "Jake Elliott",
       "position": "K",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.17,
+        "points": 4.83,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1089,10 +1017,10 @@
       "name": "Dare Ogunbowale",
       "position": "RB",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.62,
+        "points": 0.65,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1107,10 +1035,10 @@
       "name": "JuJu Smith-Schuster",
       "position": "WR",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.68,
+        "points": 6.43,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1125,10 +1053,10 @@
       "name": "Jonnu Smith",
       "position": "TE",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.75,
+        "points": 5.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1143,10 +1071,10 @@
       "name": "Zane Gonzalez",
       "position": "K",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.67,
+        "points": 5.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1161,7 +1089,7 @@
       "name": "Mitchell Trubisky",
       "position": "QB",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.75,
@@ -1179,10 +1107,10 @@
       "name": "Evan Engram",
       "position": "TE",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.32,
+        "points": 7.2,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1197,10 +1125,10 @@
       "name": "Cooper Kupp",
       "position": "WR",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.07,
+        "points": 8.2,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1215,10 +1143,10 @@
       "name": "Chris Godwin Jr.",
       "position": "WR",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.33,
+        "points": 5.6,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1233,10 +1161,10 @@
       "name": "Kareem Hunt",
       "position": "RB",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.33,
+        "points": 10.05,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1251,10 +1179,10 @@
       "name": "Joshua Dobbs",
       "position": "QB",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.39,
+        "points": 0.04,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1269,10 +1197,10 @@
       "name": "Jeremy McNichols",
       "position": "RB",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.08,
+        "points": 5.25,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1287,7 +1215,7 @@
       "name": "River Cracraft",
       "position": "WR",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -1305,10 +1233,10 @@
       "name": "Mike Badgley",
       "position": "K",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.33,
+        "points": 6.4,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1323,7 +1251,7 @@
       "name": "Jeff Wilson",
       "position": "RB",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -1341,10 +1269,10 @@
       "name": "Will Dissly",
       "position": "TE",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.72,
+        "points": 2.07,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1359,10 +1287,10 @@
       "name": "Daniel Carlson",
       "position": "K",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.67,
+        "points": 3.17,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1377,10 +1305,10 @@
       "name": "Eddy Pineiro",
       "position": "K",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.17,
+        "points": 7.83,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1395,10 +1323,10 @@
       "name": "Marquez Valdes-Scantling",
       "position": "WR",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.45,
+        "points": 2.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1413,10 +1341,10 @@
       "name": "Courtland Sutton",
       "position": "WR",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.37,
+        "points": 10.23,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1431,10 +1359,10 @@
       "name": "Dallas Goedert",
       "position": "TE",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.92,
+        "points": 14.58,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1449,28 +1377,10 @@
       "name": "Ian Thomas",
       "position": "TE",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.23,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0034367",
-      "name": "Nyheim Hines",
-      "position": "RB",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": -0.07,
+        "points": 1.66,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1485,10 +1395,10 @@
       "name": "Dalton Schultz",
       "position": "TE",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.92,
+        "points": 12.37,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1503,10 +1413,10 @@
       "name": "Cedrick Wilson Jr.",
       "position": "WR",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.88,
+        "points": 1.45,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1521,7 +1431,7 @@
       "name": "Braxton Berrios",
       "position": "WR",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
         "points": 2.43,
@@ -1539,7 +1449,7 @@
       "name": "Kyle Allen",
       "position": "QB",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
         "points": -0.15,
@@ -1557,10 +1467,10 @@
       "name": "Tanner Hudson",
       "position": "TE",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.92,
+        "points": 6.37,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1575,10 +1485,10 @@
       "name": "Mark Andrews",
       "position": "TE",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.62,
+        "points": 8.87,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1593,10 +1503,10 @@
       "name": "Mason Rudolph",
       "position": "QB",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.4,
+        "points": 0.24,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1611,10 +1521,10 @@
       "name": "Christian Kirk",
       "position": "WR",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.95,
+        "points": 5.76,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1629,10 +1539,10 @@
       "name": "Nick Chubb",
       "position": "RB",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.2,
+        "points": 6.82,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1647,10 +1557,10 @@
       "name": "Lamar Jackson",
       "position": "QB",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.98,
+        "points": 27.26,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1665,10 +1575,10 @@
       "name": "Durham Smythe",
       "position": "TE",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.08,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1683,10 +1593,10 @@
       "name": "DJ Moore",
       "position": "WR",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.53,
+        "points": 10.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1701,10 +1611,10 @@
       "name": "Mike Gesicki",
       "position": "TE",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.88,
+        "points": 2.82,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1719,10 +1629,10 @@
       "name": "Saquon Barkley",
       "position": "RB",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.07,
+        "points": 15.93,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1737,10 +1647,10 @@
       "name": "Baker Mayfield",
       "position": "QB",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 17.23,
+        "points": 20.21,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1755,28 +1665,10 @@
       "name": "Josh Allen",
       "position": "QB",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 22.21,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0034860",
-      "name": "Dante Pettis",
-      "position": "WR",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 1.28,
+        "points": 26.18,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1791,10 +1683,10 @@
       "name": "Sam Darnold",
       "position": "QB",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.99,
+        "points": 22.41,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1809,7 +1701,7 @@
       "name": "Steven Sims",
       "position": "WR",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -1827,10 +1719,10 @@
       "name": "Andrew Beck",
       "position": "RB",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.18,
+        "points": 1.77,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1845,28 +1737,10 @@
       "name": "Jakobi Meyers",
       "position": "WR",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.12,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0035021",
-      "name": "Ashton Dulin",
-      "position": "WR",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 1.37,
+        "points": 7.47,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1881,10 +1755,10 @@
       "name": "Alec Ingold",
       "position": "RB",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.4,
+        "points": 1.58,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1899,7 +1773,7 @@
       "name": "Mecole Hardman",
       "position": "WR",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -1917,10 +1791,10 @@
       "name": "Joey Slye",
       "position": "K",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.67,
+        "points": 4.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1935,10 +1809,10 @@
       "name": "Olamide Zaccheaus",
       "position": "WR",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.5,
+        "points": 7.73,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1953,10 +1827,10 @@
       "name": "Josh Oliver",
       "position": "TE",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.5,
+        "points": 4.62,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1971,10 +1845,10 @@
       "name": "Devin Singletary",
       "position": "RB",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.1,
+        "points": 4.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1989,10 +1863,10 @@
       "name": "Tony Pollard",
       "position": "RB",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.23,
+        "points": 9.55,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2007,7 +1881,7 @@
       "name": "Jarrett Stidham",
       "position": "QB",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
         "points": -0.1,
@@ -2025,7 +1899,7 @@
       "name": "Easton Stick",
       "position": "QB",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -2043,10 +1917,10 @@
       "name": "Trayveon Williams",
       "position": "RB",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.82,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2061,10 +1935,10 @@
       "name": "Scott Miller",
       "position": "WR",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.08,
+        "points": 0.95,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2079,10 +1953,10 @@
       "name": "Chase McLaughlin",
       "position": "K",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.0,
+        "points": 7.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2097,10 +1971,10 @@
       "name": "David Sills",
       "position": "WR",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.6,
+        "points": 1.32,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2115,10 +1989,10 @@
       "name": "Lil'Jordan Humphrey",
       "position": "WR",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.18,
+        "points": 4.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2133,10 +2007,10 @@
       "name": "Darius Slayton",
       "position": "WR",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.5,
+        "points": 7.7,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2151,10 +2025,10 @@
       "name": "Tom Kennedy",
       "position": "WR",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.52,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2169,10 +2043,10 @@
       "name": "Travis Homer",
       "position": "RB",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.03,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2187,10 +2061,10 @@
       "name": "Alex Bachman",
       "position": "WR",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.22,
+        "points": 0.32,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2205,10 +2079,10 @@
       "name": "D'Ernest Johnson",
       "position": "RB",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.3,
+        "points": 0.05,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2223,10 +2097,10 @@
       "name": "Drew Sample",
       "position": "TE",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.3,
+        "points": 2.23,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2241,10 +2115,10 @@
       "name": "DK Metcalf",
       "position": "WR",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.5,
+        "points": 12.78,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2259,10 +2133,10 @@
       "name": "Noah Fant",
       "position": "TE",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.68,
+        "points": 8.23,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2277,10 +2151,10 @@
       "name": "Gunner Olszewski",
       "position": "WR",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.7,
+        "points": 1.57,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2295,10 +2169,10 @@
       "name": "Terry McLaurin",
       "position": "WR",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.27,
+        "points": 9.83,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2313,10 +2187,10 @@
       "name": "Marquise Brown",
       "position": "WR",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.23,
+        "points": 9.97,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2331,10 +2205,10 @@
       "name": "A.J. Brown",
       "position": "WR",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.77,
+        "points": 13.38,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2349,10 +2223,10 @@
       "name": "David Montgomery",
       "position": "RB",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.23,
+        "points": 8.92,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2367,10 +2241,10 @@
       "name": "Dawson Knox",
       "position": "TE",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.08,
+        "points": 4.27,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2385,10 +2259,10 @@
       "name": "Josh Jacobs",
       "position": "RB",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.93,
+        "points": 22.45,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2403,10 +2277,10 @@
       "name": "Drew Lock",
       "position": "QB",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.63,
+        "points": -0.45,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2421,10 +2295,10 @@
       "name": "Deebo Samuel Sr.",
       "position": "WR",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.6,
+        "points": 12.43,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2439,46 +2313,10 @@
       "name": "Tyler Huntley",
       "position": "QB",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.83,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0036032",
-      "name": "Sean McKeon",
-      "position": "TE",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 0.0,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0036040",
-      "name": "Juwan Johnson",
-      "position": "TE",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 10.78,
+        "points": 12.68,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2493,10 +2331,10 @@
       "name": "James Proche",
       "position": "WR",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.2,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2511,10 +2349,10 @@
       "name": "Rico Dowdle",
       "position": "RB",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.05,
+        "points": 21.12,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2529,10 +2367,10 @@
       "name": "Isaiah Hodgins",
       "position": "WR",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.5,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2547,10 +2385,10 @@
       "name": "Mason Kinsey",
       "position": "WR",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.36,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2565,10 +2403,10 @@
       "name": "Nick Westbrook-Ikhine",
       "position": "WR",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.45,
+        "points": 2.4,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2583,28 +2421,10 @@
       "name": "Reggie Gilliam",
       "position": "RB",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.2,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0036223",
-      "name": "Jonathan Taylor",
-      "position": "RB",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 13.58,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2619,7 +2439,7 @@
       "name": "Harrison Bryant",
       "position": "TE",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.54,
@@ -2637,28 +2457,10 @@
       "name": "Colby Parkinson",
       "position": "TE",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.15,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0036252",
-      "name": "Michael Pittman",
-      "position": "WR",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 8.22,
+        "points": 4.48,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2673,10 +2475,10 @@
       "name": "Jauan Jennings",
       "position": "WR",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.57,
+        "points": 8.65,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2691,10 +2493,10 @@
       "name": "Jordan Love",
       "position": "QB",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.41,
+        "points": 18.96,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2709,10 +2511,10 @@
       "name": "D'Andre Swift",
       "position": "RB",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.4,
+        "points": 17.17,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2727,10 +2529,10 @@
       "name": "Cole Kmet",
       "position": "TE",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.32,
+        "points": 3.78,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2745,10 +2547,10 @@
       "name": "Darnell Mooney",
       "position": "WR",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.32,
+        "points": 4.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2763,10 +2565,10 @@
       "name": "Justin Jefferson",
       "position": "WR",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.67,
+        "points": 15.6,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2781,10 +2583,10 @@
       "name": "Devin Duvernay",
       "position": "WR",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.57,
+        "points": 0.2,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2799,10 +2601,10 @@
       "name": "Josiah Deguara",
       "position": "TE",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.27,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2817,10 +2619,10 @@
       "name": "Justin Herbert",
       "position": "QB",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 17.18,
+        "points": 27.58,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2835,10 +2637,10 @@
       "name": "CeeDee Lamb",
       "position": "WR",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.27,
+        "points": 18.06,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2853,10 +2655,10 @@
       "name": "Jalen Hurts",
       "position": "QB",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 21.13,
+        "points": 24.49,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2871,10 +2673,10 @@
       "name": "Jerry Jeudy",
       "position": "WR",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.15,
+        "points": 7.35,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2889,10 +2691,10 @@
       "name": "Tee Higgins",
       "position": "WR",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 17.65,
+        "points": 15.45,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2907,10 +2709,10 @@
       "name": "Cam Akers",
       "position": "RB",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.06,
+        "points": 4.59,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2925,10 +2727,10 @@
       "name": "Adam Trautman",
       "position": "TE",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.7,
+        "points": 2.17,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2943,10 +2745,10 @@
       "name": "Charlie Woerner",
       "position": "TE",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.05,
+        "points": 0.97,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2961,10 +2763,10 @@
       "name": "Joe Burrow",
       "position": "QB",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 23.08,
+        "points": 9.93,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2979,7 +2781,7 @@
       "name": "Tim Jones",
       "position": "WR",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
         "points": 1.25,
@@ -2997,10 +2799,10 @@
       "name": "Shane Zylstra",
       "position": "TE",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.0,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3015,10 +2817,10 @@
       "name": "Chuba Hubbard",
       "position": "RB",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.25,
+        "points": 6.77,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3033,10 +2835,10 @@
       "name": "Quintin Morris",
       "position": "TE",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.32,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3051,10 +2853,10 @@
       "name": "John Bates",
       "position": "TE",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.9,
+        "points": 2.44,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3069,10 +2871,10 @@
       "name": "Tylan Wallace",
       "position": "WR",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.27,
+        "points": 0.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3087,10 +2889,10 @@
       "name": "Noah Gray",
       "position": "TE",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.0,
+        "points": 3.07,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3105,10 +2907,10 @@
       "name": "Adam Prentice",
       "position": "RB",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.1,
+        "points": 0.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3123,10 +2925,10 @@
       "name": "Jaret Patterson",
       "position": "RB",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.8,
+        "points": 2.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3141,10 +2943,10 @@
       "name": "Riley Patterson",
       "position": "K",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.83,
+        "points": 6.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3159,7 +2961,7 @@
       "name": "Feleipe Franks",
       "position": "TE",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.03,
@@ -3177,10 +2979,10 @@
       "name": "Kene Nwangwu",
       "position": "RB",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.52,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3195,10 +2997,10 @@
       "name": "Evan McPherson",
       "position": "K",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.83,
+        "points": 6.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3213,10 +3015,10 @@
       "name": "Ben Skowronek",
       "position": "WR",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.9,
+        "points": 0.38,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3231,10 +3033,10 @@
       "name": "Rhamondre Stevenson",
       "position": "RB",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.1,
+        "points": 7.65,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3249,10 +3051,10 @@
       "name": "Kylen Granson",
       "position": "TE",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.23,
+        "points": 0.43,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3267,7 +3069,7 @@
       "name": "Sam Ehlinger",
       "position": "QB",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -3285,10 +3087,10 @@
       "name": "Luke Farrell",
       "position": "TE",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.12,
+        "points": 2.55,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3303,10 +3105,10 @@
       "name": "Pat Freiermuth",
       "position": "TE",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.58,
+        "points": 9.02,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3321,10 +3123,10 @@
       "name": "Davis Mills",
       "position": "QB",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.99,
+        "points": 12.69,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3339,10 +3141,10 @@
       "name": "Ja'Marr Chase",
       "position": "WR",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 17.05,
+        "points": 22.95,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3357,10 +3159,10 @@
       "name": "Khalil Herbert",
       "position": "RB",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.25,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3375,10 +3177,10 @@
       "name": "DeVonta Smith",
       "position": "WR",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.02,
+        "points": 16.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3393,10 +3195,10 @@
       "name": "Kenneth Gainwell",
       "position": "RB",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.18,
+        "points": 9.47,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3411,10 +3213,10 @@
       "name": "Michael Carter",
       "position": "RB",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.58,
+        "points": 6.56,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3429,10 +3231,10 @@
       "name": "Amon-Ra St. Brown",
       "position": "WR",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.45,
+        "points": 18.8,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3447,10 +3249,10 @@
       "name": "Kyle Pitts",
       "position": "TE",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 17.1,
+        "points": 10.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3465,10 +3267,10 @@
       "name": "Trevor Lawrence",
       "position": "QB",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 31.96,
+        "points": 20.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3483,10 +3285,10 @@
       "name": "Mac Jones",
       "position": "QB",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.91,
+        "points": 19.9,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3501,10 +3303,10 @@
       "name": "Travis Etienne",
       "position": "RB",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 17.7,
+        "points": 12.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3519,10 +3321,10 @@
       "name": "Elijah Moore",
       "position": "WR",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.62,
+        "points": 2.52,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3537,10 +3339,10 @@
       "name": "Tommy Tremble",
       "position": "TE",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.35,
+        "points": 4.53,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3555,10 +3357,10 @@
       "name": "Trey Lance",
       "position": "QB",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.73,
+        "points": 2.86,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3573,10 +3375,10 @@
       "name": "Zach Wilson",
       "position": "QB",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.46,
+        "points": 0.79,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3591,10 +3393,10 @@
       "name": "Sal Cannella",
       "position": "TE",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.1,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3609,7 +3411,7 @@
       "name": "Nikola Kalinic",
       "position": "TE",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -3627,7 +3429,7 @@
       "name": "Cole Turner",
       "position": "TE",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -3645,10 +3447,10 @@
       "name": "Tyler Badie",
       "position": "RB",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.87,
+        "points": 1.97,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3663,10 +3465,10 @@
       "name": "Grant Calcaterra",
       "position": "TE",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.82,
+        "points": 1.6,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3681,28 +3483,10 @@
       "name": "Dareke Young",
       "position": "WR",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.77,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0037098",
-      "name": "Samori Toure",
-      "position": "WR",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 0.0,
+        "points": 1.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3717,28 +3501,10 @@
       "name": "Jake Tonges",
       "position": "TE",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.47,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0037120",
-      "name": "Tyler Goodson",
-      "position": "RB",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 0.52,
+        "points": 10.35,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3753,7 +3519,7 @@
       "name": "Britain Covey",
       "position": "WR",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -3771,10 +3537,10 @@
       "name": "Cameron Dicker",
       "position": "K",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.33,
+        "points": 9.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3789,28 +3555,10 @@
       "name": "Jaylen Warren",
       "position": "RB",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.78,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0037231",
-      "name": "Kevin Austin Jr.",
-      "position": "WR",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 6.32,
+        "points": 13.08,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3825,10 +3573,10 @@
       "name": "Drake London",
       "position": "WR",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.9,
+        "points": 22.78,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3843,10 +3591,10 @@
       "name": "Jameson Williams",
       "position": "WR",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.72,
+        "points": 11.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3861,10 +3609,10 @@
       "name": "George Pickens",
       "position": "WR",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.87,
+        "points": 19.63,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3879,10 +3627,10 @@
       "name": "James Cook",
       "position": "RB",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.98,
+        "points": 15.65,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3897,10 +3645,10 @@
       "name": "Greg Dulcich",
       "position": "TE",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.1,
+        "points": 6.55,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3915,10 +3663,10 @@
       "name": "Rachaad White",
       "position": "RB",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.48,
+        "points": 12.7,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3933,7 +3681,7 @@
       "name": "Dameon Pierce",
       "position": "RB",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.65,
@@ -3951,10 +3699,10 @@
       "name": "Khalil Shakir",
       "position": "WR",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.25,
+        "points": 13.35,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3969,10 +3717,10 @@
       "name": "Tyler Allgeier",
       "position": "RB",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.75,
+        "points": 8.53,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3987,10 +3735,10 @@
       "name": "Ty Chandler",
       "position": "RB",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.2,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4005,7 +3753,7 @@
       "name": "Teagan Quitoriano",
       "position": "TE",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -4023,7 +3771,7 @@
       "name": "James Mitchell",
       "position": "TE",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
         "points": 2.9,
@@ -4041,10 +3789,10 @@
       "name": "Jalen Nailor",
       "position": "WR",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.25,
+        "points": 7.68,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4059,10 +3807,10 @@
       "name": "Connor Heyward",
       "position": "TE",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.58,
+        "points": 1.47,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4077,10 +3825,10 @@
       "name": "Chris Oladokun",
       "position": "QB",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.94,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4095,7 +3843,7 @@
       "name": "Tanner Conner",
       "position": "TE",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
         "points": 1.97,
@@ -4113,7 +3861,7 @@
       "name": "Raheem Blackshear",
       "position": "RB",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -4131,10 +3879,10 @@
       "name": "Stone Smartt",
       "position": "TE",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.03,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4149,10 +3897,10 @@
       "name": "Deven Thompkins",
       "position": "WR",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.03,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4167,10 +3915,10 @@
       "name": "Jordan Mason",
       "position": "RB",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.95,
+        "points": 7.15,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4185,10 +3933,10 @@
       "name": "Rashid Shaheed",
       "position": "WR",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.13,
+        "points": 10.8,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4203,10 +3951,10 @@
       "name": "Ronnie Rivers",
       "position": "RB",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.92,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4221,10 +3969,10 @@
       "name": "Julius Chestnut",
       "position": "RB",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.07,
+        "points": 0.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4239,10 +3987,10 @@
       "name": "John Metchie III",
       "position": "WR",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.83,
+        "points": 1.28,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4257,10 +4005,10 @@
       "name": "Hassan Haskins",
       "position": "RB",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.62,
+        "points": 1.38,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4275,28 +4023,10 @@
       "name": "Tucker Fisk",
       "position": "TE",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.98,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0037664",
-      "name": "Alec Pierce",
-      "position": "WR",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 10.27,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4311,10 +4041,10 @@
       "name": "Jalen Tolbert",
       "position": "WR",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.03,
+        "points": 5.43,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4329,10 +4059,10 @@
       "name": "Brandon Aubrey",
       "position": "K",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.43,
+        "points": 7.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4347,10 +4077,10 @@
       "name": "Jahan Dotson",
       "position": "WR",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.35,
+        "points": 3.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4365,10 +4095,10 @@
       "name": "Treylon Burks",
       "position": "WR",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.9,
+        "points": 5.6,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4383,10 +4113,10 @@
       "name": "Trey McBride",
       "position": "TE",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.6,
+        "points": 19.35,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4401,10 +4131,10 @@
       "name": "Velus Jones Jr.",
       "position": "RB",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.64,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4419,10 +4149,10 @@
       "name": "Brian Robinson",
       "position": "RB",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.05,
+        "points": 5.23,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4437,10 +4167,10 @@
       "name": "KaVontae Turpin",
       "position": "WR",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.63,
+        "points": 6.22,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4455,10 +4185,10 @@
       "name": "Jeremy Ruckert",
       "position": "TE",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.55,
+        "points": 2.42,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4473,10 +4203,10 @@
       "name": "Chig Okonkwo",
       "position": "TE",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.35,
+        "points": 5.52,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4491,10 +4221,10 @@
       "name": "Romeo Doubs",
       "position": "WR",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.25,
+        "points": 13.08,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4509,10 +4239,10 @@
       "name": "Brock Purdy",
       "position": "QB",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 29.63,
+        "points": 23.72,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4527,10 +4257,10 @@
       "name": "Calvin Austin III",
       "position": "WR",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.5,
+        "points": 6.62,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4545,10 +4275,10 @@
       "name": "Isaiah Likely",
       "position": "TE",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.87,
+        "points": 3.86,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4563,10 +4293,10 @@
       "name": "Kyren Williams",
       "position": "RB",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.33,
+        "points": 17.42,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4581,10 +4311,10 @@
       "name": "Zamir White",
       "position": "RB",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.9,
+        "points": 2.47,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4599,10 +4329,10 @@
       "name": "Jake Ferguson",
       "position": "TE",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.1,
+        "points": 13.68,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4617,10 +4347,10 @@
       "name": "Charlie Kolar",
       "position": "TE",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.4,
+        "points": 4.63,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4635,10 +4365,10 @@
       "name": "Skyy Moore",
       "position": "WR",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.72,
+        "points": 1.42,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4653,10 +4383,10 @@
       "name": "Kenny Pickett",
       "position": "QB",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.34,
+        "points": -1.34,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4671,10 +4401,10 @@
       "name": "Daniel Bellinger",
       "position": "TE",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.42,
+        "points": 5.97,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4689,10 +4419,10 @@
       "name": "Christian Watson",
       "position": "WR",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.17,
+        "points": 8.93,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4707,10 +4437,10 @@
       "name": "Malik Willis",
       "position": "QB",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.79,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4725,10 +4455,10 @@
       "name": "Cade Otton",
       "position": "TE",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.92,
+        "points": 10.8,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4743,10 +4473,10 @@
       "name": "Kenneth Walker III",
       "position": "RB",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.38,
+        "points": 8.17,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4761,10 +4491,10 @@
       "name": "Xavier Smith",
       "position": "WR",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.5,
+        "points": 1.52,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4779,28 +4509,10 @@
       "name": "Eric Gray",
       "position": "RB",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0038397",
-      "name": "Evan Hull",
-      "position": "RB",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 1.06,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4815,10 +4527,10 @@
       "name": "Tanner McKee",
       "position": "QB",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.61,
+        "points": -0.2,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4833,7 +4545,7 @@
       "name": "Tyson Bagent",
       "position": "QB",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.79,
@@ -4851,10 +4563,10 @@
       "name": "Andre Szmyt",
       "position": "K",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.83,
+        "points": 5.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4869,10 +4581,10 @@
       "name": "Zavier Scott",
       "position": "RB",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.12,
+        "points": 4.37,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4887,10 +4599,10 @@
       "name": "Keaton Mitchell",
       "position": "RB",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.88,
+        "points": 2.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4905,7 +4617,7 @@
       "name": "Brady Russell",
       "position": "RB",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -4923,7 +4635,7 @@
       "name": "Jason Brownlee",
       "position": "WR",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -4941,10 +4653,10 @@
       "name": "Xavier Gipson",
       "position": "WR",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.43,
+        "points": 0.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4959,10 +4671,10 @@
       "name": "Bijan Robinson",
       "position": "RB",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 24.93,
+        "points": 19.55,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4977,10 +4689,10 @@
       "name": "Jaxon Smith-Njigba",
       "position": "WR",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 21.1,
+        "points": 23.17,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4995,10 +4707,10 @@
       "name": "Quentin Johnston",
       "position": "WR",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.75,
+        "points": 13.35,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5013,10 +4725,10 @@
       "name": "Luke Schoonmaker",
       "position": "TE",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.18,
+        "points": 2.38,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5031,7 +4743,7 @@
       "name": "Hendon Hooker",
       "position": "QB",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -5049,10 +4761,10 @@
       "name": "Tank Bigsby",
       "position": "RB",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.65,
+        "points": 2.18,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5067,10 +4779,10 @@
       "name": "Michael Wilson",
       "position": "WR",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.18,
+        "points": 6.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5085,10 +4797,10 @@
       "name": "Jake Moody",
       "position": "K",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.83,
+        "points": 8.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5103,10 +4815,10 @@
       "name": "Tre Tucker",
       "position": "WR",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.75,
+        "points": 7.98,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5121,7 +4833,7 @@
       "name": "Cameron Latu",
       "position": "TE",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -5139,10 +4851,10 @@
       "name": "Chad Ryland",
       "position": "K",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.83,
+        "points": 7.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5157,10 +4869,10 @@
       "name": "Derius Davis",
       "position": "WR",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.22,
+        "points": 0.25,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5175,7 +4887,7 @@
       "name": "Aidan O'Connell",
       "position": "QB",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -5193,10 +4905,10 @@
       "name": "Josh Whyle",
       "position": "TE",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.64,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5211,10 +4923,10 @@
       "name": "Chase Brown",
       "position": "RB",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 21.63,
+        "points": 14.08,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5229,10 +4941,10 @@
       "name": "Parker Washington",
       "position": "WR",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.25,
+        "points": 8.92,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5247,10 +4959,10 @@
       "name": "Kayshon Boutte",
       "position": "WR",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.68,
+        "points": 11.07,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5265,10 +4977,10 @@
       "name": "Chris Rodriguez Jr.",
       "position": "RB",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.8,
+        "points": 5.68,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5283,10 +4995,10 @@
       "name": "Scott Matlock",
       "position": "RB",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.8,
+        "points": 4.15,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5301,10 +5013,10 @@
       "name": "Xavier Hutchinson",
       "position": "WR",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.62,
+        "points": 8.55,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5319,10 +5031,10 @@
       "name": "Andrei Iosivas",
       "position": "WR",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.9,
+        "points": 7.38,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5337,10 +5049,10 @@
       "name": "DeMario Douglas",
       "position": "WR",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.77,
+        "points": 9.27,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5355,10 +5067,10 @@
       "name": "Jalen Brooks",
       "position": "WR",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.02,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5373,25 +5085,7 @@
       "name": "Brayden Willis",
       "position": "TE",
       "team": "SF",
-      "opponent": "SEA",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 0.0,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0038647",
-      "name": "Ronnie Bell",
-      "position": "WR",
-      "team": "NO",
-      "opponent": "ATL",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -5409,10 +5103,10 @@
       "name": "Chris Brooks",
       "position": "RB",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.2,
+        "points": 0.93,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5427,10 +5121,10 @@
       "name": "Emari Demercado",
       "position": "RB",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.88,
+        "points": 6.25,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5445,10 +5139,10 @@
       "name": "Blake Whiteheart",
       "position": "TE",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.23,
+        "points": 0.28,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5463,10 +5157,10 @@
       "name": "Julian Hill",
       "position": "TE",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.78,
+        "points": 2.95,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5481,10 +5175,10 @@
       "name": "Hunter Luepke",
       "position": "RB",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.6,
+        "points": 2.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5499,10 +5193,10 @@
       "name": "Jake Bobo",
       "position": "WR",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.8,
+        "points": 1.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5517,10 +5211,10 @@
       "name": "Nate Adkins",
       "position": "TE",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.8,
+        "points": 3.36,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5535,10 +5229,10 @@
       "name": "Jaleel McLaughlin",
       "position": "RB",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.1,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5553,10 +5247,10 @@
       "name": "Emanuel Wilson",
       "position": "RB",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.8,
+        "points": 5.02,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5571,78 +5265,6 @@
       "name": "Ben Sims",
       "position": "TE",
       "team": "MIN",
-      "opponent": "GB",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 1.6,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0038839",
-      "name": "Mitchell Tinsley",
-      "position": "WR",
-      "team": "CIN",
-      "opponent": "CLE",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 3.88,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0038840",
-      "name": "Brycen Tremayne",
-      "position": "WR",
-      "team": "CAR",
-      "opponent": "TB",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 0.62,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0038891",
-      "name": "Shedrick Jackson",
-      "position": "WR",
-      "team": "LV",
-      "opponent": "KC",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 6.75,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0038896",
-      "name": "Jacob Saylors",
-      "position": "RB",
-      "team": "DET",
       "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
@@ -5657,14 +5279,68 @@
       }
     },
     {
-      "playerId": "00-0038905",
-      "name": "Blake Grupe",
-      "position": "K",
-      "team": "IND",
-      "opponent": "HOU",
+      "playerId": "00-0038839",
+      "name": "Mitchell Tinsley",
+      "position": "WR",
+      "team": "CIN",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.0,
+        "points": 3.48,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
+      },
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038840",
+      "name": "Brycen Tremayne",
+      "position": "WR",
+      "team": "CAR",
+      "opponent": "ATL",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 2.13,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
+      },
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038891",
+      "name": "Shedrick Jackson",
+      "position": "WR",
+      "team": "LV",
+      "opponent": "DAL",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 0.0,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
+      },
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038896",
+      "name": "Jacob Saylors",
+      "position": "RB",
+      "team": "DET",
+      "opponent": "PHI",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 0.18,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5679,10 +5355,10 @@
       "name": "Dalton Kincaid",
       "position": "TE",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.6,
+        "points": 12.55,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5697,10 +5373,10 @@
       "name": "Brenton Strange",
       "position": "TE",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.07,
+        "points": 8.08,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5715,7 +5391,7 @@
       "name": "Sean Tucker",
       "position": "RB",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
         "points": 4.72,
@@ -5733,10 +5409,10 @@
       "name": "Dylan Drummond",
       "position": "WR",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.24,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5751,10 +5427,10 @@
       "name": "Marvin Mims Jr.",
       "position": "WR",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.87,
+        "points": 7.87,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5769,10 +5445,10 @@
       "name": "Cedric Tillman",
       "position": "WR",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.33,
+        "points": 7.34,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5787,46 +5463,10 @@
       "name": "Jordan Addison",
       "position": "WR",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.42,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0038997",
-      "name": "Josh Downs",
-      "position": "WR",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 7.2,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0038998",
-      "name": "Jake Haener",
-      "position": "QB",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 0.0,
+        "points": 13.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5841,10 +5481,10 @@
       "name": "Tyjae Spears",
       "position": "RB",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.3,
+        "points": 8.76,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5859,10 +5499,10 @@
       "name": "Elijah Higgins",
       "position": "TE",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.68,
+        "points": 3.27,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5877,10 +5517,10 @@
       "name": "Payne Durham",
       "position": "TE",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.35,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5895,10 +5535,10 @@
       "name": "Jonathan Mingo",
       "position": "WR",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.88,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5913,10 +5553,10 @@
       "name": "Zay Flowers",
       "position": "WR",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.52,
+        "points": 11.97,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5931,10 +5571,10 @@
       "name": "Michael Mayer",
       "position": "TE",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.13,
+        "points": 5.28,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5949,10 +5589,10 @@
       "name": "Davis Allen",
       "position": "TE",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.03,
+        "points": 4.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5967,10 +5607,10 @@
       "name": "Puka Nacua",
       "position": "WR",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 26.12,
+        "points": 21.38,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5985,10 +5625,10 @@
       "name": "Jahmyr Gibbs",
       "position": "RB",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 23.67,
+        "points": 20.45,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6003,10 +5643,10 @@
       "name": "Luke Musgrave",
       "position": "TE",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.18,
+        "points": 3.62,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6021,10 +5661,10 @@
       "name": "Jayden Reed",
       "position": "WR",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.7,
+        "points": 13.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6039,10 +5679,10 @@
       "name": "Bryce Young",
       "position": "QB",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 21.84,
+        "points": 12.47,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6057,10 +5697,10 @@
       "name": "C.J. Stroud",
       "position": "QB",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.44,
+        "points": 20.88,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6075,28 +5715,10 @@
       "name": "Jake Bates",
       "position": "K",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.67,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0039229",
-      "name": "Charlie Smyth",
-      "position": "K",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 7.6,
+        "points": 6.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6111,10 +5733,10 @@
       "name": "George Holani",
       "position": "RB",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.77,
+        "points": 1.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6129,7 +5751,7 @@
       "name": "Jack Westover",
       "position": "RB",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -6147,10 +5769,10 @@
       "name": "Xavier Legette",
       "position": "WR",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.67,
+        "points": 7.38,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6165,10 +5787,10 @@
       "name": "Cade Stover",
       "position": "TE",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.6,
+        "points": 6.2,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6183,10 +5805,10 @@
       "name": "Bucky Irving",
       "position": "RB",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.37,
+        "points": 17.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6201,28 +5823,10 @@
       "name": "Sione Vaki",
       "position": "RB",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.07,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0039373",
-      "name": "Audric Estim\u00e9",
-      "position": "RB",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 8.12,
+        "points": 0.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6237,10 +5841,10 @@
       "name": "Tyrone Tracy Jr.",
       "position": "RB",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.23,
+        "points": 6.48,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6255,10 +5859,10 @@
       "name": "Kimani Vidal",
       "position": "RB",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.0,
+        "points": 12.12,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6273,7 +5877,7 @@
       "name": "Tejhaun Palmer",
       "position": "WR",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -6291,10 +5895,10 @@
       "name": "Joe Milton III",
       "position": "QB",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.7,
+        "points": 4.98,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6309,10 +5913,10 @@
       "name": "Will Reichard",
       "position": "K",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.33,
+        "points": 7.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6327,10 +5931,10 @@
       "name": "Dylan Laube",
       "position": "RB",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.07,
+        "points": 0.23,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6345,10 +5949,10 @@
       "name": "Cam Little",
       "position": "K",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.5,
+        "points": 5.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6363,10 +5967,10 @@
       "name": "Ryan Flournoy",
       "position": "WR",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.65,
+        "points": 6.7,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6381,10 +5985,10 @@
       "name": "Isaiah Williams",
       "position": "WR",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.95,
+        "points": 1.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6399,10 +6003,10 @@
       "name": "Brenden Bates",
       "position": "TE",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.8,
+        "points": 4.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6417,7 +6021,7 @@
       "name": "Frank Gore Jr.",
       "position": "RB",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -6435,10 +6039,10 @@
       "name": "Jalen Coker",
       "position": "WR",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.52,
+        "points": 3.4,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6453,28 +6057,10 @@
       "name": "Harrison Mevis",
       "position": "K",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.5,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0039518",
-      "name": "Treyton Welch",
-      "position": "TE",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 0.0,
+        "points": 6.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6489,10 +6075,10 @@
       "name": "Xavier Weaver",
       "position": "WR",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.28,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6507,10 +6093,10 @@
       "name": "Brevyn Spann-Ford",
       "position": "TE",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.2,
+        "points": 0.52,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6525,10 +6111,10 @@
       "name": "Kedon Slovis",
       "position": "QB",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.04,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6543,10 +6129,10 @@
       "name": "Kameron Johnson",
       "position": "WR",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.0,
+        "points": 2.95,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6561,10 +6147,10 @@
       "name": "British Brooks",
       "position": "RB",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.0,
+        "points": 0.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6579,10 +6165,10 @@
       "name": "David Martin-Robinson",
       "position": "TE",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.58,
+        "points": 1.77,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6597,7 +6183,7 @@
       "name": "Bryce Oliver",
       "position": "WR",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.9,
@@ -6615,10 +6201,10 @@
       "name": "Colson Yankoff",
       "position": "TE",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.63,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6633,7 +6219,7 @@
       "name": "Jeshaun Jones",
       "position": "WR",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -6651,10 +6237,10 @@
       "name": "Blake Corum",
       "position": "RB",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.77,
+        "points": 3.98,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6669,10 +6255,10 @@
       "name": "Will Shipley",
       "position": "RB",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.82,
+        "points": 1.45,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6687,10 +6273,10 @@
       "name": "Jordan Whittington",
       "position": "WR",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.52,
+        "points": 4.13,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6705,10 +6291,10 @@
       "name": "Devin Culp",
       "position": "TE",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.9,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6723,10 +6309,10 @@
       "name": "Devontez Walker",
       "position": "WR",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.4,
+        "points": 5.25,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6741,10 +6327,10 @@
       "name": "AJ Barner",
       "position": "TE",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.53,
+        "points": 9.88,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6759,10 +6345,10 @@
       "name": "Rasheen Ali",
       "position": "RB",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.95,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6777,10 +6363,10 @@
       "name": "Jared Wiley",
       "position": "TE",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.4,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6795,10 +6381,10 @@
       "name": "Drake Maye",
       "position": "QB",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 25.42,
+        "points": 24.53,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6813,10 +6399,10 @@
       "name": "Jalen McMillan",
       "position": "WR",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.27,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6831,10 +6417,10 @@
       "name": "Jaylen Wright",
       "position": "RB",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.45,
+        "points": 2.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6849,10 +6435,10 @@
       "name": "Ray Davis",
       "position": "RB",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.75,
+        "points": 2.12,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6867,10 +6453,10 @@
       "name": "Malik Washington",
       "position": "WR",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.32,
+        "points": 7.88,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6885,7 +6471,7 @@
       "name": "Tahj Washington",
       "position": "WR",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
         "points": -0.9,
@@ -6903,10 +6489,10 @@
       "name": "Adonai Mitchell",
       "position": "WR",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.62,
+        "points": 2.18,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6921,10 +6507,10 @@
       "name": "Brian Thomas Jr.",
       "position": "WR",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.97,
+        "points": 11.28,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6939,10 +6525,10 @@
       "name": "Keon Coleman",
       "position": "WR",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.65,
+        "points": 7.37,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6957,10 +6543,10 @@
       "name": "Ben Sinnott",
       "position": "TE",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.07,
+        "points": 3.08,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6975,10 +6561,10 @@
       "name": "Ladd McConkey",
       "position": "WR",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.13,
+        "points": 17.45,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6993,10 +6579,10 @@
       "name": "Ricky Pearsall",
       "position": "WR",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.48,
+        "points": 13.07,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7011,10 +6597,10 @@
       "name": "Caleb Williams",
       "position": "QB",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 22.51,
+        "points": 20.91,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7029,10 +6615,10 @@
       "name": "Rome Odunze",
       "position": "WR",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.37,
+        "points": 11.03,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7047,10 +6633,10 @@
       "name": "Malachi Corley",
       "position": "WR",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.97,
+        "points": 2.78,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7065,10 +6651,10 @@
       "name": "J.J. McCarthy",
       "position": "QB",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.91,
+        "points": 18.92,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7083,7 +6669,7 @@
       "name": "Phil Mafah",
       "position": "RB",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -7101,10 +6687,10 @@
       "name": "Darius Cooper",
       "position": "WR",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.38,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7119,10 +6705,10 @@
       "name": "Tyler Loop",
       "position": "K",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.17,
+        "points": 6.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7137,7 +6723,7 @@
       "name": "LaJohntay Wester",
       "position": "WR",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -7155,10 +6741,10 @@
       "name": "Brashard Smith",
       "position": "RB",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.05,
+        "points": 5.32,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7173,7 +6759,7 @@
       "name": "Jimmy Holiday",
       "position": "WR",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -7191,10 +6777,10 @@
       "name": "Ashton Jeanty",
       "position": "RB",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.33,
+        "points": 17.27,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7209,10 +6795,10 @@
       "name": "Tetairoa McMillan",
       "position": "WR",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.52,
+        "points": 12.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7227,28 +6813,10 @@
       "name": "Colston Loveland",
       "position": "TE",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.85,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0040128",
-      "name": "Tyler Warren",
-      "position": "TE",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 7.27,
+        "points": 9.78,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7263,10 +6831,10 @@
       "name": "Emeka Egbuka",
       "position": "WR",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.38,
+        "points": 15.6,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7281,10 +6849,10 @@
       "name": "Jayden Higgins",
       "position": "WR",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.77,
+        "points": 7.77,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7299,10 +6867,10 @@
       "name": "Kyle Williams",
       "position": "WR",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.12,
+        "points": 2.63,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7317,10 +6885,10 @@
       "name": "Pat Bryant",
       "position": "WR",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.68,
+        "points": 4.52,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7335,10 +6903,10 @@
       "name": "Jaylin Noel",
       "position": "WR",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.3,
+        "points": 6.83,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7353,10 +6921,10 @@
       "name": "Tai Felton",
       "position": "WR",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.6,
+        "points": 0.32,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7371,10 +6939,10 @@
       "name": "Dylan Sampson",
       "position": "RB",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.97,
+        "points": 2.82,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7389,10 +6957,10 @@
       "name": "Elic Ayomanor",
       "position": "WR",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.37,
+        "points": 6.27,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7407,28 +6975,10 @@
       "name": "Jordan James",
       "position": "RB",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0040179",
-      "name": "DJ Giddens",
-      "position": "RB",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 1.65,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7443,10 +6993,10 @@
       "name": "Mitchell Evans",
       "position": "TE",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.78,
+        "points": 4.68,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7461,10 +7011,10 @@
       "name": "Oronde Gadsden II",
       "position": "TE",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.92,
+        "points": 12.9,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7479,10 +7029,10 @@
       "name": "Jackson Hawes",
       "position": "TE",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.0,
+        "points": 4.57,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7497,10 +7047,10 @@
       "name": "Ollie Gordon II",
       "position": "RB",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.18,
+        "points": 3.08,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7515,10 +7065,10 @@
       "name": "Andy Borregales",
       "position": "K",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.83,
+        "points": 7.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7533,28 +7083,10 @@
       "name": "Kalel Mullings",
       "position": "RB",
       "team": "TEN",
-      "opponent": "JAX",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 0.17,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0040206",
-      "name": "Riley Leonard",
-      "position": "QB",
-      "team": "IND",
       "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.1,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7569,10 +7101,10 @@
       "name": "Tahj Brooks",
       "position": "RB",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.78,
+        "points": 0.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7587,10 +7119,10 @@
       "name": "Jimmy Horn Jr.",
       "position": "WR",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.98,
+        "points": 3.4,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7605,10 +7137,10 @@
       "name": "Quinn Ewers",
       "position": "QB",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.93,
+        "points": 0.12,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7623,10 +7155,10 @@
       "name": "Kyle Monangai",
       "position": "RB",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.97,
+        "points": 9.77,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7641,10 +7173,10 @@
       "name": "Tez Johnson",
       "position": "WR",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.37,
+        "points": 11.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7659,10 +7191,10 @@
       "name": "LeQuint Allen Jr.",
       "position": "RB",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.15,
+        "points": 1.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7677,28 +7209,10 @@
       "name": "Jacory Croskey-Merritt",
       "position": "RB",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.18,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0040244",
-      "name": "Moliki Matavao",
-      "position": "TE",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 3.0,
+        "points": 7.6,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7713,10 +7227,10 @@
       "name": "Gage Larvadain",
       "position": "WR",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.65,
+        "points": 0.9,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7731,10 +7245,10 @@
       "name": "Ryan Fitzgerald",
       "position": "K",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.33,
+        "points": 5.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7749,25 +7263,7 @@
       "name": "Theo Wease Jr.",
       "position": "WR",
       "team": "MIA",
-      "opponent": "NE",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 9.25,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0040330",
-      "name": "Seth Henigan",
-      "position": "QB",
-      "team": "IND",
-      "opponent": "HOU",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -7785,7 +7281,7 @@
       "name": "Zach Horton",
       "position": "TE",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -7803,10 +7299,10 @@
       "name": "Brady Cook",
       "position": "QB",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.09,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7821,7 +7317,7 @@
       "name": "Donovan Edwards",
       "position": "RB",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -7839,7 +7335,7 @@
       "name": "Quentin Skinner",
       "position": "WR",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -7857,7 +7353,7 @@
       "name": "Dalen Cambre",
       "position": "WR",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -7875,10 +7371,10 @@
       "name": "Raheim Sanders",
       "position": "RB",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.33,
+        "points": 6.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7893,10 +7389,10 @@
       "name": "Carter Runyon",
       "position": "TE",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.43,
+        "points": 1.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7911,10 +7407,10 @@
       "name": "Max Brosmer",
       "position": "QB",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.82,
+        "points": 0.53,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7929,7 +7425,7 @@
       "name": "Ben Yurosek",
       "position": "TE",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.3,
@@ -7947,10 +7443,10 @@
       "name": "Ben Sauls",
       "position": "K",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.5,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7965,10 +7461,10 @@
       "name": "Ke'Shawn Williams",
       "position": "WR",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.27,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7983,7 +7479,7 @@
       "name": "Nate Carter",
       "position": "RB",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
         "points": 1.5,
@@ -8001,10 +7497,10 @@
       "name": "Corey Kiner",
       "position": "RB",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.5,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8019,7 +7515,7 @@
       "name": "Isaiah Neyor",
       "position": "WR",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -8037,10 +7533,10 @@
       "name": "Dont'e Thornton Jr.",
       "position": "WR",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.52,
+        "points": 1.55,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8055,10 +7551,10 @@
       "name": "Arian Smith",
       "position": "WR",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.15,
+        "points": 1.7,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8073,10 +7569,10 @@
       "name": "Woody Marks",
       "position": "RB",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.27,
+        "points": 12.78,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8091,7 +7587,7 @@
       "name": "Jaydon Blue",
       "position": "RB",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
         "points": 1.75,
@@ -8109,10 +7605,10 @@
       "name": "Konata Mumpfield",
       "position": "WR",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.67,
+        "points": 3.07,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8127,10 +7623,10 @@
       "name": "Trevor Etienne",
       "position": "RB",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.27,
+        "points": 1.2,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8145,7 +7641,7 @@
       "name": "Jalen Royals",
       "position": "WR",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
         "points": 0.0,
@@ -8163,10 +7659,10 @@
       "name": "Omarion Hampton",
       "position": "RB",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.53,
+        "points": 15.2,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8181,10 +7677,10 @@
       "name": "Matthew Golden",
       "position": "WR",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.9,
+        "points": 8.1,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8199,10 +7695,10 @@
       "name": "Shedeur Sanders",
       "position": "QB",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.4,
+        "points": 0.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8217,10 +7713,10 @@
       "name": "Isaac TeSlaa",
       "position": "WR",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.43,
+        "points": 3.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8235,10 +7731,10 @@
       "name": "Cam Ward",
       "position": "QB",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.24,
+        "points": 9.96,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8253,10 +7749,10 @@
       "name": "Jaxson Dart",
       "position": "QB",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 20.72,
+        "points": 27.09,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8271,10 +7767,10 @@
       "name": "Dillon Gabriel",
       "position": "QB",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.73,
+        "points": 13.07,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8289,10 +7785,10 @@
       "name": "Chimere Dike",
       "position": "WR",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.82,
+        "points": 6.82,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8307,10 +7803,10 @@
       "name": "Bhayshul Tuten",
       "position": "RB",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.47,
+        "points": 3.98,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8325,10 +7821,10 @@
       "name": "Tre Harris",
       "position": "WR",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.18,
+        "points": 4.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8343,10 +7839,10 @@
       "name": "Jack Bech",
       "position": "WR",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.68,
+        "points": 1.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8361,10 +7857,10 @@
       "name": "RJ Harvey",
       "position": "RB",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.9,
+        "points": 10.7,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8379,10 +7875,10 @@
       "name": "TreVeyon Henderson",
       "position": "RB",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.92,
+        "points": 9.17,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8397,10 +7893,10 @@
       "name": "Luther Burden III",
       "position": "WR",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.6,
+        "points": 7.1,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8415,10 +7911,10 @@
       "name": "Terrance Ferguson",
       "position": "TE",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.55,
+        "points": 4.96,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8433,28 +7929,10 @@
       "name": "Elijah Arroyo",
       "position": "TE",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.32,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "00-0040743",
-      "name": "Tyler Shough",
-      "position": "QB",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 19.44,
+        "points": 4.6,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8469,10 +7947,10 @@
       "name": "Isaiah Bond",
       "position": "WR",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.5,
+        "points": 3.78,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8487,10 +7965,10 @@
       "name": "Cardinals D/ST",
       "position": "DST",
       "team": "ARI",
-      "opponent": "LAR",
+      "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.0,
+        "points": 17.28,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8505,10 +7983,10 @@
       "name": "Falcons D/ST",
       "position": "DST",
       "team": "ATL",
-      "opponent": "NO",
+      "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.4,
+        "points": 18.83,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8523,10 +8001,10 @@
       "name": "Ravens D/ST",
       "position": "DST",
       "team": "BAL",
-      "opponent": "PIT",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.62,
+        "points": 18.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8541,10 +8019,10 @@
       "name": "Bills D/ST",
       "position": "DST",
       "team": "BUF",
-      "opponent": "NYJ",
+      "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 19.77,
+        "points": 17.17,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8559,10 +8037,10 @@
       "name": "Panthers D/ST",
       "position": "DST",
       "team": "CAR",
-      "opponent": "TB",
+      "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.75,
+        "points": 14.92,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8577,10 +8055,10 @@
       "name": "Bears D/ST",
       "position": "DST",
       "team": "CHI",
-      "opponent": "DET",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.23,
+        "points": 17.07,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8595,10 +8073,10 @@
       "name": "Bengals D/ST",
       "position": "DST",
       "team": "CIN",
-      "opponent": "CLE",
+      "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 17.0,
+        "points": 11.47,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8613,10 +8091,10 @@
       "name": "Browns D/ST",
       "position": "DST",
       "team": "CLE",
-      "opponent": "CIN",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.38,
+        "points": 19.43,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8631,10 +8109,10 @@
       "name": "Cowboys D/ST",
       "position": "DST",
       "team": "DAL",
-      "opponent": "NYG",
+      "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.78,
+        "points": 11.65,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8649,10 +8127,10 @@
       "name": "Broncos D/ST",
       "position": "DST",
       "team": "DEN",
-      "opponent": "LAC",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.1,
+        "points": 20.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8667,10 +8145,10 @@
       "name": "Lions D/ST",
       "position": "DST",
       "team": "DET",
-      "opponent": "CHI",
+      "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.67,
+        "points": 20.78,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8685,10 +8163,10 @@
       "name": "Packers D/ST",
       "position": "DST",
       "team": "GB",
-      "opponent": "MIN",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.17,
+        "points": 15.33,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8703,28 +8181,10 @@
       "name": "Texans D/ST",
       "position": "DST",
       "team": "HOU",
-      "opponent": "IND",
+      "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 20.52,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "IND",
-      "name": "Colts D/ST",
-      "position": "DST",
-      "team": "IND",
-      "opponent": "HOU",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 15.42,
+        "points": 23.62,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8739,10 +8199,10 @@
       "name": "Jaguars D/ST",
       "position": "DST",
       "team": "JAX",
-      "opponent": "TEN",
+      "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 20.6,
+        "points": 16.23,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8757,10 +8217,10 @@
       "name": "Chiefs D/ST",
       "position": "DST",
       "team": "KC",
-      "opponent": "LV",
+      "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.45,
+        "points": 17.87,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8775,10 +8235,10 @@
       "name": "Chargers D/ST",
       "position": "DST",
       "team": "LAC",
-      "opponent": "DEN",
+      "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.53,
+        "points": 17.35,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8793,10 +8253,10 @@
       "name": "Rams D/ST",
       "position": "DST",
       "team": "LAR",
-      "opponent": "ARI",
+      "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.27,
+        "points": 15.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8811,10 +8271,10 @@
       "name": "Raiders D/ST",
       "position": "DST",
       "team": "LV",
-      "opponent": "KC",
+      "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.77,
+        "points": 17.78,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8829,10 +8289,10 @@
       "name": "Dolphins D/ST",
       "position": "DST",
       "team": "MIA",
-      "opponent": "NE",
+      "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.92,
+        "points": 16.9,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8847,10 +8307,10 @@
       "name": "Vikings D/ST",
       "position": "DST",
       "team": "MIN",
-      "opponent": "GB",
+      "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 20.43,
+        "points": 16.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8865,28 +8325,10 @@
       "name": "Patriots D/ST",
       "position": "DST",
       "team": "NE",
-      "opponent": "MIA",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.08,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      }
-    },
-    {
-      "playerId": "NO",
-      "name": "Saints D/ST",
-      "position": "DST",
-      "team": "NO",
-      "opponent": "ATL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 20.18,
+        "points": 16.2,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8901,10 +8343,10 @@
       "name": "Giants D/ST",
       "position": "DST",
       "team": "NYG",
-      "opponent": "DAL",
+      "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.82,
+        "points": 13.15,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8919,10 +8361,10 @@
       "name": "Jets D/ST",
       "position": "DST",
       "team": "NYJ",
-      "opponent": "BUF",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.83,
+        "points": 21.9,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8937,10 +8379,10 @@
       "name": "Eagles D/ST",
       "position": "DST",
       "team": "PHI",
-      "opponent": "WAS",
+      "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.55,
+        "points": 18.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8955,10 +8397,10 @@
       "name": "Steelers D/ST",
       "position": "DST",
       "team": "PIT",
-      "opponent": "BAL",
+      "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.92,
+        "points": 17.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8973,10 +8415,10 @@
       "name": "Seahawks D/ST",
       "position": "DST",
       "team": "SEA",
-      "opponent": "SF",
+      "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 18.48,
+        "points": 20.2,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8991,10 +8433,10 @@
       "name": "49ers D/ST",
       "position": "DST",
       "team": "SF",
-      "opponent": "SEA",
+      "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.35,
+        "points": 10.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9009,10 +8451,10 @@
       "name": "Buccaneers D/ST",
       "position": "DST",
       "team": "TB",
-      "opponent": "CAR",
+      "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.32,
+        "points": 17.77,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9027,10 +8469,10 @@
       "name": "Titans D/ST",
       "position": "DST",
       "team": "TEN",
-      "opponent": "JAX",
+      "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.77,
+        "points": 18.08,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9045,10 +8487,10 @@
       "name": "Commanders D/ST",
       "position": "DST",
       "team": "WAS",
-      "opponent": "PHI",
+      "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.17,
+        "points": 13.62,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9061,14 +8503,14 @@
   ],
   "waiverTargets": [
     {
-      "playerId": "PIT",
-      "name": "Steelers D/ST",
-      "position": "DST",
-      "team": "PIT",
-      "opponent": "BAL",
+      "playerId": "00-0040074",
+      "name": "Tyler Loop",
+      "position": "K",
+      "team": "BAL",
+      "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.92,
+        "points": 6.67,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9077,17 +8519,17 @@
         "riskLevel": "none",
         "summary": null
       },
-      "rationale": "Trending up over the last 6 games, averaging 15.9 pts with the most recent game the best of the stretch."
+      "rationale": "Trending up over the last 6 games, averaging 6.7 pts with the most recent game the best of the stretch."
     },
     {
-      "playerId": "00-0039793",
-      "name": "AJ Barner",
-      "position": "TE",
-      "team": "SEA",
-      "opponent": "SF",
+      "playerId": "00-0038608",
+      "name": "Kayshon Boutte",
+      "position": "WR",
+      "team": "NE",
+      "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.53,
+        "points": 11.07,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9096,17 +8538,17 @@
         "riskLevel": "none",
         "summary": null
       },
-      "rationale": "Trending up over the last 6 games, averaging 8.5 pts with the most recent game the best of the stretch."
+      "rationale": "Averaging 11.1 pts over the last 6 games, though production cooled the last time out."
     },
     {
-      "playerId": "00-0038611",
-      "name": "Chris Rodriguez Jr.",
-      "position": "RB",
-      "team": "WAS",
-      "opponent": "PHI",
+      "playerId": "00-0039919",
+      "name": "Rome Odunze",
+      "position": "WR",
+      "team": "CHI",
+      "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.8,
+        "points": 11.03,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9115,7 +8557,7 @@
         "riskLevel": "none",
         "summary": null
       },
-      "rationale": "Trending up over the last 6 games, averaging 9.8 pts with the most recent game the best of the stretch."
+      "rationale": "Trending up over the last 6 games, averaging 11.0 pts with the most recent game the best of the stretch."
     }
   ]
 }

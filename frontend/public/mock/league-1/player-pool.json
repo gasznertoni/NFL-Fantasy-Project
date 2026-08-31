@@ -1458,9 +1458,9 @@
       "position": "RB",
       "team": "GB",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Josh Jacobs has been placed on the commissioner exempt list, making him unavailable to play."
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
