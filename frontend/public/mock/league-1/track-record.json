@@ -1,23 +1,23 @@
 {
   "season": 2026,
-  "asOfWeek": 3,
+  "asOfWeek": 17,
   "summary": {
-    "in_house_estimate": {
-      "tierLabel": "Our estimate",
-      "predictionsScored": 5,
-      "startSitHitRate": 0.6,
-      "meanAbsoluteError": 3.8
-    },
     "consensus": {
       "tierLabel": "Consensus projection",
-      "predictionsScored": 7,
-      "startSitHitRate": 0.71,
-      "meanAbsoluteError": 3.9
+      "predictionsScored": 0,
+      "startSitHitRate": 0.0,
+      "meanAbsoluteError": 0.0
+    },
+    "in_house_estimate": {
+      "tierLabel": "Our estimate",
+      "predictionsScored": 0,
+      "startSitHitRate": 0.0,
+      "meanAbsoluteError": 0.0
     }
   },
   "history": [
     {
-      "predictionId": "pred_0001",
+      "predictionId": "pred_2026_01_p_00123_start",
       "week": 1,
       "player": {
         "playerId": "p_00123",
@@ -27,11 +27,11 @@
       "tier": "consensus",
       "recommendationType": "start",
       "predictedPoints": 24.3,
-      "actualPoints": 27.1,
-      "outcomeCorrect": true
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0002",
+      "predictionId": "pred_2026_01_p_00201_start",
       "week": 1,
       "player": {
         "playerId": "p_00201",
@@ -41,11 +41,11 @@
       "tier": "consensus",
       "recommendationType": "start",
       "predictedPoints": 18.6,
-      "actualPoints": 15.9,
-      "outcomeCorrect": true
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0003",
+      "predictionId": "pred_2026_01_p_00202_start",
       "week": 1,
       "player": {
         "playerId": "p_00202",
@@ -55,11 +55,25 @@
       "tier": "in_house_estimate",
       "recommendationType": "start",
       "predictedPoints": 12.4,
-      "actualPoints": 8.6,
-      "outcomeCorrect": false
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0004",
+      "predictionId": "pred_2026_01_p_00204_start",
+      "week": 1,
+      "player": {
+        "playerId": "p_00204",
+        "name": "Kyren Williams",
+        "position": "RB"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 16.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_01_p_00301_start",
       "week": 1,
       "player": {
         "playerId": "p_00301",
@@ -69,11 +83,11 @@
       "tier": "consensus",
       "recommendationType": "start",
       "predictedPoints": 17.9,
-      "actualPoints": 19.4,
-      "outcomeCorrect": true
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0005",
+      "predictionId": "pred_2026_01_p_00302_start",
       "week": 1,
       "player": {
         "playerId": "p_00302",
@@ -83,11 +97,123 @@
       "tier": "consensus",
       "recommendationType": "start",
       "predictedPoints": 13.2,
-      "actualPoints": 5.8,
-      "outcomeCorrect": false
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0006",
+      "predictionId": "pred_2026_01_p_00310_start",
+      "week": 1,
+      "player": {
+        "playerId": "p_00310",
+        "name": "Amon-Ra St. Brown",
+        "position": "WR"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 16.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_01_p_00401_start",
+      "week": 1,
+      "player": {
+        "playerId": "p_00401",
+        "name": "Trey McBride",
+        "position": "TE"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 13.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_01_p_00303_start",
+      "week": 1,
+      "player": {
+        "playerId": "p_00303",
+        "name": "Rome Odunze",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 10.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_01_p_00501_start",
+      "week": 1,
+      "player": {
+        "playerId": "p_00501",
+        "name": "Ravens D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_01_p_00601_start",
+      "week": 1,
+      "player": {
+        "playerId": "p_00601",
+        "name": "Harrison Butker",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_01_p_00203_start",
+      "week": 1,
+      "player": {
+        "playerId": "p_00203",
+        "name": "Zack Moss",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_01_p_00304_start",
+      "week": 1,
+      "player": {
+        "playerId": "p_00304",
+        "name": "Michael Wilson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_01_p_00402_start",
+      "week": 1,
+      "player": {
+        "playerId": "p_00402",
+        "name": "Cole Kmet",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_01_p_00456_waiver_add",
       "week": 1,
       "player": {
         "playerId": "p_00456",
@@ -97,11 +223,39 @@
       "tier": "in_house_estimate",
       "recommendationType": "waiver_add",
       "predictedPoints": 9.8,
-      "actualPoints": 11.6,
-      "outcomeCorrect": true
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0007",
+      "predictionId": "pred_2026_01_p_00457_waiver_add",
+      "week": 1,
+      "player": {
+        "playerId": "p_00457",
+        "name": "Jerome Ford",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 8.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_01_p_00305_waiver_add",
+      "week": 1,
+      "player": {
+        "playerId": "p_00305",
+        "name": "Wan'Dale Robinson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 7.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00123_start",
       "week": 2,
       "player": {
         "playerId": "p_00123",
@@ -111,11 +265,11 @@
       "tier": "consensus",
       "recommendationType": "start",
       "predictedPoints": 23.1,
-      "actualPoints": 21.4,
-      "outcomeCorrect": true
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0008",
+      "predictionId": "pred_2026_02_p_00201_start",
       "week": 2,
       "player": {
         "playerId": "p_00201",
@@ -125,11 +279,11 @@
       "tier": "consensus",
       "recommendationType": "start",
       "predictedPoints": 19.4,
-      "actualPoints": 24.2,
-      "outcomeCorrect": true
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0009",
+      "predictionId": "pred_2026_02_p_00202_start",
       "week": 2,
       "player": {
         "playerId": "p_00202",
@@ -139,25 +293,25 @@
       "tier": "in_house_estimate",
       "recommendationType": "start",
       "predictedPoints": 11.7,
-      "actualPoints": 3.2,
-      "outcomeCorrect": false
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0010",
+      "predictionId": "pred_2026_02_p_00204_start",
       "week": 2,
       "player": {
-        "playerId": "p_00458",
-        "name": "Ray Davis",
+        "playerId": "p_00204",
+        "name": "Kyren Williams",
         "position": "RB"
       },
-      "tier": "in_house_estimate",
-      "recommendationType": "waiver_add",
-      "predictedPoints": 10.4,
-      "actualPoints": 14.7,
-      "outcomeCorrect": true
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 15.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0011",
+      "predictionId": "pred_2026_02_p_00301_start",
       "week": 2,
       "player": {
         "playerId": "p_00301",
@@ -167,11 +321,67 @@
       "tier": "consensus",
       "recommendationType": "start",
       "predictedPoints": 18.2,
-      "actualPoints": 12.1,
-      "outcomeCorrect": false
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0012",
+      "predictionId": "pred_2026_02_p_00302_start",
+      "week": 2,
+      "player": {
+        "playerId": "p_00302",
+        "name": "Chris Olave",
+        "position": "WR"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 14.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00310_start",
+      "week": 2,
+      "player": {
+        "playerId": "p_00310",
+        "name": "Amon-Ra St. Brown",
+        "position": "WR"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 17.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00401_start",
+      "week": 2,
+      "player": {
+        "playerId": "p_00401",
+        "name": "Trey McBride",
+        "position": "TE"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 12.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00304_start",
+      "week": 2,
+      "player": {
+        "playerId": "p_00304",
+        "name": "Michael Wilson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00456_start",
       "week": 2,
       "player": {
         "playerId": "p_00456",
@@ -181,11 +391,137 @@
       "tier": "in_house_estimate",
       "recommendationType": "start",
       "predictedPoints": 11.2,
-      "actualPoints": 10.8,
-      "outcomeCorrect": true
+      "actualPoints": null,
+      "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0013",
+      "predictionId": "pred_2026_02_p_00501_start",
+      "week": 2,
+      "player": {
+        "playerId": "p_00501",
+        "name": "Ravens D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00601_start",
+      "week": 2,
+      "player": {
+        "playerId": "p_00601",
+        "name": "Harrison Butker",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00602_start",
+      "week": 2,
+      "player": {
+        "playerId": "p_00602",
+        "name": "Justin Tucker",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 7.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00203_start",
+      "week": 2,
+      "player": {
+        "playerId": "p_00203",
+        "name": "Zack Moss",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00303_start",
+      "week": 2,
+      "player": {
+        "playerId": "p_00303",
+        "name": "Rome Odunze",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00402_start",
+      "week": 2,
+      "player": {
+        "playerId": "p_00402",
+        "name": "Cole Kmet",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00458_waiver_add",
+      "week": 2,
+      "player": {
+        "playerId": "p_00458",
+        "name": "Ray Davis",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 10.4,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00305_waiver_add",
+      "week": 2,
+      "player": {
+        "playerId": "p_00305",
+        "name": "Wan'Dale Robinson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 8.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_02_p_00308_waiver_add",
+      "week": 2,
+      "player": {
+        "playerId": "p_00308",
+        "name": "Xavier Legette",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 7.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00123_start",
       "week": 3,
       "player": {
         "playerId": "p_00123",
@@ -199,7 +535,7 @@
       "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0014",
+      "predictionId": "pred_2026_03_p_00201_start",
       "week": 3,
       "player": {
         "playerId": "p_00201",
@@ -213,7 +549,7 @@
       "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0015",
+      "predictionId": "pred_2026_03_p_00458_start",
       "week": 3,
       "player": {
         "playerId": "p_00458",
@@ -227,7 +563,189 @@
       "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0016",
+      "predictionId": "pred_2026_03_p_00204_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00204",
+        "name": "Kyren Williams",
+        "position": "RB"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 17.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00301_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00301",
+        "name": "CeeDee Lamb",
+        "position": "WR"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 17.3,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00302_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00302",
+        "name": "Chris Olave",
+        "position": "WR"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 13.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00310_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00310",
+        "name": "Amon-Ra St. Brown",
+        "position": "WR"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 16.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00401_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00401",
+        "name": "Trey McBride",
+        "position": "TE"
+      },
+      "tier": "consensus",
+      "recommendationType": "start",
+      "predictedPoints": 14.5,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00303_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00303",
+        "name": "Rome Odunze",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 11.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00501_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00501",
+        "name": "Ravens D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00502_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00502",
+        "name": "Steelers D/ST",
+        "position": "DST"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 9.7,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00601_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00601",
+        "name": "Harrison Butker",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.6,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00602_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00602",
+        "name": "Justin Tucker",
+        "position": "K"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 8.2,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00202_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00202",
+        "name": "Tony Pollard",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.8,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00203_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00203",
+        "name": "Zack Moss",
+        "position": "RB"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 5.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00402_start",
+      "week": 3,
+      "player": {
+        "playerId": "p_00402",
+        "name": "Cole Kmet",
+        "position": "TE"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "start",
+      "predictedPoints": 6.1,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00308_waiver_add",
       "week": 3,
       "player": {
         "playerId": "p_00308",
@@ -241,7 +759,7 @@
       "outcomeCorrect": null
     },
     {
-      "predictionId": "pred_0017",
+      "predictionId": "pred_2026_03_p_00457_waiver_add",
       "week": 3,
       "player": {
         "playerId": "p_00457",
@@ -251,6 +769,20 @@
       "tier": "in_house_estimate",
       "recommendationType": "waiver_add",
       "predictedPoints": 8.9,
+      "actualPoints": null,
+      "outcomeCorrect": null
+    },
+    {
+      "predictionId": "pred_2026_03_p_00305_waiver_add",
+      "week": 3,
+      "player": {
+        "playerId": "p_00305",
+        "name": "Wan'Dale Robinson",
+        "position": "WR"
+      },
+      "tier": "in_house_estimate",
+      "recommendationType": "waiver_add",
+      "predictedPoints": 7.4,
       "actualPoints": null,
       "outcomeCorrect": null
     }
