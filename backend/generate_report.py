@@ -333,6 +333,28 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
+def _update_manifest(manifest_path: "Path", week: int) -> None:
+    """Write/update manifest.json for a league's fixture directory.
+
+    Tracks the set of generated weeks and the latest one so the frontend can
+    auto-select the most recent report without a hardcoded constant.
+    """
+    from pathlib import Path as _Path
+
+    existing: dict[str, Any] = {}
+    if manifest_path.exists():
+        try:
+            existing = json.loads(manifest_path.read_text())
+        except (json.JSONDecodeError, OSError):
+            pass
+    weeks: list[int] = existing.get("weeks", [])
+    if week not in weeks:
+        weeks.append(week)
+    weeks.sort()
+    manifest = {"latestWeek": weeks[-1], "weeks": weeks}
+    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+
+
 # ---------------------------------------------------------------------------
 # Real data adapters -- NOT exercised by the test suite (network + nflreadpy
 # required, same caveat as projections.load_recent_games_nflreadpy and
@@ -747,6 +769,8 @@ def main(argv: Optional[list[str]] = None) -> None:
             pool_path = out_dir / "player-pool.json"
             report_path.write_text(json.dumps(weekly_report, indent=2) + "\n")
             pool_path.write_text(json.dumps(player_pool, indent=2) + "\n")
+            manifest_path = out_dir / "manifest.json"
+            _update_manifest(manifest_path, args.week)
             print(
                 f"Wrote {report_path} "
                 f"({len(weekly_report['projections'])} projections, {len(weekly_report['waiverTargets'])} waiver targets)"
@@ -778,6 +802,8 @@ def main(argv: Optional[list[str]] = None) -> None:
         pool_path = args.out_dir / "player-pool.json"
         report_path.write_text(json.dumps(weekly_report, indent=2) + "\n")
         pool_path.write_text(json.dumps(player_pool, indent=2) + "\n")
+        manifest_path = args.out_dir / "manifest.json"
+        _update_manifest(manifest_path, args.week)
 
         print(
             f"Wrote {report_path} "

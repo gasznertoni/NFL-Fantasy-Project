@@ -3,6 +3,7 @@ import {
   getWeeklyReport,
   getRosterSlots,
   getPlayerPool,
+  getManifest,
   LATEST_AVAILABLE_WEEK,
   MIN_SELECTABLE_WEEK,
   MAX_SELECTABLE_WEEK,
@@ -45,9 +46,25 @@ function startingSlotOrder(slots) {
 
 export default function WeeklyReportView({ leagueId = 'league-1' }) {
   const [week, setWeek] = useState(LATEST_AVAILABLE_WEEK)
+  const [maxWeek, setMaxWeek] = useState(MAX_SELECTABLE_WEEK)
   const [report, setReport] = useState(undefined) // undefined = loading, null = no data
   const [slots, setSlots] = useState(null) // null = loading
   const [pool, setPool] = useState(null) // null = loading, Map<playerId, poolEntry> once loaded
+
+  // On mount (and whenever leagueId changes), load the manifest to find the
+  // real latest week so the UI doesn't need a hardcoded constant updated by hand.
+  useEffect(() => {
+    let cancelled = false
+    getManifest(leagueId).then((manifest) => {
+      if (cancelled || !manifest) return
+      const latest = manifest.latestWeek
+      if (latest && latest > 0) {
+        setWeek(latest)
+        setMaxWeek(latest + 1) // +1 so "no data" empty state is reachable
+      }
+    })
+    return () => { cancelled = true }
+  }, [leagueId])
 
   useEffect(() => {
     let cancelled = false
@@ -179,7 +196,7 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
         <WeekSelector
           week={week}
           minWeek={MIN_SELECTABLE_WEEK}
-          maxWeek={MAX_SELECTABLE_WEEK}
+          maxWeek={maxWeek}
           onChange={setWeek}
         />
       </div>

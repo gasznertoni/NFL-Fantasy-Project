@@ -6,17 +6,12 @@
 // changes required at that swap. Components must always go through these
 // functions rather than importing fixture JSON directly.
 
-// The latest week for which a mock fixture exists. This drives the default
-// week shown on load (spec section 2, "entry point"). Not a hardcoded roster
-// or scoring value -- just which mock files ship with this build.
-export const LATEST_AVAILABLE_WEEK = 3;
-
-// Week range offered in the UI's week selector. MAX_SELECTABLE_WEEK is
-// intentionally one past the latest fixture so the "no data for this week"
-// empty state (spec section 2) is reachable without waiting for real weeks
-// to run out of data.
+// Fallback constants used when the manifest hasn't loaded yet (or is absent).
+// getManifest() returns the real values from each league's manifest.json,
+// written by generate_report.py after every fixture run.
+export const LATEST_AVAILABLE_WEEK = 1;
 export const MIN_SELECTABLE_WEEK = 1;
-export const MAX_SELECTABLE_WEEK = 4;
+export const MAX_SELECTABLE_WEEK = 2;
 
 const DEFAULT_SEASON = 2026;
 
@@ -50,6 +45,17 @@ async function fetchJsonFixture(path) {
   } catch {
     return null;
   }
+}
+
+/**
+ * Fetch the fixture manifest for a league.
+ * Written by generate_report.py after every run; tells the UI which weeks
+ * have real fixtures and which is the latest one.
+ * @param {string} [leagueId]
+ * @returns {Promise<{latestWeek: number, weeks: number[]}|null>}
+ */
+export async function getManifest(leagueId = 'league-1') {
+  return fetchJsonFixture(`${import.meta.env.BASE_URL}mock/${leagueId}/manifest.json`);
 }
 
 /**
