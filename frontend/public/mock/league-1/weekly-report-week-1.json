@@ -2,7 +2,7 @@
   "week": 1,
   "leagueId": "league-1",
   "leagueFormatAssumption": "ppr",
-  "generatedAt": "2026-09-01T21:26:28Z",
+  "generatedAt": "2026-09-01T21:34:27Z",
   "projections": [
     {
       "playerId": "00-0023459",
@@ -240,8 +240,8 @@
       },
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Keenan Allen is expected to play in Week 1 despite an arrest on Sunday morning for drunken driving, though this off-field incident presents some risk to his availability."
       }
     },
     {
@@ -3267,7 +3267,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Heel"
+        "summary": "Coach Zac Taylor expects Tee Higgins to be ready for Week 1 despite nursing an injury in the days before the season opener."
       }
     },
     {
@@ -3983,7 +3983,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Knee"
+        "summary": "Coach Zac Taylor expects Ja'Marr Chase to be ready for Week 1 despite nursing an injury in the days leading up to the season opener."
       }
     },
     {
@@ -4659,7 +4659,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Back"
+        "summary": "Isiah Pacheco has been placed on injured reserve due to a MCL sprain and back injury suffered during training camp."
       }
     },
     {
@@ -8841,7 +8841,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Knee - ACL"
+        "summary": "Malik Nabers is feeling good but has not committed to playing in Week 1 against the Cowboys, indicating uncertainty about his availability for the season opener."
       }
     },
     {
@@ -9277,9 +9277,9 @@
         "conditionalPoints": 8.87
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Joe Milton III was waived by the Cowboys and is no longer on the roster."
       }
     },
     {
@@ -11263,9 +11263,9 @@
         "conditionalPoints": 0.0
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "medium",
+        "summary": "Tyler Loop missed two kicks in the preseason finale, prompting the Ravens to add kicker competition by signing Jake Moody to the practice squad."
       }
     },
     {
