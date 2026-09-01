@@ -13,6 +13,7 @@ import unittest
 
 from week1 import (
     FEATURES,
+    fit_interval_model,
     UNDRAFTED_PICK,
     UNDRAFTED_ROUND,
     Z_CLIP,
@@ -304,6 +305,51 @@ class TestWeek1Model(unittest.TestCase):
         rows = self._training_rows()
         rows.append({"player_id": "x", "position": "WR", "season": 2024, "prior_ppg": 9.0})
         Week1Model().fit(rows)  # must not raise on the unlabelled row
+
+
+class TestFitIntervalModel(unittest.TestCase):
+    """Week-1 intervals must come from the week-1 model's own HELD-OUT
+    residuals -- the in-season band belongs to a different estimator, and
+    in-sample residuals would make the interval look tighter than it is."""
+
+    def _rows(self, seasons=(2020, 2021, 2022, 2023)):
+        rows = []
+        for season in seasons:
+            for i in range(120):
+                ppg = 2.0 + (i % 15)
+                rows.append({
+                    "player_id": f"p{season}_{i}", "season": season, "position": "WR",
+                    "prior_ppg": ppg, "prior_targets": ppg / 2,
+                    "actual_points": 1.2 * ppg + ((i * 7) % 9 - 4),
+                })
+        return rows
+
+    def test_returns_none_without_enough_seasons_to_hold_out(self):
+        # One season cannot be split into fit-and-hold-out, so there is nothing
+        # honest to measure residuals on. min_seasons defaults to 1, so two
+        # seasons IS enough (fit on the first, hold out the second).
+        self.assertIsNone(fit_interval_model(self._rows(seasons=(2022,))))
+        self.assertIsNone(
+            fit_interval_model(self._rows(seasons=(2022, 2023)), min_seasons=2)
+        )
+
+    def test_two_seasons_is_enough_at_the_default(self):
+        self.assertIsNotNone(fit_interval_model(self._rows(seasons=(2022, 2023))))
+
+    def test_fits_once_a_season_can_be_held_out(self):
+        model = fit_interval_model(self._rows())
+        self.assertIsNotNone(model)
+        self.assertIsNotNone(model.interval("WR", 10.0))
+
+    def test_interval_brackets_the_projection(self):
+        model = fit_interval_model(self._rows())
+        low, high = model.interval("WR", 10.0)
+        self.assertLess(low, 10.0)
+        self.assertGreater(high, 10.0)
+        self.assertGreaterEqual(low, 0.0)
+
+    def test_empty_input_returns_none(self):
+        self.assertIsNone(fit_interval_model([]))
 
 
 class TestPriorSeasonDvp(unittest.TestCase):

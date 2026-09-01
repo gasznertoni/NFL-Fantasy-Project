@@ -482,6 +482,64 @@ def _stdev(values: list[float]) -> Optional[float]:
     return math.sqrt(sum((v - mu) ** 2 for v in values) / (len(values) - 1))
 
 
+def fit_interval_model(
+    training_rows: list[dict[str, Any]],
+    alpha: float = DEFAULT_RIDGE_ALPHA,
+    min_seasons: int = 1,
+    min_rows: int = 60,
+    buckets: int = 3,
+):
+    """A calibration.IntervalModel fitted on HELD-OUT week-1 residuals.
+
+    Why not reuse the in-season interval model: it is fitted on the rolling
+    average's errors, and this is a different estimator with a different error
+    profile (different features, no current-season data, a training ceiling
+    clamp). Borrowing its band would be a guess dressed as a measurement.
+
+    Why not fit on in-sample residuals either: a model scored on rows it was
+    fitted on looks more certain than it is, and an interval is precisely the
+    thing that must not be over-confident. So this walks forward -- for each
+    season with at least `min_seasons` of prior data, fit on everything before
+    it and predict it -- and fits the quantiles on those out-of-sample errors.
+
+    Returns None when there is not enough history to hold anything out, in
+    which case the caller simply publishes no interval.
+    """
+    from calibration import IntervalModel
+
+    # min_seasons=1 holds out every season but the first, which is what makes
+    # the residual pool large enough for the smaller positions: at
+    # min_seasons=2 only two week 1s were held out (~700 rows) and QB and TE
+    # fell under the row floor while RB and WR cleared it. Fewer, wider buckets
+    # for the same reason -- one week per season is structurally less data than
+    # the in-season model's eighteen.
+
+    seasons = sorted({r["season"] for r in training_rows if r.get("season") is not None})
+    if len(seasons) <= min_seasons:
+        return None
+
+    residual_rows = []
+    for index, season in enumerate(seasons):
+        if index < min_seasons:
+            continue
+        train = [r for r in training_rows if r["season"] < season]
+        test = [r for r in training_rows if r["season"] == season]
+        if not train or not test:
+            continue
+        model = Week1Model(alpha=alpha).fit(train)
+        for row in test:
+            residual_rows.append(
+                {
+                    "position": row.get("position"),
+                    "projected": model.predict_one(row)["projected_points"],
+                    "actual": row["actual_points"],
+                }
+            )
+    if not residual_rows:
+        return None
+    return IntervalModel(min_rows=min_rows, buckets=buckets).fit(residual_rows)
+
+
 def training_rows_from_history(
     seasons: list[int],
     all_games: list[dict[str, Any]],

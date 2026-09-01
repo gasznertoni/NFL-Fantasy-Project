@@ -228,9 +228,21 @@ class IntervalModel:
     the upper tail than a symmetric interval expects.
     """
 
-    def __init__(self, quantiles: tuple[float, float] = DEFAULT_INTERVAL, buckets: int = 5):
+    def __init__(
+        self,
+        quantiles: tuple[float, float] = DEFAULT_INTERVAL,
+        buckets: int = 5,
+        min_rows: int = MIN_ROWS_FOR_INTERVAL,
+    ):
+        """min_rows is a parameter, not the module constant, because the two
+        callers have structurally different sample sizes. The in-season model
+        sees 18 weeks a season; the week-1 model sees ONE. Holding week 1 to the
+        same 150-row bar silently drops the positions with the smallest pools --
+        QB and TE got no interval at all on the first 2026 run for exactly this
+        reason, while RB and WR did."""
         self.quantiles = quantiles
         self.buckets = buckets
+        self.min_rows = min_rows
         # {position: [(bucket_centre, low_offset, high_offset), ...]}
         self._fits: dict[str, list[tuple[float, float, float]]] = {}
 
@@ -244,7 +256,7 @@ class IntervalModel:
             by_pos.setdefault(row.get("position"), []).append((p, a))
 
         for position, pairs in by_pos.items():
-            if len(pairs) < MIN_ROWS_FOR_INTERVAL:
+            if len(pairs) < self.min_rows:
                 continue
             pairs.sort(key=lambda t: t[0])
             size = max(len(pairs) // self.buckets, 1)
