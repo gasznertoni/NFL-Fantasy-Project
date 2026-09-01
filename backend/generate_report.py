@@ -48,7 +48,15 @@ from pathlib import Path
 from typing import Any, Optional
 
 from news import DEFAULT_NEWS_FLAG
-from projections import DEFAULT_WINDOW, POSITION_CALIBRATION_SCALE, project_player
+from blend import build_feature_row as blend_build_feature_row
+from blend import rolling_volume
+from calibration import apply_affine
+from projections import (
+    DEFAULT_DECAY,
+    DEFAULT_WINDOW,
+    POSITION_CALIBRATION_SCALE,
+    project_player,
+)
 from waiver_targets import generate_rationale, select_waiver_targets
 
 # nflreadpy (2025 season, confirmed hands-on) uses "LA" for the Rams; the
@@ -77,6 +85,12 @@ ROSTER_POSITIONS = POOL_POSITIONS + (KICKER_POSITION,)
 TIER_METADATA = {
     "consensus": {"tierLabel": "Consensus projection", "source": "FantasyPros"},
     "in_house_estimate": {"tierLabel": "Our estimate", "source": "In-house model"},
+    # Week 1 only. Labelled distinctly from the in-house rolling average
+    # because it is a different kind of number built from different inputs
+    # (last season plus draft capital and the opening Vegas line, with zero
+    # current-season games behind it) -- same "keep the tiers clearly
+    # labelled" rule that separates the consensus tier from ours.
+    "week1_model": {"tierLabel": "Week 1 estimate", "source": "In-house model (pre-season)"},
 }
 
 # Updated 2026-08-16 once real league values landed: reception=1 in
@@ -89,6 +103,25 @@ TIER_METADATA = {
 # multi-league path (--leagues-config), each league's leagueFormat from
 # leagues.json is passed explicitly and this constant is not used.
 LEAGUE_FORMAT_ASSUMPTION = "ppr"
+
+# How many past seasons of labelled week-1 rows the cold-start model trains on
+# (backend/week1.py). Four gives ~1 350 rows across the four positions -- enough
+# for the ~56-column per-position ridge without reaching back to a materially
+# different league (scoring environment and pass rate have both drifted).
+# Each training season needs the two seasons before it for its own features,
+# so the real data pull spans WEEK1_TRAIN_SEASONS + 2.
+WEEK1_TRAIN_SEASONS = 4
+
+# Seasons of injury-report history the availability model trains on. Injury
+# data starts at 2018 in nflreadpy, and the report vocabulary has been stable
+# throughout, so more is strictly better here -- 6 is a compromise with fetch
+# time, not a modelling limit.
+AVAILABILITY_TRAIN_SEASONS = 6
+
+# Seasons of completed play used to fit the variance components (k), the affine
+# correction, the interval quantiles and the blend. Three gives ~35k
+# player-weeks, comfortably above every one of those fits' minimum.
+CALIBRATION_TRAIN_SEASONS = 3
 
 DEFAULT_OUT_DIR = Path(__file__).resolve().parent.parent / "frontend" / "public" / "mock"
 DEFAULT_SCORING_CONFIG_PATH = Path(__file__).resolve().parent / "leagues" / "league-1" / "scoring-config.json"
@@ -134,9 +167,48 @@ def build_player_pool_entry(player: dict[str, Any], news_flag: dict[str, Any]) -
     }
 
 
-def _projection_object(points: float, tier: str) -> dict[str, Any]:
+def _projection_object(
+    points: float,
+    tier: str,
+    floor: Optional[float] = None,
+    ceiling: Optional[float] = None,
+    play_probability: Optional[float] = None,
+    conditional_points: Optional[float] = None,
+) -> dict[str, Any]:
+    """The public projection shape.
+
+    `points` is the EXPECTED value -- P(play) x points-if-he-plays -- which is
+    the quantity a start/sit comparison should be made on. `conditionalPoints`
+    keeps the if-he-plays number visible next to it, because the two answer
+    different questions and a reader deserves both: "he is a 14-point player
+    but only 60% likely to suit up" is a different call from "he is an
+    8.4-point player".
+
+    `floor`/`ceiling` are the 10th/90th empirical residual percentiles, not a
+    normal interval -- the outcome distribution is strongly right-skewed and a
+    symmetric interval over-covers (0.86 at a nominal 0.80). Optional
+    throughout: a tier or a run without a fitted interval model simply omits
+    them, and the frontend renders the point estimate alone as before.
+    """
     meta = TIER_METADATA[tier]
-    return {"tier": tier, "points": points, "tierLabel": meta["tierLabel"], "source": meta["source"]}
+    projection: dict[str, Any] = {
+        "tier": tier,
+        "points": points,
+        "tierLabel": meta["tierLabel"],
+        "source": meta["source"],
+    }
+    if floor is not None and ceiling is not None:
+        projection["floor"] = floor
+        projection["ceiling"] = ceiling
+    # Both only appear when availability was actually modelled. Without it
+    # conditionalPoints is identical to points by construction, and emitting
+    # the pair would invite a reader to believe a distinction is being drawn
+    # that this run did not draw.
+    if play_probability is not None:
+        projection["playProbability"] = play_probability
+        if conditional_points is not None:
+            projection["conditionalPoints"] = conditional_points
+    return projection
 
 
 def build_projection_entry(candidate: dict[str, Any], tier: str = "in_house_estimate") -> dict[str, Any]:
@@ -150,7 +222,14 @@ def build_projection_entry(candidate: dict[str, Any], tier: str = "in_house_esti
         "position": candidate["position"],
         "team": candidate["team"],
         "opponent": candidate["opponent"],
-        "projection": _projection_object(candidate["points"], tier),
+        "projection": _projection_object(
+            candidate["points"],
+            tier,
+            floor=candidate.get("floor"),
+            ceiling=candidate.get("ceiling"),
+            play_probability=candidate.get("play_probability"),
+            conditional_points=candidate.get("conditional_points"),
+        ),
         "newsFlag": candidate["news_flag"],
     }
 
@@ -211,6 +290,15 @@ def build_weekly_report_and_pool(
     league_format: str = "ppr",
     rostered_rank_cutoff: Optional[dict[str, int]] = None,
     rz_stats_by_player: Optional[dict[str, dict[str, Any]]] = None,
+    week1_projections: Optional[dict[str, dict[str, Any]]] = None,
+    play_probabilities: Optional[dict[str, float]] = None,
+    positional_baselines: Optional[dict[str, float]] = None,
+    shrinkage_ks: Optional[dict[str, float]] = None,
+    affines: Optional[dict[str, tuple[float, float]]] = None,
+    interval_model: Optional[Any] = None,
+    blend_model: Optional[Any] = None,
+    game_context: Optional[dict[str, dict[str, Any]]] = None,
+    decay: float = DEFAULT_DECAY,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """The main assembly entry point, fully pure/injectable (all data
     already loaded by the caller) -- see the `load_*` adapters below for
@@ -256,6 +344,44 @@ def build_weekly_report_and_pool(
             for players where those metrics exceed the thresholds in rotowire.py.
             None/omitted (the default) means no Rotowire annotation -- the
             rationale falls back to the existing points-trend-only text.
+        week1_projections: {playerId: week1.Week1Model.predict_one output}.
+            Only meaningful when week == 1, where project_player has no
+            current-season games to average and every player lands in its
+            no_data tier. Slots in BELOW the FantasyPros consensus tier and
+            ABOVE the in-house rolling average, exactly mirroring
+            consensus_projections' precedence and its "None means
+            arithmetically identical to before" contract. See
+            docs/research/week1-cold-start-model.md for why week 1 needs its
+            own estimator rather than a flat positional baseline.
+        play_probabilities: {playerId: P(play)} from availability.py. When
+            supplied, every tier's `points` becomes an EXPECTED value
+            (P(play) x if-he-plays) and the if-he-plays number is kept
+            alongside as `conditionalPoints`. Worth +1.73 lineup pts/week on
+            top of the estimator improvements -- the single largest measured
+            lever in the backend. None (the default) reproduces the old
+            conditional-on-playing behaviour exactly.
+        positional_baselines: {position: float} -- what empirical-Bayes
+            shrinkage pulls a thin sample toward. Keyed by POSITION, not by
+            player: unlike the legacy window mode (which only shrank thin
+            samples and needed a per-player thin/debut population), the
+            empirical-Bayes weight applies at every sample size, so one
+            baseline per position is the whole requirement. None disables
+            shrinkage entirely -- project_player has nothing to shrink toward.
+        shrinkage_ks: {playerId: k} for empirical-Bayes shrinkage, resolved
+            from position by the caller (calibration.DEFAULT_SHRINKAGE_K).
+        affines: {playerId: (a, b)} rank-preserving per-position recalibration
+            from calibration.fit_affine.
+        interval_model: a fitted calibration.IntervalModel, used to attach a
+            floor/ceiling to each projection. None omits the interval fields.
+        blend_model: a fitted blend.BlendModel. When supplied, the in-house
+            tier's point estimate is refined with rolling volume and the
+            week's game context (+volume/Vegas, audit recommendation 5).
+        game_context: {team: context} from context.load_game_context_nflreadpy,
+            needed by blend_model. Absent teams fall back to league-average
+            context rather than failing.
+        decay: recency-decay factor threaded to project_player and to the
+            rolling-volume window, so both sides of the blend see the same
+            weighting.
 
     Returns:
         (weekly_report, player_pool) -- weekly_report covers only players
@@ -278,7 +404,21 @@ def build_weekly_report_and_pool(
                 "position": player["position"],
                 "team": player["team"],
                 "opponent": opponent,
-                "points": consensus["projected_points"],
+                "points": round(
+                    consensus["projected_points"]
+                    * ((play_probabilities or {}).get(player["playerId"], 1.0)),
+                    2,
+                ),
+                # FantasyPros' consensus is a conditional-on-playing number too
+                # -- it is a projected stat line for a player who suits up -- so
+                # it needs the same availability multiplier, or the two tiers
+                # would not be comparable in the same lineup.
+                "conditional_points": consensus["projected_points"],
+                "play_probability": (
+                    None
+                    if (play_probabilities or {}).get(player["playerId"]) is None
+                    else round(play_probabilities[player["playerId"]], 3)
+                ),
                 "tier": "consensus",
                 # Not meaningful for the consensus tier (FantasyPros doesn't
                 # expose a game-by-game history, only the projection) --
@@ -293,20 +433,83 @@ def build_weekly_report_and_pool(
                 "per_game_points": [],
                 "news_flag": news_flag,
             }
-        else:
-            game_log = game_logs_by_player.get(player["playerId"], [])
-            cal_scale = POSITION_CALIBRATION_SCALE.get(player["position"], 1.0)
-            projection = project_player(
-                game_log, scoring_config, season, week,
-                window=window, calibration_scale=cal_scale,
-            )
+        elif (week1_projections or {}).get(player["playerId"]) is not None:
+            week1_projection = week1_projections[player["playerId"]]
             candidate = {
                 "playerId": player["playerId"],
                 "name": player["name"],
                 "position": player["position"],
                 "team": player["team"],
                 "opponent": opponent,
-                "points": projection["projected_points"],
+                "points": round(
+                    week1_projection["projected_points"]
+                    * ((play_probabilities or {}).get(player["playerId"], 1.0)),
+                    2,
+                ),
+                "conditional_points": week1_projection["projected_points"],
+                "play_probability": (
+                    None
+                    if (play_probabilities or {}).get(player["playerId"]) is None
+                    else round(play_probabilities[player["playerId"]], 3)
+                ),
+                "tier": "week1_model",
+                # This tier is cold-start by definition: there is no
+                # current-season game log to show behind the number, which is
+                # exactly what games_used=0 communicates to the report view.
+                "games_used": 0,
+                "confidence": week1_projection.get("confidence"),
+                "per_game_points": [],
+                "news_flag": news_flag,
+            }
+        else:
+            player_id = player["playerId"]
+            game_log = game_logs_by_player.get(player_id, [])
+            cal_scale = POSITION_CALIBRATION_SCALE.get(player["position"], 1.0)
+            projection = project_player(
+                game_log, scoring_config, season, week,
+                window=window, decay=decay, calibration_scale=cal_scale,
+                positional_baseline=(positional_baselines or {}).get(player["position"]),
+                shrinkage_k=(shrinkage_ks or {}).get(player_id),
+                play_probability=(play_probabilities or {}).get(player_id),
+                affine=(affines or {}).get(player_id),
+            )
+            points = projection["conditional_points"]
+            if blend_model is not None:
+                # The blend refines the CONDITIONAL number; availability is
+                # re-applied below so the two stay composable and either can be
+                # switched off without touching the other.
+                volume = rolling_volume(game_log, season, week, window, decay)
+                context = (game_context or {}).get(player["team"])
+                points = blend_model.predict_one(
+                    blend_build_feature_row(
+                        player_id, player["position"], projection, volume, context
+                    )
+                )
+                points = apply_affine(points, (affines or {}).get(player_id))
+
+            probability = (play_probabilities or {}).get(player_id)
+            expected = points if probability is None else points * probability
+
+            floor = ceiling = None
+            if interval_model is not None:
+                band = interval_model.interval(player["position"], points)
+                if band is not None:
+                    lo, hi = band
+                    if probability is not None:
+                        lo, hi = lo * probability, hi * probability
+                    floor, ceiling = round(lo, 2), round(hi, 2)
+
+            candidate = {
+                "playerId": player_id,
+                "name": player["name"],
+                "position": player["position"],
+                "team": player["team"],
+                "opponent": opponent,
+                "points": round(expected, 2),
+                "conditional_points": round(points, 2),
+                "play_probability": None if probability is None else round(probability, 3),
+                "floor": floor,
+                "ceiling": ceiling,
                 "tier": "in_house_estimate",
                 "games_used": projection["games_used"],
                 "confidence": projection["confidence"],
@@ -411,7 +614,13 @@ def load_player_pool_nflreadpy(season: int) -> list[dict[str, Any]]:
         seen_ids = set()
         for _, row in df.iterrows():
             player_id = row.get("gsis_id")
-            if not player_id or player_id in seen_ids:
+            # `not player_id` does NOT catch a missing id here: pandas hands
+            # back float("nan") for an empty gsis_id, and NaN is truthy, so a
+            # NaN sailed through into the fixture as "playerId": NaN and made
+            # the whole file fail json.dumps(allow_nan=False) at write time --
+            # every projection lost for one unidentifiable roster row (seen on
+            # the real 2025 roster feed). Test for a non-empty string instead.
+            if not isinstance(player_id, str) or not player_id.strip() or player_id in seen_ids:
                 # A mid-season trade can leave a player with more than one
                 # row in a season-level roster snapshot -- keep the first.
                 continue
@@ -677,6 +886,35 @@ def main(argv: Optional[list[str]] = None) -> None:
         help="skip the FantasyPros consensus-tier pull; every player gets the in-house estimate tier",
     )
     parser.add_argument(
+        "--skip-availability",
+        action="store_true",
+        help=(
+            "skip the availability model (backend/availability.py); projections stay "
+            "conditional-on-playing, i.e. the pre-2026-09-01 behaviour"
+        ),
+    )
+    parser.add_argument(
+        "--skip-calibration",
+        action="store_true",
+        help=(
+            "skip empirical-Bayes shrinkage, the affine recalibration and the prediction "
+            "interval; projections are the raw rolling average"
+        ),
+    )
+    parser.add_argument(
+        "--skip-blend",
+        action="store_true",
+        help="skip the rolling-volume + Vegas-context blend (backend/blend.py)",
+    )
+    parser.add_argument(
+        "--skip-week1-model",
+        action="store_true",
+        help=(
+            "skip the week-1 cold-start model (backend/week1.py); week-1 players fall back to "
+            "project_player's flat no_data baseline. No effect for weeks 2+, where the model never runs."
+        ),
+    )
+    parser.add_argument(
         "--skip-rotowire",
         action="store_true",
         help="skip the Rotowire red zone / route-efficiency fetch; waiver rationale omits those annotations",
@@ -776,6 +1014,169 @@ def main(argv: Optional[list[str]] = None) -> None:
             print(f"  FantasyPros consensus scoring failed ({exc}) -- falling back to in-house for this league.")
             return {}
 
+
+    # ------------------------------------------------------------------
+    # Week-1 cold-start tier. Only ever built when --week 1: from week 2 on,
+    # project_player has real current-season games and this model's inputs
+    # (last season + draft capital + the opening line) are strictly worse
+    # than what actually happened this year. Fitted per run rather than
+    # persisted -- the fit is a few hundred rows per position and takes well
+    # under a second, so there is no artefact to version or go stale.
+    # ------------------------------------------------------------------
+    def _build_week1_for_config(scoring_config: dict[str, Any]) -> dict[str, dict[str, Any]]:
+        if args.week != 1 or args.skip_week1_model:
+            return {}
+        try:
+            import week1 as week1_module
+
+            train_seasons = list(range(args.season - WEEK1_TRAIN_SEASONS, args.season))
+            history_seasons = list(range(train_seasons[0] - 2, args.season))
+            history = week1_module.load_history_nflreadpy(history_seasons, scoring_config)
+            context = {s: week1_module.load_week1_context_nflreadpy(s) for s in history_seasons + [args.season]}
+            meta = {s: week1_module.load_player_meta_nflreadpy(s) for s in history_seasons + [args.season]}
+            dvp = {s: week1_module.prior_season_dvp(history, s - 1) for s in history_seasons + [args.season]}
+
+            training_rows = week1_module.training_rows_from_history(
+                train_seasons, history, context, meta, dvp
+            )
+            model = week1_module.Week1Model().fit(training_rows)
+            target_rows = week1_module.build_feature_rows(
+                args.season,
+                [g for g in history if int(g["season"]) in (args.season - 1, args.season - 2)],
+                context.get(args.season, {}),
+                meta.get(args.season, {}),
+                dvp.get(args.season),
+            )
+            result = model.predict(target_rows)
+            print(f"  {len(result)} players projected by the week-1 cold-start model "
+                  f"(trained on {len(training_rows)} rows from {train_seasons[0]}-{train_seasons[-1]})")
+            return result
+        except Exception as exc:  # noqa: BLE001
+            # Same degrade-gracefully contract as the consensus tier: a failure
+            # here drops every player back to project_player's no_data
+            # baseline, which is what week 1 did before this model existed.
+            print(f"  Week-1 model failed ({exc}) -- falling back to the in-house no_data baseline.")
+            return {}
+
+
+    # ------------------------------------------------------------------
+    # Availability, calibration and the volume/context blend -- the three
+    # pieces of docs/research/scoring-engine-and-model-audit.md section 8 that
+    # need real history to fit. Built once per run and shared across leagues:
+    # none of them depends on league scoring except the blend, which is
+    # refitted per config below because its target is league points.
+    #
+    # Measured together on held-out 2024-25, scoring missed games as the zeros
+    # they are: +3.70 lineup pts/week over the previous estimator, of which
+    # +1.73 is availability alone (p < 1e-240).
+    # ------------------------------------------------------------------
+    availability_model = None
+    play_probabilities: dict[str, float] = {}
+    if args.skip_availability:
+        print("--skip-availability set: projections stay conditional-on-playing.")
+    else:
+        try:
+            import availability as availability_module
+
+            train_seasons = list(range(args.season - AVAILABILITY_TRAIN_SEASONS, args.season))
+            rows = availability_module.build_training_rows_nflreadpy(train_seasons)
+            availability_model = availability_module.AvailabilityModel().fit(rows)
+
+            report_by_player = availability_module.load_injury_report_nflreadpy(
+                args.season, args.week
+            )
+            # Play-rate history for the CURRENT season, as-of this week. Uses
+            # each player's own team's weeks as the denominator so a bye is not
+            # counted as a missed game.
+            weeks_by_player: dict[str, set] = {}
+            team_of_player: dict[str, Optional[str]] = {}
+            for player_id, log in game_logs.items():
+                weeks_by_player[player_id] = {
+                    g["week"] for g in log if g.get("season") == args.season
+                }
+                team_of_player[player_id] = next(
+                    (g.get("team") for g in reversed(log) if g.get("team")), None
+                )
+            team_weeks: dict[str, set] = {}
+            for sched in schedule_games:
+                if sched.get("season") != args.season or sched.get("week", 0) >= args.week:
+                    continue
+                for side in ("home_team", "away_team"):
+                    if sched.get(side):
+                        team_weeks.setdefault(sched[side], set()).add(sched["week"])
+
+            for player in pool:
+                player_id = player["playerId"]
+                if player["position"] in availability_module.ALWAYS_AVAILABLE_POSITIONS:
+                    play_probabilities[player_id] = 1.0
+                    continue
+                played = weeks_by_player.get(player_id, set())
+                scheduled = team_weeks.get(player["team"], set())
+                observed = len(scheduled)
+                rate = (len(played & scheduled) / observed) if observed else None
+                designation = report_by_player.get(player_id, {})
+                play_probabilities[player_id] = availability_model.predict_one(
+                    {
+                        "position": player["position"],
+                        "prior_play_rate": rate,
+                        "prior_games_observed": float(observed),
+                        "report_status": designation.get("report_status"),
+                        "practice_status": designation.get("practice_status"),
+                    }
+                )
+            out_count = sum(1 for v in play_probabilities.values() if v < 0.2)
+            print(
+                f"  availability modelled for {len(play_probabilities)} players "
+                f"({out_count} below 20% likely to play)"
+            )
+        except Exception as exc:  # noqa: BLE001
+            # Same degrade-gracefully contract as every other optional layer:
+            # no availability means projections revert to conditional-on-playing,
+            # which is what they were before this existed.
+            print(f"  Availability model failed ({exc}) -- projections stay conditional-on-playing.")
+            play_probabilities = {}
+
+    game_context: dict[str, dict[str, Any]] = {}
+    if not args.skip_blend:
+        try:
+            from context import load_game_context_nflreadpy
+
+            game_context = load_game_context_nflreadpy(args.season, args.week)
+        except Exception as exc:  # noqa: BLE001
+            print(f"  Game context (Vegas lines) unavailable ({exc}) -- blend uses league averages.")
+
+
+    def _build_calibration_for_config(scoring_config: dict[str, Any]) -> dict[str, Any]:
+        """Fit the pieces whose target is league points, so they have to be
+        refitted per league config: the per-position empirical-Bayes k, the
+        rank-preserving affine correction, the residual-quantile interval
+        model, and the volume/context blend.
+
+        Everything is fitted on completed prior seasons only -- the same
+        walk-forward discipline the projections themselves follow, so nothing
+        here can see the week being projected.
+        """
+        out: dict[str, Any] = {
+            "positional_baselines": {}, "shrinkage_ks": {}, "affines": {},
+            "interval_model": None, "blend_model": None,
+        }
+        if args.skip_calibration:
+            return out
+        try:
+            import calibration as calibration_module
+            from calibration_fit import fit_from_history
+
+            return fit_from_history(
+                scoring_config,
+                season=args.season,
+                seasons=list(range(args.season - CALIBRATION_TRAIN_SEASONS, args.season)),
+                window=args.window,
+                fit_blend=not args.skip_blend,
+            )
+        except Exception as exc:  # noqa: BLE001
+            print(f"  Calibration/blend fit failed ({exc}) -- using uncalibrated projections.")
+            return out
+
     # Rotowire red zone / route-efficiency stats -- fetched once per run (cached
     # to disk, so repeated same-day runs are free). The result is shared across
     # leagues since it's player-level, not league-scoring-dependent.
@@ -837,6 +1238,11 @@ def main(argv: Optional[list[str]] = None) -> None:
                 news_flags,
                 window=args.window,
                 consensus_projections=consensus_projections,
+                week1_projections=_build_week1_for_config(scoring_config),
+                play_probabilities=play_probabilities,
+                game_context=game_context,
+                decay=DEFAULT_DECAY,
+                **_build_calibration_for_config(scoring_config),
                 league_id=league_id,
                 league_format=league_format,
                 rostered_rank_cutoff=rostered_rank_cutoff,
@@ -873,6 +1279,11 @@ def main(argv: Optional[list[str]] = None) -> None:
             news_flags,
             window=args.window,
             consensus_projections=consensus_projections,
+            week1_projections=_build_week1_for_config(scoring_config),
+            play_probabilities=play_probabilities,
+            game_context=game_context,
+            decay=DEFAULT_DECAY,
+            **_build_calibration_for_config(scoring_config),
             rz_stats_by_player=rz_stats,
         )
 
