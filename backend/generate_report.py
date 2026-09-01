@@ -83,7 +83,7 @@ KICKER_POSITION = "K"
 ROSTER_POSITIONS = POOL_POSITIONS + (KICKER_POSITION,)
 
 TIER_METADATA = {
-    "consensus": {"tierLabel": "Consensus projection", "source": "FantasyPros"},
+    "consensus": {"tierLabel": "Consensus projection", "source": "FantasyPros + Rotowire"},
     "in_house_estimate": {"tierLabel": "Our estimate", "source": "In-house model"},
     # Week 1 only. Labelled distinctly from the in-house rolling average
     # because it is a different kind of number built from different inputs
@@ -822,7 +822,11 @@ def build_news_client_or_none() -> tuple[Any, Optional[str]]:
         return None, f"{type(exc).__name__}: {exc}"
 
 
-def load_news_flags_nflreadpy(pool: list[dict[str, Any]], client: Any) -> dict[str, dict[str, Any]]:
+def load_news_flags_nflreadpy(
+    pool: list[dict[str, Any]],
+    client: Any,
+    espn_injury_rows: Optional[list[dict[str, Any]]] = None,
+) -> dict[str, dict[str, Any]]:
     """One fetch_espn_news() call for the whole pool, then per-player
     matching + summarization. Sleeper injury designations are fetched once
     and overlaid as the authoritative designation/riskLevel (Sleeper's
@@ -839,9 +843,30 @@ def load_news_flags_nflreadpy(pool: list[dict[str, Any]], client: Any) -> dict[s
     articles = fetch_espn_news()
     sleeper_data = fetch_sleeper_injury_status()
 
+    # ESPN's injury report is a far better LLM input than the general news
+    # feed: it is per-player and already about availability, where the news
+    # endpoint returns 50 league-wide articles that name-match only ~83 of a
+    # 904-player pool. Both are used -- injury commentary first, general
+    # articles appended -- so a player in the news for a non-injury reason
+    # (a trade, a suspension, a depth-chart change) is still covered.
+    espn_injury_by_player: dict[str, dict[str, Any]] = {}
+    if espn_injury_rows:
+        try:
+            from espn_injuries import index_by_player
+
+            espn_injury_by_player = index_by_player(espn_injury_rows, pool)
+        except Exception:
+            espn_injury_by_player = {}
+
     flags: dict[str, dict[str, Any]] = {}
     for player in pool:
-        player_articles = articles_for_player(articles, player["name"], player.get("espnId"))
+        player_articles = []
+        injury_row = espn_injury_by_player.get(player["playerId"])
+        if injury_row:
+            from espn_injuries import news_articles_from_injury
+
+            player_articles += news_articles_from_injury(injury_row)
+        player_articles += articles_for_player(articles, player["name"], player.get("espnId"))
         if not player_articles or client is None:
             flag = dict(DEFAULT_NEWS_FLAG)
         else:
@@ -996,6 +1021,23 @@ def main(argv: Optional[list[str]] = None) -> None:
     game_logs = load_all_game_logs_nflreadpy(args.season)
     game_logs.update(dst_game_logs)  # DST keyed by team abbreviation, players by gsis_id -- no collision
 
+    # Fetched once (~9 MB) and shared by the news layer and the availability
+    # model, which both want it for different reasons.
+    espn_injury_rows: list[dict[str, Any]] = []
+    try:
+        from espn_injuries import fetch_injury_rows
+
+        espn_injury_rows = fetch_injury_rows()
+        if espn_injury_rows:
+            print(f"Loaded ESPN injury report: {len(espn_injury_rows)} listed players.")
+        else:
+            from espn_injuries import FETCH_FAILURES
+
+            reason = FETCH_FAILURES[-1] if FETCH_FAILURES else "no rows returned"
+            print(f"  ESPN injury report empty ({reason}) -- falling back to Sleeper alone.")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  ESPN injury report unavailable ({exc}) -- falling back to Sleeper alone.")
+
     if args.skip_news:
         print("--skip-news set: every player gets the default healthy newsFlag.")
         news_flags: dict[str, dict[str, Any]] = {}
@@ -1008,16 +1050,19 @@ def main(argv: Optional[list[str]] = None) -> None:
             )
         else:
             print("Fetching + summarizing ESPN news...")
-        news_flags = load_news_flags_nflreadpy(pool, client)
+        news_flags = load_news_flags_nflreadpy(pool, client, espn_injury_rows)
 
-    # Fetch raw FantasyPros data once (network call); scoring is applied per-
-    # league below so each league's projected_points reflect its own config.
+    # Fetch raw FantasyPros + Rotowire data once (network calls); scoring is
+    # applied per-league below so each league's projected_points reflect its
+    # own config. Both sources cover the same 10-per-position cap; blending
+    # them averages the stat lines for overlapping players, giving a more
+    # accurate consensus estimate than either alone.
     raw_fp_players_by_position: Optional[dict[str, Any]] = None
     fp_crosswalk: Optional[dict[str, Any]] = None
     if args.skip_fantasypros:
         print("--skip-fantasypros set: every player gets the in-house estimate tier.")
     elif os.environ.get("FANTASYPROS_API_KEY") is None:
-        print("FANTASYPROS_API_KEY not set -- consensus tier skipped, in-house estimate for everyone.")
+        print("FANTASYPROS_API_KEY not set -- FantasyPros consensus tier skipped.")
     else:
         print(f"Fetching FantasyPros consensus tier ({'/'.join(POOL_POSITIONS)})...")
         try:
@@ -1028,25 +1073,63 @@ def main(argv: Optional[list[str]] = None) -> None:
             )
             fp_crosswalk = load_fantasypros_id_crosswalk_nflreadpy()
         except Exception as exc:  # noqa: BLE001
-            print(f"  FantasyPros fetch failed ({exc}) -- falling back to in-house estimate for everyone.")
+            print(f"  FantasyPros fetch failed ({exc}) -- FantasyPros tier skipped.")
             raw_fp_players_by_position = None
             fp_crosswalk = None
 
-    def _build_consensus_for_config(scoring_config: dict[str, Any]) -> dict[str, dict[str, Any]]:
-        """Apply the given scoring config to the already-fetched raw FantasyPros
-        data. Returns an empty dict (all in-house) if the raw fetch didn't run
-        or failed."""
-        if raw_fp_players_by_position is None:
-            return {}
+    raw_rw_players_by_position: Optional[dict[str, Any]] = None
+    if not args.skip_fantasypros:
+        print(f"Fetching Rotowire weekly projections ({'/'.join(POOL_POSITIONS)})...")
         try:
-            from fantasypros import build_consensus_tier
+            from rotowire_projections import fetch_rotowire_projections
 
-            result = build_consensus_tier(raw_fp_players_by_position, scoring_config, fp_crosswalk)
-            print(f"  {len(result)} players resolved to the consensus tier")
-            return result
+            raw_rw_players_by_position = fetch_rotowire_projections(args.week)
         except Exception as exc:  # noqa: BLE001
-            print(f"  FantasyPros consensus scoring failed ({exc}) -- falling back to in-house for this league.")
+            print(f"  Rotowire projections fetch failed ({exc}) -- Rotowire tier skipped.")
+            raw_rw_players_by_position = None
+
+    def _build_consensus_for_config(
+        scoring_config: dict[str, Any],
+        pool_for_crosswalk: list[dict[str, Any]] | None = None,
+    ) -> dict[str, dict[str, Any]]:
+        """Apply scoring config to already-fetched FantasyPros + Rotowire data,
+        blend the two by averaging stat lines for overlapping players.
+        Returns {} (all in-house) if both fetches failed/skipped."""
+        from rotowire_projections import (
+            blend_consensus_projections,
+            build_name_team_crosswalk,
+            build_rotowire_consensus_tier,
+        )
+
+        fp_result: dict[str, dict[str, Any]] = {}
+        if raw_fp_players_by_position is not None:
+            try:
+                from fantasypros import build_consensus_tier
+
+                fp_result = build_consensus_tier(raw_fp_players_by_position, scoring_config, fp_crosswalk)
+            except Exception as exc:  # noqa: BLE001
+                print(f"  FantasyPros scoring failed ({exc}).")
+
+        rw_result: dict[str, dict[str, Any]] = {}
+        if raw_rw_players_by_position is not None and pool_for_crosswalk:
+            try:
+                xwalk = build_name_team_crosswalk(pool_for_crosswalk)
+                rw_result = build_rotowire_consensus_tier(raw_rw_players_by_position, scoring_config, xwalk)
+            except Exception as exc:  # noqa: BLE001
+                print(f"  Rotowire scoring failed ({exc}).")
+
+        if not fp_result and not rw_result:
             return {}
+
+        result = blend_consensus_projections(fp_result, rw_result, scoring_config)
+        fp_only = len(fp_result) - len(set(fp_result) & set(rw_result))
+        rw_only = len(rw_result) - len(set(fp_result) & set(rw_result))
+        both = len(set(fp_result) & set(rw_result))
+        print(
+            f"  {len(result)} players resolved to the consensus tier "
+            f"(both={both}, FP-only={fp_only}, RW-only={rw_only})"
+        )
+        return result
 
 
     # ------------------------------------------------------------------
@@ -1138,7 +1221,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             # practice participation, which is what separates a Questionable
             # who practised fully (0.79) from one who did not practise (0.51).
             report_by_player, report_source = availability_module.load_current_injury_report(
-                args.season, args.week, pool
+                args.season, args.week, pool, espn_rows=espn_injury_rows
             )
             # Play-rate history for the CURRENT season, as-of this week. Uses
             # each player's own team's weeks as the denominator so a bye is not
@@ -1279,7 +1362,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             }
 
             print(f"\n--- Generating report for {league_id} ({league['displayName']}) ---")
-            consensus_projections = _build_consensus_for_config(scoring_config)
+            consensus_projections = _build_consensus_for_config(scoring_config, pool)
 
             out_dir = backend_dir / league["outDir"]
             out_dir.mkdir(parents=True, exist_ok=True)
@@ -1323,7 +1406,7 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     else:
         scoring_config = json.loads(args.scoring_config.read_text())
-        consensus_projections = _build_consensus_for_config(scoring_config)
+        consensus_projections = _build_consensus_for_config(scoring_config, pool)
 
         weekly_report, player_pool = build_weekly_report_and_pool(
             args.season,

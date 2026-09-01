@@ -310,23 +310,77 @@ def load_injury_report_sleeper(
     return out
 
 
+def load_injury_report_espn(
+    players: list[dict[str, Any]],
+    rows: Optional[list[dict[str, Any]]] = None,
+) -> dict[str, dict[str, Any]]:
+    """{player_id: {"report_status", "practice_status"}} from ESPN's injury page.
+
+    `rows` lets a caller that already fetched the ~9 MB payload (for the news
+    layer) pass it in rather than fetching twice.
+
+    Like Sleeper, this carries no practice participation. Unlike Sleeper it
+    covers roughly three times as many players and every entry is dated.
+    Players ESPN lists as "Active" produce NO designation -- they are on the
+    page because there is news about them, not because they are doubtful.
+    """
+    try:
+        from espn_injuries import fetch_injury_rows, index_by_player
+
+        rows = fetch_injury_rows() if rows is None else rows
+        if not rows:
+            return {}
+        matched = index_by_player(rows, players)
+    except Exception:
+        return {}
+
+    out: dict[str, dict[str, Any]] = {}
+    for player_id, row in matched.items():
+        status = row.get("report_status")
+        if status:
+            out[player_id] = {"report_status": status, "practice_status": None}
+    return out
+
+
 def load_current_injury_report(
-    season: int, week: int, players: list[dict[str, Any]]
+    season: int,
+    week: int,
+    players: list[dict[str, Any]],
+    espn_rows: Optional[list[dict[str, Any]]] = None,
 ) -> tuple[dict[str, dict[str, Any]], str]:
     """The best available injury report for (season, week), and where it came from.
 
-    nflreadpy first: it carries practice participation, which is worth real
-    accuracy on the Questionable tier. Sleeper second: it is the only source
-    that knows about a season nflreadpy has not published, which is every
-    pre-season and week-1 report.
+    Precedence, and the reason for each:
 
-    Returns (report, source) so the caller can say which one it used -- the two
-    are not equivalent and a run should not silently look the same either way.
+      1. nflreadpy  -- the only source with PRACTICE PARTICIPATION, which is
+         what separates a Questionable who practised fully (P=0.79) from one
+         who did not practise at all (0.51). Worth more than coverage.
+      2. ESPN       -- ~449 of a 904-player pool, every entry dated. The best
+         live source once nflreadpy has run out of published seasons.
+      3. Sleeper    -- ~167 of the same pool. Kept as a third source because it
+         is keyed differently and catches players the ESPN name/id join misses.
+
+    ESPN and Sleeper are MERGED rather than either winning outright: they are
+    reporting the same underlying official report through different pipelines,
+    so a player present in only one is a coverage gap, not a disagreement.
+    Where both have an opinion, ESPN's wins -- its entries carry a date, so a
+    stale row is at least visible.
+
+    Returns (report, source) so a run says which combination it actually used.
+    The three are not equivalent and should not silently look the same.
     """
     report = load_injury_report_nflreadpy(season, week)
     if report:
         return report, "nflreadpy"
-    return load_injury_report_sleeper(players), "sleeper"
+
+    espn = load_injury_report_espn(players, rows=espn_rows)
+    sleeper = load_injury_report_sleeper(players)
+    if espn and sleeper:
+        merged = {**sleeper, **espn}  # ESPN wins on overlap
+        return merged, f"espn+sleeper ({len(espn)}+{len(sleeper)} before merge)"
+    if espn:
+        return espn, "espn"
+    return sleeper, "sleeper"
 
 
 def build_training_rows_nflreadpy(
