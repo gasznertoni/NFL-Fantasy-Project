@@ -367,11 +367,13 @@ def print_metrics(label: str, m: dict) -> None:
 # Main
 # ---------------------------------------------------------------------------
 
-def main(csv_path: str, rotowire: bool = False) -> None:
+def main(csv_path: str, rotowire: bool = False, league: str = "league-1") -> None:
     # ---- Load scoring config ----
-    config_path = Path(__file__).parent / "leagues/league-1/scoring-config.json"
+    config_path = Path(__file__).parent / f"leagues/{league}/scoring-config.json"
     with open(config_path) as f:
         scoring_config = json.load(f)
+    print(f"\nLeague config: {league}  (pass_td={scoring_config.get('linear', {}).get('pass_td')},"
+          f" reception={scoring_config.get('linear', {}).get('reception')})")
 
     # ---- Parse CSV ----
     print(f"Parsing CSV: {csv_path}")
@@ -606,7 +608,13 @@ def _rz_score_as_of(gl_rows: list[dict[str, Any]], week: int, n: int = 3) -> flo
     before `week`, matching the same as-of discipline as projections.games_before.
     Returns 0.0 when no data is available (same neutral-signal behaviour as
     opponent_multiplier=1.0 / usage_multiplier=1.0)."""
-    prior = [r for r in gl_rows if int(r.get("week", 0)) < week and not r.get("dnp")]
+    def _wk(r: dict[str, Any]) -> Optional[int]:
+        try:
+            return int(r.get("week", 0))
+        except (ValueError, TypeError):
+            return None  # skip postseason rows (e.g. week="WC", "DIV", "SB")
+
+    prior = [r for r in gl_rows if (_wk(r) or 0) < week and not r.get("dnp")]
     recent = prior[-n:] if prior else []
     if not recent:
         return 0.0
@@ -808,5 +816,10 @@ if __name__ == "__main__":
         action="store_true",
         help="Also run the Rotowire rz_touches backtest (fetches Rotowire data, uses disk cache)",
     )
+    _parser.add_argument(
+        "--league",
+        default="league-1",
+        help="League folder name under backend/leagues/ (default: league-1)",
+    )
     _args = _parser.parse_args()
-    main(_args.csv_path, rotowire=_args.rotowire)
+    main(_args.csv_path, rotowire=_args.rotowire, league=_args.league)
