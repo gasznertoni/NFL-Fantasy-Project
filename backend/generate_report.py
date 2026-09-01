@@ -384,7 +384,13 @@ def load_player_pool_nflreadpy(season: int) -> list[dict[str, Any]]:
     try:
         rosters = nfl.load_rosters(seasons=[season])
         df = rosters.to_pandas() if hasattr(rosters, "to_pandas") else rosters
-        df = df[(df["status"] == "ACT") & (df["position"].isin(ROSTER_POSITIONS))]
+        # Include all 53-man rostered players, not just active — IR, inactive,
+        # PUP, etc. should still appear in the report with their injury status
+        # visible rather than silently vanishing from every list. Practice
+        # squad players (TRC) are excluded because they're not eligible to
+        # play or be rostered in most fantasy formats.
+        PRACTICE_SQUAD_STATUSES = {"TRC", "PS"}
+        df = df[~df["status"].isin(PRACTICE_SQUAD_STATUSES) & df["position"].isin(ROSTER_POSITIONS)]
 
         pool = []
         seen_ids = set()
