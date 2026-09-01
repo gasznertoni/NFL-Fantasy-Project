@@ -37,6 +37,8 @@ import json
 import math
 import re
 import sys
+import time
+from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
 
@@ -365,7 +367,7 @@ def print_metrics(label: str, m: dict) -> None:
 # Main
 # ---------------------------------------------------------------------------
 
-def main(csv_path: str) -> None:
+def main(csv_path: str, rotowire: bool = False) -> None:
     # ---- Load scoring config ----
     config_path = Path(__file__).parent / "leagues/league-1/scoring-config.json"
     with open(config_path) as f:
@@ -589,9 +591,222 @@ def main(csv_path: str) -> None:
         print(f'      "{pos}": {val:.2f},')
     print("  }")
 
+    # ---- Rotowire backtest (optional, gated on --rotowire flag) ----
+    if rotowire:
+        rw_cache_path = Path(__file__).parent / f"rotowire_cache_{SEASON}.json"
+        run_rotowire_backtest(baseline_rows, player_info, rw_cache_path)
+
+
+# ---------------------------------------------------------------------------
+# Rotowire backtest: does adding goal-line touch signal improve MAE?
+# ---------------------------------------------------------------------------
+
+def _rz_score_as_of(gl_rows: list[dict[str, Any]], week: int, n: int = 3) -> float:
+    """Average (rzTargets5 + rzRush5) over the last n non-DNP games strictly
+    before `week`, matching the same as-of discipline as projections.games_before.
+    Returns 0.0 when no data is available (same neutral-signal behaviour as
+    opponent_multiplier=1.0 / usage_multiplier=1.0)."""
+    prior = [r for r in gl_rows if int(r.get("week", 0)) < week and not r.get("dnp")]
+    recent = prior[-n:] if prior else []
+    if not recent:
+        return 0.0
+    total = sum(
+        (float(r.get("rzTargets5") or 0) + float(r.get("rzRush5") or 0))
+        for r in recent
+    )
+    return total / len(recent)
+
+
+def load_rotowire_gamelogs(
+    player_info: dict[str, dict[str, str]],
+    cache_path: Path,
+    season_year: int = 2025,
+) -> dict[str, list[dict[str, Any]]]:
+    """Return {gsis_id: gl_rows} for all players that can be fetched from
+    Rotowire. Uses the same disk cache as the production path so that running
+    the backtest right after a report run costs zero additional network calls."""
+    from rotowire import (
+        FETCH_DELAY_SECS,
+        ROTOWIRE_POSITIONS,
+        fetch_player_gamelog,
+        load_id_crosswalk,
+        _cache_is_fresh,
+        CACHE_TTL_HOURS,
+    )
+
+    crosswalk = load_id_crosswalk()
+    if not crosswalk:
+        print("  Rotowire crosswalk empty -- skipping Rotowire backtest section.")
+        return {}
+
+    # Load existing cache
+    existing: dict[str, list[dict[str, Any]]] = {}
+    cache_fresh = False
+    if cache_path.exists():
+        try:
+            cached = json.loads(cache_path.read_text())
+            existing = cached.get("gamelogs", {})
+            cache_fresh = _cache_is_fresh(cached, CACHE_TTL_HOURS)
+        except (json.JSONDecodeError, OSError):
+            pass
+
+    eligible = {
+        pid: info
+        for pid, info in player_info.items()
+        if info.get("position") in ROTOWIRE_POSITIONS and crosswalk.get(pid)
+    }
+    to_fetch = {pid: p for pid, p in eligible.items() if pid not in existing} if cache_fresh else eligible
+
+    if to_fetch:
+        print(f"  Fetching Rotowire gamelogs for {len(to_fetch)} players (cached={len(existing)})...")
+        fetched = 0
+        for pid, info in to_fetch.items():
+            rw_id = crosswalk[pid]
+            pos = info.get("position", "RB")
+            team = info.get("team") or "KC"
+            gl = fetch_player_gamelog(rw_id, pos, team, season_year=season_year)
+            if gl is not None:
+                existing[pid] = gl
+                fetched += 1
+            time.sleep(FETCH_DELAY_SECS)
+        print(f"  Fetched {fetched}/{len(to_fetch)}. Saving cache...")
+        try:
+            cache_path.write_text(
+                json.dumps({"fetched_at": datetime.now(timezone.utc).isoformat(), "gamelogs": existing}, indent=2) + "\n"
+            )
+        except OSError:
+            pass
+
+    return {pid: gl for pid, gl in existing.items() if pid in eligible}
+
+
+def run_rz_sweep(
+    base_rows: list[dict[str, Any]],
+    rw_gamelogs: dict[str, list[dict[str, Any]]],
+    alphas: list[float],
+    n_recent: int = 3,
+) -> dict[float, list[dict[str, Any]]]:
+    """For each alpha in alphas, build a comparison row set where projected
+    points are multiplied by `1.0 + alpha * rz_score_as_of(week)`.
+
+    rz_score_as_of is computed from Rotowire's gl2025 rows, filtered to games
+    strictly before the target week -- same as-of discipline as the model.
+    Only players that have Rotowire data are affected; others keep their
+    base projection unchanged (rz_score=0 → multiplier=1.0, same result).
+    """
+    results: dict[float, list[dict[str, Any]]] = {}
+    for alpha in alphas:
+        rows_out = []
+        for r in base_rows:
+            gl = rw_gamelogs.get(r["player_id"])
+            rz = _rz_score_as_of(gl, r["week"], n_recent) if gl else 0.0
+            multiplier = 1.0 + alpha * rz
+            proj_rz = round(r["projected"] * multiplier, 2)
+            row_out = dict(r)
+            row_out["projected"] = proj_rz
+            row_out["rz_score"] = rz
+            row_out["rz_multiplier"] = round(multiplier, 4)
+            if row_out.get("csv_actual") is not None:
+                row_out["err_csv"] = round(row_out["csv_actual"] - proj_rz, 2)
+                row_out["abs_csv"] = round(abs(row_out["csv_actual"] - proj_rz), 2)
+            row_out["err_nfl"] = round(row_out["nfl_actual"] - proj_rz, 2)
+            row_out["abs_nfl"] = round(abs(row_out["nfl_actual"] - proj_rz), 2)
+            rows_out.append(row_out)
+        results[alpha] = rows_out
+    return results
+
+
+def run_rotowire_backtest(
+    base_rows: list[dict[str, Any]],
+    player_info: dict[str, dict[str, str]],
+    cache_path: Path,
+) -> None:
+    """Fetch Rotowire gamelogs and report whether rz_touches_at_5 improves
+    MAE vs the base projection, sweeping alpha ∈ {0, 0.02, 0.05, 0.08, 0.10}."""
+    print_header("ROTOWIRE RZ BACKTEST: does goal-line touch signal improve MAE?")
+    print("  Signal: avg(rzTargets5 + rzRush5) over last 3 non-DNP games as-of week.")
+    print("  Multiplier: projected * (1.0 + alpha * rz_score).")
+    print("  Sweep: alpha ∈ {0, 0.02, 0.05, 0.08, 0.10, 0.15} — paired MAE vs alpha=0.")
+
+    rw_gamelogs = load_rotowire_gamelogs(player_info, cache_path)
+    if not rw_gamelogs:
+        print("  No Rotowire data -- skipping.")
+        return
+
+    covered = sum(1 for r in base_rows if r["player_id"] in rw_gamelogs)
+    print(f"  {len(rw_gamelogs)} players with Rotowire data; {covered}/{len(base_rows)} base rows covered.")
+
+    alphas = [0.0, 0.02, 0.05, 0.08, 0.10, 0.15]
+    sweep = run_rz_sweep(base_rows, rw_gamelogs, alphas)
+
+    # CSV rows only (need csv_actual for the comparison)
+    print()
+    print(f"  {'alpha':>6}  {'MAE_csv':>8}  {'bias_csv':>9}  {'Δ_MAE':>7}  sig")
+    base_csv = [r for r in sweep[0.0] if r.get("csv_actual") is not None]
+
+    best_alpha = 0.0
+    best_mae = float("inf")
+    for alpha in alphas:
+        rows_a = [r for r in sweep[alpha] if r.get("csv_actual") is not None]
+        if not rows_a:
+            continue
+        mae = _mean([r["abs_csv"] for r in rows_a])
+        bias = _mean([r["err_csv"] for r in rows_a])
+        delta = mae - _mean([r["abs_csv"] for r in base_csv])
+
+        # Paired significance vs alpha=0 baseline
+        base_by_key = {(r["player_id"], r["week"]): r for r in base_csv}
+        rows_by_key = {(r["player_id"], r["week"]): r for r in rows_a}
+        keys = sorted(set(base_by_key) & set(rows_by_key))
+        base_abs = [base_by_key[k]["abs_csv"] for k in keys]
+        rz_abs = [rows_by_key[k]["abs_csv"] for k in keys]
+        test = paired_significance_test(rz_abs, base_abs) if alpha > 0 else {"significant": None, "p_value": None}
+        sig_str = ("YES" if test.get("significant") else "no") if alpha > 0 else "(baseline)"
+        print(f"  {alpha:6.2f}  {mae:8.3f}  {bias:+9.3f}  {delta:+7.3f}  {sig_str}")
+
+        if mae < best_mae:
+            best_mae = mae
+            best_alpha = alpha
+
+    print()
+    print(f"  Best alpha: {best_alpha} (MAE={best_mae:.3f})")
+
+    # Per-position breakdown at best alpha
+    if best_alpha > 0:
+        print()
+        print(f"  Per-position MAE at alpha={best_alpha} vs baseline (alpha=0):")
+        for pos in POSITIONS:
+            base_pos = [r for r in base_csv if r["position"] == pos]
+            rz_pos = [r for r in sweep[best_alpha] if r["position"] == pos and r.get("csv_actual") is not None]
+            if not base_pos or not rz_pos:
+                continue
+            base_mae = _mean([r["abs_csv"] for r in base_pos])
+            rz_mae = _mean([r["abs_csv"] for r in rz_pos])
+            delta = rz_mae - base_mae
+            print(f"    {pos:4s}  base_MAE={base_mae:.3f}  rz_MAE={rz_mae:.3f}  Δ={delta:+.3f}")
+
+        # rz_score distribution at best_alpha
+        rz_all = [r["rz_score"] for r in sweep[best_alpha] if r.get("rz_score", 0) > 0]
+        if rz_all:
+            rz_sorted = sorted(rz_all)
+            n = len(rz_sorted)
+            print()
+            print(f"  rz_score distribution (players with rz>0, n={n}):")
+            print(f"    p25={rz_sorted[n//4]:.2f}  median={rz_sorted[n//2]:.2f}"
+                  f"  p75={rz_sorted[3*n//4]:.2f}  max={rz_sorted[-1]:.2f}")
+
 
 if __name__ == "__main__":
-    if len(sys.argv) < 2:
-        print("Usage: python3 csv_backtest.py <path-to-csv>")
-        sys.exit(1)
-    main(sys.argv[1])
+    import argparse as _argparse
+
+    _parser = _argparse.ArgumentParser(
+        description="CSV backtest comparing in-house projections vs FantasyPros PPR actuals."
+    )
+    _parser.add_argument("csv_path", help="Path to FantasyPros season summary CSV")
+    _parser.add_argument(
+        "--rotowire",
+        action="store_true",
+        help="Also run the Rotowire rz_touches backtest (fetches Rotowire data, uses disk cache)",
+    )
+    _args = _parser.parse_args()
+    main(_args.csv_path, rotowire=_args.rotowire)
