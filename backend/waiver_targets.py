@@ -133,11 +133,23 @@ def select_waiver_targets(
     return [{k: v for k, v in c.items() if k != "replacement_surplus"} for c in ranked[:top_n]]
 
 
-def generate_rationale(candidate: dict[str, Any]) -> str:
+def generate_rationale(
+    candidate: dict[str, Any],
+    rz_stats: Optional[dict[str, Any]] = None,
+) -> str:
     """Deterministic, templated one-sentence rationale -- no LLM call (see
     module docstring). Branches on confidence/trend rather than being a
     single fill-in-the-blank template, so the handful of surfaced targets
-    don't all read identically."""
+    don't all read identically.
+
+    rz_stats: optional dict from rotowire.compute_player_rz_stats with keys
+        "rz_touches_per_game" and "tprr_recent". When present and above the
+        signal thresholds defined in rotowire.py, a second sentence is appended
+        flagging the red zone or target-rate signal so the reader knows *why*
+        this player has TD upside beyond what the points projection captures.
+    """
+    from rotowire import MIN_RZ_TOUCHES_FOR_NOTE, MIN_TPRR_FOR_NOTE
+
     name = candidate["name"]
     points = candidate.get("points", 0.0)
     games_used = candidate.get("games_used", 0)
@@ -167,6 +179,18 @@ def generate_rationale(candidate: dict[str, Any]) -> str:
             f"Steady {points:.1f}-point average over the last {games_used} games -- "
             f"a solid depth add off the wire."
         )
+
+    # Rotowire red zone / route-efficiency annotation (appended after the
+    # points-trend sentence so it reads as a supporting data point, not the
+    # lead). Only one note is appended even when both signals are present --
+    # goal-line touches take priority since they're more directly tied to TDs.
+    if rz_stats:
+        rz = rz_stats.get("rz_touches_per_game")
+        tprr = rz_stats.get("tprr_recent")
+        if rz is not None and rz >= MIN_RZ_TOUCHES_FOR_NOTE:
+            base += f" Averaging {rz:.1f} goal-line touch(es) per game recently -- elevated TD upside."
+        elif tprr is not None and tprr >= MIN_TPRR_FOR_NOTE:
+            base += f" Running a {tprr:.0%} target rate on routes (tprr) recently -- strong target share."
 
     news_flag = candidate.get("news_flag") or {}
     if news_flag.get("riskLevel") not in (None, "none") and news_flag.get("summary"):

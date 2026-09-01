@@ -18,14 +18,23 @@ from typing import Any, Optional
 
 from scoring import compute_league_points
 
-# Per-position calibration multipliers derived from 2025 season validation
-# (docs/research/projection-model-backtest-findings.md + 2025 FantasyPros actuals CSV,
-# 3 749 player-week pairs across weeks 6-18). Only QB shows a statistically
-# robust bias (+1.10 pts even after excluding DNP/injury games, optimal scale 0.84);
-# RB/WR/TE biases in played-only games are small (<1-2% MAE improvement) and may
-# be season-specific noise -- left at 1.0. DST/K have no CSV validation data.
+# Per-position calibration multipliers validated against full 2025 season
+# (backend/csv_backtest.py, 5 749 player-week pairs, all 18 weeks).
+#
+# Findings (2026-09-01):
+# - QB: bias_at_scale_1.0 = +0.49 pts/game (weeks 2-18, vs our 6-pt-TD formula).
+#   Scaling to the L2-optimal 1.031 marginally worsens MAE (-0.077, p=0.0005)
+#   because QB scoring is right-skewed; scale=1.0 is the MAE-minimizing choice.
+#   The previous value of 0.85 was set in error (no supporting backtest round)
+#   and made underprojection +3.7 pts worse -- corrected here.
+# - RB/WR/TE: positive biases (+0.63/+0.45/+0.63) are driven by boom-game
+#   outliers inflating mean_actual above median; scaling up statistically
+#   significantly worsens MAE for all three. Keep 1.0.
+# - CSV note: FantasyPros CSV uses 4-pt passing TDs; our league uses 6-pt.
+#   QB calibration used nflreadpy actuals (our formula), not the CSV.
+#   See backend/csv_backtest.py and docs/research/projection-model-backtest-findings.md.
 POSITION_CALIBRATION_SCALE: dict[str, float] = {
-    "QB": 0.85,
+    "QB": 1.0,
     "RB": 1.0,
     "WR": 1.0,
     "TE": 1.0,

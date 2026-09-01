@@ -210,6 +210,7 @@ def build_weekly_report_and_pool(
     league_id: str = "league-1",
     league_format: str = "ppr",
     rostered_rank_cutoff: Optional[dict[str, int]] = None,
+    rz_stats_by_player: Optional[dict[str, dict[str, Any]]] = None,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
     """The main assembly entry point, fully pure/injectable (all data
     already loaded by the caller) -- see the `load_*` adapters below for
@@ -249,6 +250,12 @@ def build_weekly_report_and_pool(
             and "waiver-eligible" players. None (the default) falls back to
             waiver_targets.py's DEFAULT_ROSTERED_RANK_CUTOFF (the 14-team
             default). The multi-league caller derives this from teamCount.
+        rz_stats_by_player: optional {player_id: rz_stats_dict} from
+            rotowire.fetch_and_cache_pool_stats. When supplied, waiver target
+            rationale text is annotated with goal-line touch and tprr signals
+            for players where those metrics exceed the thresholds in rotowire.py.
+            None/omitted (the default) means no Rotowire annotation -- the
+            rationale falls back to the existing points-trend-only text.
 
     Returns:
         (weekly_report, player_pool) -- weekly_report covers only players
@@ -317,7 +324,15 @@ def build_weekly_report_and_pool(
         waiver_candidates = select_waiver_targets(candidates, rostered_rank_cutoff=rostered_rank_cutoff)
     else:
         waiver_candidates = select_waiver_targets(candidates)
-    waiver_entries = [build_waiver_target_entry(c, generate_rationale(c), c["tier"]) for c in waiver_candidates]
+    _rz = rz_stats_by_player or {}
+    waiver_entries = [
+        build_waiver_target_entry(
+            c,
+            generate_rationale(c, rz_stats=_rz.get(c["playerId"])),
+            c["tier"],
+        )
+        for c in waiver_candidates
+    ]
 
     weekly_report = assemble_weekly_report(
         week, generated_at or now_iso(), projection_entries, waiver_entries,
@@ -612,6 +627,30 @@ def load_news_flags_nflreadpy(pool: list[dict[str, Any]], client: Any) -> dict[s
     return flags
 
 
+def load_rotowire_stats_or_empty(
+    pool: list[dict[str, Any]],
+    season: int,
+) -> dict[str, dict[str, Any]]:
+    """Fetch Rotowire red zone / route-efficiency stats for the player pool,
+    with a disk cache so repeated runs within 24 hours make zero network calls.
+
+    Degrades to {} on any failure (missing package, network error, crosswalk
+    load failure) -- callers treat an empty dict as "no Rotowire data this run."
+    """
+    try:
+        from rotowire import fetch_and_cache_pool_stats, load_id_crosswalk
+
+        crosswalk = load_id_crosswalk()
+        if not crosswalk:
+            print("  Rotowire crosswalk empty -- skipping Rotowire fetch.")
+            return {}
+        cache_path = Path(__file__).resolve().parent / f"rotowire_cache_{season}.json"
+        return fetch_and_cache_pool_stats(pool, crosswalk, cache_path, season_year=season)
+    except Exception as exc:  # noqa: BLE001
+        print(f"  Rotowire fetch failed ({exc}) -- skipping Rotowire annotations.")
+        return {}
+
+
 def main(argv: Optional[list[str]] = None) -> None:
     import argparse
     import os
@@ -636,6 +675,11 @@ def main(argv: Optional[list[str]] = None) -> None:
         "--skip-fantasypros",
         action="store_true",
         help="skip the FantasyPros consensus-tier pull; every player gets the in-house estimate tier",
+    )
+    parser.add_argument(
+        "--skip-rotowire",
+        action="store_true",
+        help="skip the Rotowire red zone / route-efficiency fetch; waiver rationale omits those annotations",
     )
     # --leagues-config and --scoring-config are mutually exclusive: passing
     # both is an argparse error. When neither is provided, --scoring-config
@@ -732,6 +776,18 @@ def main(argv: Optional[list[str]] = None) -> None:
             print(f"  FantasyPros consensus scoring failed ({exc}) -- falling back to in-house for this league.")
             return {}
 
+    # Rotowire red zone / route-efficiency stats -- fetched once per run (cached
+    # to disk, so repeated same-day runs are free). The result is shared across
+    # leagues since it's player-level, not league-scoring-dependent.
+    rz_stats: dict[str, dict[str, Any]] = {}
+    if args.skip_rotowire:
+        print("--skip-rotowire set: waiver rationale will omit red zone / tprr annotations.")
+    else:
+        print(f"Fetching Rotowire red zone / route stats ({args.season} season)...")
+        rz_stats = load_rotowire_stats_or_empty(pool, args.season)
+        if rz_stats:
+            print(f"  {len(rz_stats)} players with Rotowire data.")
+
     # ---------------------------------------------------------------------------
     # Multi-league path: load manifest, loop over leagues.
     # ---------------------------------------------------------------------------
@@ -784,6 +840,7 @@ def main(argv: Optional[list[str]] = None) -> None:
                 league_id=league_id,
                 league_format=league_format,
                 rostered_rank_cutoff=rostered_rank_cutoff,
+                rz_stats_by_player=rz_stats,
             )
 
             report_path = out_dir / f"weekly-report-week-{args.week}.json"
@@ -816,6 +873,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             news_flags,
             window=args.window,
             consensus_projections=consensus_projections,
+            rz_stats_by_player=rz_stats,
         )
 
         args.out_dir.mkdir(parents=True, exist_ok=True)
