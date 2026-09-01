@@ -1656,9 +1656,9 @@
       "position": "WR",
       "team": "CIN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Heel"
       }
     },
     {
@@ -2360,9 +2360,9 @@
       "position": "RB",
       "team": "DET",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Knee - MCL"
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Back"
       }
     },
     {
@@ -3394,9 +3394,9 @@
       "position": "RB",
       "team": "NO",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -4505,9 +4505,9 @@
       "position": "RB",
       "team": "CAR",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -9433,9 +9433,9 @@
       "position": "WR",
       "team": "TEN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
