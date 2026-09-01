@@ -144,7 +144,13 @@ def compute_league_points(stat_line: dict[str, Any], scoring_config: dict[str, A
 NFLREADPY_OFFENSE_COLUMN_MAP = {
     "passing_yards": "pass_yd",
     "passing_tds": "pass_td",
-    "interceptions": "pass_int",
+    # nflreadpy's column is "passing_interceptions", NOT "interceptions". The
+    # latter was mapped here until 2026-09-01 and silently matched nothing, so
+    # pass_int's -2 was never applied to any projection or actual: every QB
+    # scored ~1.4 pts/game too high (audited over 2023-25, 1 192 unscored INTs
+    # across 1 631 starter-games). Confirmed against a live load_player_stats()
+    # response -- see docs/research/scoring-engine-audit.md.
+    "passing_interceptions": "pass_int",
     "passing_2pt_conversions": "pass_2pt",
     "rushing_yards": "rush_yd",
     "rushing_tds": "rush_td",
@@ -153,26 +159,18 @@ NFLREADPY_OFFENSE_COLUMN_MAP = {
     "receiving_tds": "rec_td",
     "receiving_2pt_conversions": "rec_2pt",
     "receptions": "reception",
-    "sack_fumbles_lost": "fumble_lost",
-    "rushing_fumbles_lost": "fumble_lost",
-    "receiving_fumbles_lost": "fumble_lost",
-    # Added 2026-08-16 once the real league settings confirmed a plain
-    # "Total Fumbles" penalty (-1) exists as its own category, separate
-    # from and stacking with fumble_lost (-2) -- see
-    # scoring_config.placeholder.json's _schema_questions_answered note.
-    # Named by direct analogy to the _lost columns immediately above
-    # (nflreadpy/nflverse's established naming convention pairs a
-    # "<type>_fumbles" total count with a "<type>_fumbles_lost" subset of
-    # it) -- NOT yet confirmed hands-on against a real load_player_stats()
-    # response the way every other column in this map was. Low risk if
-    # wrong: a missing/renamed column just means `fumble` silently stays
-    # 0 (same graceful-miss behavior nflreadpy_row_to_stat_line already
-    # has for every other column here), not a crash or a wrong value --
-    # but confirm the real column names before trusting this category's
-    # output.
-    "sack_fumbles": "fumble",
-    "rushing_fumbles": "fumble",
-    "receiving_fumbles": "fumble",
+    # Fumbles come from nflreadpy's own whole-player totals rather than the sum
+    # of sack_/rushing_/receiving_fumbles(_lost). Those three are a proper
+    # SUBSET: over 2023-25 they miss 15.6% of fumbles_total and 10.6% of
+    # fumbles_lost_total (a fumble on a return, a lateral, an aborted snap).
+    # Summing the parts under-penalised those plays; the totals are exact.
+    "fumbles_total": "fumble",
+    "fumbles_lost_total": "fumble_lost",
+    # Kick/punt return TDs scored by an offensive player. ESPN credits these to
+    # the player at the same 6 points as any other TD, and nflreadpy carries
+    # them as their own column. Rare (43 across 2023-25, all RB/WR/TE) but a
+    # full 6-point swing when they happen, and previously worth 0 to us.
+    "special_teams_tds": "return_td",
 }
 
 

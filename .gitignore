@@ -6,3 +6,7 @@ __pycache__/
 
 docs/research/phase1-local-results.json
 .claude/worktrees/
+
+# Rotowire red zone / route-efficiency fetch cache (backend/rotowire.py).
+# Regenerated on demand and ~13 MB; a fetch cache, not source.
+backend/rotowire_cache_*.json

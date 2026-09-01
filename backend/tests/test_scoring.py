@@ -140,26 +140,40 @@ class TestNflreadpyColumnMap(unittest.TestCase):
         mapped = nflreadpy_row_to_stat_line(row)
         self.assertEqual(mapped, {"pass_yd": 300, "pass_td": 2, "reception": 5, "rec_yd": 60})
 
-    def test_sums_fumble_lost_across_three_source_columns(self):
-        row = {"sack_fumbles_lost": 1, "rushing_fumbles_lost": 1, "receiving_fumbles_lost": 0}
-        mapped = nflreadpy_row_to_stat_line(row)
-        self.assertEqual(mapped["fumble_lost"], 2)
-
-    def test_sums_fumble_across_three_source_columns_independent_of_lost(self):
-        # Added 2026-08-16 alongside the "fumble" (total, not just lost)
-        # category -- the real league scores a plain fumble (-1) AND a
-        # fumble lost (-2) as separate, stacking categories, so a fumble
-        # that WAS lost must populate both "fumble" and "fumble_lost"
-        # simultaneously from the same row, not just whichever happened.
-        row = {
-            "sack_fumbles": 1,
-            "rushing_fumbles": 1,
-            "receiving_fumbles": 0,
-            "rushing_fumbles_lost": 1,
-        }
+    def test_fumbles_come_from_nflreadpy_whole_player_totals(self):
+        # Corrected 2026-09-01. These used to be summed from
+        # sack_/rushing_/receiving_fumbles(_lost), which are a proper SUBSET
+        # of the player's fumbles: over 2023-25 they miss 15.6% of
+        # fumbles_total and 10.6% of fumbles_lost_total (a fumble on a
+        # return, a lateral, an aborted snap). nflreadpy carries the exact
+        # whole-player totals, so we read those instead of rebuilding them.
+        # A lost fumble still populates BOTH categories -- the real league
+        # scores a plain fumble (-1) and a fumble lost (-2) as separate,
+        # stacking lines -- which the totals preserve.
+        row = {"fumbles_total": 2, "fumbles_lost_total": 1}
         mapped = nflreadpy_row_to_stat_line(row)
         self.assertEqual(mapped["fumble"], 2)
         self.assertEqual(mapped["fumble_lost"], 1)
+
+    def test_partial_fumble_columns_are_no_longer_read(self):
+        # Guards the correction above: the old subset columns must not
+        # silently contribute, or a fumble would be counted twice.
+        row = {"sack_fumbles": 1, "rushing_fumbles": 1, "rushing_fumbles_lost": 1}
+        mapped = nflreadpy_row_to_stat_line(row)
+        self.assertNotIn("fumble", mapped)
+        self.assertNotIn("fumble_lost", mapped)
+
+    def test_interceptions_map_from_passing_interceptions(self):
+        # Regression guard for the 2026-09-01 audit: the map keyed on
+        # "interceptions", which nflreadpy does not emit, so pass_int's -2
+        # never applied and every QB scored ~1.4 pts/game too high.
+        row = {"passing_interceptions": 2}
+        self.assertEqual(nflreadpy_row_to_stat_line(row)["pass_int"], 2)
+        self.assertNotIn("pass_int", nflreadpy_row_to_stat_line({"interceptions": 2}))
+
+    def test_return_touchdowns_are_credited_to_the_player(self):
+        row = {"special_teams_tds": 1}
+        self.assertEqual(nflreadpy_row_to_stat_line(row)["return_td"], 1)
 
     def test_zero_and_missing_values_are_skipped(self):
         row = {"passing_yards": 0, "passing_tds": None}

@@ -11,6 +11,7 @@
     "rush_2pt": 2,
     "rec_yd": 0.1,
     "rec_td": 6,
+    "return_td": 6,
     "rec_2pt": 2,
     "reception": 0.5,
     "fumble": 0,

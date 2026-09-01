@@ -13,6 +13,7 @@
     "rush_2pt": 0,
     "rec_yd": 0.1,
     "rec_td": 6,
+    "return_td": 6,
     "rec_2pt": 0,
     "reception": 1,
     "fumble": -1,
