@@ -28,6 +28,15 @@ export default function PlayerCard({
   const { name, position, team, opponent, projection, newsFlag } = player
   const isHealthy = newsFlag?.designation === 'Healthy'
 
+  // `points` is an EXPECTED value once availability is modelled: P(play) x the
+  // if-he-plays projection. Surfacing the two factors matters because they are
+  // different reasons to sit someone -- "he is a 4-point player" and "he is a
+  // 14-point player who probably won't suit up" look identical otherwise.
+  const hasRange =
+    typeof projection.floor === 'number' && typeof projection.ceiling === 'number'
+  const playProbability = projection.playProbability
+  const isDoubtful = typeof playProbability === 'number' && playProbability < 0.85
+
   // Slot badge color is driven by the player's position, not the slot name —
   // so a RB in the FLEX slot still gets a green badge.
   const posClass = position?.toLowerCase() || 'bench'
@@ -62,12 +71,34 @@ export default function PlayerCard({
         </div>
         <div className="player-card-projection">
           <span className="player-card-points">{projection.points.toFixed(1)}</span>
+          {/* Range comes from empirical residual quantiles (10th-90th), not a
+              normal interval -- weekly outcomes are strongly right-skewed, so a
+              symmetric band would be wrong on both ends. Absent for tiers or
+              runs without a fitted interval model, in which case the point
+              estimate stands alone exactly as before. */}
+          {hasRange && (
+            <span className="player-card-range" title="Likely range (10th-90th percentile)">
+              {projection.floor.toFixed(1)}&ndash;{projection.ceiling.toFixed(1)}
+            </span>
+          )}
           <TierBadge projection={projection} />
         </div>
       </div>
 
       {/* Hidden on mobile until expanded; always visible on desktop */}
       <div className="player-card-expandable">
+        {isDoubtful && (
+          <p className="player-card-availability">
+            <span className="player-card-availability-pct">
+              {Math.round(playProbability * 100)}% likely to play
+            </span>
+            {typeof projection.conditionalPoints === 'number' && (
+              <span className="player-card-availability-detail">
+                {' '}&middot; {projection.conditionalPoints.toFixed(1)} if he does
+              </span>
+            )}
+          </p>
+        )}
         <StatusTag newsFlag={newsFlag} expandable={!onToggle} />
         {rationale && <p className="player-card-rationale">{rationale}</p>}
         {replacement && <p className="player-card-replacement">{replacement}</p>}

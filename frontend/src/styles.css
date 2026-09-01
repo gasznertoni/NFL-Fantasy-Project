@@ -475,6 +475,32 @@ body {
   line-height: 1;
 }
 
+/* Likely range under the point estimate. Deliberately quiet: it is context for
+   the number above it, not a competing number. */
+.player-card-range {
+  font-size: 11px;
+  font-variant-numeric: tabular-nums;
+  color: var(--color-neutral-500);
+  line-height: 1;
+}
+
+/* Shown only when a player is meaningfully less than certain to play, so the
+   common case stays uncluttered. */
+.player-card-availability {
+  margin: 0 0 8px;
+  font-size: 12px;
+  color: var(--color-neutral-300);
+}
+
+.player-card-availability-pct {
+  font-weight: 600;
+  color: var(--color-accent-2);
+}
+
+.player-card-availability-detail {
+  color: var(--color-neutral-500);
+}
+
 .player-card-expandable {
   margin-top: 10px;
 }
