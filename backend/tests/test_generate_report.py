@@ -172,16 +172,54 @@ class TestConsensusTierWiring(unittest.TestCase):
         self.schedule = [{"season": 2026, "week": 1, "home_team": "BUF", "away_team": "MIA"}]
         self.game_logs = {"rb1": [{"season": 2026, "week": w, "rush_yd": 50} for w in range(1, 1)]}
 
-    def test_player_in_consensus_projections_gets_the_consensus_tier(self):
-        consensus = {"qb1": {"source": "consensus", "fpid": 1, "projected_points": 30.5}}
+    def _consensus_projection_for(self, consensus):
         weekly_report, _ = build_weekly_report_and_pool(
-            2026, 1, CONFIG, self.pool, self.schedule, self.game_logs, {}, consensus_projections=consensus
+            2026, 1, CONFIG, self.pool, self.schedule, self.game_logs, {},
+            consensus_projections=consensus,
         )
-        qb_entry = next(p for p in weekly_report["projections"] if p["playerId"] == "qb1")
+        return next(
+            p for p in weekly_report["projections"] if p["playerId"] == "qb1"
+        )["projection"]
+
+    def test_player_in_consensus_projections_gets_the_consensus_tier(self):
+        # No contributing_sources on the entry -- the tier-level label is the
+        # honest fallback, because provenance genuinely is not known here.
+        projection = self._consensus_projection_for(
+            {"qb1": {"source": "consensus", "fpid": 1, "projected_points": 30.5}}
+        )
         self.assertEqual(
-            qb_entry["projection"],
-            {"tier": "consensus", "points": 30.5, "tierLabel": "Consensus projection", "source": "FantasyPros"},
+            projection,
+            {
+                "tier": "consensus",
+                "points": 30.5,
+                "tierLabel": "Consensus projection",
+                "source": "FantasyPros + Rotowire",
+            },
         )
+
+    def test_consensus_source_names_the_feeds_that_actually_fed_the_player(self):
+        # The two consensus feeds cover overlapping but different players, so
+        # the tier label names what the tier CAN use and this names what
+        # actually produced THIS number. Labelling a FantasyPros-only player
+        # "FantasyPros + Rotowire" would claim two sources agreed where one
+        # had no data at all.
+        single = self._consensus_projection_for({
+            "qb1": {"source": "consensus", "projected_points": 30.5,
+                    "contributing_sources": ["FantasyPros"]},
+        })
+        self.assertEqual(single["source"], "FantasyPros")
+
+        other = self._consensus_projection_for({
+            "qb1": {"source": "consensus", "projected_points": 30.5,
+                    "contributing_sources": ["Rotowire"]},
+        })
+        self.assertEqual(other["source"], "Rotowire")
+
+        blended = self._consensus_projection_for({
+            "qb1": {"source": "consensus", "projected_points": 30.5,
+                    "contributing_sources": ["FantasyPros", "Rotowire"]},
+        })
+        self.assertEqual(blended["source"], "FantasyPros + Rotowire")
 
     def test_player_absent_from_consensus_projections_still_gets_in_house_estimate(self):
         consensus = {"qb1": {"source": "consensus", "fpid": 1, "projected_points": 30.5}}

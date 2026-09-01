@@ -33,9 +33,14 @@ result is still labelled "consensus" and scored through our formula once.
 from __future__ import annotations
 
 import time
-from typing import Any
+from typing import Any, Optional
 
 from scoring import compute_league_points
+
+# Display names for the two consensus feeds, used to label each projection
+# with the sources that actually produced it.
+FANTASYPROS_SOURCE = "FantasyPros"
+ROTOWIRE_SOURCE = "Rotowire"
 
 ROTOWIRE_URL = "https://www.rotowire.com/football/tables/weekly-projections.php"
 ROTOWIRE_REFERER = "https://www.rotowire.com/football/projections-weekly.php"
@@ -143,6 +148,13 @@ def blend_consensus_projections(
     The blend averages stat_lines (not pre-computed points) so the result is
     still scored through our own formula — the same "never trust a vendor's
     precomputed points" rule both modules already follow.
+
+    Every entry carries `contributing_sources`: the names that actually fed it,
+    not the names the blend is capable of using. Only some of the tier is
+    genuinely blended -- the two feeds cover overlapping but different players
+    -- so a single static "FantasyPros + Rotowire" label on the whole tier
+    would tell a reader that two sources agreed on a player where only one had
+    any data at all.
     """
     all_ids = set(fp_projections) | set(rw_projections)
     out: dict[str, dict[str, Any]] = {}
@@ -163,12 +175,26 @@ def blend_consensus_projections(
                 "projected_points": result.total,
                 "stat_line": averaged,
                 "breakdown": result.breakdown,
+                "contributing_sources": [FANTASYPROS_SOURCE, ROTOWIRE_SOURCE],
             }
         elif fp is not None:
-            out[pid] = fp
+            out[pid] = {**fp, "contributing_sources": [FANTASYPROS_SOURCE]}
         else:
-            out[pid] = rw  # type: ignore[assignment]
+            out[pid] = {**rw, "contributing_sources": [ROTOWIRE_SOURCE]}  # type: ignore[dict-item]
     return out
+
+
+def consensus_source_label(projection: dict[str, Any]) -> Optional[str]:
+    """Human-readable source for ONE consensus projection, e.g. "FantasyPros",
+    "Rotowire", or "FantasyPros + Rotowire".
+
+    None when the entry predates contributing_sources, so a caller falls back
+    to the tier-level label rather than inventing one.
+    """
+    sources = projection.get("contributing_sources")
+    if not sources:
+        return None
+    return " + ".join(sources)
 
 
 # ---------------------------------------------------------------------------

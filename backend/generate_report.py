@@ -167,6 +167,18 @@ def build_player_pool_entry(player: dict[str, Any], news_flag: dict[str, Any]) -
     }
 
 
+def _consensus_source_label(consensus: dict[str, Any]) -> Optional[str]:
+    """Which feeds actually produced this consensus projection, or None to
+    fall back to the tier default (entries built before the blend recorded
+    provenance)."""
+    try:
+        from rotowire_projections import consensus_source_label
+
+        return consensus_source_label(consensus)
+    except Exception:  # noqa: BLE001
+        return None
+
+
 def _projection_object(
     points: float,
     tier: str,
@@ -174,6 +186,7 @@ def _projection_object(
     ceiling: Optional[float] = None,
     play_probability: Optional[float] = None,
     conditional_points: Optional[float] = None,
+    source: Optional[str] = None,
 ) -> dict[str, Any]:
     """The public projection shape.
 
@@ -195,7 +208,12 @@ def _projection_object(
         "tier": tier,
         "points": points,
         "tierLabel": meta["tierLabel"],
-        "source": meta["source"],
+        # `source` overrides the tier default per player. The consensus tier
+        # blends two feeds whose coverage only partly overlaps, so the tier
+        # label names what the tier CAN use while this names what actually fed
+        # this player -- claiming two sources agreed where one had no data
+        # would misrepresent the number's provenance.
+        "source": source or meta["source"],
     }
     if floor is not None and ceiling is not None:
         projection["floor"] = floor
@@ -229,6 +247,7 @@ def build_projection_entry(candidate: dict[str, Any], tier: str = "in_house_esti
             ceiling=candidate.get("ceiling"),
             play_probability=candidate.get("play_probability"),
             conditional_points=candidate.get("conditional_points"),
+            source=candidate.get("source"),
         ),
         "newsFlag": candidate["news_flag"],
     }
@@ -420,6 +439,7 @@ def build_weekly_report_and_pool(
                     else round(play_probabilities[player["playerId"]], 3)
                 ),
                 "tier": "consensus",
+                "source": _consensus_source_label(consensus),
                 # Not meaningful for the consensus tier (FantasyPros doesn't
                 # expose a game-by-game history, only the projection) --
                 # harmless placeholders, not read by build_projection_entry.
