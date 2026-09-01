@@ -11232,7 +11232,7 @@
       }
     },
     {
-      "playerId": NaN,
+      "playerId": null,
       "name": "Layne Pryor",
       "position": "TE",
       "team": "HOU",

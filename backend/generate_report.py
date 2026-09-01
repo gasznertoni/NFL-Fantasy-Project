@@ -371,7 +371,7 @@ def _update_manifest(manifest_path: "Path", week: int) -> None:
         weeks.append(week)
     weeks.sort()
     manifest = {"latestWeek": weeks[-1], "weeks": weeks}
-    manifest_path.write_text(json.dumps(manifest, indent=2) + "\n")
+    manifest_path.write_text(json.dumps(manifest, indent=2, allow_nan=False) + "\n")
 
 
 # ---------------------------------------------------------------------------
@@ -845,8 +845,8 @@ def main(argv: Optional[list[str]] = None) -> None:
 
             report_path = out_dir / f"weekly-report-week-{args.week}.json"
             pool_path = out_dir / "player-pool.json"
-            report_path.write_text(json.dumps(weekly_report, indent=2) + "\n")
-            pool_path.write_text(json.dumps(player_pool, indent=2) + "\n")
+            report_path.write_text(json.dumps(weekly_report, indent=2, allow_nan=False) + "\n")
+            pool_path.write_text(json.dumps(player_pool, indent=2, allow_nan=False) + "\n")
             manifest_path = out_dir / "manifest.json"
             _update_manifest(manifest_path, args.week)
             print(
@@ -879,8 +879,8 @@ def main(argv: Optional[list[str]] = None) -> None:
         args.out_dir.mkdir(parents=True, exist_ok=True)
         report_path = args.out_dir / f"weekly-report-week-{args.week}.json"
         pool_path = args.out_dir / "player-pool.json"
-        report_path.write_text(json.dumps(weekly_report, indent=2) + "\n")
-        pool_path.write_text(json.dumps(player_pool, indent=2) + "\n")
+        report_path.write_text(json.dumps(weekly_report, indent=2, allow_nan=False) + "\n")
+        pool_path.write_text(json.dumps(player_pool, indent=2, allow_nan=False) + "\n")
         manifest_path = args.out_dir / "manifest.json"
         _update_manifest(manifest_path, args.week)
 
