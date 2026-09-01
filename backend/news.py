@@ -29,11 +29,87 @@ from typing import Any, Optional
 import requests
 
 ESPN_NEWS_URL = "https://site.api.espn.com/apis/site/v2/sports/football/nfl/news"
+SLEEPER_PLAYERS_URL = "https://api.sleeper.app/v1/players/nfl"
 
 DESIGNATIONS = ("Healthy", "Questionable", "Doubtful", "Out", "IR")
 RISK_LEVELS = ("none", "low", "medium", "high")
 
 DEFAULT_NEWS_FLAG = {"designation": "Healthy", "riskLevel": "none", "summary": None}
+
+# Sleeper injury_status strings → our designation/riskLevel enums
+_SLEEPER_DESIGNATION_MAP = {
+    "Questionable": ("Questionable", "low"),
+    "Doubtful": ("Doubtful", "medium"),
+    "Out": ("Out", "high"),
+    "IR": ("IR", "high"),
+    "PUP": ("IR", "high"),
+    "Sus": ("Out", "high"),
+}
+
+
+def fetch_sleeper_injury_status(timeout: int = 20) -> dict[str, dict[str, Any]]:
+    """Fetch current injury designations from Sleeper (free, no auth).
+
+    Returns two lookup dicts merged into one result keyed by ESPN id (str)
+    and by lowercase full name — callers try ESPN id first, then name.
+    Value shape: {"designation": ..., "riskLevel": ..., "body_part": str|None}.
+    Only players with a non-None injury_status are included; healthy players
+    are absent so callers can fall back to DEFAULT_NEWS_FLAG cleanly.
+    Degrades to {} on any network/parse failure.
+    """
+    try:
+        resp = requests.get(SLEEPER_PLAYERS_URL, timeout=timeout)
+        resp.raise_for_status()
+        players = resp.json()
+    except (requests.RequestException, json.JSONDecodeError, ValueError):
+        return {}
+
+    if not isinstance(players, dict):
+        return {}
+
+    by_espn_id: dict[str, dict[str, Any]] = {}
+    by_name: dict[str, dict[str, Any]] = {}
+
+    for player in players.values():
+        if not isinstance(player, dict):
+            continue
+        injury_status = player.get("injury_status")
+        if not injury_status:
+            continue
+        designation, risk_level = _SLEEPER_DESIGNATION_MAP.get(injury_status, ("Out", "high"))
+        body_part = player.get("injury_body_part") or None
+        entry = {"designation": designation, "riskLevel": risk_level, "body_part": body_part}
+
+        espn_id = player.get("espn_id")
+        if espn_id:
+            by_espn_id[str(espn_id)] = entry
+        full_name = (player.get("full_name") or "").lower().strip()
+        if full_name:
+            by_name[full_name] = entry
+
+    return {**by_name, **by_espn_id}  # espn_id keys win on collision
+
+
+def apply_sleeper_designation(
+    news_flag: dict[str, Any],
+    player_name: str,
+    espn_id: Optional[str],
+    sleeper_data: dict[str, dict[str, Any]],
+) -> dict[str, Any]:
+    """Override the designation/riskLevel in news_flag with Sleeper's value,
+    keeping the existing summary text. If Sleeper has no entry for this player
+    the flag is returned unchanged. If Sleeper has a body_part and the flag
+    has no summary, uses body_part as a minimal summary."""
+    entry = sleeper_data.get(str(espn_id) if espn_id else "") or sleeper_data.get(
+        (player_name or "").lower().strip()
+    )
+    if not entry:
+        return news_flag
+
+    summary = news_flag.get("summary") or (
+        entry["body_part"] if entry.get("body_part") else None
+    )
+    return {"designation": entry["designation"], "riskLevel": entry["riskLevel"], "summary": summary}
 
 
 def fetch_espn_news(limit: int = 50, timeout: int = 15) -> list[dict[str, Any]]:

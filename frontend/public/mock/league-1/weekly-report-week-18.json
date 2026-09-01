@@ -2,7 +2,7 @@
   "week": 18,
   "leagueId": "league-1",
   "leagueFormatAssumption": "ppr",
-  "generatedAt": "2026-09-01T09:13:25Z",
+  "generatedAt": "2026-09-01T09:24:12Z",
   "projections": [
     {
       "playerId": "00-0022942",
@@ -161,9 +161,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Neck"
       }
     },
     {
@@ -287,9 +287,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Finger"
       }
     },
     {
@@ -305,9 +305,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -377,9 +377,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -503,9 +503,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Personal"
       }
     },
     {
@@ -521,9 +521,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Personal"
       }
     },
     {
@@ -575,9 +575,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Foot"
       }
     },
     {
@@ -719,9 +719,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee"
       }
     },
     {
@@ -845,9 +845,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee"
       }
     },
     {
@@ -1079,9 +1079,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -1133,9 +1133,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee - ACL"
       }
     },
     {
@@ -1277,9 +1277,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -1313,9 +1313,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Achilles"
       }
     },
     {
@@ -1493,9 +1493,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Leg"
       }
     },
     {
@@ -1529,9 +1529,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -1565,9 +1565,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Foot"
       }
     },
     {
@@ -1601,9 +1601,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -1781,9 +1781,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee"
       }
     },
     {
@@ -1817,9 +1817,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -1835,9 +1835,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Biceps"
       }
     },
     {
@@ -1853,9 +1853,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee - ACL"
       }
     },
     {
@@ -1925,9 +1925,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Foot"
       }
     },
     {
@@ -1943,9 +1943,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee"
       }
     },
     {
@@ -2069,9 +2069,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Quadriceps"
       }
     },
     {
@@ -2087,9 +2087,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -2159,9 +2159,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -2465,9 +2465,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -2501,9 +2501,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee"
       }
     },
     {
@@ -2717,9 +2717,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Calf"
       }
     },
     {
@@ -3077,9 +3077,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hand"
       }
     },
     {
@@ -3095,9 +3095,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Ankle"
       }
     },
     {
@@ -3221,9 +3221,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Abdomen"
       }
     },
     {
@@ -3455,9 +3455,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -3671,9 +3671,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -3707,9 +3707,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -3815,9 +3815,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee"
       }
     },
     {
@@ -3959,9 +3959,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -3977,9 +3977,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -4013,9 +4013,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Achilles"
       }
     },
     {
@@ -4121,9 +4121,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Groin"
       }
     },
     {
@@ -4265,9 +4265,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Neck"
       }
     },
     {
@@ -4373,9 +4373,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -4391,9 +4391,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -4445,9 +4445,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -4481,9 +4481,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -4679,9 +4679,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee - ACL"
       }
     },
     {
@@ -4769,9 +4769,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -4805,9 +4805,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Leg"
       }
     },
     {
@@ -4859,9 +4859,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Knee - ACL + MCL"
       }
     },
     {
@@ -5057,9 +5057,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee - ACL"
       }
     },
     {
@@ -5525,9 +5525,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hamstring"
       }
     },
     {
@@ -5543,9 +5543,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -5615,9 +5615,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hamstring"
       }
     },
     {
@@ -5633,9 +5633,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -5651,9 +5651,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -5759,9 +5759,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hamstring"
       }
     },
     {
@@ -5903,9 +5903,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -5957,9 +5957,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -6137,9 +6137,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Concussion"
       }
     },
     {
@@ -6281,9 +6281,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee"
       }
     },
     {
@@ -6623,9 +6623,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -6785,9 +6785,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee"
       }
     },
     {
@@ -6839,9 +6839,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -6875,9 +6875,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Back"
       }
     },
     {
@@ -7019,9 +7019,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee - MCL"
       }
     },
     {
@@ -7037,9 +7037,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -7199,9 +7199,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -7253,9 +7253,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -7289,9 +7289,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hamstring"
       }
     },
     {
@@ -7325,9 +7325,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee"
       }
     },
     {
@@ -7487,9 +7487,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Achilles"
       }
     },
     {
@@ -7541,9 +7541,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -7559,9 +7559,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -7577,9 +7577,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -7667,9 +7667,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -7685,9 +7685,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -7739,9 +7739,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -7973,9 +7973,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Groin"
       }
     },
     {
@@ -8081,9 +8081,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Ankle"
       }
     },
     {
@@ -8657,9 +8657,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Head"
       }
     },
     {
@@ -8675,9 +8675,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Thigh"
       }
     },
     {
@@ -8927,9 +8927,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Thumb"
       }
     },
     {
@@ -9089,9 +9089,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -9179,9 +9179,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Achilles"
       }
     },
     {
@@ -9305,9 +9305,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Shoulder"
       }
     },
     {
@@ -9701,9 +9701,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -9809,9 +9809,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -9953,9 +9953,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Concussion"
       }
     },
     {
@@ -10061,9 +10061,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee - ACL"
       }
     },
     {
@@ -10133,9 +10133,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee"
       }
     },
     {
@@ -10205,9 +10205,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee - ACL + MCL"
       }
     },
     {
@@ -10277,9 +10277,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee"
       }
     },
     {
@@ -10349,9 +10349,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hamstring"
       }
     },
     {
@@ -10385,9 +10385,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -10799,9 +10799,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee - ACL + MCL"
       }
     },
     {
@@ -10817,9 +10817,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -10853,9 +10853,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee - ACL"
       }
     },
     {
@@ -10871,9 +10871,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -11051,9 +11051,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -11069,9 +11069,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hip"
       }
     },
     {
@@ -11123,9 +11123,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Quadriceps"
       }
     },
     {
@@ -11141,9 +11141,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -11195,9 +11195,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -11321,9 +11321,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee - ACL"
       }
     },
     {
@@ -11375,9 +11375,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Groin"
       }
     },
     {
@@ -11411,9 +11411,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee"
       }
     },
     {
@@ -11429,9 +11429,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -11465,9 +11465,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -11663,9 +11663,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee - ACL"
       }
     },
     {
@@ -11699,9 +11699,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Lower Body"
       }
     },
     {
@@ -11807,9 +11807,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Pectoral"
       }
     },
     {
@@ -11843,9 +11843,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Groin"
       }
     },
     {
@@ -11897,9 +11897,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -11933,9 +11933,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -12077,9 +12077,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -12293,9 +12293,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -12455,9 +12455,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -12491,9 +12491,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Concussion"
       }
     },
     {
@@ -12527,9 +12527,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Thumb"
       }
     },
     {
@@ -12707,9 +12707,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hand"
       }
     },
     {
@@ -12725,9 +12725,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Groin"
       }
     },
     {
@@ -12743,9 +12743,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -12995,9 +12995,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Suspension"
       }
     },
     {
@@ -13049,9 +13049,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Ankle"
       }
     },
     {
@@ -13121,9 +13121,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -13193,9 +13193,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -13337,9 +13337,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee"
       }
     },
     {
@@ -13481,9 +13481,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -13553,9 +13553,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Calf"
       }
     },
     {
@@ -13715,9 +13715,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Foot"
       }
     },
     {
@@ -13733,9 +13733,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -13769,9 +13769,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Oblique"
       }
     },
     {
@@ -13805,9 +13805,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee - PCL"
       }
     },
     {
@@ -13895,9 +13895,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee"
       }
     },
     {
@@ -13913,9 +13913,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -13949,9 +13949,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -14021,9 +14021,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -14237,9 +14237,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -14489,9 +14489,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -14507,9 +14507,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee"
       }
     },
     {
@@ -14561,9 +14561,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Groin"
       }
     },
     {
@@ -14579,9 +14579,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -14597,9 +14597,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee - ACL"
       }
     },
     {
@@ -14651,9 +14651,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hamstring"
       }
     },
     {
@@ -14921,9 +14921,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Hamstring"
       }
     },
     {
@@ -14939,9 +14939,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Head"
       }
     },
     {
@@ -14957,9 +14957,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hip"
       }
     },
     {
@@ -15011,9 +15011,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee - ACL"
       }
     },
     {
@@ -15137,9 +15137,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee"
       }
     },
     {
@@ -15209,9 +15209,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Lower Body"
       }
     },
     {
@@ -15245,9 +15245,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -15263,9 +15263,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee"
       }
     },
     {
@@ -15299,9 +15299,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Foot"
       }
     },
     {
@@ -15623,9 +15623,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -15641,9 +15641,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -15749,9 +15749,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -15839,9 +15839,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Concussion"
       }
     },
     {
@@ -16163,9 +16163,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Foot"
       }
     },
     {
@@ -16397,9 +16397,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -16505,9 +16505,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -16541,9 +16541,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -16631,9 +16631,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -16685,9 +16685,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -16721,9 +16721,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -16847,9 +16847,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -17063,9 +17063,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -17117,9 +17117,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Arm"
       }
     },
     {
@@ -17243,9 +17243,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Ribs"
       }
     },
     {
@@ -17351,9 +17351,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -17549,9 +17549,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Leg"
       }
     },
     {
@@ -17603,9 +17603,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Ankle"
       }
     },
     {
@@ -17639,9 +17639,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -17657,9 +17657,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -17963,9 +17963,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Back"
       }
     },
     {
@@ -18107,9 +18107,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Leg"
       }
     },
     {
@@ -18161,9 +18161,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -18359,9 +18359,9 @@
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Concussion"
       }
     },
     {
@@ -18979,25 +18979,6 @@
   ],
   "waiverTargets": [
     {
-      "playerId": "PIT",
-      "name": "Steelers D/ST",
-      "position": "DST",
-      "team": "PIT",
-      "opponent": "BAL",
-      "projection": {
-        "tier": "in_house_estimate",
-        "points": 15.92,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
-      },
-      "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
-      },
-      "rationale": "Trending up over the last 6 games, averaging 15.9 pts with the most recent game the best of the stretch."
-    },
-    {
       "playerId": "00-0038562",
       "name": "Jake Moody",
       "position": "K",
@@ -19017,14 +18998,14 @@
       "rationale": "Trending up over the last 6 games, averaging 7.8 pts with the most recent game the best of the stretch."
     },
     {
-      "playerId": "00-0036139",
-      "name": "Rico Dowdle",
-      "position": "RB",
-      "team": "CAR",
-      "opponent": "TB",
+      "playerId": "PIT",
+      "name": "Steelers D/ST",
+      "position": "DST",
+      "team": "PIT",
+      "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.05,
+        "points": 15.92,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -19033,7 +19014,26 @@
         "riskLevel": "none",
         "summary": null
       },
-      "rationale": "Averaging 11.1 pts over the last 6 games, though production cooled the last time out."
+      "rationale": "Trending up over the last 6 games, averaging 15.9 pts with the most recent game the best of the stretch."
+    },
+    {
+      "playerId": "00-0040735",
+      "name": "Luther Burden III",
+      "position": "WR",
+      "team": "CHI",
+      "opponent": "DET",
+      "projection": {
+        "tier": "in_house_estimate",
+        "points": 12.6,
+        "tierLabel": "Our estimate",
+        "source": "In-house model"
+      },
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      },
+      "rationale": "Trending up over the last 6 games, averaging 12.6 pts with the most recent game the best of the stretch."
     }
   ]
 }

@@ -584,20 +584,31 @@ def build_news_client_or_none() -> Any:
 
 def load_news_flags_nflreadpy(pool: list[dict[str, Any]], client: Any) -> dict[str, dict[str, Any]]:
     """One fetch_espn_news() call for the whole pool, then per-player
-    matching + summarization. Cost-bounded: summarize_player_news() only
-    makes an LLM call for players with at least one matched article
-    (articles_for_player's crude substring match is expected to miss most
-    of the pool entirely, which is cheap, not a bug)."""
-    from news import articles_for_player, fetch_espn_news, summarize_player_news
+    matching + summarization. Sleeper injury designations are fetched once
+    and overlaid as the authoritative designation/riskLevel (Sleeper's
+    injury report is more reliable than the LLM's read of a general news
+    feed). LLM summary text is still used for the narrative where available."""
+    from news import (
+        apply_sleeper_designation,
+        articles_for_player,
+        fetch_espn_news,
+        fetch_sleeper_injury_status,
+        summarize_player_news,
+    )
 
     articles = fetch_espn_news()
+    sleeper_data = fetch_sleeper_injury_status()
+
     flags: dict[str, dict[str, Any]] = {}
     for player in pool:
         player_articles = articles_for_player(articles, player["name"], player.get("espnId"))
         if not player_articles or client is None:
-            flags[player["playerId"]] = dict(DEFAULT_NEWS_FLAG)
-            continue
-        flags[player["playerId"]] = summarize_player_news(player["name"], player_articles, client)
+            flag = dict(DEFAULT_NEWS_FLAG)
+        else:
+            flag = summarize_player_news(player["name"], player_articles, client)
+        flags[player["playerId"]] = apply_sleeper_designation(
+            flag, player["name"], player.get("espnId"), sleeper_data
+        )
     return flags
 
 
