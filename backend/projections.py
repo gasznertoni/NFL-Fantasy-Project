@@ -16,7 +16,14 @@ from __future__ import annotations
 
 from typing import Any, Optional
 
+from calibration import DEFAULT_SHRINKAGE_K, apply_affine
 from scoring import compute_league_points
+
+# Used when a caller asks for empirical-Bayes shrinkage without supplying a
+# per-position k. The mean of the four measured values -- a caller that knows
+# the player's position should pass calibration.DEFAULT_SHRINKAGE_K[position]
+# (or a freshly fitted k) instead of relying on this.
+DEFAULT_SHRINKAGE_K_FALLBACK = sum(DEFAULT_SHRINKAGE_K.values()) / len(DEFAULT_SHRINKAGE_K)
 
 # Per-position calibration multipliers validated against full 2025 season
 # (backend/csv_backtest.py, 5 749 player-week pairs, all 18 weeks).
@@ -42,21 +49,38 @@ POSITION_CALIBRATION_SCALE: dict[str, float] = {
     "K": 1.0,
 }
 
-DEFAULT_WINDOW = 6  # games played -- design spec section 3.2's starting guess was 4;
-# raised to 6 per docs/research/projection-model-backtest-findings.md's Round 3
-# (2026-08-11, full 611-player pool): window=6 beat window=4 with significance on
-# both tuning weeks (p=0.0003) and holdout weeks (p=0.0325), the first time this
-# choice cleared a significance bar in either direction.
-DEFAULT_DECAY = 1.0  # unweighted mean by default -- see _rolling_average()
-DEFAULT_SHRINKAGE_STRENGTH = 0.5  # see _shrinkage_weight(). Set per
-# docs/research/projection-model-backtest-findings.md's Round 4: strength=0.5
-# gave the smallest |low-tier bias| on tuning weeks and held up on holdout
-# (bias magnitude cut by ~70%+ on both week sets, both significant, p=0.0),
-# with only a small, guardrail-level pooled MAE cost (+0.09, ~2%). Only
-# takes effect when a caller supplies positional_baseline -- with the
-# default None, shrinkage never activates regardless of this constant, same
-# "inert until wired in" status decay/window had before Round 3/4.
-# games_used == 0 (no_data) ignores this constant entirely -- see below.
+DEFAULT_WINDOW = 8  # games played.
+# Raised from 6 to 8 on 2026-09-01 (docs/research/scoring-engine-and-model-audit.md
+# section 2). The earlier Round-3 sweep compared 4 against 6, found 6 better, and
+# stopped -- it never tested past 6, where the improvement keeps going. Sweeping
+# window x decay over 2023-25 and scoring on BOTH objectives at once:
+#
+#   window  decay    MAE     RMSE   pairwise acc   Spearman rho
+#     12     0.9    4.715   6.762      0.7348         0.663
+#      8     0.9    4.726   6.785      0.7344         0.662
+#      6     1.0    4.755   6.833      0.7325         0.659   <- previous default
+#      4     1.0    4.834   6.934      0.7294         0.654
+#
+# 12 and 8 are within noise of each other and both beat 6 on all four metrics
+# simultaneously. 8 is chosen over 12 because a shorter window reacts faster to
+# a real role change (the failure mode the design spec's section 3.2 cares
+# about) at essentially no measured cost.
+DEFAULT_DECAY = 0.9  # exponential recency weight -- see _rolling_average().
+# Also changed 2026-09-01, and the two changes belong together: a longer window
+# only helps when the older games in it are discounted. Every decay=0.9 row in
+# the sweep above beats its decay=1.0 counterpart at the same window.
+DEFAULT_SHRINKAGE_STRENGTH = 0.5  # legacy "window" shrinkage mode only -- see
+# _shrinkage_weight() and DEFAULT_SHRINKAGE_MODE below. Kept at Round 4's value
+# so shrinkage_mode="window" reproduces the old behaviour exactly.
+
+# Empirical-Bayes is the default as of 2026-09-01. The old "window" mode applies
+# no shrinkage at all once games_used >= window, and that is precisely where the
+# measured bias lives: the `full` confidence tier fits a calibration slope of
+# 0.55-0.82, i.e. a full-window sample mean was worth about four fifths of its
+# face value and was being taken at par. Every position's projections were
+# over-dispersed with p < 1e-11 (audit section 3).
+SHRINKAGE_MODES = ("empirical_bayes", "window", "none")
+DEFAULT_SHRINKAGE_MODE = "empirical_bayes"
 
 
 def _rolling_average(per_game_points: list[float], decay: float = DEFAULT_DECAY) -> float:
@@ -125,37 +149,45 @@ def _confidence(games_used: int, window: int) -> str:
 
 
 def _shrinkage_weight(games_used: int, window: int, strength: float) -> float:
-    """How much weight the player's own rolling average keeps when blended
-    toward a positional baseline (see baseline.py) -- `1 - weight` is the
-    weight on the baseline. Three cases, matching the three tiers
-    _confidence() already defines:
+    """LEGACY `shrinkage_mode="window"` weight -- kept so the pre-2026-09-01
+    behaviour is reproducible for comparison, not because it is recommended.
 
-    games_used == 0   -> weight = 0.0   (pure baseline, ignores `strength`
-                          entirely -- see rationale below)
-    0 < games_used < window -> weight = 1 - strength * (1 - games_used/window)
-    games_used >= window    -> weight = 1.0   (the "full" tier is never shrunk)
+    games_used == 0        -> 0.0   (pure baseline)
+    0 < games_used < window -> 1 - strength * (1 - games_used/window)
+    games_used >= window    -> 1.0  (no shrinkage at all)
 
-    Why games_used == 0 is hard-coded rather than strength-scaled like the
-    partial-window case: with zero games, `rolling_avg` isn't a thin
-    estimate of anything -- it's `_rolling_average([])`'s structural 0.0,
-    not data. Weighting a non-observation at all doesn't make sense. This
-    split also makes the feature separately ablatable at three settings
-    with one knob: strength=0.0 is "fallback-only" (no_data gets the
-    baseline, low tier is untouched); strength=1.0 is a full blend of both;
-    positional_baseline=None (the caller's choice, not this function's) is
-    "off" (see project_player).
-
-    Why `games_used / window` rather than an empirical-Bayes `n / (n + k)`
-    form: it's continuous at the tier boundary (no jump right as a
-    player's `window`-th game lands), and it reuses the same notion of
-    sample completeness _confidence() already uses, rather than
-    introducing a second, uncalibrated cutoff `k`.
+    That last line is the defect. A `window`-game sample mean is not worth its
+    face value, and taking it at par is what makes the projections
+    over-dispersed: calibration slopes of 0.735-0.878 across the four positions,
+    every one rejecting b = 1 at p < 1e-11. Use
+    `shrinkage_mode="empirical_bayes"` (the default) instead, which shrinks at
+    every sample size by the amount the variance components say it should.
     """
     if games_used == 0:
         return 0.0
     if games_used >= window:
         return 1.0
     return 1 - strength * (1 - games_used / window)
+
+
+def _empirical_bayes_weight(games_used: int, k: float) -> float:
+    """`n / (n + k)`, with k = sigma2_within / sigma2_between in games.
+
+    The weight a player's own sample mean earns given how much of the
+    week-to-week spread is signal rather than noise. Derived rather than tuned:
+    calibration.variance_components estimates k directly from game logs, and at
+    the old window of 6 it reproduces the independently-fitted calibration
+    slopes almost exactly (theory 0.76/0.84/0.79/0.82 against measured
+    0.735/0.878/0.841/0.852). Two different routes to the same four numbers is
+    the evidence that this bias is regression to the mean, and that this is the
+    correct correction for it.
+
+    Continuous in `games_used` with no cliff at the window boundary, which the
+    legacy mode's tier switch could not offer.
+    """
+    from calibration import empirical_bayes_weight
+
+    return empirical_bayes_weight(games_used, k)
 
 
 def project_player(
@@ -170,6 +202,11 @@ def project_player(
     shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
     usage_multiplier: float = 1.0,
     calibration_scale: float = 1.0,
+    shrinkage_mode: str = DEFAULT_SHRINKAGE_MODE,
+    shrinkage_k: Optional[float] = None,
+    play_probability: Optional[float] = None,
+    affine: Optional[tuple[float, float]] = None,
+    interval: Optional[tuple[float, float]] = None,
 ) -> dict[str, Any]:
     """Project one player's fantasy points for (as_of_season, as_of_week).
 
@@ -264,12 +301,48 @@ def project_player(
     games_used = len(per_game_points)
     rolling_avg = _rolling_average(per_game_points, decay)
 
-    if positional_baseline is None:
+    if shrinkage_mode not in SHRINKAGE_MODES:
+        raise ValueError(f"shrinkage_mode must be one of {SHRINKAGE_MODES}, got {shrinkage_mode!r}")
+
+    # Shrinkage needs something to shrink TOWARD. With no positional_baseline
+    # supplied there is no target, so every mode degrades to "no shrinkage" --
+    # the same "off means arithmetically identical" contract the other optional
+    # parameters keep.
+    if positional_baseline is None or shrinkage_mode == "none":
         shrinkage_weight = 1.0
         shrunk_avg = rolling_avg
+    elif shrinkage_mode == "empirical_bayes":
+        k = DEFAULT_SHRINKAGE_K_FALLBACK if shrinkage_k is None else shrinkage_k
+        shrinkage_weight = _empirical_bayes_weight(games_used, k)
+        shrunk_avg = shrinkage_weight * rolling_avg + (1 - shrinkage_weight) * positional_baseline
     else:
         shrinkage_weight = _shrinkage_weight(games_used, window, shrinkage_strength)
         shrunk_avg = shrinkage_weight * rolling_avg + (1 - shrinkage_weight) * positional_baseline
+
+    conditional = shrunk_avg * opponent_multiplier * usage_multiplier * calibration_scale
+    # Rank-preserving magnitude correction (calibration.apply_affine clamps at
+    # zero and is only ever fitted with a positive slope), applied BEFORE the
+    # availability multiplier so the affine fit stays a statement about the
+    # points estimate rather than about injury risk.
+    conditional = apply_affine(conditional, affine)
+
+    # E[points] = P(play) x E[points | play]. The (1 - P) branch contributes
+    # exactly zero, not approximately: a player who does not take the field
+    # scores nothing. This is the number a start/sit comparison should use --
+    # see availability.py's module docstring for why it matters more than every
+    # estimator knob in this file combined.
+    probability = None if play_probability is None else min(max(float(play_probability), 0.0), 1.0)
+    expected = conditional if probability is None else conditional * probability
+
+    low = high = None
+    if interval is not None:
+        low, high = interval
+        if probability is not None:
+            # Scale the interval with the point estimate so the two stay
+            # consistent. The floor is NOT scaled below zero-if-he-sits: an
+            # unavailable player's realistic low is 0, which multiplying the
+            # conditional floor by P(play) already approaches.
+            low, high = low * probability, high * probability
 
     return {
         "source": "in_house_estimate",
@@ -281,12 +354,22 @@ def project_player(
         "decay": decay,
         "opponent_multiplier": opponent_multiplier,
         "positional_baseline": positional_baseline,
+        "shrinkage_mode": shrinkage_mode,
         "shrinkage_strength": shrinkage_strength,
+        "shrinkage_k": shrinkage_k,
         "shrinkage_weight": round(shrinkage_weight, 4),
         "shrunk_avg": round(shrunk_avg, 2),
         "usage_multiplier": usage_multiplier,
         "calibration_scale": calibration_scale,
-        "projected_points": round(shrunk_avg * opponent_multiplier * usage_multiplier * calibration_scale, 2),
+        "affine": affine,
+        # The "if he plays" number, kept separate from the expected value so a
+        # report view can show both and the eval layer can score each against
+        # the right ground truth.
+        "conditional_points": round(conditional, 2),
+        "play_probability": None if probability is None else round(probability, 4),
+        "projected_points": round(expected, 2),
+        "floor": None if low is None else round(low, 2),
+        "ceiling": None if high is None else round(high, 2),
         "per_game_points": per_game_points,
     }
 
@@ -303,6 +386,11 @@ def project_players(
     shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
     usage_multipliers: Optional[dict[str, float]] = None,
     calibration_scales: Optional[dict[str, float]] = None,
+    shrinkage_mode: str = DEFAULT_SHRINKAGE_MODE,
+    shrinkage_ks: Optional[dict[str, float]] = None,
+    play_probabilities: Optional[dict[str, float]] = None,
+    affines: Optional[dict[str, tuple[float, float]]] = None,
+    intervals: Optional[dict[str, tuple[float, float]]] = None,
 ) -> dict[str, dict[str, Any]]:
     """Batch wrapper over project_player for a slate of players. Kept
     separate from project_player so the single-player function stays the
@@ -326,6 +414,10 @@ def project_players(
     positional_baselines = positional_baselines or {}
     usage_multipliers = usage_multipliers or {}
     calibration_scales = calibration_scales or {}
+    shrinkage_ks = shrinkage_ks or {}
+    play_probabilities = play_probabilities or {}
+    affines = affines or {}
+    intervals = intervals or {}
     return {
         player_id: project_player(
             game_log,
@@ -339,6 +431,11 @@ def project_players(
             shrinkage_strength=shrinkage_strength,
             usage_multiplier=usage_multipliers.get(player_id, 1.0),
             calibration_scale=calibration_scales.get(player_id, 1.0),
+            shrinkage_mode=shrinkage_mode,
+            shrinkage_k=shrinkage_ks.get(player_id),
+            play_probability=play_probabilities.get(player_id),
+            affine=affines.get(player_id),
+            interval=intervals.get(player_id),
         )
         for player_id, game_log in game_logs_by_player.items()
     }
