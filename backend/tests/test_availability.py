@@ -158,6 +158,75 @@ class TestFittedModel(unittest.TestCase):
         self.assertNotIn("K", ALWAYS_AVAILABLE_POSITIONS)
 
 
+class TestDepthChartPrior(unittest.TestCase):
+    """Depth rank enters as position-BY-depth indicators, because the effect is
+    neither uniform across positions nor monotonic within them: measured over
+    2018-24 on undesignated players, a backup QB plays 0.49 of the time and a
+    backup RB 0.88. One linear slope would average those into a number wrong
+    for both."""
+
+    def _rows(self, n=140):
+        out = []
+        for i in range(n):
+            # QB1 nearly always plays; QB2 rarely; RB2 usually does.
+            for pos, rank, played in (
+                ("QB", 1, 1), ("QB", 2, 0), ("RB", 1, 1), ("RB", 2, 1),
+            ):
+                out.append({
+                    "player_id": f"{pos}{rank}_{i}", "position": pos, "played": played,
+                    "report_status": None, "practice_status": None,
+                    "prior_play_rate": 0.8, "prior_games_observed": 8.0,
+                    "depth_rank": rank,
+                })
+        return out
+
+    def test_starters_and_backups_separate(self):
+        model = AvailabilityModel().fit(self._rows())
+        base = {"report_status": None, "prior_play_rate": 0.8, "prior_games_observed": 8.0}
+        qb1 = model.predict_one({**base, "position": "QB", "depth_rank": 1})
+        qb2 = model.predict_one({**base, "position": "QB", "depth_rank": 2})
+        self.assertGreater(qb1, 0.8)
+        self.assertLess(qb2, 0.4)
+
+    def test_the_same_depth_means_different_things_by_position(self):
+        # The whole reason for the interaction: a backup RB is not a backup QB.
+        model = AvailabilityModel().fit(self._rows())
+        base = {"report_status": None, "prior_play_rate": 0.8, "prior_games_observed": 8.0}
+        qb2 = model.predict_one({**base, "position": "QB", "depth_rank": 2})
+        rb2 = model.predict_one({**base, "position": "RB", "depth_rank": 2})
+        self.assertGreater(rb2, qb2 + 0.3)
+
+    def test_rank_beyond_third_string_is_capped_not_extrapolated(self):
+        model = AvailabilityModel().fit(self._rows())
+        base = {"report_status": None, "position": "QB",
+                "prior_play_rate": 0.8, "prior_games_observed": 8.0}
+        self.assertAlmostEqual(
+            model.predict_one({**base, "depth_rank": 3}),
+            model.predict_one({**base, "depth_rank": 9}),
+            places=6,
+        )
+
+    def test_missing_rank_is_its_own_state_not_an_average_depth(self):
+        # ~8% of player-weeks have no chart entry; treating that as "average
+        # depth" would invent information.
+        model = AvailabilityModel().fit(self._rows())
+        base = {"report_status": None, "position": "QB",
+                "prior_play_rate": 0.8, "prior_games_observed": 8.0}
+        unknown = model.predict_one(base)
+        self.assertGreaterEqual(unknown, 0.0)
+        self.assertLessEqual(unknown, 1.0)
+        self.assertNotAlmostEqual(unknown, model.predict_one({**base, "depth_rank": 1}), places=3)
+
+    def test_a_junk_rank_is_treated_as_unknown(self):
+        model = AvailabilityModel().fit(self._rows())
+        base = {"report_status": None, "position": "QB",
+                "prior_play_rate": 0.8, "prior_games_observed": 8.0}
+        for junk in ("x", None, float("nan"), 0, -2):
+            p = model.predict_one({**base, "depth_rank": junk})
+            self.assertGreaterEqual(p, 0.0)
+            self.assertLessEqual(p, 1.0)
+
+
 class TestSleeperInjuryReport(unittest.TestCase):
     """Sleeper is the only LIVE injury source for a season nflreadpy has not
     published yet, which is every pre-season and week-1 report."""

@@ -940,6 +940,19 @@ def main(argv: Optional[list[str]] = None) -> None:
     import argparse
     import os
 
+    # nflreadpy caches in MEMORY by default, so every run re-downloads every
+    # file -- and a full report touches a dozen of them across several seasons.
+    # That is slow, and it is what eventually got this project rate-limited:
+    # nflverse's GitHub release assets start answering 404 (not 429) under
+    # repeated traffic, which killed a run mid-way after ten minutes of work.
+    # A filesystem cache with nflreadpy's own 24h duration makes repeat runs
+    # nearly free and drops the request count to almost nothing.
+    #
+    # Set as a DEFAULT, not an override: an explicit NFLREADPY_CACHE in the
+    # environment still wins, so CI or a debugging session can force a cold
+    # fetch.
+    os.environ.setdefault("NFLREADPY_CACHE", "filesystem")
+
     parser = argparse.ArgumentParser(
         description=(
             "Generate weekly-report-week-N.json and player-pool.json from real data "
@@ -1263,6 +1276,23 @@ def main(argv: Optional[list[str]] = None) -> None:
                     if sched.get(side):
                         team_weeks.setdefault(sched[side], set()).add(sched["week"])
 
+            # Depth-chart rank for the week being projected. This is what
+            # keeps an undesignated week-1 starter from being handed the same
+            # flat positional base rate as a third-stringer -- worth AUC
+            # 0.823 -> 0.854 held out, and it moves a QB1 from 0.88 to 0.96
+            # against an actual 0.98.
+            depth_ranks: dict = {}
+            try:
+                from depth_charts import load_depth_ranks
+
+                depth_ranks = load_depth_ranks([args.season])
+                covered = sum(
+                    1 for p in pool if (args.season, args.week, p["playerId"]) in depth_ranks
+                )
+                print(f"  depth chart: {covered}/{len(pool)} players ranked")
+            except Exception as exc:  # noqa: BLE001
+                print(f"  depth chart unavailable ({exc}) -- availability runs without it.")
+
             for player in pool:
                 player_id = player["playerId"]
                 if player["position"] in availability_module.ALWAYS_AVAILABLE_POSITIONS:
@@ -1280,6 +1310,7 @@ def main(argv: Optional[list[str]] = None) -> None:
                         "prior_games_observed": float(observed),
                         "report_status": designation.get("report_status"),
                         "practice_status": designation.get("practice_status"),
+                        "depth_rank": depth_ranks.get((args.season, args.week, player_id)),
                     }
                 )
             out_count = sum(1 for v in play_probabilities.values() if v < 0.2)
