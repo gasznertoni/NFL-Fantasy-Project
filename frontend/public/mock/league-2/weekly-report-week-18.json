@@ -2,7 +2,7 @@
   "week": 18,
   "leagueId": "league-2",
   "leagueFormatAssumption": "half_ppr",
-  "generatedAt": "2026-09-01T09:24:12Z",
+  "generatedAt": "2026-09-01T09:26:34Z",
   "projections": [
     {
       "playerId": "00-0022942",
@@ -12,7 +12,7 @@
       "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.67,
+        "points": 12.55,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -30,7 +30,7 @@
       "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.33,
+        "points": 12.15,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -102,7 +102,7 @@
       "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.58,
+        "points": 14.8,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -120,7 +120,7 @@
       "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 4.52,
+        "points": 5.32,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -137,10 +137,10 @@
       "team": "LAR",
       "opponent": "ARI",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 20.16,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 19.15,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -174,7 +174,7 @@
       "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.45,
+        "points": 2.88,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -192,7 +192,7 @@
       "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.84,
+        "points": 11.58,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -228,7 +228,7 @@
       "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.62,
+        "points": 10.14,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -246,7 +246,7 @@
       "opponent": "NO",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.45,
+        "points": 15.82,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -389,10 +389,10 @@
       "team": "KC",
       "opponent": "LV",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 6.4,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 7.73,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -426,7 +426,7 @@
       "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.24,
+        "points": 13.22,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -498,7 +498,7 @@
       "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.82,
+        "points": 0.96,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -534,7 +534,7 @@
       "opponent": "ARI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.3,
+        "points": -0.35,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -569,10 +569,10 @@
       "team": "TB",
       "opponent": "CAR",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 10.13,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 11.22,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Questionable",
@@ -624,7 +624,7 @@
       "opponent": "DAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.1,
+        "points": 16.59,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -840,7 +840,7 @@
       "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.3,
+        "points": 13.29,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1037,10 +1037,10 @@
       "team": "BAL",
       "opponent": "PIT",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 23.13,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 15.46,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -1092,7 +1092,7 @@
       "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.68,
+        "points": 17.27,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1145,10 +1145,10 @@
       "team": "DAL",
       "opponent": "NYG",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 19.82,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 18.92,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -1163,10 +1163,10 @@
       "team": "NE",
       "opponent": "MIA",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 11.17,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 8.56,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -1181,10 +1181,10 @@
       "team": "DET",
       "opponent": "CHI",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 17.43,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 17.33,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -1218,7 +1218,7 @@
       "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.86,
+        "points": 19.84,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1271,10 +1271,10 @@
       "team": "SF",
       "opponent": "SEA",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 24.77,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 18.68,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Questionable",
@@ -1307,10 +1307,10 @@
       "team": "SF",
       "opponent": "SEA",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 17.15,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 11.82,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Questionable",
@@ -1398,7 +1398,7 @@
       "opponent": "TEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.14,
+        "points": -0.16,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1416,7 +1416,7 @@
       "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.31,
+        "points": 2.72,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1668,7 +1668,7 @@
       "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.07,
+        "points": 2.43,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1830,7 +1830,7 @@
       "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.64,
+        "points": 0.75,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -1848,7 +1848,7 @@
       "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.05,
+        "points": 17.7,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2046,7 +2046,7 @@
       "opponent": "MIA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.33,
+        "points": 0.39,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2604,7 +2604,7 @@
       "opponent": "CHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.13,
+        "points": -0.15,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2694,7 +2694,7 @@
       "opponent": "BAL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 3.23,
+        "points": 3.8,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2766,7 +2766,7 @@
       "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.76,
+        "points": 11.48,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2910,7 +2910,7 @@
       "opponent": "CAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.52,
+        "points": 15.9,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2928,7 +2928,7 @@
       "opponent": "NYJ",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 17.46,
+        "points": 20.55,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -2982,7 +2982,7 @@
       "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.46,
+        "points": 14.66,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3234,7 +3234,7 @@
       "opponent": "CLE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.01,
+        "points": 12.95,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3360,7 +3360,7 @@
       "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.24,
+        "points": 16.76,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3486,7 +3486,7 @@
       "opponent": "LAC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.09,
+        "points": -0.1,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -3540,7 +3540,7 @@
       "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.36,
+        "points": 0.42,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4170,7 +4170,7 @@
       "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.1,
+        "points": 16.59,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4404,7 +4404,7 @@
       "opponent": "PIT",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.82,
+        "points": 8.03,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4457,10 +4457,10 @@
       "team": "NO",
       "opponent": "ATL",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 8.2,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 10.36,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -4692,7 +4692,7 @@
       "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 9.38,
+        "points": 11.03,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -4727,10 +4727,10 @@
       "team": "IND",
       "opponent": "HOU",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 12.58,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 14.78,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -4872,7 +4872,7 @@
       "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.24,
+        "points": 15.58,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5033,10 +5033,10 @@
       "team": "MIN",
       "opponent": "GB",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 5.0,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 11.62,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -5124,7 +5124,7 @@
       "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.75,
+        "points": 16.18,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5141,10 +5141,10 @@
       "team": "DAL",
       "opponent": "NYG",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 13.93,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 14.8,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -5214,7 +5214,7 @@
       "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 15.69,
+        "points": 18.46,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -5411,10 +5411,10 @@
       "team": "CIN",
       "opponent": "CLE",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 16.79,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 17.56,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -6258,7 +6258,7 @@
       "opponent": "IND",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.55,
+        "points": 13.59,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6275,10 +6275,10 @@
       "team": "CIN",
       "opponent": "CLE",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 15.13,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 15.87,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Questionable",
@@ -6438,7 +6438,7 @@
       "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.9,
+        "points": 14.0,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6509,10 +6509,10 @@
       "team": "DET",
       "opponent": "CHI",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 16.12,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 14.41,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -6527,10 +6527,10 @@
       "team": "ATL",
       "opponent": "NO",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 14.68,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 9.23,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -6545,10 +6545,10 @@
       "team": "JAX",
       "opponent": "TEN",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 23.76,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 20.53,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -6564,7 +6564,7 @@
       "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.99,
+        "points": 10.58,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6581,10 +6581,10 @@
       "team": "JAX",
       "opponent": "TEN",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 16.53,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 14.51,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -6708,7 +6708,7 @@
       "opponent": "DEN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.47,
+        "points": 1.73,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -6726,7 +6726,7 @@
       "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.39,
+        "points": 0.46,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -7121,10 +7121,10 @@
       "team": "DET",
       "opponent": "CHI",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 13.38,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 11.85,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -7139,10 +7139,10 @@
       "team": "DAL",
       "opponent": "NYG",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 14.7,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 13.39,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -7157,10 +7157,10 @@
       "team": "BUF",
       "opponent": "NYJ",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 20.65,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 17.74,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -7536,7 +7536,7 @@
       "opponent": "LV",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 5.47,
+        "points": 6.44,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8201,10 +8201,10 @@
       "team": "ARI",
       "opponent": "LAR",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 16.1,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 13.5,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -8381,10 +8381,10 @@
       "team": "SF",
       "opponent": "SEA",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 21.36,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 17.58,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -8435,10 +8435,10 @@
       "team": "LAR",
       "opponent": "ARI",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 13.5,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 14.94,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -8580,7 +8580,7 @@
       "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.82,
+        "points": 2.14,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8724,7 +8724,7 @@
       "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 10.88,
+        "points": 12.79,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -8976,7 +8976,7 @@
       "opponent": "WAS",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.52,
+        "points": 0.61,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9030,7 +9030,7 @@
       "opponent": "DET",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.1,
+        "points": 1.29,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9353,10 +9353,10 @@
       "team": "ATL",
       "opponent": "NO",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 24.18,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 19.83,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -9371,10 +9371,10 @@
       "team": "SEA",
       "opponent": "SF",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 18.85,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 20.6,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -9642,7 +9642,7 @@
       "opponent": "MIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.27,
+        "points": 0.32,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -9713,10 +9713,10 @@
       "team": "CIN",
       "opponent": "CLE",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 20.47,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 14.93,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -10002,7 +10002,7 @@
       "opponent": "SEA",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.09,
+        "points": -0.1,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -10685,10 +10685,10 @@
       "team": "JAX",
       "opponent": "TEN",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 8.4,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 7.97,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -11081,10 +11081,10 @@
       "team": "LV",
       "opponent": "KC",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 3.88,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 8.31,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -11135,10 +11135,10 @@
       "team": "LAR",
       "opponent": "ARI",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 23.95,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 17.69,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Questionable",
@@ -11171,10 +11171,10 @@
       "team": "DET",
       "opponent": "CHI",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 21.58,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 18.33,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -11226,7 +11226,7 @@
       "opponent": "TB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.37,
+        "points": 19.26,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -11280,7 +11280,7 @@
       "opponent": "IND",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 11.43,
+        "points": 13.44,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -11298,7 +11298,7 @@
       "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 0.71,
+        "points": 0.83,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -11874,7 +11874,7 @@
       "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.75,
+        "points": 10.3,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -12054,7 +12054,7 @@
       "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.01,
+        "points": 2.37,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -12648,7 +12648,7 @@
       "opponent": "LAR",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.03,
+        "points": -0.04,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -13025,10 +13025,10 @@
       "team": "DEN",
       "opponent": "LAC",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 17.53,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 16.84,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -13259,10 +13259,10 @@
       "team": "SEA",
       "opponent": "SF",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 6.95,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 7.95,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -13511,10 +13511,10 @@
       "team": "NE",
       "opponent": "MIA",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 19.48,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 20.69,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -13746,7 +13746,7 @@
       "opponent": "PHI",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.19,
+        "points": 16.69,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -13818,7 +13818,7 @@
       "opponent": "NO",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.06,
+        "points": 15.36,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -13835,10 +13835,10 @@
       "team": "CHI",
       "opponent": "DET",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 16.44,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 18.5,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -13908,7 +13908,7 @@
       "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 12.67,
+        "points": 14.91,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -14519,10 +14519,10 @@
       "team": "CAR",
       "opponent": "TB",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 12.35,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 11.21,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -14537,10 +14537,10 @@
       "team": "CHI",
       "opponent": "DET",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 9.85,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 8.41,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -14970,7 +14970,7 @@
       "opponent": "HOU",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 2.63,
+        "points": 3.1,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -15114,7 +15114,7 @@
       "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 8.02,
+        "points": 9.43,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -16194,7 +16194,7 @@
       "opponent": "BUF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.09,
+        "points": 8.34,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -16662,7 +16662,7 @@
       "opponent": "GB",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 1.69,
+        "points": 1.99,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -17778,7 +17778,7 @@
       "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 14.08,
+        "points": 16.56,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -17832,7 +17832,7 @@
       "opponent": "SF",
       "projection": {
         "tier": "in_house_estimate",
-        "points": -0.45,
+        "points": -0.53,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -17850,7 +17850,7 @@
       "opponent": "JAX",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 13.23,
+        "points": 15.57,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -17867,10 +17867,10 @@
       "team": "NYG",
       "opponent": "DAL",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 16.76,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 19.65,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -17958,7 +17958,7 @@
       "opponent": "CIN",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 6.29,
+        "points": 7.4,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -18101,10 +18101,10 @@
       "team": "NE",
       "opponent": "MIA",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 15.25,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 13.43,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Questionable",
@@ -18192,7 +18192,7 @@
       "opponent": "ATL",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.39,
+        "points": 19.28,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
@@ -18979,61 +18979,61 @@
   ],
   "waiverTargets": [
     {
-      "playerId": "00-0040743",
-      "name": "Tyler Shough",
-      "position": "QB",
-      "team": "NO",
-      "opponent": "ATL",
+      "playerId": "00-0039066",
+      "name": "Michael Mayer",
+      "position": "TE",
+      "team": "LV",
+      "opponent": "KC",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 16.39,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 8.31,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
         "summary": null
       },
-      "rationale": "Trending up over the last 6 games, averaging 16.4 pts with the most recent game the best of the stretch."
+      "rationale": "Steady 8.3-point average over the last 0 games -- a solid depth add off the wire."
     },
     {
-      "playerId": "00-0039150",
-      "name": "Bryce Young",
-      "position": "QB",
-      "team": "CAR",
-      "opponent": "TB",
+      "playerId": "00-0033040",
+      "name": "Tyreek Hill",
+      "position": "WR",
+      "team": "MIA",
+      "opponent": "NE",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 16.37,
+        "points": 11.5,
         "tierLabel": "Our estimate",
         "source": "In-house model"
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Knee - ACL"
       },
-      "rationale": "Averaging 16.4 pts over the last 6 games, though production cooled the last time out."
+      "rationale": "Only 4 game(s) of data so far, averaging 11.5 pts -- an early sample worth monitoring rather than a proven trend. Note: Knee - ACL"
     },
     {
-      "playerId": "00-0029822",
-      "name": "Brandon McManus",
-      "position": "K",
-      "team": "GB",
-      "opponent": "MIN",
+      "playerId": "00-0037834",
+      "name": "Brock Purdy",
+      "position": "QB",
+      "team": "SF",
+      "opponent": "SEA",
       "projection": {
-        "tier": "in_house_estimate",
-        "points": 9.33,
-        "tierLabel": "Our estimate",
-        "source": "In-house model"
+        "tier": "consensus",
+        "points": 17.58,
+        "tierLabel": "Consensus projection",
+        "source": "FantasyPros"
       },
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
         "summary": null
       },
-      "rationale": "Averaging 9.3 pts over the last 6 games, though production cooled the last time out."
+      "rationale": "Steady 17.6-point average over the last 0 games -- a solid depth add off the wire."
     }
   ]
 }
