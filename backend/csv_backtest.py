@@ -564,13 +564,16 @@ def main(csv_path: str, rotowire: bool = False, league: str = "league-1") -> Non
     print_header("FINAL RECOMMENDED POSITION_CALIBRATION_SCALE for projections.py")
     print("  Methodology:")
     print("  - QB uses nflreadpy actuals (our league's 6-pt TDs); CSV uses 4-pt TDs = wrong ref for QB.")
-    print("  - RB/WR/TE: optimal scale WORSENS MAE despite reducing bias — boom-game outliers")
-    print("    inflate mean_actual vs median; scaling up hurts average-game accuracy. Keep 1.0.")
+    print("  - ALL positions: only update scale if it actually improves MAE (not just reduces bias).")
+    print("    Right-skewed boom games inflate mean_actual above median; scaling to the mean over-")
+    print("    projects ordinary weeks more than it helps boom weeks → MAE gets worse.")
     print("  - Week 1 excluded from QB calibration: all week-1 QBs are no_data (0 pts projected),")
     print("    artificially inflating the positive bias. Real weekly reports start wk2+.")
     print()
+    # QB: use the optimal scale only if the significance test showed MAE improvement
+    qb_scale_improves_mae = qb_nfl_w2plus and improvement_nfl > 0
     final_scales: dict[str, float] = {
-        "QB": round(optimal_qb_w2, 2) if qb_nfl_w2plus else POSITION_CALIBRATION_SCALE.get("QB", 1.0),
+        "QB": round(optimal_qb_w2, 2) if qb_scale_improves_mae else 1.0,
         "RB": 1.0,
         "WR": 1.0,
         "TE": 1.0,
