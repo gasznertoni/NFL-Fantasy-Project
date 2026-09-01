@@ -24,6 +24,37 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   existing half-PPR placeholder assumption so the two placeholders don't
   disagree with each other. Everything else is a reasonable ESPN-default
   guess. Swap this file once the commissioner responds.
+- **`availability.py`** — P(this player takes the field this week), from the
+  injury report, practice participation and a shrunk play-rate history. The
+  highest-value module in the backend: +1.73 lineup pts/week on its own, against
+  ~0.15 for every estimator knob combined, because it prices the one fact
+  history cannot (a player ruled Out has P(play) = 0.0006). `projected_points`
+  is an expected value because of this module.
+- **`calibration.py`** — variance components (the per-position `k` empirical-Bayes
+  shrinkage needs), the rank-preserving affine correction, and the
+  empirical-quantile interval model. `calibration_fit.py` is its network adapter.
+- **`blend.py`** — per-position ridge refining the rolling average with rolling
+  volume and game context. Volume is a far stabler signal than points (target
+  share ICC 0.61 for WR vs 0.43 for fantasy points).
+- **`context.py`** — implied team totals from the schedule's Vegas lines. This,
+  not `matchup.py`'s defence-vs-position rate, is what carries the matchup
+  signal; the closing line already prices the opponent, and prices this
+  season's version of them.
+- **`ridge.py`** — the shared ridge/logistic/standardisation kit the four
+  modules above and `week1.py` all use. No scikit-learn dependency.
+- **`week1.py`** — the week-1 cold-start model (added 2026-09-01). A
+  per-position ridge over prior-season production and volume, draft
+  capital, week-1 depth-chart rank, durability, team change, and the
+  opening Vegas line. Exists because `projections.py` deliberately never
+  reaches into the prior season, so in week 1 every player lands in its
+  `no_data` tier and gets a flat positional baseline that ranks nobody
+  (pairwise start/sit accuracy exactly 0.500). Over five held-out week 1s
+  this scores MAE 4.82 vs the baseline's 6.11 and pairwise accuracy 0.711.
+  Wired into `generate_report.py` as a third tier, active only at
+  `--week 1`, disabled with `--skip-week1-model`. Same architecture split
+  as `projections.py`: pure, unit-tested model math, with every nflreadpy
+  call isolated in adapters at the bottom of the file. Detail:
+  `docs/research/week1-cold-start-model.md`.
 - **`projections.py`** — the in-house rolling-average model per
   `docs/design/in-house-projection-model-spec.md` §3.2–3.3 and §5's output
   contract (`games_used`, `confidence`, `opponent_multiplier`). Also
@@ -317,6 +348,32 @@ land — only `scoring_config.placeholder.json` gets swapped for a real one.
   with synthetic data (no network, no API keys needed to run these).
 
 ## What's deliberately NOT done here
+
+- ~~The 2026-09-01 audit's recommendations are NOT implemented~~ — **all seven
+  landed the same day (v17); see `docs/research/scoring-engine-and-model-audit.md`
+  section 9 for what each was worth.** What remains genuinely open there:
+  DST and K have no fitted prediction interval (the residual model covers
+  QB/RB/WR/TE only, so those two render without a range); the availability model
+  is applied slightly out of domain for players who have never recorded a game
+  (it was trained on players inside an active span); and `def_return_yd` at 0.1
+  pts/yard makes return yardage 68.8% of every DST score, which is a
+  league-settings question flagged in that doc's section 9.5, not a code bug.
+- **(historical, kept for the reasoning) The audit's recommendations 1-6** — only
+  the three scoring-engine defects it found were fixed (see
+  `docs/research/scoring-engine-and-model-audit.md`). Still open, in the
+  audit's own priority order: availability is not modelled at all (the
+  single largest measured lever, ~0.69 lineup pts/week, vs ~0.15 for all
+  estimator tuning combined — projections are conditional-on-playing
+  numbers presented as expected values, and 18-26% of weeks inside a
+  player's active span are missed); tuning still optimises MAE rather than
+  RMSE + a ranking metric; shrinkage still switches off at
+  `games_used >= window`, leaving calibration slopes at 0.735-0.878 with
+  the top projection decile overshooting by +1.5 to +4.4 points; the
+  window is still 6 with no decay where 8-12 with decay ~0.9 dominates on
+  all four metrics; volume features and the Vegas implied team total are
+  not used in-season; and projections are still point estimates with no
+  interval, despite error sd growing roughly linearly with the projection
+  (Breusch-Pagan p from 4e-06 to 2e-110).
 
 - **FantasyPros DST/K coverage** — DST and K are now in every generated
   report (`dst.py`/`kicker.py`, added 2026-08-12), but only ever in the
