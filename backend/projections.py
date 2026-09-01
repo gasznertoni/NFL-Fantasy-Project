@@ -34,7 +34,7 @@ from scoring import compute_league_points
 #   QB calibration used nflreadpy actuals (our formula), not the CSV.
 #   See backend/csv_backtest.py and docs/research/projection-model-backtest-findings.md.
 POSITION_CALIBRATION_SCALE: dict[str, float] = {
-    "QB": 1.0,
+    "QB": 1.03,
     "RB": 1.0,
     "WR": 1.0,
     "TE": 1.0,
