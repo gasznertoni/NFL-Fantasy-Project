@@ -57,7 +57,13 @@ from typing import Any, Optional
 import baseline
 import usage
 from matchup import compute_opponent_multiplier
-from projections import DEFAULT_DECAY, DEFAULT_SHRINKAGE_STRENGTH, DEFAULT_WINDOW, project_player
+from projections import (
+    DEFAULT_DECAY,
+    DEFAULT_SHRINKAGE_MODE,
+    DEFAULT_SHRINKAGE_STRENGTH,
+    DEFAULT_WINDOW,
+    project_player,
+)
 from scoring import compute_league_points, nflreadpy_row_to_stat_line
 
 
@@ -72,6 +78,9 @@ def evaluate_player_week(
     positional_baseline: Optional[float] = None,
     shrinkage_strength: float = DEFAULT_SHRINKAGE_STRENGTH,
     usage_multiplier: float = 1.0,
+    shrinkage_mode: str = DEFAULT_SHRINKAGE_MODE,
+    shrinkage_k: Optional[float] = None,
+    position: Optional[str] = None,
 ) -> Optional[dict[str, Any]]:
     """Grade one player's projection against one already-known week.
 
@@ -87,7 +96,8 @@ def evaluate_player_week(
     projection = project_player(
         game_log, scoring_config, season, week, window=window, opponent_multiplier=opponent_multiplier, decay=decay,
         positional_baseline=positional_baseline, shrinkage_strength=shrinkage_strength,
-        usage_multiplier=usage_multiplier,
+        usage_multiplier=usage_multiplier, shrinkage_mode=shrinkage_mode,
+        shrinkage_k=shrinkage_k,
     )
     actual_points = float(compute_league_points(actual_entry, scoring_config))
     projected_points = projection["projected_points"]
@@ -102,8 +112,17 @@ def evaluate_player_week(
         # tell "always a bit low" apart from "randomly off both ways."
         "error": round(actual_points - projected_points, 2),
         "abs_error": round(abs(actual_points - projected_points), 2),
+        # Squared error is carried alongside the absolute one because RMSE, not
+        # MAE, is the metric that matches what a lineup maximises -- see
+        # aggregate_metrics' docstring.
+        "sq_error": round((actual_points - projected_points) ** 2, 4),
         "confidence": projection["confidence"],
         "games_used": projection["games_used"],
+        # Carried so aggregate_metrics can compute the ranking metrics, which
+        # are only defined within a position and week.
+        "position": position or next(
+            (g.get("position") for g in game_log if g.get("position")), None
+        ),
     }
 
 
@@ -268,18 +287,93 @@ def paired_significance_test(a: list[float], b: list[float], alpha: float = 0.05
     }
 
 
+def pairwise_accuracy(results: list[dict[str, Any]]) -> Optional[float]:
+    """Share of same-position, same-week player pairs the model orders
+    correctly -- 0.50 is a coin flip.
+
+    This is the metric the product's core action actually maps onto: a start/sit
+    call is a comparison between two players at one position in one week, and it
+    is invariant to any monotone rescaling of the projections. That makes it the
+    natural partner to RMSE, which measures magnitude and is not.
+
+    Reporting it is not optional politeness. A variant can improve MAE while
+    making the ranking worse -- window=6 does exactly that against window=8-12
+    with decay, and four backtest rounds missed it because nothing measured the
+    ordering (docs/research/scoring-engine-and-model-audit.md section 2).
+    """
+    buckets: dict[tuple[Any, Any, Any], list[dict[str, Any]]] = {}
+    for row in results:
+        buckets.setdefault((row.get("season"), row.get("week"), row.get("position")), []).append(row)
+
+    hits = total = 0
+    for rows in buckets.values():
+        for i in range(len(rows)):
+            for j in range(i + 1, len(rows)):
+                a, b = rows[i], rows[j]
+                dp = a["projected"] - b["projected"]
+                da = a["actual"] - b["actual"]
+                # Ties carry no information in either direction and are excluded
+                # rather than counted as half a hit, which would drag every
+                # variant toward 0.5 by an amount that depends on how coarse its
+                # projections happen to be.
+                if dp == 0 or da == 0:
+                    continue
+                total += 1
+                if (dp > 0) == (da > 0):
+                    hits += 1
+    return None if total == 0 else hits / total
+
+
+def _spearman(xs: list[float], ys: list[float]) -> Optional[float]:
+    """Rank correlation. Uses average ranks for ties, so it agrees with the
+    standard definition rather than depending on sort order."""
+    if len(xs) < 3:
+        return None
+    def ranks(values: list[float]) -> list[float]:
+        order = sorted(range(len(values)), key=lambda i: values[i])
+        out = [0.0] * len(values)
+        i = 0
+        while i < len(order):
+            j = i
+            while j + 1 < len(order) and values[order[j + 1]] == values[order[i]]:
+                j += 1
+            average = (i + j) / 2 + 1
+            for k in range(i, j + 1):
+                out[order[k]] = average
+            i = j + 1
+        return out
+    return _pearson_correlation(ranks(xs), ranks(ys))
+
+
 def aggregate_metrics(results: list[dict[str, Any]]) -> dict[str, Any]:
-    """Summarize a pooled list of evaluate_player_week rows (across
-    however many players/weeks the caller passed in) into headline
-    numbers -- MAE and bias (config-dependent, only meaningful for
-    comparing variants against each other, see module docstring),
-    correlation (a more config-robust secondary signal), and the same
-    breakdown split by confidence tier per CLAUDE.md's eval-layer intent
-    (Next Steps item 8: track accuracy separately by confidence)."""
+    """Summarize a pooled list of evaluate_player_week rows into headline
+    numbers.
+
+    **RMSE is the primary metric, not MAE** (changed 2026-09-01). Fantasy points
+    are strongly right-skewed -- skew 1.4-1.6 for RB/WR/TE, 14-22% of games at
+    or below zero -- and MAE is minimised by predicting the MEDIAN while a
+    lineup maximises an expected TOTAL, a mean/L2 objective. The two disagree by
+    about a point per player-week: pooled mean bias is ~0 while median bias is
+    +0.75 to +1.13. Every tuning round before this one optimised MAE, i.e. the
+    wrong loss for what the tool is for.
+
+    `mae` is still reported, for continuity with
+    docs/research/projection-model-backtest-findings.md's four earlier rounds
+    and because a large MAE/RMSE divergence is itself diagnostic (it means the
+    tails are driving the result).
+
+    `pairwise_accuracy` and `spearman` are reported alongside so a variant that
+    improves the number while degrading the ORDER cannot pass unnoticed -- the
+    specific failure that made window=6 look like an improvement.
+    """
     if not results:
-        return {"n": 0, "mae": None, "bias": None, "correlation": None, "by_confidence": {}}
+        return {
+            "n": 0, "rmse": None, "mae": None, "bias": None, "correlation": None,
+            "spearman": None, "pairwise_accuracy": None, "by_confidence": {},
+        }
 
     abs_errors = [r["abs_error"] for r in results]
+    sq_errors = [r.get("sq_error", (r["actual"] - r["projected"]) ** 2) for r in results]
     errors = [r["error"] for r in results]
     projected = [r["projected"] for r in results]
     actual = [r["actual"] for r in results]
@@ -287,17 +381,33 @@ def aggregate_metrics(results: list[dict[str, Any]]) -> dict[str, Any]:
     by_confidence = {}
     for tier in sorted({r["confidence"] for r in results}):
         tier_rows = [r for r in results if r["confidence"] == tier]
+        tier_sq = [t.get("sq_error", (t["actual"] - t["projected"]) ** 2) for t in tier_rows]
         by_confidence[tier] = {
             "n": len(tier_rows),
+            "rmse": round(math.sqrt(_mean(tier_sq)), 3),
             "mae": round(_mean([r["abs_error"] for r in tier_rows]), 3),
             "bias": round(_mean([r["error"] for r in tier_rows]), 3),
         }
 
+    # Median bias next to mean bias: when they disagree, the mean is being
+    # carried by boom games and an MAE-tuned variant is chasing the median.
+    ordered_errors = sorted(errors)
+    mid = len(ordered_errors) // 2
+    median_bias = (
+        ordered_errors[mid]
+        if len(ordered_errors) % 2
+        else (ordered_errors[mid - 1] + ordered_errors[mid]) / 2
+    )
+
     return {
         "n": len(results),
+        "rmse": round(math.sqrt(_mean(sq_errors)), 3),
         "mae": round(_mean(abs_errors), 3),
         "bias": round(_mean(errors), 3),
+        "median_bias": round(median_bias, 3),
         "correlation": _pearson_correlation(projected, actual),
+        "spearman": _spearman(projected, actual),
+        "pairwise_accuracy": pairwise_accuracy(results),
         "by_confidence": by_confidence,
     }
 
@@ -448,9 +558,22 @@ def print_report(label: str, metrics: dict[str, Any]) -> None:
     if metrics["n"] == 0:
         print("  no graded weeks")
         return
-    print(f"  n={metrics['n']}  MAE={metrics['mae']}  bias={metrics['bias']:+}  corr={metrics['correlation']}")
+    # RMSE first because it is the primary metric (see aggregate_metrics);
+    # the ranking pair is on its own line so it can't be skimmed past.
+    print(
+        f"  n={metrics['n']}  RMSE={metrics['rmse']}  MAE={metrics['mae']}  "
+        f"bias={metrics['bias']:+}  median_bias={metrics.get('median_bias'):+}"
+    )
+    pair = metrics.get("pairwise_accuracy")
+    print(
+        f"  ranking: pairwise start/sit={'n/a' if pair is None else format(pair, '.4f')}"
+        f"  spearman={metrics.get('spearman')}  pearson={metrics['correlation']}"
+    )
     for tier, tier_metrics in metrics["by_confidence"].items():
-        print(f"    [{tier}] n={tier_metrics['n']}  MAE={tier_metrics['mae']}  bias={tier_metrics['bias']:+}")
+        print(
+            f"    [{tier}] n={tier_metrics['n']}  RMSE={tier_metrics.get('rmse')}  "
+            f"MAE={tier_metrics['mae']}  bias={tier_metrics['bias']:+}"
+        )
 
 
 # ---------------------------------------------------------------------------

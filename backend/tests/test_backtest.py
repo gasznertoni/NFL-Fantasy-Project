@@ -11,6 +11,7 @@ import unittest
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+from projections import DEFAULT_DECAY
 from backtest import (  # noqa: E402
     _pearson_correlation,
     aggregate_metrics,
@@ -80,13 +81,17 @@ class TestDecayThreading(unittest.TestCase):
         self.assertNotEqual(results["decay=1.0"]["mae"], results["decay=0.5"]["mae"])
 
     def test_paired_variant_metric_decay_default_matches_omitted(self):
-        """A variant dict that omits "decay" entirely must behave exactly
-        like decay=1.0 (compare_variants/paired_variant_metric default to
-        DEFAULT_DECAY, same contract as project_player itself)."""
+        """A variant dict that omits "decay" must behave exactly like one that
+        states DEFAULT_DECAY explicitly (compare_variants/paired_variant_metric
+        default to it, same contract as project_player itself).
+
+        Pinned to DEFAULT_DECAY rather than the literal 1.0 this once used: the
+        default became 0.9 on 2026-09-01, and the contract being tested is
+        "omitted == the default", not "omitted == unweighted"."""
         game_logs = {"p1": [game(2025, w, 10 * w) for w in range(1, 6)]}
         values_omitted, values_explicit = paired_variant_metric(
             game_logs, CONFIG, season=2025, weeks=[5],
-            variant_a={"window": 4}, variant_b={"window": 4, "decay": 1.0},
+            variant_a={"window": 4}, variant_b={"window": 4, "decay": DEFAULT_DECAY},
         )
         self.assertEqual(values_omitted, values_explicit)
 
@@ -100,13 +105,15 @@ class TestShrinkageThreading(unittest.TestCase):
 
     def test_evaluate_player_week_passes_baseline_through(self):
         result = evaluate_player_week(
-            [], CONFIG, season=2025, week=1, window=4, positional_baseline=8.0, shrinkage_strength=1.0,
+            [], CONFIG, season=2025, week=1, window=4, positional_baseline=8.0,
+            shrinkage_strength=1.0, shrinkage_mode="window",
         )
         self.assertIsNone(result)  # no actual week-1 result in an empty log -- nothing to grade
 
         game_log = [game(2025, 1, 0), game(2025, 2, 100), game(2025, 3, 999)]  # 0 pts, 10 pts, week-3 actual
         result = evaluate_player_week(
-            game_log, CONFIG, season=2025, week=3, window=4, positional_baseline=8.0, shrinkage_strength=1.0,
+            game_log, CONFIG, season=2025, week=3, window=4, positional_baseline=8.0,
+            shrinkage_strength=1.0, shrinkage_mode="window", decay=1.0,
         )
         # games_used=2 < window=4 -> weight = 1 - 1.0*(1 - 2/4) = 0.5
         # shrunk_avg = 0.5*5.0 + 0.5*8.0 = 6.5
