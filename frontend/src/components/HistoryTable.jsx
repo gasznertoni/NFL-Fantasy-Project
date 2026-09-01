@@ -38,11 +38,15 @@ function sortValue(row, key) {
  * @param {object} tierLabels - map of tier enum -> tierLabel, sourced from
  *   the fixture's own summary block so no label is hardcoded here.
  */
+const POSITIONS = ['QB', 'RB', 'WR', 'TE', 'DST', 'K']
+
 export default function HistoryTable({ history, tierLabels }) {
   const [sortKey, setSortKey] = useState('week')
   const [sortDir, setSortDir] = useState('desc')
   const [tierFilter, setTierFilter] = useState('all')
   const [weekFilter, setWeekFilter] = useState('all')
+  const [posFilter, setPosFilter] = useState('all')
+  const [search, setSearch] = useState('')
 
   const tierOptions = Object.keys(tierLabels)
   const weekOptions = useMemo(
@@ -51,12 +55,19 @@ export default function HistoryTable({ history, tierLabels }) {
   )
 
   const rows = useMemo(() => {
+    const q = search.trim().toLowerCase()
     let filtered = history
+    if (q) {
+      filtered = filtered.filter((row) => row.player.name.toLowerCase().includes(q))
+    }
     if (tierFilter !== 'all') {
       filtered = filtered.filter((row) => row.tier === tierFilter)
     }
     if (weekFilter !== 'all') {
       filtered = filtered.filter((row) => row.week === Number(weekFilter))
+    }
+    if (posFilter !== 'all') {
+      filtered = filtered.filter((row) => row.player.position === posFilter)
     }
     const sorted = [...filtered].sort((a, b) => {
       const va = sortValue(a, sortKey)
@@ -69,7 +80,7 @@ export default function HistoryTable({ history, tierLabels }) {
       return sortDir === 'asc' ? cmp : -cmp
     })
     return sorted
-  }, [history, sortKey, sortDir, tierFilter, weekFilter])
+  }, [history, sortKey, sortDir, tierFilter, weekFilter, posFilter, search])
 
   function toggleSort(key) {
     if (key === sortKey) {
@@ -83,25 +94,38 @@ export default function HistoryTable({ history, tierLabels }) {
   return (
     <div className="history-table-wrap">
       <div className="history-table-controls">
+        <input
+          className="history-table-search"
+          type="search"
+          placeholder="Search player…"
+          value={search}
+          onChange={(e) => setSearch(e.target.value)}
+          aria-label="Search by player name"
+        />
         <label>
-          Filter by week
-          <select value={weekFilter} onChange={(e) => setWeekFilter(e.target.value)}>
-            <option value="all">All weeks</option>
-            {weekOptions.map((week) => (
-              <option key={week} value={week}>
-                Week {week}
-              </option>
+          Position
+          <select value={posFilter} onChange={(e) => setPosFilter(e.target.value)}>
+            <option value="all">All</option>
+            {POSITIONS.map((pos) => (
+              <option key={pos} value={pos}>{pos}</option>
             ))}
           </select>
         </label>
         <label>
-          Filter by tier
+          Week
+          <select value={weekFilter} onChange={(e) => setWeekFilter(e.target.value)}>
+            <option value="all">All</option>
+            {weekOptions.map((week) => (
+              <option key={week} value={week}>Week {week}</option>
+            ))}
+          </select>
+        </label>
+        <label>
+          Tier
           <select value={tierFilter} onChange={(e) => setTierFilter(e.target.value)}>
-            <option value="all">All tiers</option>
+            <option value="all">All</option>
             {tierOptions.map((tier) => (
-              <option key={tier} value={tier}>
-                {tierLabels[tier]}
-              </option>
+              <option key={tier} value={tier}>{tierLabels[tier]}</option>
             ))}
           </select>
         </label>

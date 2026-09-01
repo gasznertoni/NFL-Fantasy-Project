@@ -929,11 +929,32 @@ body {
 
 .history-table-controls {
   display: flex;
-  justify-content: flex-end;
-  gap: 20px;
-  padding: 12px 14px;
+  align-items: center;
+  gap: 16px;
+  padding: 10px 14px;
   border-bottom: 1px solid var(--color-divider);
   font-size: 13px;
+  flex-wrap: wrap;
+}
+
+.history-table-search {
+  flex: 1 1 160px;
+  min-width: 120px;
+  max-width: 240px;
+  font: inherit;
+  font-size: 13px;
+  padding: 5px 10px;
+  border-radius: var(--radius-sm);
+  border: 1px solid var(--color-divider);
+  background: var(--color-bg);
+  color: var(--color-text);
+  margin-right: auto;
+}
+
+.history-table-search:focus {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 1px;
+  border-color: transparent;
 }
 
 .history-table-controls label {

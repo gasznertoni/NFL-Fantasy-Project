@@ -54,6 +54,30 @@ PLAY_RATE_PRIOR_GAMES = 4.0
 
 DEFAULT_L2 = 1.0
 
+# Depth-chart rank is the strongest predictor of whether a player records a
+# game at all, and unlike play-rate history it exists before a season starts --
+# which is precisely when the model is otherwise blind. Measured over 2018-24
+# on players carrying NO injury designation:
+#
+#     position   depth 1   depth 2   depth 3+
+#     QB          0.972     0.490     0.639
+#     RB          0.941     0.880     0.730
+#     WR          0.965     0.790     0.722
+#     TE          0.928     0.788     0.643
+#
+# Without it every undesignated player at a position gets the same number --
+# 0.76 for a QB, whether he is the week-1 starter (really 0.97) or third on
+# the chart. That is a ~20-point error on exactly the players a lineup is
+# built around.
+#
+# Entered as position-BY-depth indicators rather than one linear "depth" term,
+# because the effect is not uniform across positions and is not even monotonic
+# within them: a backup QB (0.49) behaves nothing like a backup RB (0.88),
+# since a second-string running back still touches the ball and a second-string
+# quarterback usually does not appear at all. A single slope cannot express
+# that, and would average the two into a number wrong for both.
+DEPTH_RANKS = (1, 2, 3)
+
 
 # Applied when no model has been fitted and no history exists. Deliberately the
 # league rate rather than 1.0: assuming everyone plays is the current behaviour,
@@ -67,6 +91,17 @@ FALLBACK_PLAY_RATE = LEAGUE_PLAY_RATE
 # kicker can be inactive like any other player, and the play-rate history works
 # for them even though the fitted model was trained on QB/RB/WR/TE rows.
 ALWAYS_AVAILABLE_POSITIONS = ("DST",)
+
+
+def _bucket_rank(value: Any) -> Optional[int]:
+    """Depth rank as 1/2/3, or None when unknown. Delegates to depth_charts so
+    the capping rule is defined once."""
+    try:
+        from depth_charts import bucket_rank
+
+        return bucket_rank(num(value))
+    except Exception:
+        return None
 
 
 def _text(value: Any) -> str:
@@ -98,6 +133,10 @@ class AvailabilityModel:
         self.l2 = l2
         self.beta: Optional[list[float]] = None
         self.positions: tuple[str, ...] = ()
+        # Every position seen in training gets its own depth interactions --
+        # unlike `positions`, no reference level is dropped, because the
+        # "rank unknown" flag already carries the baseline.
+        self.depth_positions: tuple[str, ...] = ()
 
     # -- features ----------------------------------------------------------
     def _row(self, row: dict[str, Any]) -> list[float]:
@@ -122,6 +161,15 @@ class AvailabilityModel:
 
         position = row.get("position")
         features += [1.0 if position == p else 0.0 for p in self.positions]
+
+        # position-by-depth indicators, plus one "rank unknown" flag. The
+        # unknown flag matters: ~9% of player-weeks have no chart entry, and
+        # that is its own state, not an average depth.
+        depth = _bucket_rank(row.get("depth_rank"))
+        for pos in self.depth_positions:
+            for rank in DEPTH_RANKS:
+                features.append(1.0 if (depth == rank and position == pos) else 0.0)
+        features.append(1.0 if depth is None else 0.0)
         return features
 
     # -- fitting -----------------------------------------------------------
@@ -147,6 +195,7 @@ class AvailabilityModel:
         # the design stays full rank alongside the intercept.
         seen = sorted({r.get("position") for r in labelled if r.get("position")})
         self.positions = tuple(seen[:-1]) if len(seen) > 1 else ()
+        self.depth_positions = tuple(seen)
 
         design = [self._row(r) for r in labelled]
         targets = [float(num(r["played"])) for r in labelled]
@@ -442,6 +491,16 @@ def build_training_rows_nflreadpy(
     injuries = injuries.drop_duplicates(subset=["season", "week", "player_id"])
     grid = grid.merge(injuries, on=["season", "week", "player_id"], how="left")
 
+    # Depth-chart rank, as-of each week. Handled by depth_charts.py because
+    # nflverse changed the feed's shape in 2025 and both schemas are in range.
+    depth_ranks: dict = {}
+    try:
+        from depth_charts import load_depth_ranks
+
+        depth_ranks = load_depth_ranks([int(s) for s in seasons])
+    except Exception:
+        depth_ranks = {}
+
     grid = grid.sort_values(["player_id", "season", "week"])
     grouped = grid.groupby(["player_id", "season"])["played"]
     grid["prior_play_rate"] = grouped.transform(lambda s: s.shift(1).expanding().mean())
@@ -460,6 +519,9 @@ def build_training_rows_nflreadpy(
                 "practice_status": _text(record.get("practice_status")) or None,
                 "prior_play_rate": num(record.get("prior_play_rate")),
                 "prior_games_observed": num(record.get("prior_games_observed")) or 0.0,
+                "depth_rank": depth_ranks.get(
+                    (int(record["season"]), int(record["week"]), record["player_id"])
+                ),
             }
         )
     return rows
