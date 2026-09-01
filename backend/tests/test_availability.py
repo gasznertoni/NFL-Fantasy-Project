@@ -10,8 +10,11 @@ import unittest
 from availability import (
     ALWAYS_AVAILABLE_POSITIONS,
     LEAGUE_PLAY_RATE,
+    REPORT_STATUSES,
     AvailabilityModel,
+    _SLEEPER_TO_REPORT_STATUS,
     expected_points,
+    load_injury_report_sleeper,
     play_rate_history,
 )
 
@@ -153,6 +156,64 @@ class TestFittedModel(unittest.TestCase):
         # would price a risk that does not exist.
         self.assertIn("DST", ALWAYS_AVAILABLE_POSITIONS)
         self.assertNotIn("K", ALWAYS_AVAILABLE_POSITIONS)
+
+
+class TestSleeperInjuryReport(unittest.TestCase):
+    """Sleeper is the only LIVE injury source for a season nflreadpy has not
+    published yet, which is every pre-season and week-1 report."""
+
+    def setUp(self):
+        import news
+        self._real = news.fetch_sleeper_injury_status
+        news.fetch_sleeper_injury_status = lambda: {
+            "12345": {"designation": "Out", "riskLevel": "high", "body_part": "Knee"},
+            "jane doe": {"designation": "Questionable", "riskLevel": "low", "body_part": None},
+            "ir player": {"designation": "IR", "riskLevel": "high", "body_part": "Achilles"},
+            "unmapped player": {"designation": "Healthy", "riskLevel": "none", "body_part": None},
+        }
+
+    def tearDown(self):
+        import news
+        news.fetch_sleeper_injury_status = self._real
+
+    def test_matches_on_espn_id_first(self):
+        out = load_injury_report_sleeper([{"playerId": "p1", "name": "Someone Else", "espnId": 12345}])
+        self.assertEqual(out["p1"]["report_status"], "Out")
+
+    def test_falls_back_to_lowercased_name(self):
+        out = load_injury_report_sleeper([{"playerId": "p2", "name": "Jane Doe"}])
+        self.assertEqual(out["p2"]["report_status"], "Questionable")
+
+    def test_ir_collapses_to_out(self):
+        # Both mean unavailable this week, and "Out" is the level the model has
+        # training data for. A separate IR level would extrapolate a
+        # coefficient from nothing, for an answer that is already ~0.
+        out = load_injury_report_sleeper([{"playerId": "p3", "name": "IR Player"}])
+        self.assertEqual(out["p3"]["report_status"], "Out")
+
+    def test_practice_status_is_absent_not_invented(self):
+        # Sleeper publishes a designation only. Inventing a practice status
+        # would fabricate the feature that splits Questionable 0.51 -> 0.79.
+        out = load_injury_report_sleeper([{"playerId": "p2", "name": "Jane Doe"}])
+        self.assertIsNone(out["p2"]["practice_status"])
+
+    def test_healthy_and_unknown_players_are_omitted(self):
+        out = load_injury_report_sleeper([
+            {"playerId": "p4", "name": "Unmapped Player"},   # designation not in the map
+            {"playerId": "p5", "name": "Nobody At All"},     # absent from Sleeper
+        ])
+        self.assertEqual(out, {})
+
+    def test_every_mapped_status_is_one_the_model_knows(self):
+        for status in _SLEEPER_TO_REPORT_STATUS.values():
+            self.assertIn(status, REPORT_STATUSES)
+
+    def test_a_failing_feed_degrades_to_empty(self):
+        import news
+        def boom():
+            raise RuntimeError("network down")
+        news.fetch_sleeper_injury_status = boom
+        self.assertEqual(load_injury_report_sleeper([{"playerId": "p", "name": "x"}]), {})
 
 
 if __name__ == "__main__":

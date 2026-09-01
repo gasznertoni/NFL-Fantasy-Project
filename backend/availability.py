@@ -249,6 +249,86 @@ def load_injury_report_nflreadpy(season: int, week: int) -> dict[str, dict[str, 
     return out
 
 
+# Sleeper's injury vocabulary -> this model's REPORT_STATUSES. Sleeper is the
+# only LIVE injury source for a season nflreadpy has not published yet (its
+# load_injuries() caps at the most recent completed season), which makes it the
+# only option for a week-1 report before the season starts.
+#
+# IR and PUP collapse to "Out": both mean the player is unavailable this week,
+# and "Out" is the status the model has actually seen and calibrated on
+# (P(play) = 0.0006). Mapping them to their own level would mean extrapolating a
+# coefficient from no training data for no gain -- the answer is already ~0.
+_SLEEPER_TO_REPORT_STATUS = {
+    "Out": "Out",
+    "IR": "Out",
+    "Doubtful": "Doubtful",
+    "Questionable": "Questionable",
+}
+
+
+def load_injury_report_sleeper(
+    players: list[dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    """{player_id: {"report_status", "practice_status"}} from Sleeper's live feed.
+
+    Args:
+        players: pool entries with "playerId", "name" and optionally "espnId" --
+            Sleeper keys by ESPN id and by lowercase full name, so the pool has
+            to supply the join key; this module has no player-name index of its
+            own.
+
+    Note what this source does NOT carry: practice participation. Sleeper
+    publishes a designation only, so every returned row leaves practice_status
+    None and the model reads it as the no-practice-data state. That costs real
+    signal -- practice splits Questionable from 0.51 (DNP) to 0.79 (full) -- so
+    prefer the nflreadpy report whenever the season is published, and treat this
+    as the pre-season/current-week fallback it is.
+
+    Degrades to {} on any failure, which leaves availability running on
+    play-rate history alone rather than failing the report.
+    """
+    try:
+        from news import fetch_sleeper_injury_status
+
+        sleeper = fetch_sleeper_injury_status()
+    except Exception:
+        return {}
+    if not sleeper:
+        return {}
+
+    out: dict[str, dict[str, Any]] = {}
+    for player in players:
+        espn_id = player.get("espnId")
+        entry = sleeper.get(str(espn_id) if espn_id else "") or sleeper.get(
+            _text(player.get("name")).lower()
+        )
+        if not entry:
+            continue
+        status = _SLEEPER_TO_REPORT_STATUS.get(entry.get("designation"))
+        if status:
+            out[player["playerId"]] = {"report_status": status, "practice_status": None}
+    return out
+
+
+def load_current_injury_report(
+    season: int, week: int, players: list[dict[str, Any]]
+) -> tuple[dict[str, dict[str, Any]], str]:
+    """The best available injury report for (season, week), and where it came from.
+
+    nflreadpy first: it carries practice participation, which is worth real
+    accuracy on the Questionable tier. Sleeper second: it is the only source
+    that knows about a season nflreadpy has not published, which is every
+    pre-season and week-1 report.
+
+    Returns (report, source) so the caller can say which one it used -- the two
+    are not equivalent and a run should not silently look the same either way.
+    """
+    report = load_injury_report_nflreadpy(season, week)
+    if report:
+        return report, "nflreadpy"
+    return load_injury_report_sleeper(players), "sleeper"
+
+
 def build_training_rows_nflreadpy(
     seasons: list[int], positions: tuple[str, ...] = ("QB", "RB", "WR", "TE")
 ) -> list[dict[str, Any]]:

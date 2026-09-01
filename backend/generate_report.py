@@ -447,6 +447,16 @@ def build_weekly_report_and_pool(
                     2,
                 ),
                 "conditional_points": week1_projection["projected_points"],
+                "floor": (
+                    None if week1_projection.get("floor") is None
+                    else round(week1_projection["floor"]
+                               * ((play_probabilities or {}).get(player["playerId"], 1.0)), 2)
+                ),
+                "ceiling": (
+                    None if week1_projection.get("ceiling") is None
+                    else round(week1_projection["ceiling"]
+                               * ((play_probabilities or {}).get(player["playerId"], 1.0)), 2)
+                ),
                 "play_probability": (
                     None
                     if (play_probabilities or {}).get(player["playerId"]) is None
@@ -789,21 +799,27 @@ def build_consensus_tier_or_empty(season: int, week: int, scoring_config: dict[s
         return {}
 
 
-def build_news_client_or_none() -> Any:
-    """None if ANTHROPIC_API_KEY isn't set, or if building the client
-    fails for any reason -- callers treat None as "skip summarization,
-    default newsFlag for everyone," per news.py's own degrade-gracefully
-    contract, extended to cover the no-key case."""
+def build_news_client_or_none() -> tuple[Any, Optional[str]]:
+    """(client, reason) -- client is None when summarization can't run, and
+    `reason` says WHY so the caller can print something actionable.
+
+    Both failure modes used to collapse into one "ANTHROPIC_API_KEY not set"
+    message, which is actively misleading: a missing `anthropic` package
+    reported as a missing key and sent you looking at the wrong thing. That
+    exact confusion cost a full pipeline run on 2026-09-01.
+
+    Callers still treat a None client as "skip summarization, default newsFlag
+    for everyone," per news.py's own degrade-gracefully contract."""
     import os
 
     if not os.environ.get("ANTHROPIC_API_KEY"):
-        return None
+        return None, "ANTHROPIC_API_KEY not set"
     try:
         from news import build_anthropic_client
 
-        return build_anthropic_client()
-    except Exception:
-        return None
+        return build_anthropic_client(), None
+    except Exception as exc:  # noqa: BLE001
+        return None, f"{type(exc).__name__}: {exc}"
 
 
 def load_news_flags_nflreadpy(pool: list[dict[str, Any]], client: Any) -> dict[str, dict[str, Any]]:
@@ -969,9 +985,12 @@ def main(argv: Optional[list[str]] = None) -> None:
         print("--skip-news set: every player gets the default healthy newsFlag.")
         news_flags: dict[str, dict[str, Any]] = {}
     else:
-        client = build_news_client_or_none()
+        client, client_error = build_news_client_or_none()
         if client is None:
-            print("ANTHROPIC_API_KEY not set -- news summarization skipped, default newsFlag for everyone.")
+            print(
+                f"News summarization skipped ({client_error}) -- default newsFlag for everyone. "
+                "Sleeper injury designations are still applied."
+            )
         else:
             print("Fetching + summarizing ESPN news...")
         news_flags = load_news_flags_nflreadpy(pool, client)
@@ -1048,8 +1067,22 @@ def main(argv: Optional[list[str]] = None) -> None:
                 dvp.get(args.season),
             )
             result = model.predict(target_rows)
+            # Intervals for this tier come from the week-1 model's OWN held-out
+            # residuals, not the in-season band -- different estimator, different
+            # error profile. Attached here so the caller does not have to know
+            # which tier a player landed in.
+            interval_model = week1_module.fit_interval_model(training_rows)
+            if interval_model is not None:
+                for row in target_rows:
+                    projection = result.get(row["player_id"])
+                    if projection is None:
+                        continue
+                    band = interval_model.interval(row["position"], projection["projected_points"])
+                    if band is not None:
+                        projection["floor"], projection["ceiling"] = band
             print(f"  {len(result)} players projected by the week-1 cold-start model "
-                  f"(trained on {len(training_rows)} rows from {train_seasons[0]}-{train_seasons[-1]})")
+                  f"(trained on {len(training_rows)} rows from {train_seasons[0]}-{train_seasons[-1]}"
+                  f"{'; interval from held-out residuals' if interval_model else '; no interval'})")
             return result
         except Exception as exc:  # noqa: BLE001
             # Same degrade-gracefully contract as the consensus tier: a failure
@@ -1082,8 +1115,15 @@ def main(argv: Optional[list[str]] = None) -> None:
             rows = availability_module.build_training_rows_nflreadpy(train_seasons)
             availability_model = availability_module.AvailabilityModel().fit(rows)
 
-            report_by_player = availability_module.load_injury_report_nflreadpy(
-                args.season, args.week
+            # nflreadpy's injury feed stops at the most recent COMPLETED season,
+            # so a pre-season or week-1 report for the upcoming season finds
+            # nothing there and falls back to Sleeper's live designations --
+            # the only source that knows who is hurt right now. The source is
+            # printed because the two are not equivalent: Sleeper has no
+            # practice participation, which is what separates a Questionable
+            # who practised fully (0.79) from one who did not practise (0.51).
+            report_by_player, report_source = availability_module.load_current_injury_report(
+                args.season, args.week, pool
             )
             # Play-rate history for the CURRENT season, as-of this week. Uses
             # each player's own team's weeks as the denominator so a bye is not
@@ -1127,7 +1167,8 @@ def main(argv: Optional[list[str]] = None) -> None:
             out_count = sum(1 for v in play_probabilities.values() if v < 0.2)
             print(
                 f"  availability modelled for {len(play_probabilities)} players "
-                f"({out_count} below 20% likely to play)"
+                f"({out_count} below 20% likely to play; injury report via "
+                f"{report_source}, {len(report_by_player)} designations)"
             )
         except Exception as exc:  # noqa: BLE001
             # Same degrade-gracefully contract as every other optional layer:
