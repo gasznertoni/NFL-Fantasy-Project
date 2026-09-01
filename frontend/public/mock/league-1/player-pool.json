@@ -1,6 +1,17 @@
 {
   "players": [
     {
+      "playerId": "00-0022942",
+      "name": "Philip Rivers",
+      "position": "QB",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0023459",
       "name": "Aaron Rodgers",
       "position": "QB",
@@ -16,6 +27,17 @@
       "name": "Matt Prater",
       "position": "K",
       "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0024243",
+      "name": "Marcedes Lewis",
+      "position": "TE",
+      "team": "DEN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -67,10 +89,54 @@
       }
     },
     {
+      "playerId": "00-0026858",
+      "name": "Graham Gano",
+      "position": "K",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0027973",
       "name": "Andy Dalton",
       "position": "QB",
       "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0028118",
+      "name": "Tyrod Taylor",
+      "position": "QB",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0028986",
+      "name": "Case Keenum",
+      "position": "QB",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0029263",
+      "name": "Russell Wilson",
+      "position": "QB",
+      "team": "NYG",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -122,10 +188,43 @@
       }
     },
     {
+      "playerId": "00-0030061",
+      "name": "Zach Ertz",
+      "position": "TE",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0030098",
+      "name": "Dustin Hopkins",
+      "position": "K",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0030279",
       "name": "Keenan Allen",
       "position": "WR",
       "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0030431",
+      "name": "Robert Woods",
+      "position": "WR",
+      "team": "PIT",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -148,6 +247,17 @@
       "name": "DeAndre Hopkins",
       "position": "WR",
       "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0030565",
+      "name": "Geno Smith",
+      "position": "QB",
+      "team": "LV",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -192,6 +302,17 @@
       "name": "Teddy Bridgewater",
       "position": "QB",
       "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0031280",
+      "name": "Derek Carr",
+      "position": "QB",
+      "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -265,10 +386,76 @@
       }
     },
     {
+      "playerId": "00-0031544",
+      "name": "Amari Cooper",
+      "position": "WR",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0031588",
       "name": "Stefon Diggs",
       "position": "WR",
       "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0031595",
+      "name": "Michael Burton",
+      "position": "RB",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0031610",
+      "name": "Darren Waller",
+      "position": "TE",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0031687",
+      "name": "Raheem Mostert",
+      "position": "RB",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0031763",
+      "name": "DeAndre Carter",
+      "position": "WR",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0031800",
+      "name": "Taylor Heinicke",
+      "position": "QB",
+      "team": "LAC",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -287,6 +474,28 @@
       }
     },
     {
+      "playerId": "00-0032156",
+      "name": "Trevor Siemian",
+      "position": "QB",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0032208",
+      "name": "Phillip Dorsett",
+      "position": "WR",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0032211",
       "name": "Tyler Lockett",
       "position": "WR",
@@ -298,10 +507,43 @@
       }
     },
     {
+      "playerId": "00-0032268",
+      "name": "Marcus Mariota",
+      "position": "QB",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0032385",
+      "name": "Sterling Shepard",
+      "position": "WR",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0032392",
       "name": "Austin Hooper",
       "position": "TE",
       "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0032394",
+      "name": "Nick Vannett",
+      "position": "TE",
+      "team": "LAR",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -364,6 +606,17 @@
       }
     },
     {
+      "playerId": "00-0032688",
+      "name": "Robbie Chosen",
+      "position": "WR",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0032726",
       "name": "Ka'imi Fairbairn",
       "position": "K",
@@ -408,10 +661,32 @@
       }
     },
     {
+      "playerId": "00-0032950",
+      "name": "Carson Wentz",
+      "position": "QB",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0032951",
       "name": "Laquon Treadwell",
       "position": "WR",
       "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033040",
+      "name": "Tyreek Hill",
+      "position": "WR",
+      "team": "MIA",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -518,6 +793,39 @@
       }
     },
     {
+      "playerId": "00-0033288",
+      "name": "George Kittle",
+      "position": "TE",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033292",
+      "name": "Trent Taylor",
+      "position": "WR",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033293",
+      "name": "Aaron Jones",
+      "position": "RB",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0033303",
       "name": "Harrison Butker",
       "position": "K",
@@ -617,6 +925,39 @@
       }
     },
     {
+      "playerId": "00-0033536",
+      "name": "Mike Williams",
+      "position": "WR",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033537",
+      "name": "Deshaun Watson",
+      "position": "QB",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033553",
+      "name": "James Conner",
+      "position": "RB",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0033555",
       "name": "Mack Hollins",
       "position": "WR",
@@ -628,10 +969,76 @@
       }
     },
     {
+      "playerId": "00-0033572",
+      "name": "Jamal Agnew",
+      "position": "WR",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0033576",
       "name": "Eric Saubert",
       "position": "TE",
       "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033589",
+      "name": "David Moore",
+      "position": "WR",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033591",
+      "name": "Noah Brown",
+      "position": "WR",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033662",
+      "name": "Cooper Rush",
+      "position": "QB",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033699",
+      "name": "Austin Ekeler",
+      "position": "RB",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033702",
+      "name": "Younghoe Koo",
+      "position": "K",
+      "team": "NYG",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -716,10 +1123,65 @@
       }
     },
     {
+      "playerId": "00-0033873",
+      "name": "Patrick Mahomes",
+      "position": "QB",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0033881",
       "name": "Evan Engram",
       "position": "TE",
       "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033885",
+      "name": "David Njoku",
+      "position": "TE",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033891",
+      "name": "Zay Jones",
+      "position": "WR",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033897",
+      "name": "Joe Mixon",
+      "position": "RB",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033906",
+      "name": "Alvin Kamara",
+      "position": "RB",
+      "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -760,6 +1222,28 @@
       }
     },
     {
+      "playerId": "00-0033936",
+      "name": "C.J. Beathard",
+      "position": "QB",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0033943",
+      "name": "Josh Reynolds",
+      "position": "WR",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0033949",
       "name": "Joshua Dobbs",
       "position": "QB",
@@ -786,6 +1270,17 @@
       "name": "River Cracraft",
       "position": "WR",
       "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034073",
+      "name": "Ross Dwelley",
+      "position": "TE",
+      "team": "CAR",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -848,10 +1343,43 @@
       }
     },
     {
+      "playerId": "00-0034208",
+      "name": "Mike Boone",
+      "position": "RB",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034270",
+      "name": "Tyler Conklin",
+      "position": "TE",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0034272",
       "name": "Marquez Valdes-Scantling",
       "position": "WR",
       "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034317",
+      "name": "Keith Kirkwood",
+      "position": "WR",
+      "team": "BAL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -874,6 +1402,28 @@
       "name": "Dallas Goedert",
       "position": "TE",
       "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034353",
+      "name": "Anthony Miller",
+      "position": "WR",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034364",
+      "name": "Jordan Akins",
+      "position": "TE",
+      "team": "JAX",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -914,6 +1464,61 @@
       }
     },
     {
+      "playerId": "00-0034386",
+      "name": "Justin Watson",
+      "position": "WR",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034401",
+      "name": "Mike White",
+      "position": "QB",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034406",
+      "name": "Deon Cain",
+      "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034407",
+      "name": "Ray-Ray McCloud",
+      "position": "WR",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034411",
+      "name": "Russell Gage",
+      "position": "WR",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0034418",
       "name": "Cedrick Wilson Jr.",
       "position": "WR",
@@ -929,6 +1534,50 @@
       "name": "Braxton Berrios",
       "position": "WR",
       "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034438",
+      "name": "Logan Woodside",
+      "position": "QB",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034450",
+      "name": "Greg Joseph",
+      "position": "K",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034487",
+      "name": "Trent Sherfield",
+      "position": "WR",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034521",
+      "name": "Allen Lazard",
+      "position": "WR",
+      "team": "NYJ",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -958,10 +1607,32 @@
       }
     },
     {
+      "playerId": "00-0034681",
+      "name": "Chase Edmonds",
+      "position": "RB",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0034753",
       "name": "Mark Andrews",
       "position": "TE",
       "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034764",
+      "name": "Michael Gallup",
+      "position": "WR",
+      "team": "WAS",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -995,6 +1666,17 @@
       "name": "Nick Chubb",
       "position": "RB",
       "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034794",
+      "name": "Jason Sanders",
+      "position": "K",
+      "team": "MIA",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1046,10 +1728,43 @@
       }
     },
     {
+      "playerId": "00-0034837",
+      "name": "Calvin Ridley",
+      "position": "WR",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034838",
+      "name": "Royce Freeman",
+      "position": "RB",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0034844",
       "name": "Saquon Barkley",
       "position": "RB",
       "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034854",
+      "name": "KhaDarel Hodge",
+      "position": "WR",
+      "team": "ATL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1090,6 +1805,17 @@
       }
     },
     {
+      "playerId": "00-0034867",
+      "name": "Malik Turner",
+      "position": "WR",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0034869",
       "name": "Sam Darnold",
       "position": "QB",
@@ -1101,10 +1827,32 @@
       }
     },
     {
+      "playerId": "00-0034899",
+      "name": "John Wolford",
+      "position": "QB",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0034928",
       "name": "Steven Sims",
       "position": "WR",
       "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034955",
+      "name": "Brett Rypien",
+      "position": "QB",
+      "team": "MIN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1134,10 +1882,98 @@
       }
     },
     {
+      "playerId": "00-0034970",
+      "name": "Irv Smith",
+      "position": "TE",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034972",
+      "name": "Alexander Mattison",
+      "position": "RB",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034975",
+      "name": "Justice Hill",
+      "position": "RB",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034981",
+      "name": "Foster Moreau",
+      "position": "TE",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0034983",
+      "name": "Hunter Renfrow",
+      "position": "WR",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0035021",
       "name": "Ashton Dulin",
       "position": "WR",
       "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035039",
+      "name": "Stephen Carlson",
+      "position": "TE",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035045",
+      "name": "D.J. Montgomery",
+      "position": "WR",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035100",
+      "name": "Jake Browning",
+      "position": "QB",
+      "team": "CIN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1159,6 +1995,17 @@
       "playerId": "00-0035140",
       "name": "Mecole Hardman",
       "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035189",
+      "name": "Matthew Wright",
+      "position": "K",
       "team": "BUF",
       "newsFlag": {
         "designation": "Healthy",
@@ -1189,6 +2036,50 @@
       }
     },
     {
+      "playerId": "00-0035216",
+      "name": "Diontae Johnson",
+      "position": "WR",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035228",
+      "name": "Kyler Murray",
+      "position": "QB",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035229",
+      "name": "T.J. Hockenson",
+      "position": "TE",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035243",
+      "name": "Miles Sanders",
+      "position": "RB",
+      "team": "DAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0035249",
       "name": "Josh Oliver",
       "position": "TE",
@@ -1204,6 +2095,17 @@
       "name": "Devin Singletary",
       "position": "RB",
       "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035251",
+      "name": "Will Grier",
+      "position": "QB",
+      "team": "DAL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1233,10 +2135,32 @@
       }
     },
     {
+      "playerId": "00-0035269",
+      "name": "Matt Gay",
+      "position": "K",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0035282",
       "name": "Easton Stick",
       "position": "QB",
       "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035289",
+      "name": "Gardner Minshew",
+      "position": "QB",
+      "team": "KC",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1259,6 +2183,61 @@
       "name": "Scott Miller",
       "position": "WR",
       "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035311",
+      "name": "Myles Gaskin",
+      "position": "RB",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035329",
+      "name": "Donald Parham",
+      "position": "TE",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035341",
+      "name": "Trenton Irwin",
+      "position": "WR",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035345",
+      "name": "Chris Myarick",
+      "position": "TE",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035356",
+      "name": "Tyree Jackson",
+      "position": "TE",
+      "team": "WAS",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1299,6 +2278,39 @@
       }
     },
     {
+      "playerId": "00-0035436",
+      "name": "Matt Sokol",
+      "position": "TE",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035480",
+      "name": "Malik Taylor",
+      "position": "WR",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035500",
+      "name": "Greg Dortch",
+      "position": "WR",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0035535",
       "name": "Darius Slayton",
       "position": "WR",
@@ -1310,10 +2322,43 @@
       }
     },
     {
+      "playerId": "00-0035537",
+      "name": "Ty Johnson",
+      "position": "RB",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0035544",
       "name": "Tom Kennedy",
       "position": "WR",
       "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035567",
+      "name": "Craig Reynolds",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035593",
+      "name": "Juwann Winfree",
+      "position": "WR",
+      "team": "HOU",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1358,6 +2403,17 @@
       "name": "Drew Sample",
       "position": "TE",
       "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035639",
+      "name": "Parris Campbell",
+      "position": "WR",
+      "team": "DAL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1464,10 +2520,32 @@
       }
     },
     {
+      "playerId": "00-0035703",
+      "name": "Miles Boykin",
+      "position": "WR",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0035704",
       "name": "Drew Lock",
       "position": "QB",
       "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035710",
+      "name": "Daniel Jones",
+      "position": "QB",
+      "team": "IND",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1486,10 +2564,142 @@
       }
     },
     {
+      "playerId": "00-0035726",
+      "name": "Jakob Johnson",
+      "position": "RB",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035769",
+      "name": "Scotty Washington",
+      "position": "TE",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035806",
+      "name": "JaMycal Hasty",
+      "position": "RB",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035876",
+      "name": "Andre Baccellia",
+      "position": "WR",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035891",
+      "name": "Cody White",
+      "position": "WR",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035924",
+      "name": "Jonathan Ward",
+      "position": "RB",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035934",
+      "name": "Trishton Jackson",
+      "position": "WR",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035939",
+      "name": "Bryce Perkins",
+      "position": "QB",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035956",
+      "name": "Giovanni Ricci",
+      "position": "TE",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035973",
+      "name": "Patrick Taylor",
+      "position": "RB",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035976",
+      "name": "Dan Chisena",
+      "position": "WR",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0035993",
       "name": "Tyler Huntley",
       "position": "QB",
       "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036020",
+      "name": "Salvon Ahmed",
+      "position": "RB",
+      "team": "IND",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1519,6 +2729,17 @@
       }
     },
     {
+      "playerId": "00-0036059",
+      "name": "Tyler Mabry",
+      "position": "TE",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036133",
       "name": "James Proche",
       "position": "WR",
@@ -1534,6 +2755,39 @@
       "name": "Rico Dowdle",
       "position": "RB",
       "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036145",
+      "name": "Lawrence Cager",
+      "position": "TE",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036158",
+      "name": "J.K. Dobbins",
+      "position": "RB",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036162",
+      "name": "Tyler Bass",
+      "position": "K",
+      "team": "BUF",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1574,6 +2828,17 @@
       }
     },
     {
+      "playerId": "00-0036183",
+      "name": "Kristian Wilkerson",
+      "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036187",
       "name": "Reggie Gilliam",
       "position": "RB",
@@ -1585,10 +2850,54 @@
       }
     },
     {
+      "playerId": "00-0036196",
+      "name": "Gabe Davis",
+      "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036212",
+      "name": "Tua Tagovailoa",
+      "position": "QB",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036219",
+      "name": "Marquez Callaway",
+      "position": "WR",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036223",
       "name": "Jonathan Taylor",
       "position": "RB",
       "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036225",
+      "name": "Dalton Keene",
+      "position": "TE",
+      "team": "HOU",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1629,8 +2938,30 @@
       }
     },
     {
+      "playerId": "00-0036254",
+      "name": "Collin Johnson",
+      "position": "WR",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036259",
       "name": "Jauan Jennings",
+      "position": "WR",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036261",
+      "name": "Brandon Aiyuk",
       "position": "WR",
       "team": "SF",
       "newsFlag": {
@@ -1651,6 +2982,39 @@
       }
     },
     {
+      "playerId": "00-0036265",
+      "name": "AJ Dillon",
+      "position": "RB",
+      "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036268",
+      "name": "Laviska Shenault Jr.",
+      "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036271",
+      "name": "Quez Watkins",
+      "position": "WR",
+      "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036275",
       "name": "D'Andre Swift",
       "position": "RB",
@@ -1662,10 +3026,32 @@
       }
     },
     {
+      "playerId": "00-0036277",
+      "name": "Quintez Cephus",
+      "position": "WR",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036290",
       "name": "Cole Kmet",
       "position": "TE",
       "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036297",
+      "name": "Darrynton Evans",
+      "position": "RB",
+      "team": "BUF",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1695,6 +3081,17 @@
       }
     },
     {
+      "playerId": "00-0036328",
+      "name": "Antonio Gibson",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036331",
       "name": "Devin Duvernay",
       "position": "WR",
@@ -1717,6 +3114,17 @@
       }
     },
     {
+      "playerId": "00-0036345",
+      "name": "K.J. Osborn",
+      "position": "WR",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036355",
       "name": "Justin Herbert",
       "position": "QB",
@@ -1732,6 +3140,39 @@
       "name": "CeeDee Lamb",
       "position": "WR",
       "team": "DAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036360",
+      "name": "Clyde Edwards-Helaire",
+      "position": "RB",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036384",
+      "name": "Ben DiNucci",
+      "position": "QB",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036387",
+      "name": "Jalen Reagor",
+      "position": "WR",
+      "team": "LAC",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1772,6 +3213,17 @@
       }
     },
     {
+      "playerId": "00-0036412",
+      "name": "KJ Hamler",
+      "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036414",
       "name": "Cam Akers",
       "position": "RB",
@@ -1783,10 +3235,54 @@
       }
     },
     {
+      "playerId": "00-0036415",
+      "name": "Van Jefferson",
+      "position": "WR",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036422",
       "name": "Adam Trautman",
       "position": "TE",
       "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036423",
+      "name": "Albert Okwuegbunam",
+      "position": "TE",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036425",
+      "name": "DeeJay Dallas",
+      "position": "RB",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036427",
+      "name": "Tyler Johnson",
+      "position": "WR",
+      "team": "NYJ",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1816,10 +3312,76 @@
       }
     },
     {
+      "playerId": "00-0036450",
+      "name": "Ke'Shawn Vaughn",
+      "position": "RB",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036456",
+      "name": "Dominique Dafney",
+      "position": "TE",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036463",
+      "name": "Chris Blair",
+      "position": "WR",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036493",
+      "name": "Deon Jackson",
+      "position": "RB",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036497",
       "name": "Tim Jones",
       "position": "WR",
       "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036510",
+      "name": "Kenny Yeboah",
+      "position": "TE",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036527",
+      "name": "DJ Turner",
+      "position": "WR",
+      "team": "LV",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1838,6 +3400,28 @@
       }
     },
     {
+      "playerId": "00-0036550",
+      "name": "Rashod Bateman",
+      "position": "WR",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036554",
+      "name": "Nico Collins",
+      "position": "WR",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036555",
       "name": "Chuba Hubbard",
       "position": "RB",
@@ -1849,9 +3433,75 @@
       }
     },
     {
+      "playerId": "00-0036556",
+      "name": "Brevin Jordan",
+      "position": "TE",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036567",
+      "name": "Elijah Mitchell",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036569",
+      "name": "Gary Brightwell",
+      "position": "RB",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036590",
       "name": "Quintin Morris",
       "position": "TE",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036613",
+      "name": "Jaylen Waddle",
+      "position": "WR",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036620",
+      "name": "Dee Eskridge",
+      "position": "WR",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036626",
+      "name": "Dyami Brown",
+      "position": "WR",
       "team": "JAX",
       "newsFlag": {
         "designation": "Healthy",
@@ -1882,10 +3532,87 @@
       }
     },
     {
+      "playerId": "00-0036635",
+      "name": "Ihmir Smith-Marsette",
+      "position": "WR",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036637",
       "name": "Noah Gray",
       "position": "TE",
       "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036640",
+      "name": "Zach Davidson",
+      "position": "TE",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036646",
+      "name": "Simi Fehoko",
+      "position": "WR",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036647",
+      "name": "Cornell Powell",
+      "position": "WR",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036654",
+      "name": "Demetric Felton",
+      "position": "RB",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036670",
+      "name": "Jermar Jefferson",
+      "position": "RB",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036679",
+      "name": "Shane Buechele",
+      "position": "QB",
+      "team": "BUF",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1904,10 +3631,43 @@
       }
     },
     {
+      "playerId": "00-0036741",
+      "name": "Jack Stoll",
+      "position": "TE",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036754",
+      "name": "Brock Wright",
+      "position": "TE",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036755",
       "name": "Jaret Patterson",
       "position": "RB",
       "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036775",
+      "name": "Brandon Smith",
+      "position": "WR",
+      "team": "NE",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1937,10 +3697,32 @@
       }
     },
     {
+      "playerId": "00-0036841",
+      "name": "Austin Trammell",
+      "position": "WR",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036842",
       "name": "Kene Nwangwu",
       "position": "RB",
       "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036849",
+      "name": "Tutu Atwell",
+      "position": "WR",
+      "team": "LAR",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2014,6 +3796,17 @@
       }
     },
     {
+      "playerId": "00-0036893",
+      "name": "Najee Harris",
+      "position": "RB",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036894",
       "name": "Pat Freiermuth",
       "position": "TE",
@@ -2069,6 +3862,17 @@
       }
     },
     {
+      "playerId": "00-0036918",
+      "name": "Jacob Harris",
+      "position": "WR",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0036919",
       "name": "Kenneth Gainwell",
       "position": "RB",
@@ -2084,6 +3888,83 @@
       "name": "Michael Carter",
       "position": "RB",
       "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036928",
+      "name": "Kyle Trask",
+      "position": "QB",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036936",
+      "name": "Rondale Moore",
+      "position": "WR",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036939",
+      "name": "Kawaan Baker",
+      "position": "WR",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036945",
+      "name": "Justin Fields",
+      "position": "QB",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036950",
+      "name": "Avery Williams",
+      "position": "RB",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036955",
+      "name": "Terrace Marshall Jr.",
+      "position": "WR",
+      "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036959",
+      "name": "Michael Bandy",
+      "position": "WR",
+      "team": "DEN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2157,6 +4038,50 @@
       }
     },
     {
+      "playerId": "00-0036984",
+      "name": "Trey Sermon",
+      "position": "RB",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036988",
+      "name": "Josh Palmer",
+      "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0036997",
+      "name": "Javonte Williams",
+      "position": "RB",
+      "team": "DAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037004",
+      "name": "Hunter Long",
+      "position": "TE",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037005",
       "name": "Tommy Tremble",
       "position": "TE",
@@ -2201,10 +4126,43 @@
       }
     },
     {
+      "playerId": "00-0037022",
+      "name": "Michael Jacobson",
+      "position": "TE",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037031",
       "name": "Nikola Kalinic",
       "position": "TE",
       "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037055",
+      "name": "Lance McCutcheon",
+      "position": "WR",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037077",
+      "name": "Sam Howell",
+      "position": "QB",
+      "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2300,6 +4258,39 @@
       }
     },
     {
+      "playerId": "00-0037156",
+      "name": "Irvin Charles",
+      "position": "WR",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037157",
+      "name": "Bam Knight",
+      "position": "RB",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037197",
+      "name": "Isiah Pacheco",
+      "position": "RB",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037224",
       "name": "Cameron Dicker",
       "position": "K",
@@ -2337,6 +4328,17 @@
       "name": "Drake London",
       "position": "WR",
       "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037239",
+      "name": "Chris Olave",
+      "position": "WR",
+      "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2399,6 +4401,17 @@
       }
     },
     {
+      "playerId": "00-0037257",
+      "name": "David Bell",
+      "position": "WR",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037258",
       "name": "Dameon Pierce",
       "position": "RB",
@@ -2425,6 +4438,28 @@
       "name": "Tyler Allgeier",
       "position": "RB",
       "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037267",
+      "name": "Jerome Ford",
+      "position": "RB",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037272",
+      "name": "Montrell Washington",
+      "position": "WR",
+      "team": "NYG",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2465,10 +4500,54 @@
       }
     },
     {
+      "playerId": "00-0037286",
+      "name": "Kevin Harris",
+      "position": "RB",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037291",
       "name": "Jalen Nailor",
       "position": "WR",
       "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037292",
+      "name": "Andrew Ogletree",
+      "position": "TE",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037299",
+      "name": "Keaontay Ingram",
+      "position": "RB",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037300",
+      "name": "Mike Woods",
+      "position": "WR",
+      "team": "GB",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2487,10 +4566,76 @@
       }
     },
     {
+      "playerId": "00-0037306",
+      "name": "John FitzPatrick",
+      "position": "TE",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037311",
+      "name": "Ko Kieft",
+      "position": "TE",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037317",
+      "name": "Nick Muse",
+      "position": "TE",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037324",
       "name": "Chris Oladokun",
       "position": "QB",
       "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037327",
+      "name": "Skylar Thompson",
+      "position": "QB",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037329",
+      "name": "Brittain Brown",
+      "position": "RB",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037340",
+      "name": "Zaire Mitchell-Paden",
+      "position": "TE",
+      "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2509,10 +4654,87 @@
       }
     },
     {
+      "playerId": "00-0037355",
+      "name": "Braylon Sanders",
+      "position": "WR",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037380",
+      "name": "Kaden Davis",
+      "position": "WR",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037382",
+      "name": "Brandon Johnson",
+      "position": "WR",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037387",
+      "name": "Jalen Virgil",
+      "position": "WR",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037410",
+      "name": "Jashaun Corbin",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037422",
+      "name": "Kendric Pryor",
+      "position": "WR",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037429",
       "name": "Raheem Blackshear",
       "position": "RB",
       "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037455",
+      "name": "Seth Green",
+      "position": "TE",
+      "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2542,10 +4764,65 @@
       }
     },
     {
+      "playerId": "00-0037506",
+      "name": "Cole Fotheringham",
+      "position": "TE",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037509",
+      "name": "Sincere McCormick",
+      "position": "RB",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037524",
+      "name": "Tay Martin",
+      "position": "WR",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037525",
       "name": "Jordan Mason",
       "position": "RB",
       "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037539",
+      "name": "Lucas Krull",
+      "position": "TE",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037542",
+      "name": "John Parker Romo",
+      "position": "K",
+      "team": "ATL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2575,10 +4852,43 @@
       }
     },
     {
+      "playerId": "00-0037563",
+      "name": "Malik Davis",
+      "position": "RB",
+      "team": "DAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037570",
+      "name": "Dennis Houston",
+      "position": "WR",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037594",
       "name": "Julius Chestnut",
       "position": "RB",
       "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037609",
+      "name": "Aaron Shampklin",
+      "position": "RB",
+      "team": "MIA",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2652,6 +4962,28 @@
       }
     },
     {
+      "playerId": "00-0037708",
+      "name": "Maurice Alexander",
+      "position": "WR",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037740",
+      "name": "Garrett Wilson",
+      "position": "WR",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037741",
       "name": "Jahan Dotson",
       "position": "WR",
@@ -2707,6 +5039,17 @@
       }
     },
     {
+      "playerId": "00-0037755",
+      "name": "Jelani Woods",
+      "position": "TE",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0037801",
       "name": "KaVontae Turpin",
       "position": "WR",
@@ -2744,6 +5087,28 @@
       "name": "Romeo Doubs",
       "position": "WR",
       "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037827",
+      "name": "Tyrion Davis-Price",
+      "position": "RB",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0037828",
+      "name": "Danny Gray",
+      "position": "WR",
+      "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2839,6 +5204,39 @@
       }
     },
     {
+      "playerId": "00-0038092",
+      "name": "Erik Ezukanma",
+      "position": "WR",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038097",
+      "name": "Cade York",
+      "position": "K",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038098",
+      "name": "Pierre Strong",
+      "position": "RB",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038102",
       "name": "Kenny Pickett",
       "position": "QB",
@@ -2850,10 +5248,65 @@
       }
     },
     {
+      "playerId": "00-0038104",
+      "name": "Tyquan Thornton",
+      "position": "WR",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038108",
+      "name": "Bailey Zappe",
+      "position": "QB",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038115",
       "name": "Daniel Bellinger",
       "position": "TE",
       "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038117",
+      "name": "Wan'Dale Robinson",
+      "position": "WR",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038120",
+      "name": "Breece Hall",
+      "position": "RB",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038122",
+      "name": "Desmond Ridder",
+      "position": "QB",
+      "team": "GB",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2905,10 +5358,98 @@
       }
     },
     {
+      "playerId": "00-0038145",
+      "name": "Thomas Odukoya",
+      "position": "TE",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038152",
+      "name": "Lucas Havrisik",
+      "position": "K",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038181",
+      "name": "Lucky Jackson",
+      "position": "WR",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038359",
       "name": "Xavier Smith",
       "position": "WR",
       "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038385",
+      "name": "Dresser Winn",
+      "position": "QB",
+      "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038389",
+      "name": "Israel Abanikanda",
+      "position": "RB",
+      "team": "DAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038391",
+      "name": "Sean Clifford",
+      "position": "QB",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038393",
+      "name": "Dontayvion Wicks",
+      "position": "WR",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038394",
+      "name": "Will Mallory",
+      "position": "TE",
+      "team": "IND",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2942,6 +5483,28 @@
       "name": "Tanner McKee",
       "position": "QB",
       "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038406",
+      "name": "Zack Kuntz",
+      "position": "TE",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038409",
+      "name": "Lew Nichols III",
+      "position": "RB",
+      "team": "PIT",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2993,10 +5556,76 @@
       }
     },
     {
+      "playerId": "00-0038456",
+      "name": "Travis Vokolek",
+      "position": "TE",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038458",
+      "name": "Owen Wright",
+      "position": "RB",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038465",
+      "name": "Malik Heath",
+      "position": "WR",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038476",
+      "name": "Tommy DeVito",
+      "position": "QB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038477",
+      "name": "Bryce Ford-Wheaton",
+      "position": "WR",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038488",
       "name": "Brady Russell",
       "position": "RB",
       "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038489",
+      "name": "Ben VanSumeren",
+      "position": "RB",
+      "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3019,6 +5648,61 @@
       "name": "Xavier Gipson",
       "position": "WR",
       "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038498",
+      "name": "E.J. Jenkins",
+      "position": "TE",
+      "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038502",
+      "name": "T.J. Luther",
+      "position": "WR",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038507",
+      "name": "Grant DuBose",
+      "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038518",
+      "name": "Deneric Prince",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038519",
+      "name": "Nikko Remigio",
+      "position": "WR",
+      "team": "KC",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3081,10 +5765,32 @@
       }
     },
     {
+      "playerId": "00-0038551",
+      "name": "Kendre Miller",
+      "position": "RB",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038555",
       "name": "Tank Bigsby",
       "position": "RB",
       "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038558",
+      "name": "Darnell Washington",
+      "position": "TE",
+      "team": "PIT",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3158,6 +5864,17 @@
       }
     },
     {
+      "playerId": "00-0038576",
+      "name": "Charlie Jones",
+      "position": "WR",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038579",
       "name": "Aidan O'Connell",
       "position": "QB",
@@ -3169,10 +5886,43 @@
       }
     },
     {
+      "playerId": "00-0038582",
+      "name": "Clayton Tune",
+      "position": "QB",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038583",
+      "name": "Dorian Thompson-Robinson",
+      "position": "QB",
+      "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038589",
       "name": "Josh Whyle",
       "position": "TE",
       "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038590",
+      "name": "Justin Shorter",
+      "position": "WR",
+      "team": "LV",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3224,6 +5974,17 @@
       }
     },
     {
+      "playerId": "00-0038612",
+      "name": "A.T. Perry",
+      "position": "WR",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038614",
       "name": "Scott Matlock",
       "position": "RB",
@@ -3268,6 +6029,39 @@
       }
     },
     {
+      "playerId": "00-0038622",
+      "name": "Deuce Vaughn",
+      "position": "RB",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038632",
+      "name": "Colton Dowell",
+      "position": "WR",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038636",
+      "name": "Kenny McIntosh",
+      "position": "RB",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038640",
       "name": "Jalen Brooks",
       "position": "WR",
@@ -3294,6 +6088,61 @@
       "name": "Ronnie Bell",
       "position": "WR",
       "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038651",
+      "name": "Chase Cota",
+      "position": "WR",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038658",
+      "name": "Adrian Martinez",
+      "position": "QB",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038667",
+      "name": "Elijah Cooks",
+      "position": "WR",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038678",
+      "name": "Jordan Mims",
+      "position": "RB",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038679",
+      "name": "Tyrell Shavers",
+      "position": "WR",
+      "team": "BUF",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3345,9 +6194,75 @@
       }
     },
     {
+      "playerId": "00-0038726",
+      "name": "Jesse Matthews",
+      "position": "WR",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038727",
+      "name": "Xazavian Valladay",
+      "position": "RB",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038728",
+      "name": "Jared Wayne",
+      "position": "WR",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038735",
+      "name": "Princeton Fant",
+      "position": "TE",
+      "team": "DAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038738",
       "name": "Hunter Luepke",
       "position": "RB",
+      "team": "DAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038740",
+      "name": "Jalen Cropper",
+      "position": "WR",
+      "team": "DAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038741",
+      "name": "John Stephens Jr.",
+      "position": "TE",
       "team": "DAL",
       "newsFlag": {
         "designation": "Healthy",
@@ -3360,6 +6275,17 @@
       "name": "Jake Bobo",
       "position": "WR",
       "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038762",
+      "name": "Matt Landers",
+      "position": "WR",
+      "team": "TEN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3400,10 +6326,76 @@
       }
     },
     {
+      "playerId": "00-0038806",
+      "name": "Malik Knowles",
+      "position": "WR",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038809",
       "name": "Ben Sims",
       "position": "TE",
       "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038810",
+      "name": "Thayer Thomas",
+      "position": "WR",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038821",
+      "name": "Rakim Jarrett",
+      "position": "WR",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038824",
+      "name": "Ryan Miller",
+      "position": "WR",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038828",
+      "name": "Tanner Taula",
+      "position": "TE",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038830",
+      "name": "Kazmeir Allen",
+      "position": "RB",
+      "team": "WAS",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3426,6 +6418,28 @@
       "name": "Brycen Tremayne",
       "position": "WR",
       "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038862",
+      "name": "Elijah Dotson",
+      "position": "RB",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038873",
+      "name": "Pokey Wilson",
+      "position": "WR",
+      "team": "NYJ",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3466,6 +6480,39 @@
       }
     },
     {
+      "playerId": "00-0038911",
+      "name": "Malik Cunningham",
+      "position": "WR",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038913",
+      "name": "Johnny Lumpkin",
+      "position": "TE",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038930",
+      "name": "Carlos Washington",
+      "position": "RB",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038933",
       "name": "Dalton Kincaid",
       "position": "TE",
@@ -3481,6 +6528,28 @@
       "name": "Brenton Strange",
       "position": "TE",
       "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038938",
+      "name": "Jalin Hyatt",
+      "position": "WR",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038941",
+      "name": "Tyler Scott",
+      "position": "WR",
+      "team": "LAR",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3521,6 +6590,17 @@
       }
     },
     {
+      "playerId": "00-0038977",
+      "name": "Tank Dell",
+      "position": "WR",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0038979",
       "name": "Cedric Tillman",
       "position": "WR",
@@ -3536,6 +6616,17 @@
       "name": "Jordan Addison",
       "position": "WR",
       "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0038996",
+      "name": "Tucker Kraft",
+      "position": "TE",
+      "team": "GB",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3565,10 +6656,43 @@
       }
     },
     {
+      "playerId": "00-0039021",
+      "name": "Roschon Johnson",
+      "position": "RB",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039023",
+      "name": "Joel Wilson",
+      "position": "TE",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039032",
       "name": "Tyjae Spears",
       "position": "RB",
       "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039040",
+      "name": "De'Von Achane",
+      "position": "RB",
+      "team": "MIA",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3598,6 +6722,17 @@
       }
     },
     {
+      "playerId": "00-0039052",
+      "name": "Trey Palmer",
+      "position": "WR",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039062",
       "name": "Jonathan Mingo",
       "position": "WR",
@@ -3620,10 +6755,32 @@
       }
     },
     {
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "position": "TE",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039066",
       "name": "Michael Mayer",
       "position": "TE",
       "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039067",
+      "name": "Rashee Rice",
+      "position": "WR",
+      "team": "KC",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3645,6 +6802,17 @@
       "playerId": "00-0039075",
       "name": "Puka Nacua",
       "position": "WR",
+      "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039107",
+      "name": "Stetson Bennett",
+      "position": "QB",
       "team": "LAR",
       "newsFlag": {
         "designation": "Healthy",
@@ -3697,10 +6865,54 @@
       }
     },
     {
+      "playerId": "00-0039152",
+      "name": "Will Levis",
+      "position": "QB",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039159",
+      "name": "Gunnar Oakes",
+      "position": "TE",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039163",
       "name": "C.J. Stroud",
       "position": "QB",
       "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039164",
+      "name": "Anthony Richardson",
+      "position": "QB",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039165",
+      "name": "Zach Charbonnet",
+      "position": "RB",
+      "team": "SEA",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3730,6 +6942,105 @@
       }
     },
     {
+      "playerId": "00-0039230",
+      "name": "Dante Miller",
+      "position": "RB",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039231",
+      "name": "Patrick Murtagh",
+      "position": "TE",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039236",
+      "name": "Johnny Wilson",
+      "position": "WR",
+      "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039244",
+      "name": "Chris Collier",
+      "position": "RB",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039259",
+      "name": "Dayton Wade",
+      "position": "WR",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039263",
+      "name": "McCallan Castles",
+      "position": "TE",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039266",
+      "name": "Kendall Milton",
+      "position": "RB",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039271",
+      "name": "Jarveon Howard",
+      "position": "RB",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039275",
+      "name": "Messiah Swinson",
+      "position": "TE",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039299",
       "name": "George Holani",
       "position": "RB",
@@ -3752,9 +7063,119 @@
       }
     },
     {
+      "playerId": "00-0039311",
+      "name": "Emani Bailey",
+      "position": "RB",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039316",
+      "name": "Baylor Cupp",
+      "position": "TE",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039325",
+      "name": "Carson Steele",
+      "position": "RB",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039329",
+      "name": "Julian Hicks",
+      "position": "WR",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039331",
+      "name": "Emory Jones",
+      "position": "QB",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039337",
+      "name": "Malik Nabers",
+      "position": "WR",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039338",
+      "name": "Brock Bowers",
+      "position": "TE",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039342",
       "name": "Xavier Legette",
       "position": "WR",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039344",
+      "name": "Jonathon Brooks",
+      "position": "RB",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039355",
+      "name": "Luke McCaffrey",
+      "position": "WR",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039356",
+      "name": "Ja'Tavion Sanders",
+      "position": "TE",
       "team": "CAR",
       "newsFlag": {
         "designation": "Healthy",
@@ -3785,10 +7206,32 @@
       }
     },
     {
+      "playerId": "00-0039363",
+      "name": "Isaac Guerendo",
+      "position": "RB",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039364",
       "name": "Sione Vaki",
       "position": "RB",
       "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039365",
+      "name": "Jacob Cowing",
+      "position": "WR",
+      "team": "SF",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3807,6 +7250,28 @@
       }
     },
     {
+      "playerId": "00-0039376",
+      "name": "Spencer Rattler",
+      "position": "QB",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039379",
+      "name": "Jamari Thrash",
+      "position": "WR",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039384",
       "name": "Tyrone Tracy Jr.",
       "position": "RB",
@@ -3818,10 +7283,65 @@
       }
     },
     {
+      "playerId": "00-0039385",
+      "name": "Keilan Robinson",
+      "position": "RB",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039386",
+      "name": "Bub Means",
+      "position": "WR",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039391",
       "name": "Kimani Vidal",
       "position": "RB",
       "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039392",
+      "name": "Jha'Quan Jackson",
+      "position": "WR",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039393",
+      "name": "Jase McClellan",
+      "position": "RB",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039394",
+      "name": "Casey Washington",
+      "position": "WR",
+      "team": "ATL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3851,10 +7371,32 @@
       }
     },
     {
+      "playerId": "00-0039399",
+      "name": "Tanner McLachlan",
+      "position": "TE",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039404",
       "name": "Will Reichard",
       "position": "K",
       "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039405",
+      "name": "Jawhar Jordan",
+      "position": "RB",
+      "team": "HOU",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3895,10 +7437,65 @@
       }
     },
     {
+      "playerId": "00-0039415",
+      "name": "Brenden Rice",
+      "position": "WR",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039420",
+      "name": "Jaheim Bell",
+      "position": "TE",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039424",
+      "name": "Devaughn Vele",
+      "position": "WR",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039437",
+      "name": "Cornelius Johnson",
+      "position": "WR",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039451",
       "name": "Isaiah Williams",
       "position": "WR",
       "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039456",
+      "name": "John Rhys Plumlee",
+      "position": "WR",
+      "team": "PIT",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3917,10 +7514,54 @@
       }
     },
     {
+      "playerId": "00-0039464",
+      "name": "Austin Reed",
+      "position": "QB",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039466",
+      "name": "Ian Wheeler",
+      "position": "RB",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039471",
       "name": "Frank Gore Jr.",
       "position": "RB",
       "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039473",
+      "name": "Xavier Johnson",
+      "position": "WR",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039489",
+      "name": "Hayden Rucci",
+      "position": "TE",
+      "team": "SF",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3943,6 +7584,28 @@
       "name": "Harrison Mevis",
       "position": "K",
       "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039501",
+      "name": "Jack Plummer",
+      "position": "QB",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039505",
+      "name": "John Jiles",
+      "position": "WR",
+      "team": "NE",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3983,6 +7646,83 @@
       }
     },
     {
+      "playerId": "00-0039534",
+      "name": "Carter Bradley",
+      "position": "QB",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039550",
+      "name": "Shawn Bowman",
+      "position": "TE",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039552",
+      "name": "Joshua Cephus",
+      "position": "WR",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039562",
+      "name": "David White",
+      "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039573",
+      "name": "Blake Watson",
+      "position": "RB",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039575",
+      "name": "Jason Bean",
+      "position": "QB",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039576",
+      "name": "Spencer Shrader",
+      "position": "K",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039577",
       "name": "Kedon Slovis",
       "position": "QB",
@@ -4005,10 +7745,54 @@
       }
     },
     {
+      "playerId": "00-0039599",
+      "name": "Kevin Foelsch",
+      "position": "TE",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039603",
       "name": "British Brooks",
       "position": "RB",
       "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039623",
+      "name": "Mason Tipton",
+      "position": "WR",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039626",
+      "name": "Cole Burgess",
+      "position": "WR",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039631",
+      "name": "Cam Grandy",
+      "position": "TE",
+      "team": "CIN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4038,10 +7822,109 @@
       }
     },
     {
+      "playerId": "00-0039652",
+      "name": "Jabari Small",
+      "position": "RB",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039654",
+      "name": "Steven Stilianos",
+      "position": "TE",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039664",
+      "name": "Jaylen Johnson",
+      "position": "WR",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039677",
+      "name": "Sam Hartman",
+      "position": "QB",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039684",
+      "name": "Michael Wiley",
+      "position": "RB",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039686",
       "name": "Colson Yankoff",
       "position": "TE",
       "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039699",
+      "name": "Tanner Mordecai",
+      "position": "QB",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039701",
+      "name": "Terique Owens",
+      "position": "WR",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039702",
+      "name": "Mason Pline",
+      "position": "TE",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039703",
+      "name": "Cody Schrader",
+      "position": "RB",
+      "team": "DEN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4060,6 +7943,39 @@
       }
     },
     {
+      "playerId": "00-0039722",
+      "name": "JaQuae Jackson",
+      "position": "WR",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039732",
+      "name": "Bo Nix",
+      "position": "QB",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039737",
+      "name": "Tip Reiman",
+      "position": "TE",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039738",
       "name": "Blake Corum",
       "position": "RB",
@@ -4071,10 +7987,43 @@
       }
     },
     {
+      "playerId": "00-0039739",
+      "name": "Roman Wilson",
+      "position": "WR",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039746",
       "name": "Will Shipley",
       "position": "RB",
       "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039747",
+      "name": "Ainias Smith",
+      "position": "WR",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039750",
+      "name": "Joshua Karty",
+      "position": "K",
+      "team": "ARI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4104,6 +8053,39 @@
       }
     },
     {
+      "playerId": "00-0039757",
+      "name": "Terrell Jennings",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039773",
+      "name": "Drake Stoops",
+      "position": "WR",
+      "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039782",
+      "name": "Neal Johnson",
+      "position": "TE",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039792",
       "name": "Devontez Walker",
       "position": "WR",
@@ -4126,10 +8108,98 @@
       }
     },
     {
+      "playerId": "00-0039794",
+      "name": "Braelon Allen",
+      "position": "RB",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039796",
       "name": "Rasheen Ali",
       "position": "RB",
       "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039797",
+      "name": "Jordan Travis",
+      "position": "QB",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039798",
+      "name": "Isaiah Davis",
+      "position": "RB",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039801",
+      "name": "Devin Leary",
+      "position": "QB",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039810",
+      "name": "Jermaine Burton",
+      "position": "WR",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039811",
+      "name": "MarShawn Lloyd",
+      "position": "RB",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039814",
+      "name": "Erick All",
+      "position": "TE",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039816",
+      "name": "Anthony Gould",
+      "position": "WR",
+      "team": "IND",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4148,6 +8218,39 @@
       }
     },
     {
+      "playerId": "00-0039843",
+      "name": "Qadir Ismail",
+      "position": "TE",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039847",
+      "name": "Theo Johnson",
+      "position": "TE",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039849",
+      "name": "Marvin Harrison Jr.",
+      "position": "WR",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039851",
       "name": "Drake Maye",
       "position": "QB",
@@ -4159,10 +8262,32 @@
       }
     },
     {
+      "playerId": "00-0039853",
+      "name": "Javon Baker",
+      "position": "WR",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039855",
       "name": "Jalen McMillan",
       "position": "WR",
       "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039868",
+      "name": "Troy Franklin",
+      "position": "WR",
+      "team": "DEN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4236,10 +8361,43 @@
       }
     },
     {
+      "playerId": "00-0039894",
+      "name": "Xavier Worthy",
+      "position": "WR",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039901",
       "name": "Keon Coleman",
       "position": "WR",
       "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039907",
+      "name": "Ja'Lynn Polk",
+      "position": "WR",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039910",
+      "name": "Jayden Daniels",
+      "position": "QB",
+      "team": "WAS",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4280,6 +8438,17 @@
       }
     },
     {
+      "playerId": "00-0039917",
+      "name": "Michael Penix Jr.",
+      "position": "QB",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039918",
       "name": "Caleb Williams",
       "position": "QB",
@@ -4313,10 +8482,98 @@
       }
     },
     {
+      "playerId": "00-0039921",
+      "name": "Trey Benson",
+      "position": "RB",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0039923",
       "name": "J.J. McCarthy",
       "position": "QB",
       "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039934",
+      "name": "Jude McAtamney",
+      "position": "K",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039936",
+      "name": "Thomas Yassmin",
+      "position": "TE",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039941",
+      "name": "Geor'Quarius Spivey",
+      "position": "TE",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0039957",
+      "name": "Ajou Ajou",
+      "position": "WR",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040003",
+      "name": "Lenny Krieg",
+      "position": "K",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040009",
+      "name": "Savion Williams",
+      "position": "WR",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040014",
+      "name": "Kyle McCord",
+      "position": "QB",
+      "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4339,6 +8596,138 @@
       "name": "Darius Cooper",
       "position": "WR",
       "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040028",
+      "name": "Montrell Johnson Jr.",
+      "position": "RB",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040030",
+      "name": "Taylor Morin",
+      "position": "WR",
+      "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040032",
+      "name": "ShunDerrick Powell",
+      "position": "RB",
+      "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040039",
+      "name": "Amar Johnson",
+      "position": "RB",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040046",
+      "name": "Rivaldo Fairweather",
+      "position": "TE",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040048",
+      "name": "Traeshon Holden",
+      "position": "WR",
+      "team": "DAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040049",
+      "name": "Josh Kelly",
+      "position": "WR",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040050",
+      "name": "Tyler Neville",
+      "position": "TE",
+      "team": "DAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040053",
+      "name": "Tyrone Broden",
+      "position": "WR",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040058",
+      "name": "Nick Kallerup",
+      "position": "TE",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040060",
+      "name": "Marshall Lang",
+      "position": "TE",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040067",
+      "name": "Jacardia Wright",
+      "position": "RB",
+      "team": "SEA",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4372,6 +8761,83 @@
       "name": "Brashard Smith",
       "position": "RB",
       "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040080",
+      "name": "Elijhah Badger",
+      "position": "WR",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040081",
+      "name": "Jake Briningstool",
+      "position": "TE",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040086",
+      "name": "Mac Dalena",
+      "position": "WR",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040094",
+      "name": "Tre Watson",
+      "position": "TE",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040095",
+      "name": "Elijah Young",
+      "position": "RB",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040096",
+      "name": "Jahmal Banks",
+      "position": "WR",
+      "team": "BAL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040099",
+      "name": "Xavier Guillory",
+      "position": "WR",
+      "team": "BAL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4489,6 +8955,17 @@
       }
     },
     {
+      "playerId": "00-0040142",
+      "name": "Kaleb Johnson",
+      "position": "RB",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040154",
       "name": "Tai Felton",
       "position": "WR",
@@ -4511,10 +8988,32 @@
       }
     },
     {
+      "playerId": "00-0040164",
+      "name": "Jaylin Lane",
+      "position": "WR",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040170",
       "name": "Elic Ayomanor",
       "position": "WR",
       "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040172",
+      "name": "Jordan Watkins",
+      "position": "WR",
+      "team": "SF",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4537,6 +9036,17 @@
       "name": "DJ Giddens",
       "position": "RB",
       "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040184",
+      "name": "KeAndre Lambert-Smith",
+      "position": "WR",
+      "team": "LAC",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4599,6 +9109,28 @@
       }
     },
     {
+      "playerId": "00-0040202",
+      "name": "Devin Neal",
+      "position": "RB",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040203",
+      "name": "Will Howard",
+      "position": "QB",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040205",
       "name": "Kalel Mullings",
       "position": "RB",
@@ -4632,10 +9164,65 @@
       }
     },
     {
+      "playerId": "00-0040211",
+      "name": "Graham Mertz",
+      "position": "QB",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040215",
+      "name": "Gavin Bartholomew",
+      "position": "TE",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040218",
       "name": "Jimmy Horn Jr.",
       "position": "WR",
       "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040220",
+      "name": "Tommy Mellott",
+      "position": "WR",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040222",
+      "name": "Cam Miller",
+      "position": "QB",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040225",
+      "name": "Thomas Fidone II",
+      "position": "TE",
+      "team": "NYG",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4687,6 +9274,39 @@
       }
     },
     {
+      "playerId": "00-0040239",
+      "name": "Kaden Prather",
+      "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040240",
+      "name": "Caleb Lohner",
+      "position": "TE",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040241",
+      "name": "Dominic Lovett",
+      "position": "WR",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040242",
       "name": "Jacory Croskey-Merritt",
       "position": "RB",
@@ -4709,10 +9329,98 @@
       }
     },
     {
+      "playerId": "00-0040247",
+      "name": "Junior Bergen",
+      "position": "WR",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040250",
+      "name": "Luke Lachey",
+      "position": "TE",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040253",
+      "name": "Maximilian Mang",
+      "position": "TE",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040259",
       "name": "Gage Larvadain",
       "position": "WR",
       "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040260",
+      "name": "Ahmani Marshall",
+      "position": "RB",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040265",
+      "name": "Ja'Seem Reed",
+      "position": "WR",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040272",
+      "name": "Deion Hankins",
+      "position": "RB",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040275",
+      "name": "JP Richardson",
+      "position": "WR",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040277",
+      "name": "Jahdae Walker",
+      "position": "WR",
+      "team": "CHI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4731,10 +9439,153 @@
       }
     },
     {
+      "playerId": "00-0040281",
+      "name": "Jacolby George",
+      "position": "WR",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040285",
+      "name": "Kobe Hudson",
+      "position": "WR",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040288",
+      "name": "Kayron Lynch-Adams",
+      "position": "RB",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040292",
+      "name": "Bryce Pierre",
+      "position": "TE",
+      "team": "CAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040298",
+      "name": "Andrew Armstrong",
+      "position": "WR",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040301",
+      "name": "Jalin Conyers",
+      "position": "TE",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040302",
+      "name": "A.J. Henning",
+      "position": "WR",
+      "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040306",
+      "name": "Nate Noel",
+      "position": "RB",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040311",
       "name": "Theo Wease Jr.",
       "position": "WR",
       "team": "MIA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040315",
+      "name": "Ja'Corey Brooks",
+      "position": "WR",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040317",
+      "name": "Jacoby Jones",
+      "position": "WR",
+      "team": "WAS",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040323",
+      "name": "Chandler Brayboy",
+      "position": "WR",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040324",
+      "name": "Cam Camper",
+      "position": "WR",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040327",
+      "name": "John Copenhaver",
+      "position": "TE",
+      "team": "JAX",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4753,10 +9604,285 @@
       }
     },
     {
+      "playerId": "00-0040331",
+      "name": "Patrick Herbert",
+      "position": "TE",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040332",
+      "name": "Ja'Quinden Jackson",
+      "position": "RB",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040334",
+      "name": "Darius Lassiter",
+      "position": "WR",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040337",
+      "name": "Eli Pancol",
+      "position": "WR",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040340",
+      "name": "Dorian Singer",
+      "position": "WR",
+      "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040350",
+      "name": "Tyler Kahmann",
+      "position": "WR",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040352",
+      "name": "Coleman Owen",
+      "position": "WR",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040353",
+      "name": "Landon Parker",
+      "position": "WR",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040354",
+      "name": "Blayne Taylor",
+      "position": "WR",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040356",
+      "name": "Maddux Trujillo",
+      "position": "K",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040361",
+      "name": "Stephen Gosnell",
+      "position": "WR",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040363",
+      "name": "Keleki Latu",
+      "position": "TE",
+      "team": "BUF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040366",
+      "name": "Hal Presley",
+      "position": "WR",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040368",
+      "name": "Quali Conley",
+      "position": "RB",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040373",
+      "name": "Jamoi Mayes",
+      "position": "WR",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040375",
+      "name": "Jordan Moore",
+      "position": "WR",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040376",
+      "name": "Rashod Owens",
+      "position": "WR",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040378",
+      "name": "Payton Thorne",
+      "position": "QB",
+      "team": "CIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040381",
+      "name": "Oscar Cardenas",
+      "position": "TE",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040383",
+      "name": "Bryson Green",
+      "position": "WR",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040387",
       "name": "Zach Horton",
       "position": "TE",
       "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040388",
+      "name": "Jakobie Keeney-James",
+      "position": "WR",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040390",
+      "name": "Jackson Meeks",
+      "position": "WR",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040392",
+      "name": "Caden Prieskorn",
+      "position": "TE",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040393",
+      "name": "Kye Robichaux",
+      "position": "RB",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040394",
+      "name": "Anthony Tyus III",
+      "position": "RB",
+      "team": "CAR",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4786,10 +9912,87 @@
       }
     },
     {
+      "playerId": "00-0040402",
+      "name": "Dymere Miller",
+      "position": "WR",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040405",
+      "name": "Jamaal Pritchett",
+      "position": "WR",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040406",
       "name": "Quentin Skinner",
       "position": "WR",
       "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040412",
+      "name": "Daniel Jackson",
+      "position": "WR",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040415",
+      "name": "Connor Bazelak",
+      "position": "QB",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040419",
+      "name": "Garrett Greene",
+      "position": "WR",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040429",
+      "name": "Josh Williams",
+      "position": "RB",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040430",
+      "name": "Jordan Bly",
+      "position": "WR",
+      "team": "NYG",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4808,10 +10011,142 @@
       }
     },
     {
+      "playerId": "00-0040432",
+      "name": "Beaux Collins",
+      "position": "WR",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040438",
+      "name": "Antwane Wells Jr.",
+      "position": "WR",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040443",
+      "name": "Joaquin Davis",
+      "position": "WR",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040445",
+      "name": "Courtney Jackson",
+      "position": "WR",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040447",
+      "name": "Jerjuan Newton",
+      "position": "WR",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040455",
+      "name": "Rushawn Baker",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040456",
+      "name": "Da'Quan Felton",
+      "position": "WR",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040457",
+      "name": "Jermaine Terry",
+      "position": "TE",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040461",
+      "name": "Luke Grimm",
+      "position": "WR",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040464",
+      "name": "DJ Uiagalelei",
+      "position": "QB",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040466",
       "name": "Raheim Sanders",
       "position": "RB",
       "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040469",
+      "name": "Stevo Klotz",
+      "position": "TE",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040476",
+      "name": "Ulysses Bentley IV",
+      "position": "RB",
+      "team": "IND",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4830,9 +10165,64 @@
       }
     },
     {
+      "playerId": "00-0040493",
+      "name": "Silas Bolden",
+      "position": "WR",
+      "team": "HOU",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040494",
       "name": "Max Brosmer",
       "position": "QB",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040498",
+      "name": "Dontae Fleming",
+      "position": "WR",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040502",
+      "name": "Robert Lewis",
+      "position": "WR",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040504",
+      "name": "Bryson Nesbit",
+      "position": "TE",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040506",
+      "name": "Myles Price",
+      "position": "WR",
       "team": "MIN",
       "newsFlag": {
         "designation": "Healthy",
@@ -4845,6 +10235,50 @@
       "name": "Ben Yurosek",
       "position": "TE",
       "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040510",
+      "name": "Micah Bernard",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040522",
+      "name": "Xavier Restrepo",
+      "position": "WR",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040526",
+      "name": "Tre Stewart",
+      "position": "RB",
+      "team": "MIN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040528",
+      "name": "JJ Galbreath",
+      "position": "TE",
+      "team": "PIT",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4874,9 +10308,64 @@
       }
     },
     {
+      "playerId": "00-0040538",
+      "name": "Moochie Dixon",
+      "position": "WR",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040544",
+      "name": "Marcus Yarns",
+      "position": "RB",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040547",
       "name": "Nate Carter",
       "position": "RB",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040551",
+      "name": "Nick Nash",
+      "position": "WR",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040552",
+      "name": "Joshua Simon",
+      "position": "TE",
+      "team": "ATL",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040553",
+      "name": "Quincy Skinner Jr.",
+      "position": "WR",
       "team": "ATL",
       "newsFlag": {
         "designation": "Healthy",
@@ -4900,6 +10389,83 @@
       "name": "Isaiah Neyor",
       "position": "WR",
       "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040563",
+      "name": "Efton Chism III",
+      "position": "WR",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040566",
+      "name": "CJ Dippre",
+      "position": "TE",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040567",
+      "name": "Brock Lampe",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040568",
+      "name": "Lan Larison",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040569",
+      "name": "Ben Wooldridge",
+      "position": "QB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040570",
+      "name": "Jeremiah Webb",
+      "position": "WR",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040571",
+      "name": "Gee Scott Jr.",
+      "position": "TE",
+      "team": "WAS",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4940,6 +10506,17 @@
       }
     },
     {
+      "playerId": "00-0040584",
+      "name": "Gunnar Helm",
+      "position": "TE",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040586",
       "name": "Jaydon Blue",
       "position": "RB",
@@ -4951,10 +10528,219 @@
       }
     },
     {
+      "playerId": "00-0040589",
+      "name": "Kurtis Rourke",
+      "position": "QB",
+      "team": "SF",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040590",
       "name": "Konata Mumpfield",
       "position": "WR",
       "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040591",
+      "name": "Taylor Elgersma",
+      "position": "QB",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040597",
+      "name": "Brennan Presley",
+      "position": "WR",
+      "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040598",
+      "name": "Mark Redman",
+      "position": "TE",
+      "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040601",
+      "name": "Jordan Waters",
+      "position": "RB",
+      "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040603",
+      "name": "Mario Williams",
+      "position": "WR",
+      "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040605",
+      "name": "Ketron Jackson Jr.",
+      "position": "WR",
+      "team": "LV",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040606",
+      "name": "Key'Shawn Smith",
+      "position": "WR",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040609",
+      "name": "Tru Edwards",
+      "position": "WR",
+      "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040615",
+      "name": "Cade McDonald",
+      "position": "WR",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040616",
+      "name": "Kisean Johnson",
+      "position": "WR",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040617",
+      "name": "Luke Floriea",
+      "position": "WR",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040618",
+      "name": "Max Hurleman",
+      "position": "RB",
+      "team": "PIT",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040621",
+      "name": "Montorie Foster Jr",
+      "position": "WR",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040627",
+      "name": "T.J. Sheffield",
+      "position": "WR",
+      "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040628",
+      "name": "Drake Dabney",
+      "position": "TE",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040629",
+      "name": "Dalevon Campbell",
+      "position": "WR",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040633",
+      "name": "Kyrese Rowan",
+      "position": "WR",
+      "team": "DEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040637",
+      "name": "Lucas Scott",
+      "position": "RB",
+      "team": "BAL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4977,6 +10763,72 @@
       "name": "Jalen Royals",
       "position": "WR",
       "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040648",
+      "name": "Tory Horton",
+      "position": "WR",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040649",
+      "name": "Robbie Ouzts",
+      "position": "RB",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040651",
+      "name": "Damien Martinez",
+      "position": "RB",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040653",
+      "name": "Ricky White III",
+      "position": "WR",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040656",
+      "name": "Hunter Dekkers",
+      "position": "QB",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040663",
+      "name": "Harold Fannin Jr.",
+      "position": "TE",
+      "team": "CLE",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -5028,6 +10880,28 @@
       }
     },
     {
+      "playerId": "00-0040671",
+      "name": "Nate McCollum",
+      "position": "WR",
+      "team": "ARI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040673",
+      "name": "Jalen Milroe",
+      "position": "QB",
+      "team": "SEA",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040676",
       "name": "Cam Ward",
       "position": "QB",
@@ -5050,6 +10924,50 @@
       }
     },
     {
+      "playerId": "00-0040692",
+      "name": "Jarquez Hunter",
+      "position": "RB",
+      "team": "LAR",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040697",
+      "name": "Thomas Gordon",
+      "position": "TE",
+      "team": "CHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040702",
+      "name": "Mitch Van Vooren",
+      "position": "TE",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040703",
+      "name": "Ife Adeyi",
+      "position": "WR",
+      "team": "PHI",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040704",
       "name": "Dillon Gabriel",
       "position": "QB",
@@ -5065,6 +10983,28 @@
       "name": "Chimere Dike",
       "position": "WR",
       "team": "TEN",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "team": "NYG",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040718",
+      "name": "Travis Hunter",
+      "position": "WR",
+      "team": "JAX",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -5138,6 +11078,17 @@
       }
     },
     {
+      "playerId": "00-0040736",
+      "name": "Mason Taylor",
+      "position": "TE",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040737",
       "name": "Terrance Ferguson",
       "position": "TE",
@@ -5171,10 +11122,120 @@
       }
     },
     {
+      "playerId": "00-0040753",
+      "name": "Will Sheppard",
+      "position": "WR",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040758",
+      "name": "Lawrance Toafili",
+      "position": "RB",
+      "team": "NYJ",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040766",
+      "name": "Mark McNamee",
+      "position": "K",
+      "team": "GB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040769",
+      "name": "Jaden Smith",
+      "position": "WR",
+      "team": "TB",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040773",
+      "name": "Nay'Quan Wright",
+      "position": "RB",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040775",
+      "name": "Shane Watts",
+      "position": "RB",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040778",
+      "name": "Roderick Daniels Jr.",
+      "position": "WR",
+      "team": "NO",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040779",
+      "name": "Phil Lutz",
+      "position": "WR",
+      "team": "NE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040782",
       "name": "Isaiah Bond",
       "position": "WR",
       "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0040784",
+      "name": "Quinshon Judkins",
+      "position": "RB",
+      "team": "CLE",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": NaN,
+      "name": "Layne Pryor",
+      "position": "TE",
+      "team": "HOU",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
