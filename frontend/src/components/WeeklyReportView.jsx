@@ -209,11 +209,6 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
 
       {report && metaReady && (
         <>
-          <p className="format-footnote">
-            Projections shown assume <strong>{FORMAT_LABEL[report.leagueFormatAssumption] || report.leagueFormatAssumption}</strong> scoring, pending
-            the real league's confirmed settings.
-          </p>
-
           <div className="report-section">
             <h2>Start</h2>
             {slotOrder.map((slotName) => {

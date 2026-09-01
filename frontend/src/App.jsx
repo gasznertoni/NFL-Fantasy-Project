@@ -10,8 +10,8 @@ const TABS = [
 ]
 
 const LEAGUES = [
-  { id: 'league-1', label: 'ESPN 14-team PPR' },
-  { id: 'league-2', label: 'Second League' },
+  { id: 'league-1', label: 'AH Football League' },
+  { id: 'league-2', label: 'Intuitech Fantasy' },
 ]
 
 function tabFromHash() {
