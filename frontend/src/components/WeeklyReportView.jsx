@@ -50,6 +50,16 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
   const [report, setReport] = useState(undefined) // undefined = loading, null = no data
   const [slots, setSlots] = useState(null) // null = loading
   const [pool, setPool] = useState(null) // null = loading, Map<playerId, poolEntry> once loaded
+  const [expandedRows, setExpandedRows] = useState(new Set())
+
+  function toggleRow(id) {
+    setExpandedRows((prev) => {
+      const next = new Set(prev)
+      if (next.has(id)) next.delete(id)
+      else next.add(id)
+      return next
+    })
+  }
 
   // On mount (and whenever leagueId changes), load the manifest to find the
   // real latest week so the UI doesn't need a hardcoded constant updated by hand.
@@ -116,7 +126,16 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
 
     const projection = projectionsById.get(playerId)
     if (projection) {
-      return <PlayerCard key={playerId} player={projection} muted={muted} />
+      return (
+        <PlayerCard
+          key={playerId}
+          player={projection}
+          muted={muted}
+          slotLabel={slotName}
+          expanded={expandedRows.has(playerId)}
+          onToggle={() => toggleRow(playerId)}
+        />
+      )
     }
 
     // Assigned player has no projection entry for this week -- degrade to
@@ -243,11 +262,14 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
             {waiverTargets.length === 0 ? (
               <EmptyState message="No waiver targets available — this week's top candidates are already on your team." />
             ) : (
-              <div className="player-card-grid">
+              <div className="player-list-group">
                 {waiverTargets.map((p) => (
                   <PlayerCard
                     key={p.playerId}
                     player={p}
+                    slotLabel={p.position}
+                    expanded={expandedRows.has(p.playerId)}
+                    onToggle={() => toggleRow(p.playerId)}
                     rationale={p.rationale}
                     replacement={suggestReplacement(p.position)}
                   />
