@@ -14,6 +14,8 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
 from news import (  # noqa: E402
     DEFAULT_NEWS_FLAG,
+    SUMMARY_FAILURES,
+    _parse_json_object,
     articles_for_player,
     build_summary_prompt,
     summarize_player_news,
@@ -154,6 +156,72 @@ class TestSummarizePlayerNews(unittest.TestCase):
         client = FakeAnthropicClient(empty_content=True)
         result = summarize_player_news("Player X", [{"headline": "h", "description": "d"}], client)
         self.assertEqual(result, DEFAULT_NEWS_FLAG)
+
+
+class TestJsonFenceParsing(unittest.TestCase):
+    """Models wrap JSON in a markdown fence even when told not to. A bare
+    json.loads on that raises, summarize_player_news swallowed the raise, and
+    the result was indistinguishable from "no newsworthy players" -- every LLM
+    summary in every report was empty until 2026-09-01. These pin the fix."""
+
+    def test_parses_a_json_fence(self):
+        self.assertEqual(_parse_json_object('```json\n{"a": 1}\n```'), {"a": 1})
+
+    def test_parses_an_unlabelled_fence(self):
+        self.assertEqual(_parse_json_object('```\n{"a": 1}\n```'), {"a": 1})
+
+    def test_parses_bare_json(self):
+        self.assertEqual(_parse_json_object('{"a": 1}'), {"a": 1})
+
+    def test_parses_json_with_commentary_around_it(self):
+        self.assertEqual(_parse_json_object('Sure! {"a": 1} hope that helps'), {"a": 1})
+
+    def test_tolerates_surrounding_whitespace(self):
+        self.assertEqual(_parse_json_object('\n\n  {"a": 1}  \n'), {"a": 1})
+
+    def test_raises_on_genuinely_unparseable_text(self):
+        with self.assertRaises(Exception):
+            _parse_json_object("no json here at all")
+
+
+class TestSummarizationFailureVisibility(unittest.TestCase):
+    """A per-player degrade is only safe if someone can see how often it
+    fires. A 100% failure rate previously looked exactly like success."""
+
+    def setUp(self):
+        SUMMARY_FAILURES.clear()
+
+    def tearDown(self):
+        SUMMARY_FAILURES.clear()
+
+    def test_a_fenced_response_now_succeeds_and_records_no_failure(self):
+        class FakeClient:
+            class messages:
+                @staticmethod
+                def create(**kwargs):
+                    class R:
+                        content = [type("T", (), {"text": '```json\n{"designation": "Questionable", "riskLevel": "medium", "summary": "Limited in practice."}\n```'})()]
+                    return R()
+        flag = summarize_player_news("A Player", [{"headline": "h", "description": "d"}], FakeClient())
+        self.assertEqual(flag["designation"], "Questionable")
+        self.assertEqual(flag["summary"], "Limited in practice.")
+        self.assertEqual(SUMMARY_FAILURES, [])
+
+    def test_a_real_failure_is_recorded_not_swallowed(self):
+        class BoomClient:
+            class messages:
+                @staticmethod
+                def create(**kwargs):
+                    raise RuntimeError("rate limited")
+        flag = summarize_player_news("A Player", [{"headline": "h", "description": "d"}], BoomClient())
+        self.assertEqual(flag, dict(DEFAULT_NEWS_FLAG))
+        self.assertEqual(len(SUMMARY_FAILURES), 1)
+        self.assertIn("A Player", SUMMARY_FAILURES[0])
+
+    def test_no_articles_is_not_a_failure(self):
+        flag = summarize_player_news("A Player", [], object())
+        self.assertEqual(flag, dict(DEFAULT_NEWS_FLAG))
+        self.assertEqual(SUMMARY_FAILURES, [])
 
 
 if __name__ == "__main__":

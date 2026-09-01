@@ -227,8 +227,44 @@ def build_summary_prompt(player_name: str, articles: list[dict[str, Any]]) -> st
         f'"summary": a one-sentence plain-English summary of the relevant news, '
         f'or null if nothing relevant/no elevated risk was found}}\n\n'
         f'If nothing here indicates an elevated injury/availability risk, respond '
-        f'with {{"designation": "Healthy", "riskLevel": "none", "summary": null}}.'
+        f'with {{"designation": "Healthy", "riskLevel": "none", "summary": null}}.\n\n'
+        f'Output the raw JSON object only. Do not wrap it in a markdown code '
+        f'fence and do not add any commentary before or after it.'
     )
+
+
+def _parse_json_object(raw_text: str) -> dict[str, Any]:
+    """Parse the model's reply into a dict, tolerating a markdown fence.
+
+    Models routinely wrap JSON in ```json ... ``` even when told not to, and
+    a bare json.loads() on that raises. That failure used to be swallowed by
+    summarize_player_news' except-block and degrade to DEFAULT_NEWS_FLAG, so a
+    100% failure rate looked exactly like "no newsworthy players" -- every LLM
+    summary in every report was silently empty until 2026-09-01.
+
+    Strips an optional fence, then falls back to the outermost {...} span, so a
+    stray sentence around the object does not lose the whole response.
+    """
+    text = raw_text.strip()
+    if text.startswith("```"):
+        # ```json\n{...}\n```  ->  {...}
+        text = text.split("\n", 1)[1] if "\n" in text else text[3:]
+        if text.rstrip().endswith("```"):
+            text = text.rstrip()[:-3]
+        text = text.strip()
+    try:
+        return json.loads(text)
+    except json.JSONDecodeError:
+        start, end = text.find("{"), text.rfind("}")
+        if start == -1 or end <= start:
+            raise
+        return json.loads(text[start : end + 1])
+
+
+# Reasons summarization degraded, appended to as it happens. A caller that
+# runs a whole pool should report len(SUMMARY_FAILURES) -- see the note in
+# summarize_player_news about why this exists.
+SUMMARY_FAILURES: list[str] = []
 
 
 def summarize_player_news(player_name: str, articles: list[dict[str, Any]], client: Any) -> dict[str, Any]:
@@ -254,12 +290,18 @@ def summarize_player_news(player_name: str, articles: list[dict[str, Any]], clie
             messages=[{"role": "user", "content": prompt}],
         )
         raw_text = response.content[0].text
-        candidate = json.loads(raw_text)
-    except Exception:
+        candidate = _parse_json_object(raw_text)
+    except Exception as exc:  # noqa: BLE001
         # Covers API/network errors from the call itself (rate limit,
         # timeout, auth) as well as a malformed/empty response shape --
         # per this module's "never take down the report pipeline" contract,
         # any failure here degrades to "no flag shown" for this player.
+        #
+        # But it is NOT silent any more. Swallowing this without a trace is
+        # what let every summarization fail for months while the pipeline
+        # reported success: a per-player degrade is only safe if someone can
+        # see how often it fires.
+        SUMMARY_FAILURES.append(f"{player_name}: {type(exc).__name__}: {exc}")
         return dict(DEFAULT_NEWS_FLAG)
 
     return _validate_news_flag(candidate)

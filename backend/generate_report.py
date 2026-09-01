@@ -849,6 +849,21 @@ def load_news_flags_nflreadpy(pool: list[dict[str, Any]], client: Any) -> dict[s
         flags[player["playerId"]] = apply_sleeper_designation(
             flag, player["name"], player.get("espnId"), sleeper_data
         )
+
+    if client is not None:
+        from news import SUMMARY_FAILURES
+
+        summarized = sum(1 for f in flags.values() if f.get("summary"))
+        # Report the failure count out loud. A per-player degrade that nobody
+        # counts is how every LLM summarization in this pipeline failed
+        # silently -- a markdown code fence around the JSON, swallowed by a
+        # bare except, for every player in every run.
+        print(
+            f"  news: {len(articles)} ESPN articles, {summarized} players flagged"
+            + (f", {len(SUMMARY_FAILURES)} summarization failures" if SUMMARY_FAILURES else "")
+        )
+        for failure in SUMMARY_FAILURES[:3]:
+            print(f"    ! {failure}")
     return flags
 
 
