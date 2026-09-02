@@ -97,6 +97,78 @@ def load_game_logs(
     return logs
 
 
+def dst_kicker_baselines(
+    seasons: list[int], scoring_config: dict[str, Any]
+) -> dict[str, float]:
+    """{"DST": mean, "K": mean} from completed prior seasons, under this
+    league's own scoring.
+
+    Why this exists: POSITIONS above covers QB/RB/WR/TE only, so D/ST and K
+    never received a positional baseline. That is invisible in mid-season --
+    they have game logs and the rolling average carries them -- but in week 1 of
+    a NEW season there are no logs at all, empirical-Bayes shrinkage weights the
+    (absent) sample at zero, and the projection collapses to the baseline. With
+    no baseline that is exactly 0.00, which is what every D/ST and every kicker
+    scored in the first 2026 week-1 run. Both leagues start one of each, so two
+    roster slots were unusable.
+
+    week1.py cannot cover this: it is a per-position ridge over prior-season
+    PLAYER production and has no D/ST or K features. A prior-season positional
+    mean is the honest fallback -- it is what "no information about this player
+    yet" actually implies, and it is what the other four positions already get.
+
+    Kickers come from load_player_stats() like any skill player. D/ST needs the
+    team-stats self-join in dst.py, which is why the two are computed here
+    together rather than folded into load_game_logs.
+    """
+    import nflreadpy as nfl
+
+    from dst import build_dst_game_logs
+    from kicker import nflreadpy_kicker_row_to_stat_line
+
+    out: dict[str, float] = {}
+    season_list = [int(s) for s in seasons]
+
+    try:
+        stats = nfl.load_player_stats(seasons=season_list)
+        stats = stats.to_pandas() if hasattr(stats, "to_pandas") else stats
+        stats = stats[(stats["season_type"] == "REG") & (stats["position"] == "K")]
+        scores = [
+            float(compute_league_points(nflreadpy_kicker_row_to_stat_line(r), scoring_config))
+            for r in stats.to_dict("records")
+        ]
+        if scores:
+            out["K"] = sum(scores) / len(scores)
+    except Exception:
+        pass
+
+    try:
+        team_stats = nfl.load_team_stats(seasons=season_list)
+        team_stats = team_stats.to_pandas() if hasattr(team_stats, "to_pandas") else team_stats
+        team_stats = team_stats[team_stats["season_type"] == "REG"].to_dict("records")
+        schedule = nfl.load_schedules()
+        schedule = schedule.to_pandas() if hasattr(schedule, "to_pandas") else schedule
+        schedule = schedule[
+            (schedule["game_type"] == "REG") & (schedule["season"].isin(season_list))
+        ].to_dict("records")
+        logs = build_dst_game_logs(team_stats, schedule)
+        scores = [
+            float(compute_league_points(
+                {k: v for k, v in game.items()
+                 if k not in ("season", "week", "opponent_team")},
+                scoring_config,
+            ))
+            for games in logs.values()
+            for game in games
+        ]
+        if scores:
+            out["DST"] = sum(scores) / len(scores)
+    except Exception:
+        pass
+
+    return out
+
+
 def _walk_forward_rows(
     logs: dict[str, list[dict[str, Any]]],
     scoring_config: dict[str, Any],
@@ -235,7 +307,13 @@ def fit_from_history(
     )
 
     return {
-        "positional_baselines": positional_baselines,
+        # D/ST and K are not in POSITIONS, so they get their baseline from
+        # prior-season means instead -- without one they project 0.00 in a
+        # cold-start week 1. See dst_kicker_baselines.
+        "positional_baselines": {
+            **positional_baselines,
+            **dst_kicker_baselines(seasons, scoring_config),
+        },
         # Resolved per PLAYER by the caller's loop, but k is a per-position
         # quantity -- expose the position map and let the caller key it.
         "shrinkage_ks": _by_player(logs, k_by_position),
