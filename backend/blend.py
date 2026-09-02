@@ -54,6 +54,21 @@ VOLUME_COLUMNS: tuple[str, ...] = (
     "receiving_yards",
     "rushing_yards",
     "passing_yards",
+    # Snap share, added 2026-09-02 by the second audit. Comes off the game log
+    # like every other column here, so rolling_volume averages it under the same
+    # window and decay as the points average. Consistent RMSE gain at all four
+    # positions, and confirmed through the real pipeline on held-out 2025:
+    # 6.5089 -> 6.4872 for league-1 (p=1.4e-03), 6.1877 -> 6.1662 for league-2
+    # (p=1.2e-03), with pairwise accuracy up in both.
+    #
+    # The TD/non-TD split from expected_td.py is deliberately NOT here. It was
+    # tried as two extra features and is worth nothing that way (p=0.60): the
+    # ridge cannot exploit a decomposition of `rolling_avg`, which it is already
+    # given whole. It lives in projections._estimator_series instead, as the
+    # substitution it was actually measured as.
+    #
+    # See docs/research/second-audit-2026-09-02.md sections 4 and 6.
+    "offense_pct",
 )
 
 CONTEXT_COLUMNS: tuple[str, ...] = (

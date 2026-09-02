@@ -19,6 +19,17 @@ from typing import Any, Optional
 
 import baseline
 import blend as blend_module
+from expected_td import (
+    EXPECTED_TD_POINTS_KEY,
+    NON_TD_POINTS_KEY,
+    SNAP_SHARE_KEY,
+)
+
+# Blend features that come from expected_td.py rather than straight off an
+# nflreadpy row. NON_TD_POINTS_KEY / EXPECTED_TD_POINTS_KEY are not blend
+# features at all -- they feed projections._estimator_series -- but they are
+# listed here so the enrichment pass is understood to own all three.
+OPPORTUNITY_COLUMNS = (NON_TD_POINTS_KEY, EXPECTED_TD_POINTS_KEY, SNAP_SHARE_KEY)
 import calibration as calibration_module
 from projections import DEFAULT_DECAY, DEFAULT_WINDOW, project_player
 from scoring import compute_league_points, nflreadpy_row_to_stat_line
@@ -26,9 +37,26 @@ from scoring import compute_league_points, nflreadpy_row_to_stat_line
 POSITIONS = ("QB", "RB", "WR", "TE")
 
 
-def load_game_logs(seasons: list[int], positions: tuple[str, ...] = POSITIONS):
+def load_game_logs(
+    seasons: list[int],
+    positions: tuple[str, ...] = POSITIONS,
+    scoring_config: Optional[dict[str, Any]] = None,
+):
     """{player_id: [game, ...]} with league points already computed and the
-    volume columns carried through for blend.rolling_volume."""
+    volume columns carried through for blend.rolling_volume.
+
+    `scoring_config` enables the opportunity features (expected_td.py): the
+    TD/non-TD split is denominated in league points, so it cannot be built
+    without knowing what a touchdown is worth. Passing None leaves those
+    columns absent, which blend.py treats as its own state -- that is the
+    pre-2026-09-02 behaviour and is what --skip-blend effectively gets.
+
+    These three columns are NOT nflreadpy columns, so the generic
+    `record.get(column)` loop below cannot fill them; they need the explicit
+    enrichment pass at the end. Forgetting it would silently fit the blend with
+    all three permanently missing, which is a plausible-looking no-op rather
+    than an error -- the exact failure shape the v16 audit found three of.
+    """
     import nflreadpy as nfl
 
     frame = nfl.load_player_stats(seasons=seasons)
@@ -46,8 +74,26 @@ def load_game_logs(seasons: list[int], positions: tuple[str, ...] = POSITIONS):
             opponent_team=record.get("opponent_team"),
         )
         for column in blend_module.VOLUME_COLUMNS:
+            if column in OPPORTUNITY_COLUMNS:
+                continue  # filled by the enrichment pass below, not a raw column
             line[column] = record.get(column)
         logs.setdefault(record["player_id"], []).append(line)
+
+    if scoring_config is not None:
+        try:
+            from expected_td import enrich_game_logs, load_expected_td_rows, load_snap_shares
+
+            logs = enrich_game_logs(
+                logs,
+                load_expected_td_rows(seasons),
+                load_snap_shares(seasons),
+                scoring_config,
+            )
+        except Exception:
+            # Degrade to the volume-only feature set rather than failing the
+            # whole calibration fit -- same contract as every other optional
+            # layer in this pipeline.
+            pass
     return logs
 
 
@@ -125,7 +171,7 @@ def fit_from_history(
          "blend_model"} -- each independently None/empty-safe, so a partial
         failure degrades one piece rather than the whole layer.
     """
-    logs = load_game_logs(list(range(min(seasons) - 1, season)))
+    logs = load_game_logs(list(range(min(seasons) - 1, season)), scoring_config=scoring_config)
 
     # Per-position k from the variance components, on the training seasons.
     points_by_position: dict[str, dict[str, list[float]]] = {}

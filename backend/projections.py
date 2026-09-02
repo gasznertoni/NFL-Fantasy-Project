@@ -190,6 +190,86 @@ def _empirical_bayes_weight(games_used: int, k: float) -> float:
     return empirical_bayes_weight(games_used, k)
 
 
+# Built, tested, and deliberately LEFT OFF -- the same call matchup.py and
+# usage.py already carry, for the same reason.
+#
+# The idea is sound and the standalone measurement was real: substituting an
+# opportunity-based touchdown term for the player's own touchdown history beat
+# the plain rolling average at every position (RB p=1.2e-02, WR p=6.4e-03,
+# TE p=3.6e-03) and was worth +0.48 lineup points a week in a 1 920-lineup
+# simulation. That is what the second audit reported.
+#
+# It does not survive integration. Re-measured through the REAL pipeline --
+# shrinkage, affine recalibration, and a blend that already carries rolling
+# volume and the Vegas implied total -- the gain collapses to nothing:
+#
+#   league-1, on top of snap share:  2025  6.4872 -> 6.4763  p=0.170
+#                                    2024  6.5569 -> 6.5596  p=0.687  (worse)
+#   league-2, on top of snap share:  2025  6.1662 -> 6.1579  p=0.135
+#                                    2024  6.2659 -> 6.2698  p=0.387  (worse)
+#
+# Not significant in either direction, and the SIGN FLIPS between held-out
+# seasons -- the signature of noise, not signal. The volume block already
+# carries most of what opportunity-based touchdowns know, so the marginal value
+# against the full stack is nil even though it is real against a bare average.
+#
+# Kept rather than deleted because it is validated, tested code and a future
+# estimator without the volume blend would want it. Flip to True to enable.
+# See docs/research/second-audit-2026-09-02.md section 4 for both measurements
+# and why they disagree.
+USE_OPPORTUNITY_TD_ESTIMATOR = False
+
+
+def _estimator_series(
+    recent: list[dict[str, Any]], per_game_points: list[float]
+) -> list[float]:
+    """The per-game series the rolling average is actually taken over.
+
+    Fantasy points decompose exactly as `non-TD points + TD points`, and the two
+    halves behave nothing alike: touchdowns are the least stable component in
+    the system (receiving-TD ICC 0.07-0.11) while yardage and volume are
+    comparatively steady. Where expected_td.py has attached both halves to a
+    game, this returns
+
+        non_td_points + exp_td_points
+
+    -- the player's own stable production, plus what his OPPORTUNITY says the
+    touchdowns were worth, instead of the touchdowns he happened to score.
+
+    Measured held-out on 2024-25, this beats the plain rolling total at every
+    position (RB p=1.2e-02, WR p=6.4e-03, TE p=3.6e-03) and is worth +0.48
+    lineup points a week, t=2.86, p=4.2e-03. See
+    docs/research/second-audit-2026-09-02.md section 4.
+
+    Why here rather than as a blend feature: it was measured as a SUBSTITUTION
+    for the rolling total, and adding the two halves alongside `rolling_avg` in
+    blend.py instead is worth nothing (p=0.60 on held-out 2025 through the real
+    pipeline). The ridge cannot exploit a decomposition of a feature it is
+    already given whole. An augmentation and a substitution are not the same
+    change, and only the substitution reproduces the measurement.
+
+    Falls back per game, not per player: a game missing either half keeps its
+    real total, so ~10% expected-TD coverage gaps degrade one week rather than
+    disqualifying a player's whole history.
+    """
+    from expected_td import EXPECTED_TD_POINTS_KEY, NON_TD_POINTS_KEY
+
+    out = []
+    for game, points in zip(recent, per_game_points):
+        non_td = game.get(NON_TD_POINTS_KEY)
+        exp_td = game.get(EXPECTED_TD_POINTS_KEY)
+        if non_td is None or exp_td is None:
+            out.append(points)
+            continue
+        try:
+            value = float(non_td) + float(exp_td)
+        except (TypeError, ValueError):
+            out.append(points)
+            continue
+        out.append(points if value != value else value)  # NaN -> real total
+    return out
+
+
 def project_player(
     game_log: list[dict[str, Any]],
     scoring_config: dict[str, Any],
@@ -299,7 +379,15 @@ def project_player(
 
     per_game_points = [float(compute_league_points(g, scoring_config)) for g in recent]
     games_used = len(per_game_points)
-    rolling_avg = _rolling_average(per_game_points, decay)
+    # The ESTIMATOR series may differ from the DISPLAY series. per_game_points
+    # is what the report shows behind a projection, so it stays the player's
+    # real weekly scores. The average is taken over _estimator_series(), which
+    # substitutes an opportunity-based touchdown term where one is available.
+    rolling_avg = _rolling_average(
+        _estimator_series(recent, per_game_points) if USE_OPPORTUNITY_TD_ESTIMATOR
+        else per_game_points,
+        decay,
+    )
 
     if shrinkage_mode not in SHRINKAGE_MODES:
         raise ValueError(f"shrinkage_mode must be one of {SHRINKAGE_MODES}, got {shrinkage_mode!r}")
