@@ -171,6 +171,12 @@ NFLREADPY_OFFENSE_COLUMN_MAP = {
     # them as their own column. Rare (43 across 2023-25, all RB/WR/TE) but a
     # full 6-point swing when they happen, and previously worth 0 to us.
     "special_teams_tds": "return_td",
+    # A player who recovers a fumble and scores. league-2's real ESPN settings
+    # carry this as its own MISC line ("Fumble Recovery TD = 6"); league-1 has
+    # no such player-side rule and simply does not define the category, so this
+    # contributes nothing there. Column confirmed present in a live
+    # load_player_stats() response (2026-09-02).
+    "fumble_recovery_tds": "fumble_recovery_td",
 }
 
 
@@ -186,6 +192,15 @@ def nflreadpy_row_to_stat_line(row: dict[str, Any]) -> dict[str, float]:
     for nfl_col, our_col in NFLREADPY_OFFENSE_COLUMN_MAP.items():
         val = row.get(nfl_col)
         if not val:
+            continue
+        # `if not val` does NOT catch float("nan") -- NaN is truthy. A NaN here
+        # propagates through every sum to a NaN total, and generate_report.py
+        # serialises with allow_nan=False, so one bad cell fails the ENTIRE
+        # fixture rather than one player. No mapped column carries a NaN in
+        # 2024-25, but this is the same trap that produced `"playerId": NaN`
+        # in v16, and it costs one comparison to close. Treated as absent,
+        # matching the documented "a missing stat contributes 0" contract.
+        if val != val:
             continue
         out[our_col] = out.get(our_col, 0) + val
     return out

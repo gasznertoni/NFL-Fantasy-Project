@@ -41,21 +41,41 @@ class TestAssembleDstStatLine(unittest.TestCase):
         self.assertEqual(stat_line["def_safety"], 1)
         self.assertEqual(stat_line["fumble_forced"], 2)
 
-    def test_st_td_uses_fumble_recovery_tds_only(self):
-        """fumble_recovery_tds (direct column, confirmed real 2026-08-31)
-        maps to def_st_td -- the one TD-credit line in the real ESPN settings
-        ('Fumble Recovered for TD, FTD = 6'). def_tds and special_teams_tds
-        are NOT credited: def_tds bundles INT-return TDs too (broader than
-        the real rule), special_teams_tds covers return TDs that have no
-        explicit bonus line in ESPN's settings at all. See
-        docs/research/dst-td-decomposition.md."""
-        own_row = {"fumble_recovery_tds": 1, "def_tds": 2, "special_teams_tds": 1}
+    def test_three_td_concepts_map_to_three_distinct_categories(self):
+        """The three touchdown columns stay separate, so each league's config
+        can score exactly the rule it has.
+
+        Until 2026-09-02 fumble_recovery_tds was emitted as "def_st_td", which
+        was only correct because league-1 was the sole league and its one
+        TD-credit line is ESPN's 'Fumble Recovered for TD (FTD) = 6'. league-2's
+        real settings score a general 'Defense TD' AND a separate 'Special
+        teams td', so the names now mean what they say. See
+        docs/research/dst-td-decomposition.md and the DST_DIRECT_COLUMN_MAP
+        comment."""
+        own_row = {"fumble_recovery_tds": 1, "def_tds": 2, "special_teams_tds": 3}
         stat_line = assemble_dst_stat_line(own_row, {}, points_allowed=0)
-        self.assertEqual(stat_line["def_st_td"], 1)
-        # def_tds and special_teams_tds must NOT produce any def_st_td credit
-        own_row_no_fumble_td = {"def_tds": 1, "special_teams_tds": 1}
-        stat_line_no_fumble = assemble_dst_stat_line(own_row_no_fumble_td, {}, points_allowed=0)
-        self.assertNotIn("def_st_td", stat_line_no_fumble)
+        self.assertEqual(stat_line["def_fumble_rec_td"], 1)
+        self.assertEqual(stat_line["def_td"], 2)
+        self.assertEqual(stat_line["def_st_td"], 3)
+
+    def test_absent_td_columns_produce_no_category(self):
+        """A league scores only the keys its config defines, so an absent
+        source column must leave the category out entirely rather than
+        emitting a zero that a config could mistake for a real result."""
+        stat_line = assemble_dst_stat_line({"def_tds": 1}, {}, points_allowed=0)
+        self.assertEqual(stat_line["def_td"], 1)
+        self.assertNotIn("def_fumble_rec_td", stat_line)
+        self.assertNotIn("def_st_td", stat_line)
+
+    def test_overlapping_td_categories_rejected(self):
+        """def_td already includes fumble-return scores, so a config defining
+        both would double-count them. Same failure class as the v16 column-map
+        defects: silent, plausible, and wrong -- so it raises."""
+        from dst import validate_dst_td_categories
+        validate_dst_td_categories({"def_td": 6})
+        validate_dst_td_categories({"def_fumble_rec_td": 6})
+        with self.assertRaises(ValueError):
+            validate_dst_td_categories({"def_td": 6, "def_fumble_rec_td": 6})
 
     def test_return_yards_sums_punt_and_kickoff(self):
         own_row = {"punt_return_yards": 15, "kickoff_return_yards": 22}

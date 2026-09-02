@@ -1,79 +1,67 @@
 {
-  "_PLACEHOLDER": true,
-  "_note": "League-2 scoring config — fill in real values from your league's scoring settings before using this config for projections. The structure mirrors backend/leagues/league-1/scoring-config.json exactly. Values here are illustrative defaults (standard half-PPR) and will produce inaccurate projections until replaced with your real league's numbers. Check all three sections: 'linear' (per-stat point values), 'milestones' (yardage-bonus thresholds), and 'tiers' (DST points-allowed/yards-allowed bands).",
+  "_PLACEHOLDER": false,
+  "_note": "REAL VALUES, confirmed 2026-09-02 from screenshots of the league's own ESPN 'Scoring Settings' screen (Intuitech Fantasy, 8 teams). Every category below was read directly off that screen. This league differs from league-1 in three structural ways: 4-point passing TDs (not 6), -1 per interception (not -2), and six FG distance bands (not three). It has NO yardage-milestone bonuses, NO defensive return-yardage category, and NO defensive yards-allowed tier -- all three are absent from the settings screen, which is why they are absent here rather than set to zero.",
+
+  "_absent_categories_note": "Deliberately NOT present, because the ESPN screen does not list them: (a) def_return_yd -- no return-yardage line exists for D/ST in this league, (b) def_yards_allowed tiers -- only points-allowed bands are configured, (c) plain non-lost 'fumble' -- only 'Fumble Lost' (-2) appears, (d) yardage milestones for passing/rushing/receiving. An absent category contributes nothing, which is the correct behaviour here -- do not add them back with a value of 0 'for completeness', because that would misrepresent an unconfigured rule as a confirmed zero.",
+
+  "_points_allowed_note": "The screen lists 0 / 1-6 / 7-13 / 14-20 / 28-34 / 35+. The 21-27 band is not shown, which is ESPN's convention for a band worth exactly 0 -- encoded here as {max: 27, points: 0} so the tier ladder stays continuous. Without that entry a 24-point game would fall through to the 28-34 band and be scored -1.",
+
+  "_unmapped_categories_note": "Three categories below are real league rules with no nflreadpy data source, so they will always contribute 0 in practice: st_player_forced_fumble, st_player_fumble_rec (nflreadpy does not separate special-teams tackles from defensive ones at player level) and def_st_forced_fumble / def_st_fumble_rec (same, at team level). They are kept in the config because the rule exists and a future data source would make them live; each is worth 1 point and is vanishingly rare for a rostered fantasy player. This is the same graceful-miss contract every other category here uses.",
+
   "linear": {
     "pass_yd": 0.04,
     "pass_td": 4,
-    "pass_int": -2,
+    "pass_int": -1,
     "pass_2pt": 2,
+
     "rush_yd": 0.1,
     "rush_td": 6,
     "rush_2pt": 2,
+
     "rec_yd": 0.1,
     "rec_td": 6,
-    "return_td": 6,
     "rec_2pt": 2,
-    "reception": 0.5,
-    "fumble": 0,
+    "reception": 1,
+
     "fumble_lost": -2,
-    "fumble_forced": 0,
+    "fumble_recovery_td": 6,
+    "return_td": 6,
+    "st_player_forced_fumble": 1,
+    "st_player_fumble_rec": 1,
+
+    "fg_made_0_19": 3,
+    "fg_made_20_29": 3,
+    "fg_made_30_39": 3,
+    "fg_made_40_49": 4,
+    "fg_made_50_59": 5,
+    "fg_made_60_plus": 6,
+    "pat_made": 1,
+    "fg_missed": -1,
+    "pat_missed": -1,
+
+    "def_td": 6,
     "def_sack": 1,
     "def_int": 2,
     "def_fumble_rec": 2,
     "def_safety": 2,
+    "fumble_forced": 1,
     "def_blocked_kick": 2,
     "def_st_td": 6,
-    "def_return_yd": 0.0,
-    "fg_made_0_39": 3,
-    "fg_made_40_49": 4,
-    "fg_made_50_plus": 5,
-    "fg_missed": -1,
-    "pat_made": 1,
-    "pat_missed": -1
+    "def_st_forced_fumble": 1,
+    "def_st_fumble_rec": 1
   },
-  "milestones": {
-    "pass_yd": {
-      "mode": "highest",
-      "tiers": [
-        { "threshold": 300, "points": 3 },
-        { "threshold": 400, "points": 5 }
-      ]
-    },
-    "rush_yd": {
-      "mode": "highest",
-      "tiers": [
-        { "threshold": 100, "points": 3 },
-        { "threshold": 200, "points": 5 }
-      ]
-    },
-    "rec_yd": {
-      "mode": "highest",
-      "tiers": [
-        { "threshold": 100, "points": 3 },
-        { "threshold": 200, "points": 5 }
-      ]
-    }
-  },
+
+  "milestones": {},
+
   "tiers": {
     "def_points_allowed": [
-      { "max": 0, "points": 10 },
-      { "max": 6, "points": 7 },
-      { "max": 13, "points": 4 },
-      { "max": 20, "points": 1 },
-      { "max": 27, "points": 0 },
-      { "max": 34, "points": -1 },
+      { "max": 0,   "points": 10 },
+      { "max": 6,   "points": 7 },
+      { "max": 13,  "points": 4 },
+      { "max": 20,  "points": 1 },
+      { "max": 27,  "points": 0 },
+      { "max": 34,  "points": -1 },
       { "max": 999, "points": -4 }
-    ],
-    "def_yards_allowed": [
-      { "max": 100, "points": 5 },
-      { "max": 199, "points": 3 },
-      { "max": 299, "points": 2 },
-      { "max": 349, "points": 0 },
-      { "max": 399, "points": -1 },
-      { "max": 449, "points": -3 },
-      { "max": 499, "points": -5 },
-      { "max": 549, "points": -6 },
-      { "max": 99999, "points": -7 }
     ]
   }
 }

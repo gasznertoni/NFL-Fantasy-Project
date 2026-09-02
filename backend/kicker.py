@@ -48,11 +48,50 @@ from typing import Any
 FG_MADE_0_39_COLUMNS = ("fg_made_0_19", "fg_made_20_29", "fg_made_30_39")
 FG_MADE_50_PLUS_COLUMNS = ("fg_made_50_59", "fg_made_60_")
 
-# Direct 1:1 fields, no re-bucketing needed.
+# nflreadpy's six native FG distance buckets, emitted 1:1 under the same
+# names. Added 2026-09-02 for league-2, whose real ESPN settings score all six
+# separately (3/3/3/4/5/6). league-1 rolls three of them up instead -- see
+# FG_MADE_0_39_COLUMNS above -- so BOTH families are emitted and each league's
+# config picks up only the keys it actually defines. A config must use one
+# family or the other; validate_fg_band_family() enforces that, because a
+# config defining both would double-count every made field goal.
+NFLREADPY_KICKER_NATIVE_BUCKETS = {
+    "fg_made_0_19": "fg_made_0_19",
+    "fg_made_20_29": "fg_made_20_29",
+    "fg_made_30_39": "fg_made_30_39",
+    "fg_made_50_59": "fg_made_50_59",
+    "fg_made_60_": "fg_made_60_plus",
+}
+
+# Direct 1:1 fields, no re-bucketing needed. fg_made_40_49 is a native bucket
+# AND a league-1 band under the same name, so it belongs to both families.
 NFLREADPY_KICKER_DIRECT_COLUMN_MAP = {
     "fg_made_40_49": "fg_made_40_49",
     "pat_made": "pat_made",
 }
+
+# The two mutually exclusive band families, for config validation.
+ROLLED_BANDS = ("fg_made_0_39", "fg_made_50_plus")
+NATIVE_BANDS = ("fg_made_0_19", "fg_made_20_29", "fg_made_30_39",
+                "fg_made_50_59", "fg_made_60_plus")
+
+
+def validate_fg_band_family(linear_config: dict) -> None:
+    """Raise if a scoring config mixes the rolled and native FG band families.
+
+    Both families are emitted into every kicker stat line, so a config that
+    defines keys from both would score the same made kick twice. This is
+    exactly the class of silent, plausible-looking error the v16 audit found
+    three of -- so it raises rather than warning."""
+    rolled = [k for k in ROLLED_BANDS if k in linear_config]
+    native = [k for k in NATIVE_BANDS if k in linear_config]
+    if rolled and native:
+        raise ValueError(
+            "scoring config mixes FG band families and would double-count made "
+            f"field goals: rolled {rolled} alongside native {native}. Use one "
+            "family only -- either fg_made_0_39/fg_made_40_49/fg_made_50_plus, "
+            "or the six native fg_made_0_19...fg_made_60_plus buckets."
+        )
 
 # Blocked kicks are folded into the corresponding miss category -- see
 # module docstring's modeling decision #2.
@@ -75,12 +114,19 @@ def nflreadpy_kicker_row_to_stat_line(row: dict[str, Any]) -> dict[str, float]:
     key collisions (the two modules' category names are entirely
     disjoint)."""
     out: dict[str, float] = {}
+    # Rolled family (league-1).
     made_0_39 = _sum_columns(row, FG_MADE_0_39_COLUMNS)
     if made_0_39:
         out["fg_made_0_39"] = made_0_39
     made_50_plus = _sum_columns(row, FG_MADE_50_PLUS_COLUMNS)
     if made_50_plus:
         out["fg_made_50_plus"] = made_50_plus
+    # Native family (league-2). Safe to emit alongside the rolled family
+    # because no config may define both -- see validate_fg_band_family().
+    for nfl_col, our_col in NFLREADPY_KICKER_NATIVE_BUCKETS.items():
+        val = row.get(nfl_col)
+        if val:
+            out[our_col] = val
     for nfl_col, our_col in NFLREADPY_KICKER_DIRECT_COLUMN_MAP.items():
         val = row.get(nfl_col)
         if val:

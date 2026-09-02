@@ -68,14 +68,50 @@ DST_DIRECT_COLUMN_MAP = {
     "fumble_recovery_opp": "def_fumble_rec",
     "def_safeties": "def_safety",
     "def_fumbles_forced": "fumble_forced",
-    # fumble_recovery_tds: direct column in load_team_stats() confirmed
-    # against real 2025 data (18 nonzero games). Matches the one TD-credit
-    # line in the real ESPN settings exactly ("Fumble Recovered for TD,
-    # FTD = 6"). The previous def_tds + special_teams_tds mapping was
-    # broader and has been dropped -- see module docstring and
-    # docs/research/dst-td-decomposition.md.
-    "fumble_recovery_tds": "def_st_td",
+    # Three DISTINCT touchdown concepts, emitted under three distinct names so
+    # each league's config can score exactly the rule it actually has. Before
+    # 2026-09-02 fumble_recovery_tds was emitted as "def_st_td", which worked
+    # only because league-1 was the sole league and its one TD-credit line was
+    # the fumble-recovery bonus. league-2's real settings score a general
+    # "Defense TD" AND a separate "Special teams td", so the names now mean
+    # what they say:
+    #
+    #   def_fumble_rec_td  fumble recovered and returned for a score
+    #                      (league-1's "Fumble Recovered for TD, FTD = 6")
+    #   def_td             any defensive touchdown -- INT return, fumble return
+    #                      (league-2's "Defense TD = 6")
+    #   def_st_td          kick/punt return touchdown by the special-teams unit
+    #                      (league-2's "Special teams td = 6")
+    #
+    # A config scores only the keys it defines, so league-1 sees exactly the
+    # number it saw before this change and league-2 sees its own two rules.
+    # NOTE def_td and def_fumble_rec_td overlap by construction -- a fumble
+    # returned for a score is also a defensive touchdown -- so a config must
+    # not define both. validate_dst_td_categories() enforces that.
+    "fumble_recovery_tds": "def_fumble_rec_td",
+    "def_tds": "def_td",
+    "special_teams_tds": "def_st_td",
 }
+
+# def_td already includes every fumble-return score, so pairing it with
+# def_fumble_rec_td would score those twice.
+_OVERLAPPING_TD_CATEGORIES = ("def_td", "def_fumble_rec_td")
+
+
+def validate_dst_td_categories(linear_config: dict) -> None:
+    """Raise if a scoring config defines both def_td and def_fumble_rec_td.
+
+    Same reasoning as kicker.validate_fg_band_family: the stat line carries
+    both, they overlap, and a config defining both would silently double-count
+    fumble-return touchdowns."""
+    present = [k for k in _OVERLAPPING_TD_CATEGORIES if k in linear_config]
+    if len(present) > 1:
+        raise ValueError(
+            "scoring config defines overlapping D/ST touchdown categories "
+            f"{present}; def_td already includes fumble-return scores. Define "
+            "def_td (any defensive TD) or def_fumble_rec_td (fumble returns "
+            "only), not both."
+        )
 
 # Return yardage: punt + kickoff return yards, both direct per-team fields.
 DST_RETURN_YARD_COLUMNS = ("punt_return_yards", "kickoff_return_yards")

@@ -1,5 +1,5 @@
 {
-  "_PLACEHOLDER": true,
+  "_PLACEHOLDER": false,
   "_note": "MOSTLY REAL as of 2026-08-16 (updated same day: 2pt conversions and FG 50+ confirmed absent from ESPN's League Info screen entirely, not just missing from the original screenshots -- see _linear_category_notes). Real values confirmed hands-on from the builder's actual ESPN league settings (League Info > Scoring) -- CLAUDE.md Next Steps items 1-2 (real values + the 4 schema questions) are now answered for every category below except the DST points-allowed/yards-allowed tiers (see _tiers_note -- the one remaining gap, still being tracked down, not yet confirmed either way). Two things confirmed real but NOT YET BUILT in code -- see _new_mechanics_not_yet_built below and CLAUDE.md's Next Steps -- so this file alone isn't sufficient to produce fully correct real points yet, just closer than the pure guess it replaces. reception=1 (changed from the old 0.5 half-PPR guess) is the single biggest change: this is a FULL PPR league, not half-PPR -- the frontend's leagueFormatAssumption ('half_ppr') needs to change to match, that's a frontend/generate_report.py follow-up, not something this file alone fixes.",
   "_schema_questions_answered_2026_08_16": "CLAUDE.md Next Steps item 2's four open questions, now answered from the real settings: (a) forced fumble is its own category, separate from recovered -- YES, 'Each Fumble Forced (FF)' = 1 (was guessed at 0). (b) a plain non-lost 'Fumble' penalty exists as its own category, separate from 'Fumble Lost' -- YES, 'Total Fumbles (FUM)' = -1 stacks with 'Total Fumbles Lost (FUML)' = -2 (a lost fumble costs -3 total, not just -2) -- this league has BOTH categories, the placeholder only ever modeled fumble_lost. (c) offensive yardage-milestone bonuses ARE configurable -- YES, but the real bands are narrower than guessed: only ONE tier each (400+ passing=2.5, 200+ rush/rec=1), not the two-tier 300/400 and 100/200 structure this file used to guess -- see the milestones section below, already updated. There's also a genuinely NEW mechanic the placeholder never modeled at all: a flat +1 bonus for any TD play (pass/rush/rec) covering 50+ yards, on top of the base 6 -- see _new_mechanics_not_yet_built. (d) defensive/return TD handling -- ANSWERED, and it changes backend/dst.py's def_st_td shape, not just its value: the real settings show only ONE explicit TD-credit line under Miscellaneous, 'Fumble Recovered for TD (FTD)' = 6 -- no separate 'Interception Return TD' or 'Punt/Kickoff Return TD' bonus line appears anywhere in the settings (Passing/Rushing/Receiving/Kicking/Miscellaneous/Defensive-Players sections were all captured top to bottom with no visible gaps). dst.py's DST_TD_COLUMNS currently sums nflreadpy's def_tds (which bundles INT-return AND fumble-return TDs together) plus special_teams_tds into one def_st_td bucket, crediting all of them at the same rate -- the real rule looks narrower (fumble-recovery TDs only get the +6; INT-return and kick/punt-return TDs may get nothing beyond the base def_int/return-yardage points already awarded). Needs a code follow-up to confirm nflreadpy can actually separate fumble-return TDs from INT-return TDs within def_tds, and narrow dst.py's mapping if so -- not just a config-value change. Flagged in CLAUDE.md Next Steps.",
   "_new_mechanics_not_yet_built": "Two things the real settings confirmed exist but nothing in backend/ produces yet: (1) the 50+ yard TD distance bonus (PTD50/RTD50/RETD50, all +1) -- this is a per-play stat ('was this specific TD 50+ yards'), not a cumulative-yardage milestone like the existing milestones mechanism handles, so it can't just be added as a JSON value -- it needs a real data-source check (does nflreadpy's weekly-aggregated player_stats carry a count of long TD plays, or does this need play-by-play data instead) before it can be built at all. (2) def_st_td's shape narrowing per the schema-questions note above. Both are new Next Steps items, not done by this file.",
@@ -24,8 +24,7 @@
     "def_fumble_rec": 1,
     "def_safety": 2,
     "def_blocked_kick": 2,
-    "def_st_td": 6,
-    "def_return_yd": 0.1,
+    "def_fumble_rec_td": 6,
     "fg_made_0_39": 3,
     "fg_made_40_49": 3,
     "fg_made_50_plus": 3,
@@ -38,44 +37,107 @@
     "pass_yd": {
       "mode": "highest",
       "tiers": [
-        { "threshold": 400, "points": 2.5 }
+        {
+          "threshold": 400,
+          "points": 2.5
+        }
       ]
     },
     "rush_yd": {
       "mode": "highest",
       "tiers": [
-        { "threshold": 200, "points": 1 }
+        {
+          "threshold": 200,
+          "points": 1
+        }
       ]
     },
     "rec_yd": {
       "mode": "highest",
       "tiers": [
-        { "threshold": 200, "points": 1 }
+        {
+          "threshold": 200,
+          "points": 1
+        }
       ]
     }
   },
   "_milestones_note": "Replaced 2026-08-16 -- the old guess had a two-tier structure (300/400 passing at 3/5, 100/200 rush/rec at 3/5) that doesn't match the real league at all. The real settings show exactly one tier each, at different thresholds and much lower point values: 400+ passing yards = 2.5, 200+ rushing yards = 1, 200+ receiving yards = 1 -- no 300+ or 100+ tier exists. High confidence this is the complete list (the real Passing/Rushing/Receiving sections were each captured start-to-finish with no visible gaps), but this replaced a real structural assumption the old milestones bore no resemblance to, worth double-checking against the app directly once.",
   "tiers": {
     "def_points_allowed": [
-      { "max": 0, "points": 10 },
-      { "max": 6, "points": 7 },
-      { "max": 13, "points": 4 },
-      { "max": 20, "points": 1 },
-      { "max": 27, "points": 0 },
-      { "max": 34, "points": -1 },
-      { "max": 999, "points": -4 }
+      {
+        "max": 0,
+        "points": 10
+      },
+      {
+        "max": 6,
+        "points": 7
+      },
+      {
+        "max": 13,
+        "points": 4
+      },
+      {
+        "max": 20,
+        "points": 1
+      },
+      {
+        "max": 27,
+        "points": 0
+      },
+      {
+        "max": 34,
+        "points": -1
+      },
+      {
+        "max": 999,
+        "points": -4
+      }
     ],
     "def_yards_allowed": [
-      { "max": 100, "points": 5 },
-      { "max": 199, "points": 3 },
-      { "max": 299, "points": 2 },
-      { "max": 349, "points": 0 },
-      { "max": 399, "points": -1 },
-      { "max": 449, "points": -3 },
-      { "max": 499, "points": -5 },
-      { "max": 549, "points": -6 },
-      { "max": 99999, "points": -7 }
+      {
+        "max": 100,
+        "points": 5
+      },
+      {
+        "max": 199,
+        "points": 3
+      },
+      {
+        "max": 299,
+        "points": 2
+      },
+      {
+        "max": 349,
+        "points": 0
+      },
+      {
+        "max": 399,
+        "points": -1
+      },
+      {
+        "max": 449,
+        "points": -3
+      },
+      {
+        "max": 499,
+        "points": -5
+      },
+      {
+        "max": 549,
+        "points": -6
+      },
+      {
+        "max": 99999,
+        "points": -7
+      }
     ]
   },
-  "_tiers_note": "STILL FULLY PLACEHOLDER -- unlike everything else in this file, the 2026-08-16 screenshots never showed a Points Allowed or Yards Allowed settings screen (these are usually their own dedicated sub-page in ESPN's D/ST scoring settings, separate from the general Scoring list this file's other values came from). Both tier tables below are still the original guess, completely unconfirmed. This is the single biggest remaining gap in this file -- get screenshots of those two specific settings screens next."
+  "_tiers_note": "STILL FULLY PLACEHOLDER -- unlike everything else in this file, the 2026-08-16 screenshots never showed a Points Allowed or Yards Allowed settings screen (these are usually their own dedicated sub-page in ESPN's D/ST scoring settings, separate from the general Scoring list this file's other values came from). Both tier tables below are still the original guess, completely unconfirmed. This is the single biggest remaining gap in this file -- get screenshots of those two specific settings screens next.",
+  "_def_st_td_rename_note": "2026-09-02: this league's single D/ST touchdown rule is ESPN's \"Fumble Recovered for TD (FTD) = 6\" (confirmed v15, docs/research/dst-td-decomposition.md). It was keyed as def_st_td when this was the only league; league-2 has a genuinely different rule set that needs def_st_td to mean a special-teams return TD, so this key was renamed to def_fumble_rec_td. Pure rename -- same source column (fumble_recovery_tds), same 6 points, identical scoring.",
+  "_def_return_yd_removed_2026_09_02": "REMOVED (was 0.1 pts/yd). At 0.1 pts per return yard this single category produced 11.46 of a 16.66 pts/game D/ST average -- 68.8% of every D/ST score -- and put four D/STs in the week-10 top 20 at 20.6-22.6 points, against a typical ESPN D/ST of 7-9. The v16 audit flagged it and deliberately left it as a league-settings question. It was resolved 2026-09-02 by league-2's complete ESPN 'Scoring Settings' screen, which lists every D/ST category and has NO return-yardage line at all; league-2 scores 6.57 pts/game. ESPN's default D/ST set does not include return yardage either. Removed with the builder's explicit confirmation. Effect: league-1 D/ST mean 16.66 -> 5.20 pts/game.",
+  "_unconfirmed": [
+    "tiers.def_yards_allowed -- the ONLY block in this config never seen on a real ESPN settings screen. Measured contribution (2025, 544 team-games): mean -0.52 pts/game, sd 2.31, range [-7, +5] -- 27% of the absolute magnitude of a D/ST score, so it is not negligible. league-2's complete settings screen has NO yards-allowed category at all, which is the same evidence pattern that resolved def_return_yd on 2026-09-02. Treat as the next D/ST question to settle against the real screen."
+  ],
+  "_placeholder_note": "_PLACEHOLDER flipped to false 2026-09-02. Every category here is now confirmed from the real ESPN settings screen except the one block listed in _unconfirmed. The old blanket flag made generate_report.py print 'projections will be inaccurate until real values are entered' on every run, which stopped being true after v13-v14 and was actively misleading -- a warning that is always on is a warning nobody reads."
 }

@@ -10,10 +10,10 @@
     },
     {
       "leagueId": "league-2",
-      "displayName": "Second League",
-      "teamCount": 12,
-      "leagueFormat": "half_ppr",
-      "_placeholder": true,
+      "displayName": "Intuitech Fantasy",
+      "teamCount": 8,
+      "leagueFormat": "ppr",
+      "roster": "1 QB, 2 RB, 2 WR, 1 TE, 2 FLEX (W/R/T), 1 K, 1 DEF, 5 BN, 2 IR",
       "scoringConfigPath": "leagues/league-2/scoring-config.json",
       "outDir": "../frontend/public/mock/league-2"
     }
