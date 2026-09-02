@@ -2,7 +2,7 @@
   "week": 1,
   "leagueId": "league-2",
   "leagueFormatAssumption": "ppr",
-  "generatedAt": "2026-09-02T11:59:44Z",
+  "generatedAt": "2026-09-02T16:01:36Z",
   "projections": [
     {
       "playerId": "00-0023459",
@@ -197,7 +197,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Juszczyk missed Tuesday practice due to an ongoing finger injury, though his absence may be veteran management as he practiced Monday."
+        "summary": "Kyle Juszczyk did not practice Tuesday due to an ongoing finger injury, though he practiced Monday and the absence may be veteran management."
       }
     },
     {
@@ -413,7 +413,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Mike Evans is dealing with a groin/adductor injury and will miss practice this week, with hopes to return next week ahead of the season opener on September 10 in Australia."
+        "summary": "Mike Evans is dealing with a groin/adductor injury and will miss practice this week, with hopes to return next week before the season opener on September 10 in Australia."
       }
     },
     {
@@ -454,8 +454,8 @@
       },
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "low",
-        "summary": "Jason Myers is active and healthy but showing reduced accuracy in preseason games after a strong 2025 regular season performance."
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -543,7 +543,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Darren Waller is being eased into the Panthers offense after recently signing and is expected to miss the preseason finale, but there is no injury designation reported."
+        "summary": "Darren Waller is being eased into his first season with the Panthers after recently signing and is sitting out preseason games as a precautionary measure, not due to injury."
       }
     },
     {
@@ -587,7 +587,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Mariota returned to practice Monday after missing two weeks with a sprained MCL in his right knee and is working to increase his workload ahead of the 2026 season."
+        "summary": "Mariota returned to practice Monday after missing two weeks with a sprained MCL in his right knee suffered on Aug. 14, and is increasing his workload in preparation for the 2026 season."
       }
     },
     {
@@ -682,13 +682,13 @@
       "opponent": "IND",
       "projection": {
         "tier": "consensus",
-        "points": 14.17,
+        "points": 14.27,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 0.22,
-        "ceiling": 26.67,
+        "source": "Rotowire",
+        "floor": 0.32,
+        "ceiling": 26.77,
         "playProbability": 0.905,
-        "conditionalPoints": 15.66
+        "conditionalPoints": 15.76
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -792,13 +792,13 @@
       "opponent": "NYG",
       "projection": {
         "tier": "consensus",
-        "points": 17.51,
+        "points": 17.88,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 3.36,
-        "ceiling": 27.87,
+        "source": "Rotowire",
+        "floor": 3.68,
+        "ceiling": 28.23,
         "playProbability": 0.94,
-        "conditionalPoints": 18.64
+        "conditionalPoints": 19.03
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -946,18 +946,18 @@
       "opponent": "LAR",
       "projection": {
         "tier": "consensus",
-        "points": 14.92,
+        "points": 15.54,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 29.72,
+        "ceiling": 30.56,
         "playProbability": 0.736,
-        "conditionalPoints": 20.26
+        "conditionalPoints": 21.1
       },
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "McCaffrey participated in full practice drills including running and catching passes, showing positive progress with an undisclosed injury as he approaches Week 1."
+        "summary": "McCaffrey participated fully in practice drills and is trending positively toward Week 1 availability after returning to practice over a week ago."
       }
     },
     {
@@ -979,7 +979,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Kittle is being eased back into practice after Achilles injury and his availability for Week 1 against the Rams remains uncertain despite activation from PUP list."
+        "summary": "Kittle is recovering from an Achilles tendon tear and is trending toward playing in Week 1 against the Rams, but a final decision won't be made until the team arrives in Australia, with potential snap limitations if cleared."
       }
     },
     {
@@ -1131,7 +1131,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Watson was named the Browns' starting quarterback after winning a job battle, though he has a history of significant injuries including a torn Achilles tendon and re-rupture that caused him to miss the entire 2025 season."
+        "summary": "Deshaun Watson was named the Browns' starting quarterback after winning a preseason job battle, though he has a history of significant injuries including a torn Achilles tendon and re-rupture that caused him to miss the entire 2025 season."
       }
     },
     {
@@ -1305,7 +1305,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Mitchell Trubisky is dealing with a biceps injury and missed Wednesday's practice, but the issue is not considered serious and he remains day-to-day."
+        "summary": "Mitchell Trubisky is dealing with a biceps injury and missed Wednesday's practice, but the injury is considered minor and he remains day-to-day."
       }
     },
     {
@@ -1327,7 +1327,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Patrick Mahomes is on track to start Week 1 despite recovering from a torn left ACL, with improving confidence in his readiness for the season opener."
+        "summary": "Patrick Mahomes is on track to start Week 1 against the Broncos after recovering from a torn left ACL sustained last December."
       }
     },
     {
@@ -1553,14 +1553,14 @@
       "team": "PHI",
       "opponent": "WAS",
       "projection": {
-        "tier": "consensus",
-        "points": 9.23,
-        "tierLabel": "Consensus projection",
-        "source": "FantasyPros",
+        "tier": "week1_model",
+        "points": 7.17,
+        "tierLabel": "Week 1 estimate",
+        "source": "In-house model (pre-season)",
         "floor": 0.0,
-        "ceiling": 19.57,
+        "ceiling": 13.16,
         "playProbability": 0.896,
-        "conditionalPoints": 10.3
+        "conditionalPoints": 8.0
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -1686,13 +1686,13 @@
       "opponent": "IND",
       "projection": {
         "tier": "consensus",
-        "points": 9.4,
+        "points": 9.72,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 19.76,
+        "ceiling": 20.11,
         "playProbability": 0.896,
-        "conditionalPoints": 10.49
+        "conditionalPoints": 10.84
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -1772,13 +1772,13 @@
       "opponent": "IND",
       "projection": {
         "tier": "consensus",
-        "points": 19.18,
+        "points": 19.66,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 4.91,
-        "ceiling": 29.53,
+        "source": "Rotowire",
+        "floor": 5.43,
+        "ceiling": 30.05,
         "playProbability": 0.94,
-        "conditionalPoints": 20.41
+        "conditionalPoints": 20.93
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -1827,7 +1827,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "DJ Moore suffered an ankle injury in a preseason game but has returned to practice and is expected to be available for Week 1 against the Texans."
+        "summary": "Moore suffered an ankle injury in a preseason game but has returned to practice and is expected to be ready for Week 1 of the regular season."
       }
     },
     {
@@ -1870,8 +1870,8 @@
       },
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Calvin Ridley appears healthy after playing in a preseason game following a broken fibula last season, though his role is limited as the No. 3 receiver."
       }
     },
     {
@@ -1881,14 +1881,14 @@
       "team": "PHI",
       "opponent": "WAS",
       "projection": {
-        "tier": "consensus",
-        "points": 14.74,
-        "tierLabel": "Consensus projection",
-        "source": "FantasyPros",
-        "floor": 0.84,
-        "ceiling": 27.29,
+        "tier": "week1_model",
+        "points": 13.51,
+        "tierLabel": "Week 1 estimate",
+        "source": "In-house model (pre-season)",
+        "floor": 4.02,
+        "ceiling": 23.45,
         "playProbability": 0.905,
-        "conditionalPoints": 16.28
+        "conditionalPoints": 14.93
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -1926,13 +1926,13 @@
       "opponent": "HOU",
       "projection": {
         "tier": "consensus",
-        "points": 19.32,
+        "points": 19.9,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 5.06,
-        "ceiling": 29.68,
+        "source": "Rotowire",
+        "floor": 5.68,
+        "ceiling": 30.3,
         "playProbability": 0.94,
-        "conditionalPoints": 20.56
+        "conditionalPoints": 21.18
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -2003,7 +2003,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Jakobi Meyers jammed his right hand during Wednesday's joint practice and is wearing a brace, with uncertainty about practicing this week and potential availability for the preseason finale against Tampa Bay on August 28."
+        "summary": "Meyers is returning to practice Wednesday after a hand injury sustained two weeks ago and is expected to play in Week 1 against the Browns."
       }
     },
     {
@@ -2024,8 +2024,8 @@
       },
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Justice Hill is healthy heading into the 2026 season after an injury-shortened 2025 but remains in a backup role behind Derrick Henry."
       }
     },
     {
@@ -2091,7 +2091,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "D.J. Montgomery was placed on injured reserve by the Colts due to an abdominal injury and is expected to miss the entire 2026 season unless he reaches an injury settlement."
+        "summary": "D.J. Montgomery was placed on injured reserve by the Colts due to an abdominal injury and is expected to miss the entire 2026 season."
       }
     },
     {
@@ -2241,9 +2241,9 @@
         "conditionalPoints": 4.84
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "low",
+        "summary": "Singletary is not in uniform for Friday's preseason game against the Jets, but this appears to be a rest decision rather than an injury."
       }
     },
     {
@@ -2393,7 +2393,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "David Sills was placed on injured reserve with an undisclosed injury and cannot return until at least Week 5."
+        "summary": "David Sills was placed on injured reserve with an undisclosed injury and is ineligible to return until Week 5."
       }
     },
     {
@@ -2459,7 +2459,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ty Johnson remains sidelined with a lower leg injury but has resumed running and sprinting, with limited fantasy relevance due to his backup role behind James Cook and Ray Davis."
+        "summary": "Ty Johnson remains sidelined with a lower leg injury but has resumed running and sprinting, with limited fantasy relevance due to his role as a reserve running back behind James Cook and Ray Davis."
       }
     },
     {
@@ -2547,7 +2547,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Metcalf dealt with an undisclosed injury during training camp but has returned to practice and is expected to be ready for Week 1 against the Falcons."
+        "summary": "Metcalf dealt with an undisclosed injury during training camp but returned to practice and is expected to be ready for Week 1 against the Falcons."
       }
     },
     {
@@ -2723,7 +2723,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Josh Jacobs was placed on the Commissioner's Exempt List due to misdemeanor charges from a domestic incident and is ineligible to practice or play until his legal situation is resolved."
+        "summary": "Josh Jacobs was placed on the Commissioner's Exempt List due to domestic violence charges and is ineligible to practice or play until the legal matter is resolved."
       }
     },
     {
@@ -2877,7 +2877,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Dobbins was cleared to return to practice after recovering from a soft-tissue injury and is expected to be Denver's top running back despite sitting out preseason games."
+        "summary": "Dobbins was cleared to return to practice after a soft-tissue injury and is expected to be the Broncos' top running back this season, though his availability for the preseason finale remains uncertain."
       }
     },
     {
@@ -2952,13 +2952,13 @@
       "opponent": "BAL",
       "projection": {
         "tier": "consensus",
-        "points": 16.51,
+        "points": 16.75,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 2.8,
-        "ceiling": 29.25,
+        "source": "Rotowire",
+        "floor": 3.07,
+        "ceiling": 29.52,
         "playProbability": 0.905,
-        "conditionalPoints": 18.24
+        "conditionalPoints": 18.51
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -3007,7 +3007,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Pittman is expected to be ready for Week 1 after missing practice time and preseason action due to a hamstring injury, but has returned to practice and will have time to ramp up before the opener."
+        "summary": "Pittman missed practice time and preseason action due to a hamstring injury but is expected to be ready for Week 1 and has returned to practice."
       }
     },
     {
@@ -3073,7 +3073,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "AJ Dillon played in the preseason game and is active, but could see increased role if other Panthers RBs (Hubbard and Etienne) suffer lingering injuries."
+        "summary": "AJ Dillon is active and played in the preseason game, but could see increased role if other Panthers RBs (Hubbard, Etienne) suffer lingering injuries heading into Week 1."
       }
     },
     {
@@ -3150,13 +3150,13 @@
       "opponent": "GB",
       "projection": {
         "tier": "consensus",
-        "points": 15.69,
+        "points": 15.68,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 4.27,
-        "ceiling": 27.7,
+        "source": "Rotowire",
+        "floor": 4.26,
+        "ceiling": 27.69,
         "playProbability": 0.936,
-        "conditionalPoints": 16.76
+        "conditionalPoints": 16.75
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -3193,14 +3193,14 @@
       "team": "LAC",
       "opponent": "ARI",
       "projection": {
-        "tier": "consensus",
-        "points": 17.74,
-        "tierLabel": "Consensus projection",
-        "source": "FantasyPros",
-        "floor": 3.56,
-        "ceiling": 28.09,
+        "tier": "week1_model",
+        "points": 17.92,
+        "tierLabel": "Week 1 estimate",
+        "source": "In-house model (pre-season)",
+        "floor": 8.88,
+        "ceiling": 29.6,
         "playProbability": 0.94,
-        "conditionalPoints": 18.88
+        "conditionalPoints": 19.07
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -3216,13 +3216,13 @@
       "opponent": "NYG",
       "projection": {
         "tier": "consensus",
-        "points": 16.04,
+        "points": 16.05,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 4.65,
-        "ceiling": 28.08,
+        "source": "Rotowire",
+        "floor": 4.66,
+        "ceiling": 28.09,
         "playProbability": 0.936,
-        "conditionalPoints": 17.14
+        "conditionalPoints": 17.15
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -3238,13 +3238,13 @@
       "opponent": "WAS",
       "projection": {
         "tier": "consensus",
-        "points": 19.12,
+        "points": 18.83,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 4.85,
-        "ceiling": 29.47,
+        "source": "Rotowire",
+        "floor": 4.54,
+        "ceiling": 29.16,
         "playProbability": 0.94,
-        "conditionalPoints": 20.35
+        "conditionalPoints": 20.04
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -3271,7 +3271,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "low",
-        "summary": "Jeudy will not play in the Browns' preseason game against the Bills, though the reason is not specified and appears to be a routine preseason rest decision rather than an injury concern."
+        "summary": "Jeudy will not play in the Browns' preseason game against the Bills, though he played in the previous preseason opener without apparent injury."
       }
     },
     {
@@ -3293,7 +3293,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Tee Higgins has a heel contusion that he'll manage ahead of Week 1, but coach Zac Taylor indicated he should be ready to play against the Buccaneers on Sept. 13."
+        "summary": "Tee Higgins is dealing with a heel contusion heading into Week 1, but coach Zac Taylor expects him to be available for the season opener against Tampa Bay."
       }
     },
     {
@@ -3348,13 +3348,13 @@
       "opponent": "TB",
       "projection": {
         "tier": "consensus",
-        "points": 18.69,
+        "points": 19.05,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 4.4,
-        "ceiling": 29.01,
+        "source": "Rotowire",
+        "floor": 4.78,
+        "ceiling": 29.4,
         "playProbability": 0.94,
-        "conditionalPoints": 19.89
+        "conditionalPoints": 20.28
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -3436,13 +3436,13 @@
       "opponent": "BUF",
       "projection": {
         "tier": "consensus",
-        "points": 15.77,
+        "points": 16.27,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 4.36,
-        "ceiling": 27.79,
+        "source": "Rotowire",
+        "floor": 4.89,
+        "ceiling": 28.32,
         "playProbability": 0.936,
-        "conditionalPoints": 16.85
+        "conditionalPoints": 17.38
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -3469,7 +3469,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Chuba Hubbard returned to practice Tuesday after a hamstring injury and is trending positively toward season availability."
+        "summary": "Chuba Hubbard returned to practice Tuesday while recovering from a mid-August hamstring injury and is trending positively toward season readiness."
       }
     },
     {
@@ -3667,7 +3667,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Jermar Jefferson was reverted to the Vikings' injured reserve with an undisclosed injury and will miss the entire 2026 regular season."
+        "summary": "Jermar Jefferson was reverted to the Vikings' injured reserve Monday with an undisclosed injury and will spend the entire 2026 regular season on IR."
       }
     },
     {
@@ -3688,8 +3688,8 @@
       },
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Brock Wright is healthy and active, with potential opportunity to start Week 1 if Sam LaPorta's hip injury prevents him from playing."
       }
     },
     {
@@ -3839,7 +3839,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ben Skowronek suffered a concussion in Thursday's preseason game and entered the NFL's five-step concussion protocol, requiring clearance from an independent neurologist before he can play in Week 1."
+        "summary": "Ben Skowronek suffered a concussion in Thursday's preseason game and entered the NFL's five-step concussion protocol, requiring clearance from an independent neurologist before potentially playing in Week 1."
       }
     },
     {
@@ -4004,18 +4004,18 @@
       "opponent": "TB",
       "projection": {
         "tier": "consensus",
-        "points": 16.15,
+        "points": 16.01,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 30.02,
+        "ceiling": 29.84,
         "playProbability": 0.811,
-        "conditionalPoints": 19.92
+        "conditionalPoints": 19.74
       },
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ja'Marr Chase is dealing with a left knee hyperextension suffered during practice but is expected to be limited in practice this week and should be ready for the Week 1 matchup against Tampa Bay."
+        "summary": "Ja'Marr Chase sustained a left knee hyperextension injury during practice but is expected to return as a limited participant this week and should be ready for the Week 1 opener against Tampa Bay."
       }
     },
     {
@@ -4037,7 +4037,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "DeVonta Smith is a full participant in practice after returning in limited capacity the previous week, indicating continued recovery from a hamstring injury."
+        "summary": "DeVonta Smith is a full participant in practice after returning in limited capacity the previous week, continuing his recovery from a hamstring injury."
       }
     },
     {
@@ -4114,13 +4114,13 @@
       "opponent": "NO",
       "projection": {
         "tier": "consensus",
-        "points": 18.25,
+        "points": 18.51,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 7.01,
-        "ceiling": 30.44,
+        "source": "Rotowire",
+        "floor": 7.28,
+        "ceiling": 30.71,
         "playProbability": 0.936,
-        "conditionalPoints": 19.5
+        "conditionalPoints": 19.77
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -4136,13 +4136,13 @@
       "opponent": "PIT",
       "projection": {
         "tier": "consensus",
-        "points": 9.7,
+        "points": 9.72,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 20.09,
+        "ceiling": 20.11,
         "playProbability": 0.896,
-        "conditionalPoints": 10.82
+        "conditionalPoints": 10.84
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -4167,9 +4167,9 @@
         "conditionalPoints": 18.14
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "low",
+        "summary": "Trevor Lawrence will not play in Friday's preseason game against the Panthers, sitting out for rest purposes during the exhibition schedule."
       }
     },
     {
@@ -4213,7 +4213,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Travis Etienne is healthy and positioned to receive an increased workload after teammate Alvin Kamara sustained an MCL sprain expected to sideline him for at least a month."
+        "summary": "Travis Etienne is healthy and positioned to see increased offensive touches and snaps early in the season due to teammate Alvin Kamara's MCL sprain expected to sideline him for at least a month."
       }
     },
     {
@@ -4257,7 +4257,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Trey Sermon was placed on injured reserve by the Falcons with an undisclosed injury and is unavailable for the 2026 season unless waived with an injury settlement."
+        "summary": "Trey Sermon was placed on injured reserve by the Falcons for an undisclosed injury and is ineligible to play in 2026 unless waived with an injury settlement."
       }
     },
     {
@@ -4290,13 +4290,13 @@
       "opponent": "NYG",
       "projection": {
         "tier": "consensus",
-        "points": 14.01,
+        "points": 14.09,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 0.11,
-        "ceiling": 26.48,
+        "source": "Rotowire",
+        "floor": 0.13,
+        "ceiling": 26.58,
         "playProbability": 0.905,
-        "conditionalPoints": 15.48
+        "conditionalPoints": 15.57
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -4499,7 +4499,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Cole Turner was waived/injured by the Dolphins and reverted to injured reserve with an undisclosed injury, requiring an injury settlement to have any chance to play in 2026."
+        "summary": "Cole Turner was placed on the Dolphins' injured reserve list with an undisclosed injury and will need to reach a settlement to have any chance of playing in 2026."
       }
     },
     {
@@ -4543,7 +4543,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Grant Calcaterra was placed on injured reserve with a back injury and will be sidelined until at least Week 5."
+        "summary": "Grant Calcaterra was placed on injured reserve with a back injury and designated to return, sidelined until at least Week 5."
       }
     },
     {
@@ -4565,7 +4565,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Bo Melton's roster spot is uncertain due to poor preseason performance and competition from other receivers, though he is currently active and healthy."
+        "summary": "Melton is active and healthy but faces roster uncertainty due to poor preseason performance and competition for his special teams role."
       }
     },
     {
@@ -4653,7 +4653,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Irvin Charles was placed on injured reserve with a designation to return after suffering an undisclosed preseason injury, sidelining him for at least four weeks with earliest return in Week 5."
+        "summary": "Irvin Charles was placed on injured reserve by the Seahawks with an undisclosed injury suffered during preseason and is ineligible to return until Week 5."
       }
     },
     {
@@ -4697,7 +4697,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Isiah Pacheco was placed on injured reserve due to a back injury sustained during training camp, along with an MCL sprain, and will miss at least the first four games of the season."
+        "summary": "Isiah Pacheco has been placed on injured reserve with a back injury and MCL sprain, with no clear timetable for return and expected to miss at least the first four games of the season."
       }
     },
     {
@@ -4717,7 +4717,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Dicker is working through an undisclosed issue but head coach Jim Harbaugh is not concerned, and he is expected to be ready for Week 1 against the Cardinals."
+        "summary": "Cameron Dicker is working through an undisclosed issue and was not at full capacity in the preseason finale, leaving his Week 1 availability uncertain despite coach Harbaugh's stated confidence."
       }
     },
     {
@@ -4772,13 +4772,13 @@
       "opponent": "PIT",
       "projection": {
         "tier": "consensus",
-        "points": 14.72,
+        "points": 14.8,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 3.24,
-        "ceiling": 26.67,
+        "source": "Rotowire",
+        "floor": 3.32,
+        "ceiling": 26.75,
         "playProbability": 0.936,
-        "conditionalPoints": 15.73
+        "conditionalPoints": 15.81
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -4837,14 +4837,14 @@
       "team": "DAL",
       "opponent": "NYG",
       "projection": {
-        "tier": "consensus",
-        "points": 11.91,
-        "tierLabel": "Consensus projection",
-        "source": "FantasyPros",
+        "tier": "week1_model",
+        "points": 10.12,
+        "tierLabel": "Week 1 estimate",
+        "source": "In-house model (pre-season)",
         "floor": 0.0,
-        "ceiling": 25.04,
+        "ceiling": 20.36,
         "playProbability": 0.787,
-        "conditionalPoints": 15.13
+        "conditionalPoints": 12.86
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -4860,13 +4860,13 @@
       "opponent": "HOU",
       "projection": {
         "tier": "consensus",
-        "points": 14.76,
+        "points": 15.45,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 0.87,
-        "ceiling": 27.32,
+        "source": "Rotowire",
+        "floor": 1.63,
+        "ceiling": 28.08,
         "playProbability": 0.905,
-        "conditionalPoints": 16.31
+        "conditionalPoints": 17.07
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -4915,7 +4915,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Rachaad White is sidelined with a hamstring injury and will miss the Commanders' final two preseason games, though he is making progress in recovery."
+        "summary": "Rachaad White is sidelined with a hamstring injury sustained Aug. 19 and will miss the Commanders' final two preseason games, though he is making progress with individual drills."
       }
     },
     {
@@ -4937,7 +4937,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Khalil Shakir has been sidelined with an undisclosed injury since Aug. 20 and missed the final two preseason games, leaving less than two weeks to recover before the regular season opener."
+        "summary": "Khalil Shakir has been sidelined since August 20 with an undisclosed injury and missed the Bills' final two preseason games, leaving less than two weeks to recover before the regular season opener on September 13."
       }
     },
     {
@@ -4958,8 +4958,8 @@
       },
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Tyler Allgeier is expected to be active and could serve as the Cardinals' primary running back if Jeremiah Love's high-ankle sprain limits his availability to start the season."
       }
     },
     {
@@ -4981,7 +4981,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Ty Chandler suffered a season-ending knee injury during a preseason game and has been placed on injured reserve, missing the entire 2026 season."
+        "summary": "Ty Chandler suffered a season-ending knee injury in a preseason game and was placed on injured reserve, missing the entire 2026 season."
       }
     },
     {
@@ -5091,7 +5091,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Oladokun was waived with an injury designation and reverted to the Chiefs' injured reserve list, where he is expected to remain for the entire 2026 regular season unless waived with an injury settlement."
+        "summary": "Chris Oladokun was placed on the Chiefs' injured reserve list with an undisclosed injury and will miss the 2026 regular season unless waived with an injury settlement."
       }
     },
     {
@@ -5113,7 +5113,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Skylar Thompson has been placed on the Injured Reserve list."
+        "summary": "Skylar Thompson has been placed on Injured Reserve."
       }
     },
     {
@@ -5135,7 +5135,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Brittain Brown was placed on injured reserve by the Chicago Bears with an undisclosed injury and is expected to miss the entire season unless he reaches an injury settlement."
+        "summary": "Brittain Brown was placed on injured reserve by the Bears due to an undisclosed injury and is expected to miss the entire season unless he reaches an injury settlement."
       }
     },
     {
@@ -5421,7 +5421,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Metchie is active and participated in preseason play, though he has a history of injury issues that warrant monitoring as he competes for a roster spot."
+        "summary": "Metchie is active and participating in preseason games, though he has a history of injury issues and is competing for a roster spot on the Panthers."
       }
     },
     {
@@ -5443,7 +5443,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Alec Pierce is recovering from offseason ankle surgery and missed most of training camp and preseason, but the Colts hope he will be available for Week 1 against the Ravens."
+        "summary": "Alec Pierce is recovering from offseason ankle surgery and missed most of training camp and all preseason action, but the Colts hope he will play in Week 1 against the Ravens."
       }
     },
     {
@@ -5584,13 +5584,13 @@
       "opponent": "LAC",
       "projection": {
         "tier": "consensus",
-        "points": 13.53,
+        "points": 13.99,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 24.36,
+        "ceiling": 24.88,
         "playProbability": 0.896,
-        "conditionalPoints": 15.09
+        "conditionalPoints": 15.61
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -5771,7 +5771,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Calvin Austin III suffered a torn ACL and was placed on injured reserve, sidelining him for the entire 2026 season."
+        "summary": "Calvin Austin III suffered a torn ACL and was placed on injured reserve, ruling him out for the entire 2026 season."
       }
     },
     {
@@ -5991,7 +5991,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Robinson took a hard hit during joint practice but passed concussion tests with early indications promising for Week 1 availability."
+        "summary": "Robinson took a hard hit during joint practice with the Bears but passed concussion tests, with early indications promising for Week 1 availability."
       }
     },
     {
@@ -6013,7 +6013,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Breece Hall is recovering from a minor groin strain and participated in agility drills on the side at practice, appearing ahead of schedule in his recovery but likely to miss the preseason game."
+        "summary": "Breece Hall is recovering from a minor groin strain and participating in limited agility drills, with focus on returning for Week 1 rather than the preseason game."
       }
     },
     {
@@ -6079,7 +6079,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Cade Otton returned to practice after missing about a week with an undisclosed injury and his status for the preseason finale remains uncertain."
+        "summary": "Cade Otton returned to practice after missing about a week with an undisclosed injury, though his availability for the preseason finale remains uncertain."
       }
     },
     {
@@ -6101,7 +6101,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Kenneth Walker III is dealing with ankle swelling but is expected to be fine with no concern for extended absence."
+        "summary": "Kenneth Walker III is dealing with ankle swelling but is expected to be fine with no extended absence anticipated."
       }
     },
     {
@@ -6253,7 +6253,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Will Mallory was placed on injured reserve with a thumb injury and will miss at least the first four games of the 2026 regular season, with the earliest return possible in Week 5."
+        "summary": "Will Mallory was placed on injured reserve with a thumb injury and will miss at least the first four weeks of the 2026 regular season, with the earliest return possibility being Week 5."
       }
     },
     {
@@ -6449,7 +6449,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Keaton Mitchell is missing his fourth consecutive practice due to an undisclosed injury but is working with trainers on the side and is expected to play in Week 1."
+        "summary": "Mitchell is missing his fourth consecutive practice due to an undisclosed injury but is working with trainers on the side, and the Chargers GM expects him to play in Week 1."
       }
     },
     {
@@ -6636,13 +6636,13 @@
       "opponent": "PIT",
       "projection": {
         "tier": "consensus",
-        "points": 19.14,
+        "points": 19.52,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 5.71,
-        "ceiling": 32.16,
+        "source": "Rotowire",
+        "floor": 6.13,
+        "ceiling": 32.58,
         "playProbability": 0.905,
-        "conditionalPoints": 21.15
+        "conditionalPoints": 21.57
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -6658,13 +6658,13 @@
       "opponent": "NE",
       "projection": {
         "tier": "consensus",
-        "points": 18.24,
+        "points": 18.41,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 7.0,
-        "ceiling": 30.43,
+        "source": "Rotowire",
+        "floor": 7.18,
+        "ceiling": 30.61,
         "playProbability": 0.936,
-        "conditionalPoints": 19.49
+        "conditionalPoints": 19.67
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -6757,7 +6757,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Kendre Miller sustained a minor injury at practice but avoided any serious setback and has a chance to be available."
+        "summary": "Kendre Miller sustained a minor injury at practice but avoided a serious setback and has a chance to be available."
       }
     },
     {
@@ -6779,7 +6779,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Bigsby missed Monday's practice with a toe injury but is expected to participate fully in Wednesday's practice, with the injury appearing to be maintenance-related rather than serious."
+        "summary": "Bigsby is returning to full practice participation after missing Monday's session due to a toe injury that appears to be maintenance-related rather than serious."
       }
     },
     {
@@ -7107,7 +7107,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Scott Matlock was placed on injured reserve with an undisclosed injury and will miss at least the first four games of the 2026 season, with earliest return in Week 5."
+        "summary": "Scott Matlock was placed on injured reserve with an undisclosed injury and will miss at least the first four weeks of the 2026 regular season, with the earliest possible return in Week 5."
       }
     },
     {
@@ -7239,7 +7239,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Brayden Willis is in the NFL's concussion protocol after suffering a concussion during the preseason finale and must be cleared by an independent neurologist before playing."
+        "summary": "Willis participated in Tuesday's practice while in the concussion protocol following a preseason injury, and must be cleared by an independent neurologist before becoming available."
       }
     },
     {
@@ -7349,7 +7349,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Tyrell Shavers was placed on the reserve/PUP list due to a torn ACL suffered in the wild-card round and will miss at least the first four weeks of the regular season, with earliest availability in Week 5."
+        "summary": "Tyrell Shavers was placed on the reserve/PUP list due to a torn ACL suffered in the wild-card round and will miss at least the first four games of the regular season."
       }
     },
     {
@@ -7481,7 +7481,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Princeton Fant has been placed on the Injured Reserve list."
+        "summary": "Princeton Fant has been placed on Injured Reserve."
       }
     },
     {
@@ -7567,7 +7567,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Jake Bobo was placed on injured reserve after sustaining a serious knee injury during a joint practice with the Titans, making him unavailable for the entire 2026 season."
+        "summary": "Jake Bobo sustained a serious knee injury during a joint practice with the Titans and was placed on injured reserve, ruling him out for the entire 2026 season."
       }
     },
     {
@@ -7589,7 +7589,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Nate Adkins participated in practice Monday after leaving Friday's session with an undisclosed injury that appears to be minor."
+        "summary": "Nate Adkins participated in Broncos training camp practice Monday after leaving Friday's session with a trainer, suggesting the injury was minor."
       }
     },
     {
@@ -7633,7 +7633,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Emanuel Wilson has been designated as questionable for upcoming game(s) with an unspecified injury."
+        "summary": "Emanuel Wilson has been designated as Questionable and his availability status for the upcoming game is uncertain."
       }
     },
     {
@@ -7655,7 +7655,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Ben Sims was placed on the Miami Dolphins' injured reserve with an undisclosed injury and must miss at least four games."
+        "summary": "Ben Sims was placed on the Dolphins' injured reserve with an undisclosed injury and must miss at least four games, with a possible injury settlement allowing him to join another team once healthy."
       }
     },
     {
@@ -8027,7 +8027,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Tank Dell is on injured reserve with a knee injury and must miss at least the first four games, though the GM indicated he is getting closer to a return."
+        "summary": "Tank Dell is on injured reserve with a knee injury and must miss at least the first four games, though the GM indicated he is progressing toward a return."
       }
     },
     {
@@ -8049,7 +8049,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Addison played in the preseason opener despite a thumb jam suffered in training camp, catching one pass for eight yards."
+        "summary": "Addison played in the preseason opener despite a thumb jam from early training camp and caught his only target for eight yards."
       }
     },
     {
@@ -8060,18 +8060,18 @@
       "opponent": "MIN",
       "projection": {
         "tier": "consensus",
-        "points": 7.57,
+        "points": 7.78,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 18.61,
+        "ceiling": 18.91,
         "playProbability": 0.717,
-        "conditionalPoints": 10.56
+        "conditionalPoints": 10.86
       },
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Tucker Kraft is expected to be 'full go' for Week 1 after recovering from a torn ACL sustained 10 months prior, though he is being held out of the preseason finale as a precaution."
+        "summary": "Tucker Kraft is expected to be 'full go' for Week 1 after recovering from a torn ACL sustained 10 months prior, though he is being rested in the preseason finale as a precaution."
       }
     },
     {
@@ -8093,7 +8093,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Josh Downs participated in Tuesday's practice after missing some time with a minor calf injury and is expected to be cleared for the season opener."
+        "summary": "Josh Downs participated in Tuesday's practice after missing some time with a minor calf injury and is expected to be off the injury report for Week 1."
       }
     },
     {
@@ -8192,18 +8192,18 @@
       "opponent": "LV",
       "projection": {
         "tier": "consensus",
-        "points": 15.93,
+        "points": 15.87,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 2.16,
-        "ceiling": 28.61,
+        "source": "Rotowire",
+        "floor": 2.09,
+        "ceiling": 28.54,
         "playProbability": 0.905,
-        "conditionalPoints": 17.6
+        "conditionalPoints": 17.53
       },
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "De'Von Achane is inactive for Saturday's preseason game against the Giants, though this appears to be a routine rest decision rather than an injury concern."
+        "summary": "Achane is inactive for a preseason game against the Giants, likely a rest/maintenance decision rather than an injury concern."
       }
     },
     {
@@ -8301,19 +8301,19 @@
       "team": "BAL",
       "opponent": "IND",
       "projection": {
-        "tier": "consensus",
-        "points": 12.32,
-        "tierLabel": "Consensus projection",
-        "source": "FantasyPros",
+        "tier": "week1_model",
+        "points": 11.04,
+        "tierLabel": "Week 1 estimate",
+        "source": "In-house model (pre-season)",
         "floor": 0.0,
-        "ceiling": 25.3,
+        "ceiling": 21.24,
         "playProbability": 0.811,
-        "conditionalPoints": 15.2
+        "conditionalPoints": 13.62
       },
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Zay Flowers is recovering from a left quadriceps bruise sustained in early August but is expected to return to full practice and be available for the Ravens' Week 1 season opener."
+        "summary": "Zay Flowers is recovering from a left quadriceps bruise sustained on Aug. 8 and is expected to return to full practice next week, remaining available for the Ravens' Sept. 13 season opener."
       }
     },
     {
@@ -8324,18 +8324,18 @@
       "opponent": "NO",
       "projection": {
         "tier": "consensus",
-        "points": 8.35,
+        "points": 8.62,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 19.7,
+        "ceiling": 20.07,
         "playProbability": 0.717,
-        "conditionalPoints": 11.65
+        "conditionalPoints": 12.02
       },
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Sam LaPorta returned to practice Tuesday after a hip injury but remains questionable for the Week 1 regular-season opener, though he has over two weeks to recover."
+        "summary": "LaPorta returned to practice Tuesday after suffering a hip injury, trending positively with over two weeks remaining before the regular-season opener."
       }
     },
     {
@@ -8379,7 +8379,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Rice returned to game action for the first time since a December concussion and appears healthy heading into Week 1, though he had a minor knee procedure during the offseason."
+        "summary": "Rice returned to game action for the first time since a December concussion and appears healthy heading into Week 1, though he has a recent history of knee and concussion issues."
       }
     },
     {
@@ -8401,7 +8401,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Davis Allen is recovering from a quadriceps injury and was limited in Monday's practice, but is expected to be available for the regular-season opener."
+        "summary": "Davis Allen is recovering from a quadriceps injury and was limited in practice, but is expected to be available for the regular season opener after missing the preseason finale."
       }
     },
     {
@@ -8412,18 +8412,18 @@
       "opponent": "SF",
       "projection": {
         "tier": "consensus",
-        "points": 16.57,
+        "points": 16.61,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 30.53,
+        "ceiling": 30.58,
         "playProbability": 0.811,
-        "conditionalPoints": 20.43
+        "conditionalPoints": 20.48
       },
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Puka Nacua (groin) is ramping up gradually and was off to the side for team drills at Monday's practice, 10 days before the Rams' Week 1 opener."
+        "summary": "Puka Nacua (groin) is ramping up gradually at practice ahead of Week 1, working off to the side during team drills after missing significant time in training camp."
       }
     },
     {
@@ -8456,13 +8456,13 @@
       "opponent": "NO",
       "projection": {
         "tier": "consensus",
-        "points": 20.07,
+        "points": 20.38,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 6.73,
-        "ceiling": 33.18,
+        "source": "Rotowire",
+        "floor": 7.08,
+        "ceiling": 33.53,
         "playProbability": 0.905,
-        "conditionalPoints": 22.17
+        "conditionalPoints": 22.52
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -8489,7 +8489,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Luke Musgrave was placed on the PUP list and will miss at least the first four weeks of the 2026 season due to a neck injury sustained in June minicamp, with an uncertain return timeline."
+        "summary": "Luke Musgrave (neck) was placed on the PUP list and will miss at least the first four games of the 2026 season with an uncertain return timeline after failing to practice during training camp and preseason."
       }
     },
     {
@@ -8511,7 +8511,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Jayden Reed is being rested for Friday's preseason game in Denver as a precautionary measure after briefly missing practice time earlier in the month, but he is otherwise healthy and available."
+        "summary": "Reed is being rested for Friday's preseason game in Denver as a precautionary measure after briefly missing practice time earlier in the month, but remains healthy and available."
       }
     },
     {
@@ -8621,7 +8621,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Zach Charbonnet suffered an ACL tear in his left knee on Jan. 17 and will miss at least the first four games of the season."
+        "summary": "Zach Charbonnet suffered an ACL tear in his left knee on January 17 and will miss at least the first four games of the season."
       }
     },
     {
@@ -8683,7 +8683,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Johnny Wilson reverted to Philadelphia's injured reserve due to a knee injury and will miss the entire upcoming season unless waived with an injury settlement."
+        "summary": "Johnny Wilson was placed on injured reserve by Philadelphia due to a knee injury and will miss the entire upcoming season unless waived with an injury settlement."
       }
     },
     {
@@ -8705,7 +8705,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Chris Collier reverted to injured reserve with the Raiders due to an undisclosed injury and is expected to spend the entire 2026 season on IR."
+        "summary": "Chris Collier was placed on injured reserve by the Raiders for the 2026 season with an undisclosed injury and is unlikely to play unless an injury settlement is reached."
       }
     },
     {
@@ -8903,7 +8903,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Malik Nabers is dealing with a knee injury and expressed uncertainty about Week 1 availability, though he was able to participate in Tuesday's practice after initially being absent from the media-available portion."
+        "summary": "Malik Nabers (knee) missed the open portion of Tuesday's practice but participated later in the session, though his Week 1 availability remains uncertain."
       }
     },
     {
@@ -8914,13 +8914,13 @@
       "opponent": "MIA",
       "projection": {
         "tier": "consensus",
-        "points": 13.97,
+        "points": 14.37,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 24.85,
+        "ceiling": 25.3,
         "playProbability": 0.896,
-        "conditionalPoints": 15.58
+        "conditionalPoints": 16.03
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -8947,7 +8947,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Xavier Legette sustained an ankle injury during Wednesday's joint practice and will remain in a walking boot until Thursday, likely causing him to miss Friday's preseason finale against the Texans."
+        "summary": "Xavier Legette sustained an ankle injury during Wednesday's joint practice and will remain in a walking boot until Thursday, expected to miss Friday's preseason finale against the Texans."
       }
     },
     {
@@ -8969,7 +8969,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Brooks missed Tuesday practice due to general soreness but the injury is not considered serious after playing in the preseason."
+        "summary": "Brooks missed practice Tuesday due to general soreness but is expected to be available as part of a running back committee with Chuba Hubbard."
       }
     },
     {
@@ -9079,7 +9079,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Guerendo was placed on the reserve/PUP list and will miss at least the first four weeks of the season due to a pectoral injury."
+        "summary": "Isaac Guerendo was placed on the reserve/PUP list due to a pectoral injury and will miss at least the first four weeks of the season."
       }
     },
     {
@@ -9189,7 +9189,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Jamari Thrash has been placed on Injured Reserve."
+        "summary": "Jamari Thrash has been placed on the Injured Reserve list."
       }
     },
     {
@@ -9211,7 +9211,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "medium",
-        "summary": "Tyrone Tracy Jr. suffered a neck stinger in the preseason finale and is practicing in a non-contact jersey, making his availability status uncertain."
+        "summary": "Tracy suffered a neck stinger in the preseason finale and is practicing in a non-contact jersey, making his availability status uncertain."
       }
     },
     {
@@ -9777,7 +9777,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Carter Bradley suffered a thumb injury in the final preseason game and was placed on injured reserve, where he must remain for the entire 2026 season unless he reaches an injury settlement with Jacksonville."
+        "summary": "Carter Bradley suffered a thumb injury during preseason and has been placed on injured reserve, likely to miss the entire 2026 season."
       }
     },
     {
@@ -9885,7 +9885,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "British Brooks returned to practice after undergoing hand surgery in early August and a three-week absence, with availability for the preseason finale to be determined."
+        "summary": "British Brooks returned to practice after a three-week absence following hand surgery in early August and is working to be ready for Friday's preseason finale."
       }
     },
     {
@@ -9907,7 +9907,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Mason Tipton was placed on the reserve/PUP list after undergoing tibia surgery and is expected to miss at least the first four games of the regular season, with earliest return in Week 5."
+        "summary": "Mason Tipton was placed on the reserve/PUP list after undergoing tibia surgery in the offseason and is expected to miss at least the first four games of the regular season, with potential return in Week 5."
       }
     },
     {
@@ -10149,7 +10149,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Jeshaun Jones received a three-game NFL suspension for violating the substance-abuse policy and is ineligible for game action until Week 4."
+        "summary": "Jeshaun Jones received a three-game suspension for violating the NFL's substance-abuse policy and will be ineligible for game action until Week 4."
       }
     },
     {
@@ -10391,7 +10391,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Braelon Allen started at RB in place of the injured Breece Hall and is the team's top available RB, but faces competition from Isaiah Davis once healthy."
+        "summary": "Braelon Allen started at RB in place of the injured Breece Hall and is currently the team's top available running back, though Hall is expected back by Week 1 and Isaiah Davis could compete for backup duties once healthy."
       }
     },
     {
@@ -10435,7 +10435,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Isaiah Davis (knee) returned to on-field work with a trainer during Tuesday's practice after missing the first two preseason games, but his status for Friday's exhibition against the Giants remains uncertain."
+        "summary": "Isaiah Davis (knee) participated in side field work with a trainer during Tuesday's practice after missing the first two preseason games, with his availability for Friday's exhibition against the Giants still uncertain."
       }
     },
     {
@@ -10457,7 +10457,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "MarShawn Lloyd is moving up the Packers depth chart as the top available option with Josh Jacobs on the Commissioner's Exempt List, though he has limited game experience."
+        "summary": "MarShawn Lloyd is now the top available option in the Packers backfield with Josh Jacobs sidelined, presenting an opportunity but with limited playing time so far this season."
       }
     },
     {
@@ -10479,7 +10479,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Erick All passed his conditioning test and is cleared to participate in training camp after undergoing multiple knee surgeries for an ACL injury that caused him to miss the entire 2025 season."
+        "summary": "Erick All passed his conditioning test and is cleared to participate in training camp following multiple knee surgeries for an ACL injury that caused him to miss the entire 2025 season."
       }
     },
     {
@@ -10567,7 +10567,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Theo Johnson is participating in non-contact practice with a shoulder injury sustained last week but appears on track to play in Week 1."
+        "summary": "Theo Johnson is participating in non-contact practice after a shoulder injury sustained last Monday but appears on track to play Week 1 against the Cowboys."
       }
     },
     {
@@ -10600,13 +10600,13 @@
       "opponent": "SEA",
       "projection": {
         "tier": "consensus",
-        "points": 17.21,
+        "points": 17.9,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 3.09,
-        "ceiling": 27.58,
+        "source": "Rotowire",
+        "floor": 3.7,
+        "ceiling": 28.24,
         "playProbability": 0.94,
-        "conditionalPoints": 18.32
+        "conditionalPoints": 19.05
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -10633,7 +10633,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "McMillan remains sidelined with a knee injury at Tuesday's practice but is expected to be available for Week 1 against the Bengals in 12 days."
+        "summary": "McMillan missed most of training camp with a knee injury and remained sidelined at Tuesday's practice, though there is optimism about his availability for Week 1 against the Bengals."
       }
     },
     {
@@ -10776,18 +10776,18 @@
       "opponent": "CLE",
       "projection": {
         "tier": "week1_model",
-        "points": 8.65,
+        "points": 9.99,
         "tierLabel": "Week 1 estimate",
         "source": "In-house model (pre-season)",
-        "floor": 0.0,
-        "ceiling": 18.49,
-        "playProbability": 0.811,
+        "floor": 0.59,
+        "ceiling": 19.21,
+        "playProbability": 0.936,
         "conditionalPoints": 10.67
       },
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Brian Thomas Jr. suffered a shoulder injury during Tuesday's practice but returned Wednesday in limited capacity on a no-contact jersey, with the team likely to keep him out of Friday's preseason finale but expecting him to be ready for the season opener."
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -10831,7 +10831,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Keon Coleman is recovering from a right foot/toe sprain sustained in the preseason opener and has returned to practice after removing his walking boot, with nearly two weeks remaining before Week 1."
+        "summary": "Keon Coleman sustained a right foot/toe sprain in the preseason opener but has progressed to practicing and removing his walking boot, with nearly two weeks to recover before Week 1."
       }
     },
     {
@@ -10864,18 +10864,18 @@
       "opponent": "PHI",
       "projection": {
         "tier": "consensus",
-        "points": 17.43,
+        "points": 18.02,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 3.28,
-        "ceiling": 27.79,
+        "source": "Rotowire",
+        "floor": 3.81,
+        "ceiling": 28.36,
         "playProbability": 0.94,
-        "conditionalPoints": 18.55
+        "conditionalPoints": 19.18
       },
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Jayden Daniels is active and returning from an elbow injury that caused him to miss the last four regular season games, playing limited snaps in preseason as he works back to full form."
+        "summary": "Jayden Daniels returned from a four-game absence due to an elbow injury and played limited snaps in preseason, with his performance expected to improve as he ramps up."
       }
     },
     {
@@ -10897,7 +10897,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ben Sinnott is dealing with an oblique injury and will miss Friday's preseason finale, but his availability for the season opener on Sept. 13 is not yet in peril."
+        "summary": "Ben Sinnott is dealing with an oblique injury, will miss the preseason finale, and needs to return to full practice over the next two weeks to be ready for the season opener."
       }
     },
     {
@@ -10963,7 +10963,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "medium",
-        "summary": "Penix is recovering from a torn ACL and will miss Friday's preseason game, but believes he'll be available for Week 1 against the Steelers pending final clearance from his coach."
+        "summary": "Penix is recovering from a torn ACL and will miss Friday's preseason game but expects to be available for Week 1 against the Steelers."
       }
     },
     {
@@ -10974,13 +10974,13 @@
       "opponent": "CAR",
       "projection": {
         "tier": "consensus",
-        "points": 17.73,
+        "points": 18.54,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 3.55,
-        "ceiling": 28.08,
+        "source": "Rotowire",
+        "floor": 4.26,
+        "ceiling": 28.87,
         "playProbability": 0.94,
-        "conditionalPoints": 18.87
+        "conditionalPoints": 19.73
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -11051,7 +11051,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Trey Benson reverted to the Cardinals' injured reserve list due to ongoing knee troubles from a meniscus injury suffered in Week 4, and was placed on waivers with no interest from other teams."
+        "summary": "Trey Benson reverted to injured reserve due to ongoing knee troubles from a meniscus injury suffered in Week 4, with difficulty staying on the practice field despite returning from surgery."
       }
     },
     {
@@ -11095,7 +11095,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Thomas Yassmin was reverted to injured reserve with an undisclosed injury and will miss the entire 2026 season unless he reaches an injury settlement with the Packers."
+        "summary": "Thomas Yassmin was reverted to injured reserve by the Packers and will miss the entire 2026 season unless he reaches an injury settlement."
       }
     },
     {
@@ -11117,7 +11117,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Savion Williams is recovering from a high-ankle sprain on injured reserve and is expected to be eligible to return in Week 5 (October 11 vs Bears)."
+        "summary": "Savion Williams is on injured reserve with a high-ankle sprain and is expected to return in Week 5 for his 2026 debut on October 11."
       }
     },
     {
@@ -11335,7 +11335,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "medium",
-        "summary": "Tyler Loop is expected to handle Week 1 kicking duties despite recent missed field goals and competition from Jake Moody on the practice squad, leaving him with a short leash."
+        "summary": "Tyler Loop is expected to handle Week 1 kicking duties for Baltimore despite recent missed field goals and competition from practice squad addition Jake Moody, putting his job security at risk."
       }
     },
     {
@@ -11467,7 +11467,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Jimmy Holiday was placed on injured reserve by the Chiefs due to an undisclosed injury and will miss the entire 2026 season unless he reaches an injury settlement."
+        "summary": "Jimmy Holiday was placed on injured reserve by the Chiefs with an undisclosed injury and will miss the entire 2026 season unless he reaches an injury settlement."
       }
     },
     {
@@ -11489,7 +11489,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ashton Jeanty is recovering from an ankle injury sustained Aug. 23 and is working off to the side during practice, with his Week 1 status still uncertain but showing progress."
+        "summary": "Ashton Jeanty remains sidelined with a low-ankle sprain suffered Aug. 23 and needs to practice next week to have a chance to play in Week 1 against the Dolphins, though the GM indicated he is in a 'good spot' with recovery."
       }
     },
     {
@@ -11522,13 +11522,13 @@
       "opponent": "CAR",
       "projection": {
         "tier": "consensus",
-        "points": 12.13,
+        "points": 12.69,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 22.8,
+        "ceiling": 23.43,
         "playProbability": 0.896,
-        "conditionalPoints": 13.53
+        "conditionalPoints": 14.16
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -11544,18 +11544,18 @@
       "opponent": "BAL",
       "projection": {
         "tier": "consensus",
-        "points": 9.02,
+        "points": 9.12,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
+        "source": "Rotowire",
         "floor": 0.0,
-        "ceiling": 20.64,
+        "ceiling": 20.77,
         "playProbability": 0.717,
-        "conditionalPoints": 12.59
+        "conditionalPoints": 12.72
       },
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Tyler Warren (adductor strain) participated in practice Tuesday and is expected to operate without restrictions for Week 1 against the Ravens."
+        "summary": "Tyler Warren (adductor strain) participated in Tuesday's practice and is expected to have no restrictions for Week 1 against the Ravens."
       }
     },
     {
@@ -11577,7 +11577,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Egbuka is dealing with a toe injury that has limited him since mid-August and he did not practice Tuesday, leaving his Week 1 availability uncertain despite coach optimism."
+        "summary": "Egbuka is dealing with a toe injury but was able to work with trainers and run without obvious issues, with expectations he'll be nearing full health by Week 1."
       }
     },
     {
@@ -11819,7 +11819,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Jordan James returned from a rib fracture to play in the preseason game, recording 8 rushes for 35 yards and 1 catch for 20 yards, with his availability for the regular season still to be determined."
+        "summary": "Jordan James returned from a rib fracture to play in the preseason and showed promise as a runner and receiver, though his role behind other backs and limited preseason action leaves some uncertainty about his regular season usage."
       }
     },
     {
@@ -11951,7 +11951,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ollie Gordon II suffered a minor rib injury in preseason but would have been cleared to play in a regular-season game, with his availability for the preseason finale against the Falcons dependent on practice participation."
+        "summary": "Ollie Gordon II suffered a minor rib injury in preseason but would have been cleared to play in a regular-season game, with his participation this week determining if he plays in the preseason finale."
       }
     },
     {
@@ -11993,7 +11993,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Devin Neal was placed on injured reserve with a hamstring injury sustained during preseason and will miss the entire 2026 regular season."
+        "summary": "Devin Neal was placed on injured reserve due to a hamstring injury sustained in preseason and will miss the entire 2026 regular season."
       }
     },
     {
@@ -12015,7 +12015,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Will Howard suffered a concussion during Thursday's preseason game and is in the NFL's five-step concussion protocol, requiring evaluation by an independent neurologist before returning to practice."
+        "summary": "Will Howard suffered a concussion during preseason and is in the NFL's five-step concussion protocol, requiring evaluation by an independent neurologist before returning to full contact practice."
       }
     },
     {
@@ -12037,7 +12037,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Kalel Mullings has been listed as questionable on the injury report."
+        "summary": "Kalel Mullings is listed as Questionable on the injury report."
       }
     },
     {
@@ -12235,7 +12235,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Kyle Monangai sustained a right knee hyperextension on Aug. 16 and remains week-to-week, putting his availability for the Sept. 13 season opener at risk."
+        "summary": "Kyle Monangai sustained a right knee hyperextension on Aug. 16 and is week-to-week, putting his availability for the season opener on Sept. 13 at risk."
       }
     },
     {
@@ -12256,8 +12256,8 @@
       },
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "low",
-        "summary": "Johnson returned from a groin strain suffered on Aug. 4 to play in Friday's preseason game after missing the first two exhibitions."
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -12278,8 +12278,8 @@
       },
       "newsFlag": {
         "designation": "Questionable",
-        "riskLevel": "medium",
-        "summary": "LeQuint Allen Jr. is listed as questionable for upcoming game availability."
+        "riskLevel": "high",
+        "summary": "LeQuint Allen Jr. is a game-time decision for Week 1 against the Browns with an undisclosed injury, and coach Liam Coen suggested he'd be \"pleasantly surprised\" if Allen plays, indicating the running back is unlikely to be available."
       }
     },
     {
@@ -12323,7 +12323,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Caleb Lohner was placed on injured reserve with a lower-body injury and will miss at least the first four games of the 2026 regular season, with earliest return in Week 5."
+        "summary": "Caleb Lohner was placed on injured reserve with a lower-body injury and will miss at least the first four games of the 2026 regular season, with the earliest possible return in Week 5."
       }
     },
     {
@@ -12389,7 +12389,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Moliki Matavao was placed on injured reserve due to a knee injury sustained in Saturday's preseason game and will miss the entire 2026 regular season."
+        "summary": "Moliki Matavao was placed on injured reserve due to a knee injury sustained during preseason and will miss the entire 2026 regular season."
       }
     },
     {
@@ -12629,7 +12629,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Jacoby Jones was placed on injured reserve with an undisclosed injury and will miss the entire 2026 regular season unless a settlement is reached with the Commanders."
+        "summary": "Jacoby Jones was placed on injured reserve with an undisclosed injury and will miss the entire 2026 regular season unless he reaches an injury settlement with the Commanders."
       }
     },
     {
@@ -12717,7 +12717,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Ja'Quinden Jackson was placed on injured reserve after being waived with an injury designation and left a preseason game in an ambulance, though CT scans were negative."
+        "summary": "Ja'Quinden Jackson was placed on injured reserve with an undisclosed injury after being waived by Philadelphia and not claimed by another team, despite negative CT scans from an ambulance transport incident during a preseason game."
       }
     },
     {
@@ -13289,7 +13289,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Carter Runyon was placed on injured reserve with an undisclosed injury and will miss at least the first four games of the 2026 regular season, with earliest return in Week 5."
+        "summary": "Carter Runyon was placed on injured reserve by the Raiders with an undisclosed injury and is ineligible to return before Week 5 of the 2026 season."
       }
     },
     {
@@ -13638,8 +13638,8 @@
       },
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Corey Kiner was traded to the Patriots and is listed as active, positioning him as a backup running back behind Rhamondre Stevenson and TreVeyon Henderson (ankle)."
       }
     },
     {
@@ -13793,7 +13793,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Dont'e Thornton Jr. was placed on injured reserve with an undisclosed injury and must miss at least the first four games of the 2025 regular season."
+        "summary": "Dont'e Thornton Jr. was placed on injured reserve with an undisclosed injury and will miss at least the first four games of the 2025 regular season."
       }
     },
     {
@@ -14145,7 +14145,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Dalevon Campbell was placed on injured reserve with a significant leg injury and will miss the entire 2026 regular season unless waived with an injury settlement."
+        "summary": "Campbell suffered a significant leg injury in practice and has been placed on injured reserve, sidelining him for the 2026 regular season."
       }
     },
     {
@@ -14211,7 +14211,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Trevor Etienne was placed on injured reserve with an ankle injury suffered in Friday's preseason game and will miss at least four contests."
+        "summary": "Trevor Etienne was placed on injured reserve with an ankle injury suffered in Friday's preseason game and will miss at least four games."
       }
     },
     {
@@ -14255,7 +14255,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Tory Horton has been sidelined for over a week with an undisclosed injury, but head coach Mike Macdonald confirmed it is not a long-term concern."
+        "summary": "Tory Horton has been sidelined with an undisclosed injury for over a week, but head coach Mike Macdonald indicated it is not a long-term concern."
       }
     },
     {
@@ -14277,7 +14277,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Robbie Ouzts has been placed on the Injured Reserve list."
+        "summary": "Robbie Ouzts has been placed on Injured Reserve."
       }
     },
     {
@@ -14353,14 +14353,14 @@
       "team": "CLE",
       "opponent": "JAX",
       "projection": {
-        "tier": "consensus",
-        "points": 9.71,
-        "tierLabel": "Consensus projection",
-        "source": "FantasyPros",
+        "tier": "week1_model",
+        "points": 5.58,
+        "tierLabel": "Week 1 estimate",
+        "source": "In-house model (pre-season)",
         "floor": 0.0,
-        "ceiling": 20.1,
+        "ceiling": 11.22,
         "playProbability": 0.896,
-        "conditionalPoints": 10.83
+        "conditionalPoints": 6.22
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -14375,19 +14375,19 @@
       "team": "LAC",
       "opponent": "ARI",
       "projection": {
-        "tier": "consensus",
-        "points": 14.84,
-        "tierLabel": "Consensus projection",
-        "source": "FantasyPros",
-        "floor": 0.96,
-        "ceiling": 27.41,
+        "tier": "week1_model",
+        "points": 14.7,
+        "tierLabel": "Week 1 estimate",
+        "source": "In-house model (pre-season)",
+        "floor": 5.33,
+        "ceiling": 24.76,
         "playProbability": 0.905,
-        "conditionalPoints": 16.4
+        "conditionalPoints": 16.24
       },
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Hampton is active and listed as the Chargers' lead back heading into the 2026 season after missing time last year due to a fractured left ankle, though he saw limited snaps in the preseason finale."
+        "summary": "Hampton was active in the preseason finale with limited snaps, recovering well from a fractured left ankle that limited him to nine games last season."
       }
     },
     {
@@ -14508,13 +14508,13 @@
       "opponent": "DAL",
       "projection": {
         "tier": "consensus",
-        "points": 18.3,
+        "points": 18.32,
         "tierLabel": "Consensus projection",
-        "source": "FantasyPros + Rotowire",
-        "floor": 4.06,
-        "ceiling": 28.64,
+        "source": "Rotowire",
+        "floor": 4.07,
+        "ceiling": 28.66,
         "playProbability": 0.94,
-        "conditionalPoints": 19.48
+        "conditionalPoints": 19.5
       },
       "newsFlag": {
         "designation": "Healthy",
@@ -14684,18 +14684,18 @@
       "opponent": "CLE",
       "projection": {
         "tier": "week1_model",
-        "points": 6.58,
+        "points": 5.35,
         "tierLabel": "Week 1 estimate",
         "source": "In-house model (pre-season)",
         "floor": 0.0,
-        "ceiling": 13.58,
-        "playProbability": 0.905,
+        "ceiling": 12.67,
+        "playProbability": 0.736,
         "conditionalPoints": 7.27
       },
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Bhayshul Tuten missed Wednesday practice due to illness but is expected to be healthy for Week 1 against the Browns in 11 days."
       }
     },
     {
@@ -14783,7 +14783,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "TreVeyon Henderson is dealing with a right ankle injury, has not been cleared for full participation in practice, and his availability for Week 1 against the Seahawks remains uncertain."
+        "summary": "TreVeyon Henderson is dealing with a right ankle injury, has not been cleared for full practice participation, and his status for Week 1 against the Seahawks remains uncertain."
       }
     },
     {
@@ -14805,7 +14805,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "medium",
-        "summary": "Luther Burden III is recovering from a groin injury suffered in early August and is participating in practice this week, but his availability for the Week 1 opener against the Panthers remains uncertain after missing the entire preseason."
+        "summary": "Luther Burden III is recovering from a groin injury suffered in early August and is participating in practice this week, but his availability for the Week 1 opener against the Panthers remains uncertain."
       }
     },
     {
@@ -14849,7 +14849,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ferguson (soreness) was working off to the side at Tuesday's practice but remains active and available for the upcoming game."
+        "summary": "Ferguson is dealing with soreness and working off to the side at practice, but remains available and is expected to compete for snaps as a potential third tight end option for the Rams."
       }
     },
     {
@@ -14959,7 +14959,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Isaiah Bond is listed as questionable on the ESPN injury report."
+        "summary": "Isaiah Bond has been listed as questionable for upcoming games."
       }
     },
     {
@@ -14980,8 +14980,8 @@
       },
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "low",
-        "summary": "Judkins missed preseason games due to an undisclosed injury but returned to practice and is past the issue, though his limited preseason action warrants monitoring."
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -15113,7 +15113,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "medium",
-        "summary": "Sarratt is healthy and active but faces significant roster pressure with limited production in preseason games and competition from other receivers for a 53-man roster spot."
+        "summary": "Sarratt is healthy but faces significant roster competition and may struggle to make the 53-man roster as a fourth-round pick behind more productive options like Ja'Kobi Lane."
       }
     },
     {
@@ -15223,7 +15223,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Adam Randall was placed on injured reserve by the Ravens with a designation to return due to an undisclosed injury, making him ineligible to play until at least Week 5."
+        "summary": "Adam Randall was placed on injured reserve by the Ravens with an undisclosed injury and will miss at least the first four games of the regular season, with his earliest return date being October 11."
       }
     },
     {
@@ -15375,7 +15375,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Jaren Kanak has been placed on the Injured Reserve list."
+        "summary": "Jaren Kanak has been placed on Injured Reserve."
       }
     },
     {
@@ -15507,7 +15507,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Dominic Richardson was placed on injured reserve by the Jets with an undisclosed injury and will need to reach an injury settlement to have a chance to play in 2026."
+        "summary": "Dominic Richardson was placed on the Jets' injured reserve list with an undisclosed injury and will need to reach an injury settlement to have any chance of playing in 2026."
       }
     },
     {
@@ -15529,7 +15529,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "DJ Rogers, a tight end, suffered an MCL sprain during preseason and was placed on the Cowboys' injured reserve list, where he is expected to remain for the entire 2026 regular season."
+        "summary": "DJ Rogers, a tight end, suffered an MCL sprain during preseason and has been placed on the Cowboys' injured reserve list for the entire 2026 regular season."
       }
     },
     {
@@ -15617,7 +15617,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Jeff Caldwell hyperextended his left knee during practice and was placed on injured reserve, likely to miss the entire 2026 regular season."
+        "summary": "Jeff Caldwell hyperextended his left knee during practice and was placed on injured reserve, expected to miss the entire 2026 regular season."
       }
     },
     {
@@ -16145,7 +16145,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Jeremiyah Love is recovering from a high-ankle sprain suffered in preseason Week 1 and has not yet participated in full practice, though the coaching staff indicated he is progressing well toward Week 1 availability."
+        "summary": "Jeremiyah Love is dealing with a high-ankle sprain suffered in preseason Week 1 and was not suited up at Tuesday's practice, though he is progressing well and expected to be available for the Week 1 regular-season opener."
       }
     },
     {
@@ -16167,7 +16167,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Jordyn Tyson was placed on injured reserve with a right hamstring injury expected to sideline him for approximately two months, requiring him to miss at least the first four games."
+        "summary": "Jordyn Tyson was placed on injured reserve with a right hamstring injury expected to sideline him for approximately two months, requiring him to miss at least the first four games of the season."
       }
     },
     {
@@ -16189,7 +16189,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Sadiq (hernia) is on track to play Week 1 but missed training camp and preseason, so he will have a limited role initially while ramping up activity over the next 10 days."
+        "summary": "Kenyon Sadiq is on track to play Week 1 despite missing training camp and preseason with a hernia, but will have a limited role as he ramps up activity."
       }
     },
     {
@@ -16211,7 +16211,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "De'Zhaun Stribling suffered a shoulder injury in preseason Week 2 and will miss Thursday's preseason game at Las Vegas, though he is expected to be available for Week 1 against the Rams."
+        "summary": "De'Zhaun Stribling is sidelined with a shoulder injury and will miss Thursday's preseason game against Las Vegas, but is expected to be ready for the Week 1 matchup against the Rams."
       }
     },
     {
@@ -16277,7 +16277,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Oscar Delp is nursing a hamstring injury at Saints training camp with unclear severity, though he has time to recover before the preseason finale."
+        "summary": "Oscar Delp is nursing a hamstring injury at Saints training camp with uncertain severity, though he has time to recover before the preseason finale."
       }
     },
     {
@@ -16365,7 +16365,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Ted Hurst III is active and healthy but faces reduced playing time if other injured Buccaneers receivers (Egbuka, McMillan, Johnson) return for Week 1."
+        "summary": "Ted Hurst III is active and available but faces reduced playing time if Emeka Egbuka, Jalen McMillan, and Tez Johnson are healthy for Week 1."
       }
     },
     {
@@ -16651,7 +16651,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Kaytron Allen is healthy and expected to be the third-string running back in Week 1, but could see increased playing time if injuries to Croskey-Merritt or White persist."
+        "summary": "Kaytron Allen is expected to begin the regular season as the third-string running back but could see increased workload if injuries to Croskey-Merritt or White linger into Week 1."
       }
     },
     {
@@ -16871,7 +16871,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Carsen Ryan returned to action two days after leaving practice early with a foot injury, catching both targets for nine yards in Thursday's preseason game."
+        "summary": "Carsen Ryan returned to action in Thursday's preseason game after leaving Tuesday's practice early with a foot injury, catching both targets for nine yards."
       }
     },
     {
@@ -17243,7 +17243,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Quentin Moore has been reverted to the Commanders' injured reserve list with an undisclosed injury and will miss the entire 2026 regular season unless waived with an injury settlement."
+        "summary": "Quentin Moore was placed on injured reserve with an undisclosed injury and will miss the entire 2026 regular season unless waived with an injury settlement."
       }
     },
     {
@@ -17615,7 +17615,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Chase Curtis (tight end) was placed on injured reserve with a knee injury sustained during a preseason game and must reach an injury settlement with the Jets to play in 2026."
+        "summary": "Chase Curtis was placed on injured reserve after suffering a knee injury during a preseason game and will need to reach an injury settlement with the Jets for any chance to play in 2026."
       }
     },
     {
@@ -17637,7 +17637,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Chip Trayanum was placed on injured reserve by the Jets due to a neck injury suffered in the preseason finale and will miss the entire 2026 season."
+        "summary": "Chip Trayanum was placed on injured reserve due to a neck injury suffered in the preseason finale and is expected to miss the entire 2026 season."
       }
     },
     {
@@ -18495,7 +18495,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Sincere Brown was placed on injured reserve by the Chargers with an undisclosed injury and will miss the entirety of the 2026 regular season unless waived with an injury settlement."
+        "summary": "Sincere Brown was placed on injured reserve by the Chargers with an undisclosed injury and will miss the entire 2026 regular season unless waived with an injury settlement."
       }
     },
     {
@@ -18693,7 +18693,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Matthew Caldwell was placed on injured reserve by the Rams with an undisclosed injury and will miss the entire season unless waived with an injury settlement."
+        "summary": "Matthew Caldwell was placed on injured reserve by the Rams with an undisclosed injury and will miss the upcoming season unless waived with an injury settlement."
       }
     },
     {
@@ -19045,7 +19045,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Eli Stowers is dealing with a hamstring injury and may have limited offensive snaps even after returning to health, with a crowded tight end depth chart ahead of him."
+        "summary": "Eli Stowers is dealing with a hamstring injury and may have limited gameday availability even after returning to health, with additional concerns about his depth chart position behind multiple veterans."
       }
     },
     {
@@ -19176,8 +19176,8 @@
       },
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "low",
-        "summary": "Boerkircher did not participate in Friday's preseason game but remains active and competing for the TE2 role behind Brenton Strange."
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -19287,7 +19287,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Kacmarek is week-to-week with an undisclosed injury and did not play in the preseason finale."
+        "summary": "Kacmarek is considered week-to-week with an undisclosed injury and did not play in the preseason finale."
       }
     },
     {
@@ -19309,7 +19309,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Bell has been cleared to return to full practice and played in the preseason finale, but is still working on conditioning after ACL surgery rehabilitation."
+        "summary": "Bell was cleared to return to full practice and played in the preseason finale, but is still working on conditioning following ACL surgery rehabilitation."
       }
     },
     {
@@ -19331,7 +19331,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Coleman returned to action in Saturday's preseason game after missing practice time due to an undisclosed injury, catching 2 of 5 targets for 32 yards."
+        "summary": "Coleman returned from an undisclosed injury to play in Saturday's preseason game, catching 2 of 5 targets for 32 yards, but faces significant depth chart competition at wide receiver."
       }
     },
     {
@@ -19397,7 +19397,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Brenen Thompson practiced in a non-contact jersey after being held out Saturday with an undisclosed injury, but his return to the field is a positive sign ahead of Thursday's preseason finale."
+        "summary": "Brenen Thompson practiced in a non-contact jersey after being held out Saturday with an undisclosed injury, but his return to the field is a positive sign for availability."
       }
     },
     {
@@ -19661,7 +19661,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Connor Hulstein was placed on injured reserve with an undisclosed injury and will need to reach an injury settlement with the Jets to have any chance to play in 2026."
+        "summary": "Connor Hulstein was placed on the Jets' injured reserve list with an undisclosed injury and will need to reach an injury settlement to have any chance of playing in 2026."
       }
     },
     {
@@ -20459,67 +20459,67 @@
   ],
   "waiverTargets": [
     {
-      "playerId": "00-0034161",
-      "name": "Daniel Carlson",
-      "position": "K",
-      "team": "NO",
-      "opponent": "DET",
+      "playerId": "DAL",
+      "name": "Cowboys D/ST",
+      "position": "DST",
+      "team": "DAL",
+      "opponent": "NYG",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.75,
+        "points": 6.99,
         "tierLabel": "Our estimate",
         "source": "In-house model",
-        "playProbability": 0.97,
-        "conditionalPoints": 7.99
+        "playProbability": 1.0,
+        "conditionalPoints": 6.99
       },
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
         "summary": null
       },
-      "rationale": "No games played yet this season for Daniel Carlson -- a speculative add based on role/opportunity alone."
+      "rationale": "No games played yet this season for Cowboys D/ST -- a speculative add based on role/opportunity alone."
     },
     {
-      "playerId": "00-0034173",
-      "name": "Eddy Pineiro",
-      "position": "K",
-      "team": "SF",
-      "opponent": "LAR",
+      "playerId": "DEN",
+      "name": "Broncos D/ST",
+      "position": "DST",
+      "team": "DEN",
+      "opponent": "KC",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.75,
+        "points": 6.99,
         "tierLabel": "Our estimate",
         "source": "In-house model",
-        "playProbability": 0.97,
-        "conditionalPoints": 7.99
+        "playProbability": 1.0,
+        "conditionalPoints": 6.99
       },
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
         "summary": null
       },
-      "rationale": "No games played yet this season for Eddy Pineiro -- a speculative add based on role/opportunity alone."
+      "rationale": "No games played yet this season for Broncos D/ST -- a speculative add based on role/opportunity alone."
     },
     {
-      "playerId": "00-0035192",
-      "name": "Joey Slye",
-      "position": "K",
-      "team": "TEN",
-      "opponent": "NYJ",
+      "playerId": "DET",
+      "name": "Lions D/ST",
+      "position": "DST",
+      "team": "DET",
+      "opponent": "NO",
       "projection": {
         "tier": "in_house_estimate",
-        "points": 7.75,
+        "points": 6.99,
         "tierLabel": "Our estimate",
         "source": "In-house model",
-        "playProbability": 0.97,
-        "conditionalPoints": 7.99
+        "playProbability": 1.0,
+        "conditionalPoints": 6.99
       },
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
         "summary": null
       },
-      "rationale": "No games played yet this season for Joey Slye -- a speculative add based on role/opportunity alone."
+      "rationale": "No games played yet this season for Lions D/ST -- a speculative add based on role/opportunity alone."
     }
   ]
 }
