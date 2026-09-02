@@ -167,6 +167,37 @@ def build_player_pool_entry(player: dict[str, Any], news_flag: dict[str, Any]) -
     }
 
 
+def _mixture_band(
+    interval_model: Optional[Any],
+    position: str,
+    conditional_points: float,
+    play_probability: Optional[float],
+    fallback: tuple[Optional[float], Optional[float]] = (None, None),
+) -> dict[str, Optional[float]]:
+    """{"floor", "ceiling"} for a tier's projection, accounting for the chance
+    the player does not play at all.
+
+    The published band describes the player's actual outcome, which is a
+    mixture: exactly zero with probability 1 - p, the conditional distribution
+    otherwise. IntervalModel.interval knows how to read that off the fitted
+    quantile curve. When no model is available this falls back to the
+    conditional band unchanged -- deliberately NOT scaled by p, because that
+    transformation is simply wrong (it holds the floor away from zero while
+    pulling the ceiling toward it). See docs/research/second-audit-2026-09-02.md.
+    """
+    if interval_model is not None:
+        band = interval_model.interval(
+            position, conditional_points, play_probability=play_probability
+        )
+        if band is not None:
+            return {"floor": round(band[0], 2), "ceiling": round(band[1], 2)}
+    lo, hi = fallback
+    return {
+        "floor": None if lo is None else round(lo, 2),
+        "ceiling": None if hi is None else round(hi, 2),
+    }
+
+
 def _consensus_source_label(consensus: dict[str, Any]) -> Optional[str]:
     """Which feeds actually produced this consensus projection, or None to
     fall back to the tier default (entries built before the blend recorded
@@ -438,6 +469,35 @@ def build_weekly_report_and_pool(
                     if (play_probabilities or {}).get(player["playerId"]) is None
                     else round(play_probabilities[player["playerId"]], 3)
                 ),
+                # Interval: attached from the in-season residual model, which
+                # buckets residuals by projection size and position. That model
+                # was fitted on the in-house estimator's errors, so this is an
+                # APPROXIMATION for a vendor projection -- but a defensible and
+                # conservative one. Most of the band's width is irreducible
+                # weekly outcome variance (audit 1 put the ICC ceiling on any
+                # player-identity model at R^2 0.25-0.47), which belongs to the
+                # player-week rather than to whoever produced the number. If the
+                # consensus is the better estimator, this band is slightly too
+                # WIDE, which is the safe direction to be wrong in. Showing no
+                # band at all on the top-10-per-position players -- the ones
+                # actually started -- was the worse option.
+                **_mixture_band(
+                    interval_model,
+                    player["position"],
+                    consensus["projected_points"],
+                    (play_probabilities or {}).get(player["playerId"]),
+                ),
+                # NOTE: the affine recalibration is deliberately NOT applied
+                # here, walking back part of the second audit's own
+                # recommendation. `affines` corrects the in-house rolling
+                # average's measured over-dispersion (fitted slope 0.826). A
+                # vendor consensus projection has its own, unmeasured,
+                # calibration -- and we have no held-out consensus history to
+                # fit one from, because neither free feed publishes past weeks.
+                # Applying our correction to their number would inject a bias
+                # we have never measured, which is exactly the "guess dressed as
+                # a measurement" week1.py refuses to make. Left uncorrected and
+                # documented instead.
                 "tier": "consensus",
                 "source": _consensus_source_label(consensus),
                 # Not meaningful for the consensus tier (FantasyPros doesn't
@@ -467,15 +527,14 @@ def build_weekly_report_and_pool(
                     2,
                 ),
                 "conditional_points": week1_projection["projected_points"],
-                "floor": (
-                    None if week1_projection.get("floor") is None
-                    else round(week1_projection["floor"]
-                               * ((play_probabilities or {}).get(player["playerId"], 1.0)), 2)
-                ),
-                "ceiling": (
-                    None if week1_projection.get("ceiling") is None
-                    else round(week1_projection["ceiling"]
-                               * ((play_probabilities or {}).get(player["playerId"], 1.0)), 2)
+                # Mixture band, not the conditional band scaled by P(play) --
+                # see IntervalModel.interval and the in-house tier below.
+                **_mixture_band(
+                    week1_projection.get("_interval_model"),
+                    player["position"],
+                    week1_projection["projected_points"],
+                    (play_probabilities or {}).get(player["playerId"]),
+                    fallback=(week1_projection.get("floor"), week1_projection.get("ceiling")),
                 ),
                 "play_probability": (
                     None
@@ -522,11 +581,19 @@ def build_weekly_report_and_pool(
 
             floor = ceiling = None
             if interval_model is not None:
-                band = interval_model.interval(player["position"], points)
+                # `points` is the CONDITIONAL projection, which is what the
+                # residual quantiles were fitted against. The play probability
+                # goes INTO the interval rather than being multiplied onto it
+                # afterwards: the outcome is a mixture (zero if he does not
+                # play), and the mixture's percentiles are the conditional
+                # ones read at shifted levels. See IntervalModel.interval and
+                # docs/research/second-audit-2026-09-02.md section 2 -- the old
+                # `lo * p, hi * p` covered 26.5% at p=0.50 against a nominal 80%.
+                band = interval_model.interval(
+                    player["position"], points, play_probability=probability
+                )
                 if band is not None:
                     lo, hi = band
-                    if probability is not None:
-                        lo, hi = lo * probability, hi * probability
                     floor, ceiling = round(lo, 2), round(hi, 2)
 
             candidate = {
@@ -1211,6 +1278,12 @@ def main(argv: Optional[list[str]] = None) -> None:
                     band = interval_model.interval(row["position"], projection["projected_points"])
                     if band is not None:
                         projection["floor"], projection["ceiling"] = band
+                    # The band above is CONDITIONAL on playing. Carry the fitted
+                    # model forward so assemble_weekly_report can re-derive the
+                    # mixture band once P(play) is known -- multiplying the
+                    # conditional endpoints by p is not the same thing, and was
+                    # the defect this fixes.
+                    projection["_interval_model"] = interval_model
             print(f"  {len(result)} players projected by the week-1 cold-start model "
                   f"(trained on {len(training_rows)} rows from {train_seasons[0]}-{train_seasons[-1]}"
                   f"{'; interval from held-out residuals' if interval_model else '; no interval'})")
