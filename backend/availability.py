@@ -87,9 +87,18 @@ FALLBACK_PLAY_RATE = LEAGUE_PLAY_RATE
 # Positions for which availability is not a question. A team defence plays every
 # week its team has a game -- there is no individual to rule out, and the report
 # already skips a team on its bye -- so applying a play probability to a DST
-# would discount it for a risk that does not exist. Kickers are NOT here: a
-# kicker can be inactive like any other player, and the play-rate history works
-# for them even though the fitted model was trained on QB/RB/WR/TE rows.
+# would discount it for a risk that does not exist.
+#
+# Kickers are deliberately NOT here: a kicker can be inactive like anyone else.
+# But until 2026-09-02 they were also excluded from TRAINING, which was a real
+# defect rather than a modelling choice. A kicker then fell on the reference
+# position level with no depth interaction, and came out of the model at
+# 0.367-0.831 in the live week-1 report. Their measured play rate inside an
+# active span (2021-24) is 0.932 -- the HIGHEST of any position, well above
+# QB 0.745 / RB 0.802 / WR 0.808 / TE 0.747 -- so every kicker was being marked
+# down by roughly ten points for a risk that does not exist. K is now in
+# build_training_rows_nflreadpy's default position list, which is the fix: the
+# model learns the kicker rate from kicker rows instead of extrapolating it.
 ALWAYS_AVAILABLE_POSITIONS = ("DST",)
 
 
@@ -433,7 +442,7 @@ def load_current_injury_report(
 
 
 def build_training_rows_nflreadpy(
-    seasons: list[int], positions: tuple[str, ...] = ("QB", "RB", "WR", "TE")
+    seasons: list[int], positions: tuple[str, ...] = ("QB", "RB", "WR", "TE", "K")
 ) -> list[dict[str, Any]]:
     """Labelled player-weeks for fitting: every week inside a player's active
     span where their team played, labelled with whether they recorded a game.
