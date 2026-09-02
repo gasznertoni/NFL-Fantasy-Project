@@ -520,3 +520,43 @@ and extrapolated them from the reference position level; they came out at
 **512 passing**, up from 486. New: 13 for `expected_td.py`, 7 interval-mixture
 regression guards, 3 for the D/ST category split, plus the config-validation
 raisers.
+
+
+---
+
+## H. The D/ST yards-allowed tier: checked, and probably fine
+
+Section C removed `def_return_yd` and this document then pointed at
+`tiers.def_yards_allowed` as the next thing to settle, describing it as "the same
+evidence pattern". **That framing was wrong, and this corrects it.** The two are
+opposite cases.
+
+| | `def_return_yd` (removed) | `def_yards_allowed` (kept) |
+|---|---|---|
+| An ESPN D/ST category at all? | **No** | **Yes** — ESPN's own D/ST support page says a defence gains and loses points on yards allowed |
+| Worth | 11.46 pts/game, 68.8% of a D/ST score | −0.52 pts/game, sd 2.31 |
+| Effect of removing it | D/ST mean 16.66 → 5.20 | 5.20 → 5.72 |
+
+**The evidence now points toward the placeholder being correct.** The
+points-allowed ladder sitting in the same "still fully placeholder" block —
+10/7/4/1/0/−1/−4 — is character-for-character identical to league-2's *confirmed*
+values. Whoever wrote that block was transcribing ESPN's standard table, not
+inventing one, and the half of it that could be checked verified exactly.
+
+The only counter-evidence is that league-2's settings screen carries no
+yards-allowed line. But league-2 is a heavily customised league — 4-point passing
+TDs, six FG bands, scoring two-point conversions — so its commissioner switching
+the category off says nothing about league-1.
+
+**And it barely matters either way.** Re-scoring all 544 team-games of 2025 with
+and without the tier:
+
+- Spearman rank correlation between the two D/ST rankings: **0.944**
+- Top-8 (the startable tier in an 8-team league) overlap: **7 of 8**
+- Largest single rank move: 9 places; 13 of 32 teams move 3 or more
+- League-wide mean: 5.20 with, 5.72 without
+
+The top of the board does not move at all — Houston and Seattle are 1 and 2 under
+both. Confirm it opportunistically if a settings screen is ever in front of you;
+do not spend a session chasing it, and **do not remove it by analogy to
+`def_return_yd`**.
