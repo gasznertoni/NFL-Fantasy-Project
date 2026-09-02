@@ -155,6 +155,79 @@ class TestIntervalModel(unittest.TestCase):
     def test_unfitted_position_returns_none(self):
         self.assertIsNone(IntervalModel().fit([]).interval("WR", 10.0))
 
+    # -- availability mixture ---------------------------------------------
+    # Regression guards for the second audit's finding 1. The band published
+    # for a player is the band on his ACTUAL outcome, which is zero whenever he
+    # does not play. The previous code multiplied the conditional endpoints by
+    # P(play); coverage of that band fell to 26.5% at p=0.50 against a nominal
+    # 80%. See docs/research/second-audit-2026-09-02.md section 2.
+
+    def test_probability_of_one_matches_the_conditional_band(self):
+        model = IntervalModel().fit(self._rows())
+        self.assertEqual(
+            model.interval("WR", 10.0),
+            model.interval("WR", 10.0, play_probability=1.0),
+        )
+
+    def test_floor_is_exactly_zero_below_ninety_percent(self):
+        """With a 10th-percentile floor, any miss chance of 10% or more puts the
+        10th percentile of the outcome distribution AT zero. Not near zero --
+        at it."""
+        model = IntervalModel().fit(self._rows())
+        for p in (0.90, 0.85, 0.70, 0.50, 0.20):
+            low, _ = model.interval("WR", 10.0, play_probability=p)
+            self.assertEqual(low, 0.0, f"floor should be exactly 0 at p={p}")
+
+    def test_floor_is_positive_above_ninety_percent(self):
+        model = IntervalModel().fit(self._rows())
+        low, _ = model.interval("WR", 10.0, play_probability=0.98)
+        self.assertGreater(low, 0.0)
+
+    def test_ceiling_is_not_scaled_by_probability(self):
+        """The upside is conditional on suiting up, so it decays only slowly as
+        P(play) falls. Multiplying by p -- the old behaviour -- would drive it
+        toward zero. Guard against a regression to that."""
+        model = IntervalModel().fit(self._rows())
+        _, full = model.interval("WR", 10.0, play_probability=1.0)
+        _, risky = model.interval("WR", 10.0, play_probability=0.70)
+        self.assertGreater(risky, 0.70 * full, "ceiling looks scaled by p")
+        self.assertLessEqual(risky, full)
+
+    def test_certain_absence_collapses_the_band(self):
+        model = IntervalModel().fit(self._rows())
+        self.assertEqual(model.interval("WR", 10.0, play_probability=0.0), (0.0, 0.0))
+
+    def test_empirical_coverage_stays_near_nominal_across_probabilities(self):
+        """The property that actually matters: an 80% band should contain the
+        outcome about 80% of the time, at every play probability."""
+        import random
+
+        rows = self._rows(2000)
+        model = IntervalModel().fit(rows)
+        conditional = [r["actual"] for r in rows if 8.0 <= r["projected"] <= 12.0]
+        self.assertGreater(len(conditional), 50)
+        rng = random.Random(11)
+        for p in (1.0, 0.85, 0.70, 0.50):
+            low, high = model.interval("WR", 10.0, play_probability=p)
+            hits = 0
+            trials = 20000
+            for _ in range(trials):
+                outcome = rng.choice(conditional) if rng.random() < p else 0.0
+                if low <= outcome <= high:
+                    hits += 1
+            coverage = hits / trials
+            self.assertGreater(
+                coverage, 0.68, f"coverage {coverage:.3f} too low at p={p}"
+            )
+            self.assertLess(
+                coverage, 0.95, f"coverage {coverage:.3f} too high at p={p}"
+            )
+
+    def test_quantile_offset_is_monotone(self):
+        model = IntervalModel().fit(self._rows())
+        offsets = [model.quantile_offset("WR", 10.0, q) for q in (0.05, 0.25, 0.5, 0.75, 0.95)]
+        self.assertEqual(offsets, sorted(offsets))
+
     def test_interval_brackets_the_projection(self):
         model = IntervalModel().fit(self._rows())
         low, high = model.interval("WR", 10.0)

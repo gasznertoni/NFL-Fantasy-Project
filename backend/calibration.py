@@ -80,6 +80,17 @@ AFFINE_SLOPE_BOUNDS = (0.3, 2.0)
 DEFAULT_INTERVAL = (0.10, 0.90)
 MIN_ROWS_FOR_INTERVAL = 150
 
+# The conditional residual distribution is stored on this grid rather than at
+# the two reported quantiles alone. Availability turns the reported band into a
+# MIXTURE (zero with probability 1-p, the conditional distribution otherwise),
+# and the mixture's 10th/90th percentiles are the conditional distribution's
+# quantiles at SHIFTED levels -- see IntervalModel.interval. Those shifted
+# levels are not known at fit time, so the whole curve has to be kept.
+QUANTILE_GRID: tuple[float, ...] = (
+    0.01, 0.02, 0.05, 0.10, 0.15, 0.20, 0.25, 0.30, 0.40, 0.50,
+    0.60, 0.70, 0.75, 0.80, 0.85, 0.90, 0.95, 0.98, 0.99,
+)
+
 
 # ---------------------------------------------------------------------------
 # 1. Variance components
@@ -268,26 +279,91 @@ class IntervalModel:
                 centre = sum(p for p, _ in chunk) / len(chunk)
                 residuals = sorted(a - p for p, a in chunk)
                 curve.append(
-                    (
-                        centre,
-                        _quantile(residuals, self.quantiles[0]),
-                        _quantile(residuals, self.quantiles[1]),
-                    )
+                    (centre, tuple(_quantile(residuals, q) for q in QUANTILE_GRID))
                 )
             if curve:
                 self._fits[position] = curve
         return self
 
-    def interval(self, position: str, projection: float) -> Optional[tuple[float, float]]:
-        """(low, high) around `projection`, or None if this position was never
-        fitted. The low end is clamped at zero -- a negative floor is
-        technically reachable in this league (fumbles and interceptions score
-        negative) but it is not a useful thing to show above a lineup slot."""
+    # -- conditional quantiles ---------------------------------------------
+    def quantile_offset(self, position: str, projection: float, q: float) -> Optional[float]:
+        """Offset from `projection` at conditional quantile `q`, or None if
+        this position was never fitted. Interpolated across the stored grid and
+        across bucket centres, flat outside both ranges."""
         curve = self._fits.get(position)
         if not curve:
             return None
-        low_off, high_off = _interpolate(curve, float(projection))
-        return max(projection + low_off, 0.0), projection + high_off
+        offsets = _interpolate_grid(curve, float(projection))
+        return _interp_quantile(QUANTILE_GRID, offsets, float(q))
+
+    def interval(
+        self,
+        position: str,
+        projection: float,
+        play_probability: Optional[float] = None,
+    ) -> Optional[tuple[float, float]]:
+        """(low, high) around `projection`, or None if never fitted.
+
+        `projection` is the CONDITIONAL number -- points if the player suits up
+        -- because that is what the residuals were fitted on.
+
+        With `play_probability` supplied, the returned band describes the
+        player's ACTUAL outcome, which is a mixture: exactly zero with
+        probability `1 - p`, and the conditional distribution otherwise. Its
+        quantile function is
+
+            Q(t) = 0                            if t <= 1 - p
+                 = Q_cond( (t - (1 - p)) / p )   otherwise
+
+        so the reported 10/90 band becomes
+
+            floor   = 0                   if p <= 0.90  else Q_cond(1 - 0.90/p)
+            ceiling = Q_cond(1 - 0.10/p)  if p >  0.10  else 0
+
+        This replaces `lo, hi = lo * p, hi * p`, which was neither of those
+        things. Scaling the conditional quantiles shrinks the ceiling toward
+        zero while holding the floor away from it -- both wrong, in opposite
+        directions. Measured coverage of the old band against a nominal 80%
+        fell to 64% at p=0.85 and 26.5% at p=0.50; 88% of the bands published
+        in the live week-1 report sat below p=0.90, where the floor should be
+        exactly zero. See docs/research/second-audit-2026-09-02.md section 2.
+
+        The low end is clamped at zero: a negative floor is reachable in these
+        leagues (interceptions and fumbles score negative) but is not a useful
+        thing to show above a lineup slot.
+        """
+        curve = self._fits.get(position)
+        if not curve:
+            return None
+        lo_q, hi_q = self.quantiles
+
+        if play_probability is None:
+            low_off = self.quantile_offset(position, projection, lo_q)
+            high_off = self.quantile_offset(position, projection, hi_q)
+            return max(projection + low_off, 0.0), projection + high_off
+
+        p = max(0.0, min(1.0, float(play_probability)))
+        miss = 1.0 - p
+        if p <= 0.0:
+            return 0.0, 0.0
+
+        # The mixture has an atom at zero covering the whole level range
+        # [0, 1-p], so a requested level AT the boundary reads zero too. The
+        # tolerance matters at the exact values this is called with: 1.0 - 0.90
+        # is 0.09999999999999998, so a bare `lo_q <= miss` misses p=0.90 --
+        # precisely the boundary case the reported band turns on.
+        eps = 1e-9
+        if lo_q <= miss + eps:
+            low = 0.0
+        else:
+            off = self.quantile_offset(position, projection, (lo_q - miss) / p)
+            low = max(projection + off, 0.0)
+        if hi_q <= miss + eps:
+            high = 0.0
+        else:
+            off = self.quantile_offset(position, projection, (hi_q - miss) / p)
+            high = max(projection + off, 0.0)
+        return low, max(high, low)
 
 
 def _quantile(sorted_values: list[float], q: float) -> float:
@@ -302,19 +378,36 @@ def _quantile(sorted_values: list[float], q: float) -> float:
     return sorted_values[lo] * (1 - frac) + sorted_values[hi] * frac
 
 
-def _interpolate(
-    curve: list[tuple[float, float, float]], x: float
-) -> tuple[float, float]:
-    """Linear interpolation between bucket centres, flat outside the range --
-    extrapolating an interval width past the observed data would widen without
-    bound for an unusually large projection."""
+def _interpolate_grid(
+    curve: list[tuple[float, tuple[float, ...]]], x: float
+) -> tuple[float, ...]:
+    """The whole quantile grid at projection `x`, linearly interpolated between
+    bucket centres and flat outside the observed range -- extrapolating an
+    interval width past the data would widen without bound for an unusually
+    large projection."""
     if x <= curve[0][0]:
-        return curve[0][1], curve[0][2]
+        return curve[0][1]
     if x >= curve[-1][0]:
-        return curve[-1][1], curve[-1][2]
-    for (x0, l0, h0), (x1, l1, h1) in zip(curve, curve[1:]):
+        return curve[-1][1]
+    for (x0, g0), (x1, g1) in zip(curve, curve[1:]):
         if x0 <= x <= x1:
             span = x1 - x0
             t = 0.0 if span < 1e-9 else (x - x0) / span
-            return l0 + t * (l1 - l0), h0 + t * (h1 - h0)
-    return curve[-1][1], curve[-1][2]
+            return tuple(a + t * (b - a) for a, b in zip(g0, g1))
+    return curve[-1][1]
+
+
+def _interp_quantile(
+    grid: tuple[float, ...], offsets: tuple[float, ...], q: float
+) -> float:
+    """Linear interpolation along the quantile axis, clamped to the grid ends."""
+    if q <= grid[0]:
+        return offsets[0]
+    if q >= grid[-1]:
+        return offsets[-1]
+    for i in range(len(grid) - 1):
+        if grid[i] <= q <= grid[i + 1]:
+            span = grid[i + 1] - grid[i]
+            t = 0.0 if span < 1e-12 else (q - grid[i]) / span
+            return offsets[i] + t * (offsets[i + 1] - offsets[i])
+    return offsets[-1]
