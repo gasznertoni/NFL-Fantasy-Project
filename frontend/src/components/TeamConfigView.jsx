@@ -1,6 +1,6 @@
 import { useEffect, useMemo, useState } from 'react'
 import { getRosterSlots, getPlayerPool } from '../lib/api.js'
-import { useTeamConfig, eligiblePositions } from '../lib/teamConfig.js'
+import { useTeamConfig, eligiblePositions, canSwapSlots } from '../lib/teamConfig.js'
 import PlayerPickerRow from './PlayerPickerRow.jsx'
 import LoadingSkeleton from './LoadingSkeleton.jsx'
 
@@ -15,6 +15,7 @@ export default function TeamConfigView({ leagueId = 'league-1' }) {
   const [slots, setSlots] = useState(null) // null = loading
   const [pool, setPool] = useState(null) // null = loading
   const [openIndex, setOpenIndex] = useState(null)
+  const [moveIndex, setMoveIndex] = useState(null)
   const [search, setSearch] = useState('')
 
   useEffect(() => {
@@ -29,7 +30,7 @@ export default function TeamConfigView({ leagueId = 'league-1' }) {
     }
   }, [leagueId])
 
-  const { config, assign, clear, reset } = useTeamConfig(slots ? slots.length : 0, leagueId)
+  const { config, assign, clear, swap, reset } = useTeamConfig(slots ? slots.length : 0, leagueId)
 
   const poolById = useMemo(() => {
     const map = new Map()
@@ -41,7 +42,13 @@ export default function TeamConfigView({ leagueId = 'league-1' }) {
 
   function togglePicker(index) {
     setSearch('')
+    setMoveIndex(null)
     setOpenIndex((prev) => (prev === index ? null : index))
+  }
+
+  function toggleMove(index) {
+    setOpenIndex(null)
+    setMoveIndex((prev) => (prev === index ? null : index))
   }
 
   function handleAssign(index, playerId) {
@@ -49,9 +56,31 @@ export default function TeamConfigView({ leagueId = 'league-1' }) {
     setOpenIndex(null)
   }
 
+  function handleSwap(from, to) {
+    swap(from, to)
+    setMoveIndex(null)
+  }
+
   function handleReset() {
     reset()
     setOpenIndex(null)
+    setMoveIndex(null)
+  }
+
+  /**
+   * Slots the player in `index` may legally move to, each paired with
+   * whoever currently sits there so the row can say what the trade is.
+   * Eligibility is delegated to canSwapSlots, which checks BOTH directions
+   * -- rendering a target this view thinks is fine but the model refuses
+   * would be a dead button.
+   */
+  function moveTargets(index) {
+    if (!slots || !config) return []
+    return slots
+      .map((slotName, target) => ({ slotName, target }))
+      .filter(({ target }) => target !== index)
+      .filter(({ target }) => canSwapSlots(slots, config.slotAssignments, poolById, index, target))
+      .map((t) => ({ ...t, occupant: poolById.get(config.slotAssignments[t.target]) || null }))
   }
 
   return (
@@ -97,6 +126,9 @@ export default function TeamConfigView({ leagueId = 'league-1' }) {
                         <button type="button" className="link-button" onClick={() => togglePicker(index)}>
                           Change
                         </button>
+                        <button type="button" className="link-button" onClick={() => toggleMove(index)}>
+                          Move
+                        </button>
                         <button type="button" className="link-button" onClick={() => clear(index)}>
                           Remove
                         </button>
@@ -129,6 +161,35 @@ export default function TeamConfigView({ leagueId = 'league-1' }) {
                     </>
                   )}
                 </div>
+
+                {moveIndex === index && (
+                  <div className="player-picker">
+                    <div className="player-picker-list">
+                      {moveTargets(index).length === 0 && (
+                        <p className="player-picker-empty">
+                          No other slot can take {assignedPlayer ? assignedPlayer.name : 'this player'}.
+                        </p>
+                      )}
+                      {moveTargets(index).map(({ slotName: target, target: t, occupant }) => (
+                        <button
+                          type="button"
+                          key={t}
+                          className="player-picker-option"
+                          onClick={() => handleSwap(index, t)}
+                        >
+                          <span className="team-slot-label">{target}</span>
+                          {occupant ? (
+                            <span>
+                              Swap with {occupant.name} ({occupant.position})
+                            </span>
+                          ) : (
+                            <span>Move here &mdash; slot is empty</span>
+                          )}
+                        </button>
+                      ))}
+                    </div>
+                  </div>
+                )}
 
                 {openIndex === index && (
                   <div className="player-picker">

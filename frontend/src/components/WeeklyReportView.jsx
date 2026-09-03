@@ -23,11 +23,16 @@ const FORMAT_LABEL = {
 
 // Slot value used for the de-emphasized "sit" / bench group.
 const BENCH_SLOT = 'BENCH'
+// Injured reserve. Deliberately NOT folded into the bench group: a bench
+// player is startable and simply is not started this week, while an IR
+// player cannot be started at all. Showing them together would put a
+// start/sit decision in front of the user that does not exist.
+const IR_SLOT = 'IR'
 
 /**
  * Derives the ordered list of *starting* slot names from the generic slot
  * config, deduplicated so e.g. two "RB" entries become one "RB" group
- * heading. Excludes the bench slot. This is the only place slot grouping
+ * heading. Excludes the bench and IR slots. This is the only place slot grouping
  * is computed -- no slot names/counts are hardcoded inline anywhere else
  * in this view.
  */
@@ -35,7 +40,7 @@ function startingSlotOrder(slots) {
   const seen = new Set()
   const order = []
   for (const slot of slots) {
-    if (slot === BENCH_SLOT) continue
+    if (slot === BENCH_SLOT || slot === IR_SLOT) continue
     if (!seen.has(slot)) {
       seen.add(slot)
       order.push(slot)
@@ -99,6 +104,14 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
   const metaReady = slots !== null && pool !== null && config !== undefined
   const slotOrder = metaReady ? startingSlotOrder(slots) : []
   const benchCount = metaReady ? slots.filter((s) => s === BENCH_SLOT).length : 0
+  // Indices of IR slots that actually hold someone. An empty IR slot is not
+  // worth a card in a weekly report -- unlike an empty starting slot, which
+  // is a hole the user needs to fill before kickoff.
+  const irIndices = metaReady
+    ? slots
+        .map((s, i) => (s === IR_SLOT && config.slotAssignments[i] ? i : -1))
+        .filter((i) => i !== -1)
+    : []
 
   const projectionsById = new Map((report?.projections || []).map((p) => [p.playerId, p]))
 
@@ -256,6 +269,18 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
                 .map((i) => renderSlotCard(i, BENCH_SLOT, { muted: true }))}
             </div>
           </div>
+
+          {irIndices.length > 0 && (
+            <div className="report-section">
+              <h2>
+                Injured reserve{' '}
+                <span className="section-subcount">(not startable)</span>
+              </h2>
+              <div className="player-card-grid">
+                {irIndices.map((i) => renderSlotCard(i, IR_SLOT, { muted: true }))}
+              </div>
+            </div>
+          )}
 
           <div className="report-section">
             <h2>Waiver Targets</h2>

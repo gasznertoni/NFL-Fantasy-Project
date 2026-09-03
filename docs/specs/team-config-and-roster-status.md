@@ -39,9 +39,26 @@ Targets automatically exclude anyone already on my configured team.
   - `QB`, `RB`, `WR`, `TE`, `DST`, `K` slots → exact position match only.
   - `FLEX` → `RB`, `WR`, or `TE`.
   - `BENCH` → any position.
+  - `IR` → any position (added 2026-09-03, 2 slots per league). A real IR slot constrains by
+    **status**, not position — only an injured player may occupy one — and status eligibility is a
+    concept this layer does not have; `eligiblePositions()` answers a position question. Enforcing
+    it off `newsFlag.designation` was considered and rejected: that feed is a live scrape, empty for
+    most of the pool pre-season, so a wrong "not eligible" would lock the user out of a slot on the
+    strength of a missing field. Left unconstrained and documented.
   - If the slot config ever adds a new slot name not covered above, treat it as `BENCH`-style (any
     position) rather than rejecting all players — documented as a fallback rule, not expected to be
     hit with today's fixture.
+- **`BENCH` and `IR` are the non-starting slots** (`NON_STARTING_SLOTS` in `lib/teamConfig.js`).
+  Weekly Report must exclude both from its starting-slot groups, and must not merge them into one
+  another: a bench player is startable and simply is not started this week, an IR player cannot be
+  started at all. IR gets its own de-emphasized section, rendered only when an IR slot is occupied.
+- **Slots support a swap (`Move`), not just assign/clear** (added 2026-09-03). `swapSlots(a, b)`
+  exchanges two slots' contents and persists once; an empty target makes it a move.
+  `canSwapSlots(slots, assignments, poolById, a, b)` gates it and checks eligibility in **both
+  directions** — moving a WR into FLEX is legal, but the RB coming back the other way must be legal
+  for the WR slot he lands in. A one-way check would make swap a hole through which any player
+  reaches any slot. A player assigned but absent from the pool has no known position, so the swap
+  is refused rather than guessed.
 - **Track Record is explicitly NOT changed by this spec.** "if applicable" (from the task) resolves
   to *not applicable*: Track Record's `history` rows are a log of past predictions vs. outcomes
   (predicted points, actual points, correct/incorrect). Attaching a *current* player status to a

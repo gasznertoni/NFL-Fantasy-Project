@@ -11,6 +11,10 @@
     null,
     null,
     null,
+    null,
+    null,
+    null,
     null
-  ]
+  ],
+  "_note": " Extended 2026-09-03 with 2 trailing IR slots."
 }

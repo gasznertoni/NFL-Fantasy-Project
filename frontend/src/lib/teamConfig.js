@@ -21,8 +21,8 @@ function storageKey(leagueId) {
 
 // Position eligibility per slot name (spec section 2). Exact-position slots
 // map to a single-element list; FLEX allows the three flex-eligible
-// positions; BENCH (and any unrecognized future slot name, per the
-// documented fallback rule) allows anything, represented as `null`.
+// positions; BENCH and IR (and any unrecognized future slot name, per the
+// documented fallback rule) allow anything, represented as `null`.
 const SLOT_ELIGIBILITY = {
   QB: ['QB'],
   RB: ['RB'],
@@ -33,6 +33,21 @@ const SLOT_ELIGIBILITY = {
   FLEX: ['RB', 'WR', 'TE'],
 }
 
+// Slots that hold a player without starting him. Listed explicitly rather
+// than left to the "unknown slot name" fallback, because these two are the
+// difference between a lineup slot and a roster slot and every consumer has
+// to treat them differently -- see NON_STARTING_SLOTS' use in
+// WeeklyReportView, which must not render them as starting groups.
+//
+// IR takes ANY POSITION here. A real IR slot constrains by STATUS (only an
+// injured player may occupy one), not by position, and status eligibility is
+// a concept this module does not have -- `eligiblePositions` answers a
+// position question. Enforcing it off `newsFlag.designation` was considered
+// and rejected: that feed is a live scrape, it is empty for most of the pool
+// pre-season, and a wrong "not eligible" would lock a user out of a slot on
+// the strength of a missing field. Left unconstrained and documented.
+export const NON_STARTING_SLOTS = ['BENCH', 'IR']
+
 /**
  * Position(s) eligible for a given slot name (spec section 2).
  * @param {string} slotName
@@ -40,7 +55,7 @@ const SLOT_ELIGIBILITY = {
  *   position" (BENCH, and the fallback for any slot name not in the map).
  */
 export function eligiblePositions(slotName) {
-  if (slotName === 'BENCH') return null
+  if (NON_STARTING_SLOTS.includes(slotName)) return null
   return SLOT_ELIGIBILITY[slotName] || null
 }
 
@@ -146,6 +161,55 @@ export function clearSlot(slotIndex, leagueId = 'league-1') {
   return config
 }
 
+/**
+ * Whether the players in two slots can trade places. Checks eligibility in
+ * BOTH directions, which is the whole point: moving a WR into a FLEX is
+ * fine, but the RB coming back the other way has to be legal for the WR
+ * slot he lands in. A one-way check would make swap a hole through which
+ * any player reaches any slot.
+ *
+ * An empty target slot is a move rather than a swap, so only the moving
+ * player is checked. Same index twice is a no-op, allowed.
+ *
+ * @param {string[]} slots - slot names, index-aligned with `assignments`.
+ * @param {(string|null)[]} assignments
+ * @param {Map<string, {position: string}>} poolById - player lookup.
+ * @returns {boolean}
+ */
+export function canSwapSlots(slots, assignments, poolById, indexA, indexB) {
+  if (indexA === indexB) return true
+  if (!slots[indexA] || !slots[indexB]) return false
+  const a = assignments[indexA] ? poolById.get(assignments[indexA]) : null
+  const b = assignments[indexB] ? poolById.get(assignments[indexB]) : null
+  // A player assigned but missing from the pool has no known position, so
+  // eligibility is unknowable -- refuse rather than guess. The view already
+  // renders that state as "Assigned player not found in pool".
+  if (assignments[indexA] && !a) return false
+  if (assignments[indexB] && !b) return false
+  if (a && !isPositionEligible(slots[indexB], a.position)) return false
+  if (b && !isPositionEligible(slots[indexA], b.position)) return false
+  return true
+}
+
+/**
+ * Swaps the contents of two slots, persisting once. Either slot may be
+ * empty, which makes this a move. Callers should gate on canSwapSlots --
+ * this function does not re-check eligibility, because it has no pool to
+ * check against and inventing one here would duplicate the view's.
+ * @returns {{slotAssignments: (string|null)[]}} the updated config.
+ */
+export function swapSlots(indexA, indexB, leagueId = 'league-1') {
+  const assignments = readRawAssignments(leagueId) || []
+  const highest = Math.max(indexA, indexB)
+  while (assignments.length <= highest) assignments.push(null)
+  const tmp = assignments[indexA]
+  assignments[indexA] = assignments[indexB]
+  assignments[indexB] = tmp
+  const config = { slotAssignments: assignments }
+  saveTeamConfig(config, leagueId)
+  return config
+}
+
 /** Clears the saved configuration entirely for the given league. The next
  * load re-seeds from `getDefaultTeamConfig()` (see `useTeamConfig` below). */
 export function resetTeamConfig(leagueId = 'league-1') {
@@ -240,10 +304,18 @@ export function useTeamConfig(slotCount, leagueId = 'league-1') {
     [leagueId, refresh],
   )
 
+  const swap = useCallback(
+    (indexA, indexB) => {
+      swapSlots(indexA, indexB, leagueId)
+      refresh()
+    },
+    [leagueId, refresh],
+  )
+
   const reset = useCallback(() => {
     resetTeamConfig(leagueId)
     refresh()
   }, [leagueId, refresh])
 
-  return { config, assign, clear, reset }
+  return { config, assign, clear, swap, reset }
 }
