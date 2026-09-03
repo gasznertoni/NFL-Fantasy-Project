@@ -1,17 +1,8 @@
 {
+  "_note": "15 nulls, one per slot in this league's roster-slots.json (the spec's by-index contract requires equal length). Previously 12 stub ids (p_00123 etc.) that resolved to no player in the pool, so nothing is lost by clearing them.",
   "slotAssignments": [
-    "p_00123",
-    "p_00201",
-    "p_00202",
-    "p_00301",
-    "p_00302",
-    "p_00401",
-    "p_00303",
-    "p_00501",
-    "p_00601",
-    "p_00203",
-    "p_00304",
-    "p_00402"
-  ],
-  "_stub": true
+    null, null, null, null, null,
+    null, null, null, null, null,
+    null, null, null, null, null
+  ]
 }

@@ -19,7 +19,7 @@ export default function TeamConfigView({ leagueId = 'league-1' }) {
 
   useEffect(() => {
     let cancelled = false
-    Promise.all([getRosterSlots(), getPlayerPool(leagueId)]).then(([slotData, poolData]) => {
+    Promise.all([getRosterSlots(leagueId), getPlayerPool(leagueId)]).then(([slotData, poolData]) => {
       if (cancelled) return
       setSlots(slotData.slots || [])
       setPool(poolData.players || [])

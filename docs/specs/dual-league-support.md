@@ -74,20 +74,21 @@ Migration (not a copy):
 
 ```
 frontend/public/mock/
-  roster-slots.json             (unchanged, shared)
   league-1/
+    roster-slots.json           (per-league since 2026-09-03; was mock/roster-slots.json, shared)
     weekly-report-week-{N}.json (was mock/weekly-report-week-{N}.json)
     player-pool.json            (was mock/player-pool.json)
     track-record.json           (was mock/track-record.json)
     default-team-config.json    (was mock/default-team-config.json)
   league-2/
+    roster-slots.json           (2 FLEX, 5 BENCH -- this league's real lineup)
     weekly-report-week-{N}.json
     player-pool.json
     track-record.json
     default-team-config.json
 ```
 
-`roster-slots.json` stays flat and shared — both leagues use the same slot structure (QB/RB/WR/TE/DST/K/FLEX/BENCH). The old flat-path files (`mock/weekly-report-week-{N}.json`, `mock/player-pool.json`, `mock/track-record.json`) are removed after migration to avoid stale reads.
+~~`roster-slots.json` stays flat and shared — both leagues use the same slot structure~~ — **overturned 2026-09-03.** The premise held only while league-2's roster was unknown. Its real lineup starts **2 FLEX** and carries **5 bench** spots against league-1's 1 and 4, so the slot *counts* differ, not just the labels. The fixture moved under each league's directory. The old flat-path files (`mock/weekly-report-week-{N}.json`, `mock/player-pool.json`, `mock/track-record.json`) are removed after migration to avoid stale reads.
 
 ### 4. `weekly-report-week-N.json` shape
 
@@ -251,7 +252,7 @@ export async function getDefaultTeamConfig(leagueId = 'league-1') {
 }
 ```
 
-`getRosterSlots()` does not change — it reads the shared `mock/roster-slots.json`.
+~~`getRosterSlots()` does not change — it reads the shared `mock/roster-slots.json`.~~ **Changed 2026-09-03:** it takes a `leagueId` (defaulting to `league-1`, like every other reader here) and reads `mock/{leagueId}/roster-slots.json`. Both call sites — `WeeklyReportView.jsx` and `TeamConfigView.jsx` — already had `leagueId` in scope and in their effect deps, so passing it through was the whole change.
 
 `LATEST_AVAILABLE_WEEK`, `MIN_SELECTABLE_WEEK`, and `MAX_SELECTABLE_WEEK` remain single shared constants — both leagues generate the same week simultaneously.
 

@@ -85,14 +85,23 @@ export async function getTrackRecord(season = DEFAULT_SEASON, leagueId = 'league
 }
 
 /**
- * Fetch the generic roster slot config (spec section 3.3). Stored as its own
+ * Fetch a league's roster slot config (spec section 3.3). Stored as its own
  * small fixture so it stays trivially swappable once the real league roster
  * is confirmed -- no component should hardcode slot names/counts.
- * Shared across all leagues -- do NOT add a leagueId parameter here.
+ *
+ * PER-LEAGUE since 2026-09-03. This fixture used to be shared, and this
+ * comment used to say "do NOT add a leagueId parameter here" -- that was
+ * right while both leagues were assumed to have the same lineup, and wrong
+ * once league-2's real roster landed. league-2 starts 2 FLEX and carries 5
+ * bench spots against league-1's 1 and 4, so one shared file cannot describe
+ * both. Slot COUNT differs between leagues, and slotAssignments maps to
+ * slots BY INDEX (spec section 185), so a component reading the wrong
+ * league's slots does not merely mislabel -- it misassigns.
+ * @param {string} [leagueId] - defaults to 'league-1'.
  * @returns {Promise<{slots: string[]}>}
  */
-export async function getRosterSlots() {
-  const data = await fetchJsonFixture(`${import.meta.env.BASE_URL}mock/roster-slots.json`);
+export async function getRosterSlots(leagueId = 'league-1') {
+  const data = await fetchJsonFixture(`${import.meta.env.BASE_URL}mock/${leagueId}/roster-slots.json`);
   return data || { slots: [] };
 }
 

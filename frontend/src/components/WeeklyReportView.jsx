@@ -79,7 +79,7 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
   useEffect(() => {
     let cancelled = false
     setReport(undefined)
-    Promise.all([getWeeklyReport(week, leagueId), getRosterSlots(), getPlayerPool(leagueId)]).then(
+    Promise.all([getWeeklyReport(week, leagueId), getRosterSlots(leagueId), getPlayerPool(leagueId)]).then(
       ([reportData, slotData, poolData]) => {
         if (cancelled) return
         setReport(reportData)

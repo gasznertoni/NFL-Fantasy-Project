@@ -1,0 +1,4 @@
+{
+  "_note": "Intuitech Fantasy, 8 teams. Mirrors backend/leagues/league-2/roster.json's `slots` + `benchSlots`: 1 QB, 2 RB, 2 WR, 1 TE, 2 FLEX, 1 DEF, 1 K, 5 BN. The 2 IR slots in roster.json are deliberately absent -- an IR slot holds a player who is not startable, which is a different concept from a lineup slot and has no UI here yet.",
+  "slots": ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "FLEX", "DST", "K", "BENCH", "BENCH", "BENCH", "BENCH", "BENCH"]
+}

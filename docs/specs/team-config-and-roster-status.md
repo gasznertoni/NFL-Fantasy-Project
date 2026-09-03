@@ -182,7 +182,7 @@ One-time seed, fetched only when `localStorage` has no saved config yet.
 }
 ```
 
-- `slotAssignments[i]` corresponds to `roster-slots.json`'s `slots[i]` **by array index, not by slot
+- `slotAssignments[i]` corresponds to the league's `roster-slots.json` `slots[i]` **by array index, not by slot
   name** — this is the load-bearing design decision that resolves the ambiguity of repeated slot names
   (`RB` appears twice, `BENCH` three times; name alone can't identify which one). `null` means the
   slot is unassigned. Array length always equals `slots.length`.
@@ -323,7 +323,7 @@ function isPlayerRostered(playerId: string, config: { slotAssignments }): boolea
 ## 10. Acceptance Criteria
 
 - A third tab, "My Team," appears in the tab nav; switching to/from it requires no full page reload.
-- My Team lists all 12 slots from `roster-slots.json`, in order; each shows either an assigned
+- My Team lists every slot from the league's `roster-slots.json`, in order; each shows either an assigned
   player's name/position/team/status tag, or an explicit "Empty — assign a player" state.
 - Each slot has an action opening a picker restricted to `player-pool.json` entries eligible for that
   slot's position rule (exact match for `QB/RB/WR/TE/DST/K`; `RB/WR/TE` for `FLEX`; any position for
