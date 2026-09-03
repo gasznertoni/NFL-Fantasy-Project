@@ -1,5 +1,5 @@
 {
-  "_note": "Seeded 2026-09-03 from backend/leagues/league-2/roster.json (captured from Sleeper post-draft). One entry per slot in this league's roster-slots.json, by array index. Regenerate rather than hand-edit if the roster changes -- the by-index contract makes a manual edit easy to get subtly wrong. Extended 2026-09-03 with 2 trailing IR slots.",
+  "_note": "Seeded from backend/leagues/league-2/roster.json. One entry per slot in this league's roster-slots.json, by array index. Regenerate rather than hand-edit if the roster changes -- the by-index contract makes a manual edit easy to get subtly wrong. Trailing IR slots stay empty while roster.json's injuredReserve is empty.",
   "slotAssignments": [
     "00-0040691",
     "00-0036223",
@@ -12,7 +12,7 @@
     "PHI",
     "00-0037224",
     "00-0026498",
-    "00-0040583",
+    "00-0038544",
     "00-0037240",
     "00-0038997",
     "00-0040663",
