@@ -35,13 +35,37 @@ def current_week_from_schedule(schedule_games: list[dict[str, Any]], season: int
     if not season_games:
         return None
 
-    unplayed_weeks = {
-        g["week"] for g in season_games if g.get("home_score") is None or g.get("away_score") is None
-    }
+    unplayed_weeks = {g["week"] for g in season_games if not _has_final_score(g)}
     if unplayed_weeks:
         return min(unplayed_weeks)
 
     return max(g["week"] for g in season_games)
+
+
+def _has_final_score(schedule_game: dict[str, Any]) -> bool:
+    """Whether both teams' final scores are actually present.
+
+    Deliberately not an `is None` check. load_schedules() hands back
+    float("nan") -- not None -- for a game that has not been played, and
+    NaN is not None, so `score is None` reads every unplayed game as
+    played. That inverts this module's whole answer: a season that has not
+    kicked off yet has NO unplayed weeks, current_week_from_schedule falls
+    through to its "fully played season" branch, and the scheduled run in
+    .github/workflows/weekly-report.yml asks for week 18 every week of the
+    season instead of the upcoming one. Confirmed against the real 2026
+    feed on 2026-09-02: all 272 games carry NaN scores and the function
+    returned 18 with week 1 still a week away.
+
+    Third instance of this trap here -- see scoring.py's NaN guard and
+    load_player_pool_nflreadpy's `playerId` check. NaN is truthy, NaN is
+    not None, and NaN is the one value that does not equal itself, which
+    is why that is the test.
+    """
+    for key in ("home_score", "away_score"):
+        value = schedule_game.get(key)
+        if value is None or value != value:
+            return False
+    return True
 
 
 def load_current_week_nflreadpy(season: int) -> Optional[int]:
