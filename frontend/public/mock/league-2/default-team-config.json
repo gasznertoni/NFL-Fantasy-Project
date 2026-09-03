@@ -1,8 +1,20 @@
 {
-  "_note": "15 nulls, one per slot in this league's roster-slots.json (the spec's by-index contract requires equal length). Previously 12 stub ids (p_00123 etc.) that resolved to no player in the pool, so nothing is lost by clearing them.",
+  "_note": "Seeded 2026-09-03 from backend/leagues/league-2/roster.json (captured from Sleeper post-draft). One entry per slot in this league's roster-slots.json, by array index. Regenerate rather than hand-edit if the roster changes -- the by-index contract makes a manual edit easy to get subtly wrong.",
   "slotAssignments": [
-    null, null, null, null, null,
-    null, null, null, null, null,
-    null, null, null, null, null
+    "00-0040691",
+    "00-0036223",
+    "00-0039361",
+    "00-0038543",
+    "00-0037238",
+    "00-0039338",
+    "00-0036410",
+    "00-0040715",
+    "PHI",
+    "00-0037224",
+    "00-0026498",
+    "00-0040583",
+    "00-0037240",
+    "00-0038997",
+    "00-0040663"
   ]
 }
