@@ -3,123 +3,27 @@
   "leagueId": "league-2",
   "platform": "sleeper",
   "capturedAt": "2026-09-03",
-  "slots": [
-    "QB",
-    "RB",
-    "RB",
-    "WR",
-    "WR",
-    "TE",
-    "FLEX",
-    "FLEX",
-    "K",
-    "DEF"
-  ],
+  "slots": ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "FLEX", "K", "DEF"],
   "benchSlots": 5,
   "irSlots": 2,
   "starters": [
-    {
-      "slot": "QB",
-      "name": "Jaxson Dart",
-      "position": "QB",
-      "team": "NYG",
-      "byeWeek": 8
-    },
-    {
-      "slot": "RB",
-      "name": "Jonathan Taylor",
-      "position": "RB",
-      "team": "IND",
-      "byeWeek": 13
-    },
-    {
-      "slot": "RB",
-      "name": "Bucky Irving",
-      "position": "RB",
-      "team": "TB",
-      "byeWeek": 10
-    },
-    {
-      "slot": "WR",
-      "name": "Jaxon Smith-Njigba",
-      "position": "WR",
-      "team": "SEA",
-      "byeWeek": 11
-    },
-    {
-      "slot": "WR",
-      "name": "Drake London",
-      "position": "WR",
-      "team": "ATL",
-      "byeWeek": 11
-    },
-    {
-      "slot": "TE",
-      "name": "Brock Bowers",
-      "position": "TE",
-      "team": "LV",
-      "byeWeek": 13
-    },
-    {
-      "slot": "FLEX",
-      "name": "Tee Higgins",
-      "position": "WR",
-      "team": "CIN",
-      "byeWeek": 6
-    },
-    {
-      "slot": "FLEX",
-      "name": "Cam Skattebo",
-      "position": "RB",
-      "team": "NYG",
-      "byeWeek": 8
-    },
-    {
-      "slot": "K",
-      "name": "Cameron Dicker",
-      "position": "K",
-      "team": "LAC",
-      "byeWeek": 7
-    },
-    {
-      "slot": "DEF",
-      "name": "Eagles D/ST",
-      "position": "DST",
-      "team": "PHI",
-      "byeWeek": 10
-    }
+    {"slot": "QB",   "name": "Jaxson Dart",        "position": "QB",  "team": "NYG", "byeWeek": 8},
+    {"slot": "RB",   "name": "Jonathan Taylor",    "position": "RB",  "team": "IND", "byeWeek": 13},
+    {"slot": "RB",   "name": "Bucky Irving",       "position": "RB",  "team": "TB",  "byeWeek": 10},
+    {"slot": "WR",   "name": "Jaxon Smith-Njigba", "position": "WR",  "team": "SEA", "byeWeek": 11},
+    {"slot": "WR",   "name": "Drake London",       "position": "WR",  "team": "ATL", "byeWeek": 11},
+    {"slot": "TE",   "name": "Brock Bowers",       "position": "TE",  "team": "LV",  "byeWeek": 13},
+    {"slot": "FLEX", "name": "Tee Higgins",        "position": "WR",  "team": "CIN", "byeWeek": 6},
+    {"slot": "FLEX", "name": "Cam Skattebo",       "position": "RB",  "team": "NYG", "byeWeek": 8},
+    {"slot": "K",    "name": "Cameron Dicker",     "position": "K",   "team": "LAC", "byeWeek": 7},
+    {"slot": "DEF",  "name": "Eagles D/ST",        "position": "DST", "team": "PHI", "byeWeek": 10}
   ],
   "bench": [
-    {
-      "name": "Matthew Stafford",
-      "position": "QB",
-      "team": "LAR",
-      "byeWeek": 11
-    },
-    {
-      "name": "Quentin Johnston",
-      "position": "WR",
-      "team": "LAC",
-      "byeWeek": 7
-    },
-    {
-      "name": "Jameson Williams",
-      "position": "WR",
-      "team": "DET",
-      "byeWeek": 6
-    },
-    {
-      "name": "Josh Downs",
-      "position": "WR",
-      "team": "IND",
-      "byeWeek": 13
-    },
-    {
-      "name": "Harold Fannin Jr.",
-      "position": "TE",
-      "team": "CLE",
-      "byeWeek": 11
-    }
+    {"name": "Matthew Stafford",  "position": "QB", "team": "LAR", "byeWeek": 11},
+    {"name": "Quentin Johnston",  "position": "WR", "team": "LAC", "byeWeek": 7},
+    {"name": "Jameson Williams",  "position": "WR", "team": "DET", "byeWeek": 6},
+    {"name": "Josh Downs",        "position": "WR", "team": "IND", "byeWeek": 13},
+    {"name": "Harold Fannin Jr.", "position": "TE", "team": "CLE", "byeWeek": 11}
   ],
   "injuredReserve": []
 }
