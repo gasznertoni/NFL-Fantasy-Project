@@ -211,11 +211,23 @@ anything that is not JSON, matching `api.js`'s existing behaviour.
 
 ## 8. Open questions
 
-1. **Does the routine commit, or does a human?** §2 recommends the routine, on a
-   narrowed permission. If that is uncomfortable, the alternative is that it
-   writes the JSON to the session and a local script commits it — which
-   reintroduces the "someone has to remember" gap that
-   `.github/workflows/weekly-report.yml` exists to close.
+1. ~~**Does the routine commit, or does a human?**~~ **Settled 2026-09-05: the
+   routine commits.** Both prompts now carry a `WRITING THE BRIEFING` section
+   granting exactly one write path (`frontend/public/mock/league-2/briefings/`)
+   and forbidding everything else — no `git add -A`, no `git add .`, no force
+   push, no other branch, and an explicit instruction to leave alone any change
+   in `git status` it did not make and to say so in the report. A rejected push
+   gets one rebase and one retry, then stops: a failed push is not worth an
+   unattended agent's second guess at the repo state. The report itself remains
+   the deliverable if any of it fails.
+
+   Worth being clear-eyed about what this is: a scheduled agent with write
+   access to a repository, running unattended three times a week. The
+   narrowness of the grant is the control, and the blast radius if a run
+   misbehaves is one directory of generated JSON with full git history behind
+   it. The platform-level `allowed_push_branches` is not settable through the
+   routine API, so the prompt and the GitHub App's own scope are what enforce
+   this — review the first few briefing commits rather than assuming.
 2. **Retention.** One file per run is ~156 files over a season across two
    routines. Small, but the manifest should probably paginate rather than list
    all of them. Settle before the first real season week.
