@@ -652,14 +652,26 @@ def now_iso() -> str:
     return datetime.now(timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
 
 
-def _update_manifest(manifest_path: "Path", week: int) -> None:
+def _update_manifest(
+    manifest_path: "Path", week: int, current_week: Optional[int] = None
+) -> None:
     """Write/update manifest.json for a league's fixture directory.
 
-    Tracks the set of generated weeks and the latest one so the frontend can
-    auto-select the most recent report without a hardcoded constant.
-    """
-    from pathlib import Path as _Path
+    Tracks three different things that are easy to confuse:
 
+      weeks        every week with a fixture on disk.
+      latestWeek   the HIGHEST of those. This is a statement about files, not
+                   about the season -- regenerating the whole season makes it
+                   18 on the day before week 1.
+      currentWeek  the week the season is actually on, from the real schedule
+                   (season_week.py). This is what a UI should open on.
+
+    The frontend used to default to latestWeek and so opened on week 18 all
+    preseason. Written as its own field rather than by redefining latestWeek,
+    because "newest fixture" is still what the Explore view's week list needs.
+    Omitted (not guessed) when the schedule cannot be read, so a consumer can
+    tell "unknown" from "week 1".
+    """
     existing: dict[str, Any] = {}
     if manifest_path.exists():
         try:
@@ -670,7 +682,10 @@ def _update_manifest(manifest_path: "Path", week: int) -> None:
     if week not in weeks:
         weeks.append(week)
     weeks.sort()
-    manifest = {"latestWeek": weeks[-1], "weeks": weeks}
+    manifest: dict[str, Any] = {"latestWeek": weeks[-1], "weeks": weeks}
+    resolved = current_week if current_week is not None else existing.get("currentWeek")
+    if resolved is not None:
+        manifest["currentWeek"] = resolved
     manifest_path.write_text(json.dumps(manifest, indent=2, allow_nan=False) + "\n")
 
 
@@ -1116,6 +1131,21 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     print(f"Loading {args.season} schedule...")
     schedule_games = load_schedule_nflreadpy(args.season)
+
+    # The week the SEASON is on, which is not the week being generated and not
+    # the newest fixture on disk. Recorded in each league's manifest so the
+    # frontend opens on it -- see _update_manifest. Never fatal: a failure here
+    # leaves currentWeek off the manifest and the UI falls back, rather than
+    # losing the whole report over a nice-to-have field.
+    current_week: Optional[int] = None
+    try:
+        from season_week import load_current_week_nflreadpy
+
+        current_week = load_current_week_nflreadpy(args.season)
+        print(f"  season is on week {current_week}")
+    except Exception as exc:  # noqa: BLE001
+        print(f"  could not resolve the current week ({exc}) -- manifest omits it.")
+
 
     print(f"Loading {args.season} game logs (nflreadpy player stats)...")
     game_logs = load_all_game_logs_nflreadpy(args.season)
@@ -1564,7 +1594,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             report_path.write_text(json.dumps(weekly_report, indent=2, allow_nan=False) + "\n")
             pool_path.write_text(json.dumps(player_pool, indent=2, allow_nan=False) + "\n")
             manifest_path = out_dir / "manifest.json"
-            _update_manifest(manifest_path, args.week)
+            _update_manifest(manifest_path, args.week, current_week)
             print(
                 f"Wrote {report_path} "
                 f"({len(weekly_report['projections'])} projections, {len(weekly_report['waiverTargets'])} waiver targets)"
@@ -1603,7 +1633,7 @@ def main(argv: Optional[list[str]] = None) -> None:
         report_path.write_text(json.dumps(weekly_report, indent=2, allow_nan=False) + "\n")
         pool_path.write_text(json.dumps(player_pool, indent=2, allow_nan=False) + "\n")
         manifest_path = args.out_dir / "manifest.json"
-        _update_manifest(manifest_path, args.week)
+        _update_manifest(manifest_path, args.week, current_week)
 
         print(
             f"Wrote {report_path} "

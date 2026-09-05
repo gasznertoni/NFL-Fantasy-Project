@@ -13,6 +13,7 @@ import WeekSelector from './WeekSelector.jsx'
 import PlayerCard from './PlayerCard.jsx'
 import PlayerPickerRow from './PlayerPickerRow.jsx'
 import LoadingSkeleton from './LoadingSkeleton.jsx'
+import { lineupProjection, betterLineup } from '../lib/lineup.js'
 import EmptyState from './EmptyState.jsx'
 
 const FORMAT_LABEL = {
@@ -73,8 +74,16 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
     getManifest(leagueId).then((manifest) => {
       if (cancelled || !manifest) return
       const latest = manifest.latestWeek
+      // Open on the week the SEASON is on, not the newest fixture on disk.
+      // Regenerating the whole season makes latestWeek 18 the day before
+      // week 1, which is how this view came to default to week 18 all
+      // preseason. Fall back to latestWeek when currentWeek is absent --
+      // generate_report omits it rather than guessing if the schedule cannot
+      // be read, and older manifests predate the field.
+      const current = manifest.currentWeek
+      if (current && current > 0) setWeek(current)
+      else if (latest && latest > 0) setWeek(latest)
       if (latest && latest > 0) {
-        setWeek(latest)
         setMaxWeek(latest + 1) // +1 so "no data" empty state is reachable
       }
     })
@@ -114,6 +123,16 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
     : []
 
   const projectionsById = new Map((report?.projections || []).map((p) => [p.playerId, p]))
+
+  // Header numbers. Computed here rather than inside the render tree so the
+  // starting-lineup total and the "better lineup" check see exactly the same
+  // assignments the cards below are rendered from.
+  const lineup = metaReady
+    ? lineupProjection(slots, config.slotAssignments, projectionsById)
+    : null
+  const upgrade = metaReady
+    ? betterLineup(slots, config.slotAssignments, projectionsById, pool)
+    : null
 
   /**
    * Renders one card for a given roster-slot index (spec section 4, the
@@ -241,6 +260,44 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
 
       {report && metaReady && (
         <>
+          <div className="lineup-summary">
+            <div className="lineup-summary-main">
+              <span className="lineup-summary-label">Projected lineup total</span>
+              <span className="lineup-summary-total">{lineup.total.toFixed(1)}</span>
+              <span className="lineup-summary-range">
+                {lineup.low.toFixed(1)}&ndash;{lineup.high.toFixed(1)}
+              </span>
+              <span className="lineup-summary-meta">
+                {lineup.counted} starter{lineup.counted === 1 ? '' : 's'}
+                {lineup.missing > 0 && ` · ${lineup.missing} slot${lineup.missing === 1 ? '' : 's'} empty`}
+              </span>
+            </div>
+
+            {upgrade.moves.length > 0 ? (
+              <div className="lineup-summary-warning" role="status">
+                <strong>
+                  A better lineup is available: +{upgrade.gain.toFixed(1)} pts
+                </strong>
+                <ul className="lineup-summary-moves">
+                  {upgrade.moves.map((m) => (
+                    <li key={`${m.fromIndex}-${m.slotIndex}`}>
+                      Start <strong>{m.playerName}</strong>
+                      {m.outPlayerName ? <> over {m.outPlayerName}</> : <> in the empty slot</>} at{' '}
+                      {m.slotName} <span className="lineup-move-delta">+{m.delta.toFixed(1)}</span>
+                    </li>
+                  ))}
+                </ul>
+                <a className="slot-empty-link" href="#my-team">
+                  Change in My Team &rarr;
+                </a>
+              </div>
+            ) : (
+              <div className="lineup-summary-ok">
+                Best available lineup &mdash; no bench player outscores a starter.
+              </div>
+            )}
+          </div>
+
           <div className="report-section">
             <h2>Start</h2>
             {slotOrder.map((slotName) => {
