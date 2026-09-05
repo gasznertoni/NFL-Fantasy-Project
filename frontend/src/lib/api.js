@@ -106,6 +106,22 @@ export async function getRosterSlots(leagueId = 'league-1') {
 }
 
 /**
+ * Fetch several weeks at once for a horizon comparison (waiver advice looks
+ * past the week on screen -- see lineup.waiverReplacement). Missing weeks
+ * resolve to null rather than rejecting: the horizon runs off the end of the
+ * season, and a player on bye is simply absent that week, which is exactly
+ * the zero the horizon should count.
+ * @param {number[]} weeks
+ * @param {string} [leagueId]
+ * @returns {Promise<Array<{week: number, report: object|null}>>}
+ */
+export async function getWeeklyReports(weeks, leagueId = 'league-1') {
+  return Promise.all(
+    weeks.map(async (week) => ({ week, report: await getWeeklyReport(week, leagueId) })),
+  );
+}
+
+/**
  * Fetch the broader, week-independent player pool (team-config spec section
  * 3.2) -- the picker source for team configuration, and the fallback
  * identity/status source for Weekly Report when an assigned player has no

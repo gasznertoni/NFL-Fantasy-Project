@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react'
 import {
   getWeeklyReport,
   getRosterSlots,
+  getWeeklyReports,
   getPlayerPool,
   getManifest,
   LATEST_AVAILABLE_WEEK,
@@ -13,7 +14,7 @@ import WeekSelector from './WeekSelector.jsx'
 import PlayerCard from './PlayerCard.jsx'
 import PlayerPickerRow from './PlayerPickerRow.jsx'
 import LoadingSkeleton from './LoadingSkeleton.jsx'
-import { lineupProjection, betterLineup } from '../lib/lineup.js'
+import { lineupProjection, betterLineup, waiverReplacement } from '../lib/lineup.js'
 import EmptyState from './EmptyState.jsx'
 
 const FORMAT_LABEL = {
@@ -29,6 +30,13 @@ const BENCH_SLOT = 'BENCH'
 // player cannot be started at all. Showing them together would put a
 // start/sit decision in front of the user that does not exist.
 const IR_SLOT = 'IR'
+
+// How many weeks the waiver advice judges over, counting the week on screen.
+// Four is a compromise: long enough that a single hard matchup or a bye does
+// not by itself make a starter look droppable, short enough that the later
+// weeks -- which are baseline-plus-context until real games are played -- do
+// not drown out the week actually being decided.
+const WAIVER_HORIZON_WEEKS = 4
 
 /**
  * Derives the ordered list of *starting* slot names from the generic slot
@@ -57,6 +65,9 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
   const [slots, setSlots] = useState(null) // null = loading
   const [pool, setPool] = useState(null) // null = loading, Map<playerId, poolEntry> once loaded
   const [expandedRows, setExpandedRows] = useState(new Set())
+  // playerId -> expected points for each horizon week, index 0 = `week`.
+  const [pointsByWeek, setPointsByWeek] = useState(null)
+  const [horizonWeeks, setHorizonWeeks] = useState(1)
 
   function toggleRow(id) {
     setExpandedRows((prev) => {
@@ -109,6 +120,31 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
   }, [week, leagueId])
 
   const { config } = useTeamConfig(slots, leagueId)
+
+  // Horizon fetch for waiver advice. Separate from the main report load so a
+  // slow or missing future week never delays or breaks the week on screen --
+  // pointsByWeek simply stays null and the advice falls back to one week.
+  useEffect(() => {
+    let cancelled = false
+    setPointsByWeek(null)
+    const wanted = []
+    for (let w = week; w < week + WAIVER_HORIZON_WEEKS && w <= maxWeek; w += 1) wanted.push(w)
+    getWeeklyReports(wanted, leagueId).then((results) => {
+      if (cancelled) return
+      const present = results.filter((r) => r.report)
+      const map = new Map()
+      present.forEach(({ report: r }, idx) => {
+        for (const entry of r.projections || []) {
+          if (!map.has(entry.playerId)) map.set(entry.playerId, Array(present.length).fill(0))
+          const pts = entry.projection?.points
+          map.get(entry.playerId)[idx] = typeof pts === 'number' ? pts : 0
+        }
+      })
+      setPointsByWeek(map)
+      setHorizonWeeks(present.length)
+    })
+    return () => { cancelled = true }
+  }, [week, maxWeek, leagueId])
 
   const metaReady = slots !== null && pool !== null && config !== undefined
   const slotOrder = metaReady ? startingSlotOrder(slots) : []
@@ -207,37 +243,47 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
    * future call site added before that gate can't crash instead of just
    * seeing no suggestion.
    */
-  function suggestReplacement(position) {
-    if (!slots || !config || !pool) return null
+  /**
+   * Sentence for a waiver candidate's "what would this cost me" line.
+   *
+   * The decision itself lives in lineup.waiverReplacement -- it skips IR
+   * slots and IR-eligible players (park them, do not drop them) and judges
+   * over a multi-week horizon rather than the single week on screen. This
+   * function only turns that result into words.
+   */
+  function suggestReplacement(position, candidateId) {
+    if (!slots || !config || !pool || !pointsByWeek) return null
 
-    let emptySlot = null
-    let worst = null
+    const result = waiverReplacement({
+      position,
+      slots,
+      slotAssignments: config.slotAssignments,
+      poolById: pool,
+      projectionsById,
+      pointsByWeek,
+      candidateId,
+      weeks: horizonWeeks,
+    })
+    if (!result) return null
 
-    for (let i = 0; i < slots.length; i++) {
-      const slotName = slots[i]
-      if (!isPositionEligible(slotName, position)) continue
+    if (result.kind === 'empty-slot') return `Fills your open ${result.slotName} slot.`
 
-      const playerId = config.slotAssignments[i]
-      if (!playerId) {
-        if (!emptySlot) emptySlot = slotName
-        continue
-      }
-
-      const proj = projectionsById.get(playerId)
-      const points = proj ? proj.projection.points : null
-      const name = proj ? proj.name : pool.get(playerId)?.name || playerId
-      if (!worst || (points ?? -Infinity) < (worst.points ?? -Infinity)) {
-        worst = { slotName, name, points }
-      }
+    const window = result.weeks > 1 ? `next ${result.weeks} weeks` : 'this week'
+    if (result.kind === 'hold') {
+      return (
+        `Better than ${result.name} (${result.slotName}) this week only ` +
+        `(${fmt(result.inWeek)} vs ${fmt(result.outWeek)}), but worse over the ${window} ` +
+        `(${result.inHorizon.toFixed(1)} vs ${result.outHorizon.toFixed(1)}) -- probably not worth the drop.`
+      )
     }
+    return (
+      `Would replace ${result.name} (${result.slotName}) -- ` +
+      `${result.inHorizon.toFixed(1)} vs ${result.outHorizon.toFixed(1)} over the ${window}.`
+    )
+  }
 
-    if (emptySlot) return `Fills your open ${emptySlot} slot.`
-    if (worst) {
-      return worst.points === null
-        ? `Would replace ${worst.name} (${worst.slotName}).`
-        : `Would replace ${worst.name} (${worst.slotName}, ${worst.points.toFixed(1)} pts this week).`
-    }
-    return null
+  function fmt(n) {
+    return typeof n === 'number' ? n.toFixed(1) : '--'
   }
 
   return (
@@ -353,7 +399,7 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
                     expanded={expandedRows.has(p.playerId)}
                     onToggle={() => toggleRow(p.playerId)}
                     rationale={p.rationale}
-                    replacement={suggestReplacement(p.position)}
+                    replacement={suggestReplacement(p.position, p.playerId)}
                   />
                 ))}
               </div>

@@ -165,3 +165,118 @@ export function betterLineup(slots, slotAssignments, projectionsById, poolById) 
 function round1(n) {
   return Math.round(n * 10) / 10
 }
+
+// ---------------------------------------------------------------------------
+// Waiver replacement
+// ---------------------------------------------------------------------------
+
+// Designations that make a player IR-eligible. Such a player is never the drop
+// candidate for a waiver add: the roster carries IR slots precisely so someone
+// hurt can be parked without being released. Before this existed the drop
+// suggestion picked whoever scored lowest this week, and an injured player
+// scores lowest BY DEFINITION -- P(play) near zero -- so the advice was
+// reliably "drop the guy you should be stashing".
+//
+// Questionable is deliberately absent. A Questionable player still takes the
+// field 51-79% of the time depending on practice participation, is not usually
+// IR-eligible, and is a legitimate thing to move on from.
+export const IR_ELIGIBLE_DESIGNATIONS = ['Out', 'IR', 'Doubtful']
+
+/** Sum of a player's expected points across the horizon. A week the player
+ * does not appear in counts as ZERO, which is what a bye actually is -- and
+ * is why a bye inside the horizon correctly makes someone look droppable. */
+function horizonTotal(pointsByWeek, playerId) {
+  const series = pointsByWeek.get(playerId)
+  if (!series) return 0
+  return series.reduce((sum, p) => sum + (typeof p === 'number' ? p : 0), 0)
+}
+
+/**
+ * Which rostered player a waiver add should replace, if any.
+ *
+ * Two rules beyond "who scores least", both from real bad advice this used to
+ * give:
+ *
+ *   1. Never an IR-slot player, and never anyone IR-eligible. See
+ *      IR_ELIGIBLE_DESIGNATIONS.
+ *   2. Judge on the HORIZON, not on this week. A starter with one hard
+ *      matchup and a good month behind it should not be dropped for a
+ *      streamer who wins a single week. When the candidate wins this week but
+ *      loses over the horizon, that is reported as `hold` rather than
+ *      silently suppressed -- the one-week gain is real and the user may
+ *      still want it, they just should not be told it is an upgrade.
+ *
+ * The horizon is only as good as the future-week projections behind it.
+ * Before any game is played those weeks are a positional baseline plus game
+ * context, so the horizon mostly reflects schedule, not player quality; it
+ * sharpens as real game logs accumulate. `weeks` is returned so the caller
+ * can say how long a window it is talking about rather than implying more
+ * precision than exists.
+ *
+ * @param {object} ctx
+ * @param {Map<string, number[]>} ctx.pointsByWeek - playerId -> expected
+ *   points per horizon week, index 0 being the week on screen.
+ * @returns {{kind: 'empty-slot'|'replace'|'hold', ...}|null}
+ */
+export function waiverReplacement({
+  position,
+  slots,
+  slotAssignments,
+  poolById,
+  projectionsById,
+  pointsByWeek,
+  candidateId,
+  weeks,
+}) {
+  let emptySlot = null
+  let worst = null
+
+  for (let i = 0; i < slots.length; i++) {
+    const slotName = slots[i]
+    // An IR slot is not a drop target: it is filled from your own roster when
+    // someone gets hurt. Checked before eligibility because IR reports itself
+    // as eligible for every position.
+    if (slotName === 'IR') continue
+    if (!isPositionEligible(slotName, position)) continue
+
+    const playerId = slotAssignments[i]
+    if (!playerId) {
+      if (!emptySlot) emptySlot = slotName
+      continue
+    }
+
+    const entry = projectionsById.get(playerId)
+    const designation = entry?.newsFlag?.designation || poolById.get(playerId)?.newsFlag?.designation
+    if (IR_ELIGIBLE_DESIGNATIONS.includes(designation)) continue
+
+    const name = entry?.name || poolById.get(playerId)?.name || playerId
+    const total = horizonTotal(pointsByWeek, playerId)
+    const thisWeek = pointsByWeek.get(playerId)?.[0]
+    if (!worst || total < worst.total) {
+      worst = { slotName, name, total, thisWeek: typeof thisWeek === 'number' ? thisWeek : null }
+    }
+  }
+
+  if (emptySlot) return { kind: 'empty-slot', slotName: emptySlot }
+  if (!worst) return null
+
+  const candidateTotal = horizonTotal(pointsByWeek, candidateId)
+  const candidateWeek = pointsByWeek.get(candidateId)?.[0] ?? null
+  const shared = {
+    name: worst.name,
+    slotName: worst.slotName,
+    weeks,
+    outWeek: worst.thisWeek,
+    inWeek: candidateWeek,
+    outHorizon: round1(worst.total),
+    inHorizon: round1(candidateTotal),
+  }
+
+  if (candidateTotal > worst.total) return { kind: 'replace', ...shared }
+  // Wins the week, loses the window: the exact case worth NOT calling an
+  // upgrade.
+  if (candidateWeek !== null && worst.thisWeek !== null && candidateWeek > worst.thisWeek) {
+    return { kind: 'hold', ...shared }
+  }
+  return null
+}
