@@ -48,6 +48,17 @@ Targets automatically exclude anyone already on my configured team.
   - If the slot config ever adds a new slot name not covered above, treat it as `BENCH`-style (any
     position) rather than rejecting all players — documented as a fallback rule, not expected to be
     hit with today's fixture.
+- **A slot-array shape change must not be applied by index** (learned the hard way, 2026-09-05).
+  `slotAssignments` maps to `slots` by index, so inserting a slot mid-array shifts every later
+  assignment one place right and renders the wrong label against the right player — a D/ST under a
+  FLEX heading, a kicker under DST, a bench QB under K. Two defences, both required:
+  1. The storage key carries a version suffix; bump it on any shape change so stale configs are
+     treated as absent and re-seeded (`v1` → `v2` on 2026-09-05, after two shape changes went out
+     without it).
+  2. From `v2`, a saved config is **stamped with the slot array it was written against**. On load,
+     a stamp that no longer matches the current slots is re-mapped **by slot name**, not by index;
+     a player whose slot no longer exists falls to a free `BENCH`, then `IR`, rather than
+     vanishing. This is what makes the next shape change safe without another bump.
 - **`BENCH` and `IR` are the non-starting slots** (`NON_STARTING_SLOTS` in `lib/teamConfig.js`).
   Weekly Report must exclude both from its starting-slot groups, and must not merge them into one
   another: a bench player is startable and simply is not started this week, an IR player cannot be

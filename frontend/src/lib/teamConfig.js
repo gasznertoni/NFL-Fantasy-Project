@@ -13,10 +13,19 @@ import { getDefaultTeamConfig } from './api.js'
 // migration in useTeamConfig -- do not use it for new reads or writes.
 const LEGACY_STORAGE_KEY = 'nfl-fantasy-assistant:team-config:v1'
 
-// Versioned per-league storage key. Bumping the suffix in a future shape
-// change means the old key is treated as absent (spec section 3.5).
+// Versioned per-league storage key. Bumping the suffix on a shape change
+// means the old key is treated as absent (spec section 3.5).
+//
+// v1 -> v2 on 2026-09-05. slotAssignments maps to slots BY INDEX, and the
+// slot array changed shape twice without this suffix moving: a second FLEX
+// went in at index 7, then two IR slots on the end. Every saved config
+// therefore had its tail shifted one place right and rendered the wrong
+// label against the right player -- a D/ST sitting in a slot headed FLEX, a
+// kicker under DST, a bench QB under K. The data was never wrong; the join
+// was. Bumping discards those configs and re-seeds from
+// default-team-config.json, which now holds the real roster.
 function storageKey(leagueId) {
-  return `nfl-fantasy-assistant:team-config:${leagueId}:v1`
+  return `nfl-fantasy-assistant:team-config:${leagueId}:v2`
 }
 
 // Position eligibility per slot name (spec section 2). Exact-position slots
@@ -68,7 +77,7 @@ export function isPositionEligible(slotName, position) {
   return eligible === null || eligible.includes(position)
 }
 
-function readRawAssignments(leagueId) {
+function readRawConfig(leagueId) {
   let raw
   try {
     raw = window.localStorage.getItem(storageKey(leagueId))
@@ -78,10 +87,52 @@ function readRawAssignments(leagueId) {
   if (!raw) return null
   try {
     const parsed = JSON.parse(raw)
-    return Array.isArray(parsed?.slotAssignments) ? parsed.slotAssignments : null
+    if (!Array.isArray(parsed?.slotAssignments)) return null
+    // `slots` is the slot array this config was SAVED against. Stamped from
+    // v2 onward so a later shape change can re-map by name instead of
+    // silently misaligning by index -- see loadTeamConfig. Absent on a
+    // config written before the stamp existed.
+    return {
+      slotAssignments: parsed.slotAssignments,
+      slots: Array.isArray(parsed.slots) ? parsed.slots : null,
+    }
   } catch {
     return null
   }
+}
+
+function readRawAssignments(leagueId) {
+  return readRawConfig(leagueId)?.slotAssignments || null
+}
+
+/**
+ * Re-seats saved assignments when the slot array changes shape, matching on
+ * SLOT NAME rather than index. Players whose slot no longer exists (or whose
+ * slot lost a copy) fall to a free BENCH, then IR, rather than vanishing.
+ * This is what makes a future slot change safe without another version bump.
+ */
+function remapBySlotName(oldSlots, oldAssignments, newSlots) {
+  const out = Array(newSlots.length).fill(null)
+  const taken = new Set()
+  const displaced = []
+  for (let i = 0; i < oldSlots.length; i++) {
+    const playerId = oldAssignments[i]
+    if (!playerId) continue
+    const target = newSlots.findIndex((name, j) => name === oldSlots[i] && !taken.has(j))
+    if (target === -1) {
+      displaced.push(playerId)
+      continue
+    }
+    out[target] = playerId
+    taken.add(target)
+  }
+  for (const playerId of displaced) {
+    const target = newSlots.findIndex((name, j) => NON_STARTING_SLOTS.includes(name) && !taken.has(j))
+    if (target === -1) continue // genuinely no room left; dropping is the only option
+    out[target] = playerId
+    taken.add(target)
+  }
+  return out
 }
 
 /** Whether a config has ever been saved to localStorage for the given league
@@ -92,36 +143,55 @@ export function hasSavedTeamConfig(leagueId = 'league-1') {
 }
 
 /**
- * Sync localStorage read. Returns a null-filled array of length `slotCount`
- * if nothing saved yet (caller -- in practice `useTeamConfig` below -- is
- * responsible for triggering the one-time seed from getDefaultTeamConfig()
- * on first run). Normalizes the stored array to `slotCount` entries so a
- * future change to the number of roster slots doesn't crash on a
- * length mismatch.
- * @param {number} slotCount
+ * Sync localStorage read. Returns a null-filled array of the same length as
+ * `slots` if nothing saved yet (caller -- in practice `useTeamConfig` below
+ * -- is responsible for triggering the one-time seed from
+ * getDefaultTeamConfig() on first run).
+ * @param {string[]} slots - the CURRENT slot names, not just a count: a
+ *   shape change is re-mapped by name, which needs the names.
  * @param {string} [leagueId]
  * @returns {{slotAssignments: (string|null)[]}}
  */
-export function loadTeamConfig(slotCount, leagueId = 'league-1') {
-  const raw = readRawAssignments(leagueId)
-  const assignments = Array(slotCount).fill(null)
-  if (raw) {
-    for (let i = 0; i < Math.min(slotCount, raw.length); i++) {
-      assignments[i] = raw[i]
+export function loadTeamConfig(slots, leagueId = 'league-1') {
+  const slotNames = Array.isArray(slots) ? slots : []
+  const stored = readRawConfig(leagueId)
+  const assignments = Array(slotNames.length).fill(null)
+  if (!stored) return { slotAssignments: assignments }
+
+  const sameShape =
+    stored.slots &&
+    stored.slots.length === slotNames.length &&
+    stored.slots.every((name, i) => name === slotNames[i])
+
+  // Unstamped or unchanged -> straight index copy, the original behaviour.
+  // Stamped and CHANGED -> re-map by slot name, because an index copy is
+  // exactly what shifted a D/ST into a FLEX slot when the array grew.
+  if (!stored.slots || sameShape) {
+    for (let i = 0; i < Math.min(slotNames.length, stored.slotAssignments.length); i++) {
+      assignments[i] = stored.slotAssignments[i]
     }
+    return { slotAssignments: assignments }
   }
-  return { slotAssignments: assignments }
+  return { slotAssignments: remapBySlotName(stored.slots, stored.slotAssignments, slotNames) }
 }
 
 /** Persists a config to localStorage for the given league. Fails silently if
  * localStorage is unavailable (private browsing, quota, etc.) -- the app
  * keeps working for the current session, it just won't persist across
  * reloads. */
-export function saveTeamConfig(config, leagueId = 'league-1') {
+export function saveTeamConfig(config, leagueId = 'league-1', slots = null) {
   try {
+    const existing = slots ? null : readRawConfig(leagueId)
+    const stamp = slots || existing?.slots || null
     window.localStorage.setItem(
       storageKey(leagueId),
-      JSON.stringify({ slotAssignments: config.slotAssignments || [] }),
+      JSON.stringify({
+        slotAssignments: config.slotAssignments || [],
+        // Stamped so a later shape change re-maps by name. Carried forward
+        // from the existing record when a caller does not supply it, so a
+        // plain assign/clear never strips the stamp off a stamped config.
+        ...(stamp ? { slots: stamp } : {}),
+      }),
     )
   } catch {
     // see comment above
@@ -241,16 +311,18 @@ export function isPlayerRostered(playerId, config) {
  * `nfl-fantasy-assistant:team-config:league-1:v1` key so previously saved
  * rosters are not lost after upgrading.
  *
- * @param {number} slotCount - 0/undefined defers loading until known.
+ * @param {string[]} slots - the league's slot names; null/empty defers
+ *   loading until known. Names rather than a count because a slot-array
+ *   shape change is re-mapped by name (see loadTeamConfig).
  * @param {string} [leagueId] - which league's config to read/write.
  */
-export function useTeamConfig(slotCount, leagueId = 'league-1') {
+export function useTeamConfig(slots, leagueId = 'league-1') {
   const [config, setConfig] = useState(undefined)
   const [version, setVersion] = useState(0)
 
   // One-time migration: if the old single-league key exists and the new
   // league-1 key does not yet exist, copy and remove. Runs once on mount,
-  // independent of slotCount/leagueId so it executes before any read.
+  // independent of slots/leagueId so it executes before any read.
   useEffect(() => {
     try {
       const oldValue = window.localStorage.getItem(LEGACY_STORAGE_KEY)
@@ -264,19 +336,26 @@ export function useTeamConfig(slotCount, leagueId = 'league-1') {
     }
   }, [])
 
+  // Join on the slot names themselves, not the array identity: a parent that
+  // rebuilds `slots` each render would otherwise re-run this effect forever.
+  const slotKey = Array.isArray(slots) ? slots.join('|') : ''
+
   useEffect(() => {
-    if (!slotCount) return
+    if (!slotKey) return
     let cancelled = false
+    const slotNames = slotKey.split('|')
 
     async function init() {
       if (!hasSavedTeamConfig(leagueId)) {
         const defaultConfig = await getDefaultTeamConfig(leagueId)
         if (!cancelled && defaultConfig && Array.isArray(defaultConfig.slotAssignments)) {
-          saveTeamConfig(defaultConfig, leagueId)
+          // Stamp the seed with the slots it was built for, so the very first
+          // saved config is already shape-aware.
+          saveTeamConfig(defaultConfig, leagueId, slotNames)
         }
       }
       if (!cancelled) {
-        setConfig(loadTeamConfig(slotCount, leagueId))
+        setConfig(loadTeamConfig(slotNames, leagueId))
       }
     }
 
@@ -284,7 +363,7 @@ export function useTeamConfig(slotCount, leagueId = 'league-1') {
     return () => {
       cancelled = true
     }
-  }, [slotCount, leagueId, version])
+  }, [slotKey, leagueId, version])
 
   const refresh = useCallback(() => setVersion((v) => v + 1), [])
 

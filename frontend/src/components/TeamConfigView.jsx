@@ -30,7 +30,7 @@ export default function TeamConfigView({ leagueId = 'league-1' }) {
     }
   }, [leagueId])
 
-  const { config, assign, clear, swap, reset } = useTeamConfig(slots ? slots.length : 0, leagueId)
+  const { config, assign, clear, swap, reset } = useTeamConfig(slots, leagueId)
 
   const poolById = useMemo(() => {
     const map = new Map()

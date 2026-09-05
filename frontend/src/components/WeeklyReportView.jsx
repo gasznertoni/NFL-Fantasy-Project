@@ -99,7 +99,7 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
     }
   }, [week, leagueId])
 
-  const { config } = useTeamConfig(slots ? slots.length : 0, leagueId)
+  const { config } = useTeamConfig(slots, leagueId)
 
   const metaReady = slots !== null && pool !== null && config !== undefined
   const slotOrder = metaReady ? startingSlotOrder(slots) : []
