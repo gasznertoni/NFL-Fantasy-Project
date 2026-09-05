@@ -179,7 +179,7 @@ function round1(n) {
  *
  * @returns {Map<string, number>} position -> league-wide starter count.
  */
-export function startingDemand(slots, teamCount) {
+export function startersPerTeam(slots) {
   const perTeam = new Map()
   const bump = (pos, n) => perTeam.set(pos, (perTeam.get(pos) || 0) + n)
   for (const slotName of slots) {
@@ -189,8 +189,12 @@ export function startingDemand(slots, teamCount) {
     if (eligible.length === 1) bump(eligible[0], 1)
     else for (const pos of eligible) bump(pos, 1 / eligible.length)
   }
+  return perTeam
+}
+
+export function startingDemand(slots, teamCount) {
   const out = new Map()
-  for (const [pos, n] of perTeam) out.set(pos, Math.max(1, Math.round(n * teamCount)))
+  for (const [pos, n] of startersPerTeam(slots)) out.set(pos, Math.max(1, Math.round(n * teamCount)))
   return out
 }
 
@@ -245,6 +249,94 @@ export function replacementLevels(slots, teamCount, pointsByWeek, poolById) {
 // IR-eligible, and is a legitimate thing to move on from.
 export const IR_ELIGIBLE_DESIGNATIONS = ['Out', 'IR', 'Doubtful']
 
+
+// Positions where carrying a spare is either mandatory or pointless, and the
+// count is a policy call rather than something the slot array implies. Spec:
+// docs/specs/waiver-roster-construction.md section 5.
+//
+//   K, DST  min 1 cap 1. You start exactly one and a replacement-level one is
+//           always on waivers, so a second is a wasted roster spot in every
+//           week of the season. Streaming a matchup means swapping your D/ST,
+//           not carrying two.
+//   QB      min 2 cap 2. Nothing is flex-eligible into QB, so one quarterback
+//           is a single point of failure on a slot that cannot be covered from
+//           elsewhere; a third covers nothing the second does not. This is a
+//           stated preference of the builder's, not a law -- some managers punt
+//           QB2 -- but it comes from a real failure mode and ships as default.
+const POLICY_LIMITS = {
+  QB: { min: 2, cap: 2 },
+  K: { min: 1, cap: 1 },
+  DST: { min: 1, cap: 1 },
+}
+
+// Positions that carry a spare body beyond what they start, because they lose
+// players and because flex slots compete for the same pool. TE is absent
+// deliberately: a second TE already covers the starter and TE is flex-eligible,
+// so its depth is shared rather than dedicated.
+const DEPTH_COVER = { RB: 1, WR: 1 }
+
+/**
+ * Per-position roster limits for one team.
+ *
+ * `min` is the count below which a drop is refused; `cap` is the count above
+ * which an add is a replacement rather than an addition (null = uncapped).
+ * Derived from the league's own slots except where POLICY_LIMITS applies, so
+ * this holds for a 14-team and an 8-team league without tuning.
+ *
+ * @returns {Map<string, {min: number, cap: number|null}>}
+ */
+export function positionLimits(slots) {
+  const starters = startersPerTeam(slots)
+  const out = new Map()
+  for (const [pos, n] of starters) {
+    if (POLICY_LIMITS[pos]) {
+      out.set(pos, { ...POLICY_LIMITS[pos] })
+      continue
+    }
+    out.set(pos, { min: Math.ceil(n) + (DEPTH_COVER[pos] || 0), cap: null })
+  }
+  for (const [pos, lim] of Object.entries(POLICY_LIMITS)) {
+    if (!out.has(pos)) out.set(pos, { ...lim })
+  }
+  return out
+}
+
+/**
+ * How many players of each position the roster actually holds.
+ *
+ * IR slots are EXCLUDED. An IR'd quarterback does not cover you if the starter
+ * is ruled out on Sunday morning, so he cannot count toward a minimum whose
+ * whole purpose is being able to field a lineup.
+ */
+export function rosterCounts(slots, slotAssignments, poolById, projectionsById) {
+  const counts = new Map()
+  slots.forEach((slotName, i) => {
+    if (slotName === 'IR') return
+    const playerId = slotAssignments[i]
+    if (!playerId) return
+    const pos = poolById.get(playerId)?.position || projectionsById?.get(playerId)?.position
+    if (!pos) return
+    counts.set(pos, (counts.get(pos) || 0) + 1)
+  })
+  return counts
+}
+
+/**
+ * Whether dropping one player at `pos` keeps the roster legal.
+ *
+ * Option (a) of the spec: the effective floor is the LOWER of the limit and
+ * what is held today, so a position already under its limit is frozen rather
+ * than reported as unfillable. Without this, a roster that is already thin at
+ * RB would have every RB drop refused for being below a minimum it never met,
+ * which reads as a bug to the user rather than as advice.
+ */
+export function canDropFrom(pos, counts, limits) {
+  const held = counts.get(pos) || 0
+  const limit = limits.get(pos)?.min
+  if (limit === undefined) return held > 0
+  return held - 1 >= Math.min(limit, held)
+}
+
 /** Sum of a player's expected points across the horizon. A week the player
  * does not appear in counts as ZERO, which is what a bye actually is -- and
  * is why a bye inside the horizon correctly makes someone look droppable. */
@@ -292,8 +384,6 @@ export function waiverReplacement({
   weeks,
   replacement,
 }) {
-  let emptySlot = null
-  let worst = null
   // Value over replacement at the player's OWN position. Without this a D/ST
   // at 33.5 outranks a WR at 19.0, which is not a real comparison -- see
   // replacementLevels. Falls back to the raw total when no levels are
@@ -304,12 +394,72 @@ export function waiverReplacement({
     const pos = poolById.get(playerId)?.position || projectionsById.get(playerId)?.position
     return total - (replacement.get(pos) || 0)
   }
+  const nameOf = (playerId) =>
+    projectionsById.get(playerId)?.name || poolById.get(playerId)?.name || playerId
+  const posOf = (playerId) =>
+    poolById.get(playerId)?.position || projectionsById.get(playerId)?.position
+  const weekOf = (playerId) => {
+    const v = pointsByWeek.get(playerId)?.[0]
+    return typeof v === 'number' ? v : null
+  }
+  const blocked = (playerId, slotName) =>
+    slotName === 'IR' ||
+    IR_ELIGIBLE_DESIGNATIONS.includes(
+      projectionsById.get(playerId)?.newsFlag?.designation ||
+        poolById.get(playerId)?.newsFlag?.designation,
+    )
+
+  const limits = positionLimits(slots)
+  const counts = rosterCounts(slots, slotAssignments, poolById, projectionsById)
+  const cap = limits.get(position)?.cap ?? null
+
+  const base = {
+    weeks,
+    adjusted: Boolean(replacement),
+    inWeek: weekOf(candidateId),
+    inHorizon: round1(horizonTotal(pointsByWeek, candidateId)),
+    inSurplus: round1(surplusOf(candidateId)),
+  }
+
+  // -- Step 1: the position is already full. This is a same-position upgrade
+  // question, not a drop-someone-else question -- which is exactly why a bench
+  // QB is never offered up for a kicker: the two never meet here.
+  if (cap !== null && (counts.get(position) || 0) >= cap) {
+    let incumbent = null
+    slots.forEach((slotName, i) => {
+      const playerId = slotAssignments[i]
+      if (!playerId || slotName === 'IR') return
+      if (posOf(playerId) !== position) return
+      const surplus = surplusOf(playerId)
+      if (!incumbent || surplus < incumbent.surplus) {
+        incumbent = { playerId, slotName, surplus, name: nameOf(playerId) }
+      }
+    })
+    if (!incumbent) return null
+    const shared = {
+      ...base,
+      name: incumbent.name,
+      slotName: incumbent.slotName,
+      outWeek: weekOf(incumbent.playerId),
+      outHorizon: round1(horizonTotal(pointsByWeek, incumbent.playerId)),
+      outSurplus: round1(incumbent.surplus),
+      position,
+    }
+    if (surplusOf(candidateId) > incumbent.surplus) {
+      return { kind: 'upgrade', gain: round1(surplusOf(candidateId) - incumbent.surplus), ...shared }
+    }
+    // Said out loud rather than returned as null: "no suggestion" reads as a
+    // missing feature, "you already have better" is the actual answer.
+    return { kind: 'have-better', ...shared }
+  }
+
+  // -- Step 2: cheapest LEGAL drop anywhere on the roster.
+  let emptySlot = null
+  let worst = null
+  let blockedByMinimum = false
 
   for (let i = 0; i < slots.length; i++) {
     const slotName = slots[i]
-    // An IR slot is not a drop target: it is filled from your own roster when
-    // someone gets hurt. Checked before eligibility because IR reports itself
-    // as eligible for every position.
     if (slotName === 'IR') continue
     if (!isPositionEligible(slotName, position)) continue
 
@@ -318,46 +468,43 @@ export function waiverReplacement({
       if (!emptySlot) emptySlot = slotName
       continue
     }
+    if (blocked(playerId, slotName)) continue
 
-    const entry = projectionsById.get(playerId)
-    const designation = entry?.newsFlag?.designation || poolById.get(playerId)?.newsFlag?.designation
-    if (IR_ELIGIBLE_DESIGNATIONS.includes(designation)) continue
+    const pos = posOf(playerId)
+    if (pos && !canDropFrom(pos, counts, limits)) {
+      // The case that started this: dropping the backup QB would leave one.
+      blockedByMinimum = true
+      continue
+    }
 
-    const name = entry?.name || poolById.get(playerId)?.name || playerId
-    const total = horizonTotal(pointsByWeek, playerId)
     const surplus = surplusOf(playerId)
-    const thisWeek = pointsByWeek.get(playerId)?.[0]
-    // Least VALUABLE, not lowest scoring: the cheapest player to lose.
     if (!worst || surplus < worst.surplus) {
-      worst = { slotName, name, total, surplus, thisWeek: typeof thisWeek === 'number' ? thisWeek : null }
+      worst = {
+        slotName,
+        name: nameOf(playerId),
+        surplus,
+        total: horizonTotal(pointsByWeek, playerId),
+        thisWeek: weekOf(playerId),
+      }
     }
   }
 
   if (emptySlot) return { kind: 'empty-slot', slotName: emptySlot }
-  if (!worst) return null
+  if (!worst) return blockedByMinimum ? { kind: 'no-legal-drop', ...base } : null
 
-  const candidateTotal = horizonTotal(pointsByWeek, candidateId)
-  const candidateSurplus = surplusOf(candidateId)
-  const candidateWeek = pointsByWeek.get(candidateId)?.[0] ?? null
   const shared = {
+    ...base,
     name: worst.name,
     slotName: worst.slotName,
-    weeks,
     outWeek: worst.thisWeek,
-    inWeek: candidateWeek,
     outHorizon: round1(worst.total),
-    inHorizon: round1(candidateTotal),
     outSurplus: round1(worst.surplus),
-    inSurplus: round1(candidateSurplus),
-    // Whether the verdict came from replacement-adjusted value or raw totals,
-    // so the caller can word it honestly.
-    adjusted: Boolean(replacement),
   }
 
-  if (candidateSurplus > worst.surplus) return { kind: 'replace', ...shared }
+  if (surplusOf(candidateId) > worst.surplus) return { kind: 'replace', ...shared }
   // Wins the week, loses the window: the exact case worth NOT calling an
   // upgrade.
-  if (candidateWeek !== null && worst.thisWeek !== null && candidateWeek > worst.thisWeek) {
+  if (base.inWeek !== null && worst.thisWeek !== null && base.inWeek > worst.thisWeek) {
     return { kind: 'hold', ...shared }
   }
   return null

@@ -282,6 +282,21 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
     if (result.kind === 'empty-slot') return `Fills your open ${result.slotName} slot.`
 
     const window = result.weeks > 1 ? `next ${result.weeks} weeks` : 'this week'
+
+    // A position at its cap is a same-position question. Saying "you already
+    // have better" out loud matters: silence reads as a missing feature.
+    if (result.kind === 'upgrade') {
+      return (
+        `Upgrade on ${result.name} at ${result.position} -- ` +
+        `+${result.gain.toFixed(1)} over the ${window}.`
+      )
+    }
+    if (result.kind === 'have-better') {
+      return `You already roster a better ${result.position} (${result.name}) -- no move needed.`
+    }
+    if (result.kind === 'no-legal-drop') {
+      return 'No legal drop -- every bench player is needed for positional cover.'
+    }
     // With replacement levels the compared numbers are value ABOVE the last
     // startable player at each position, which is the only way a D/ST and a WR
     // can be weighed against each other. Say which it is rather than printing
