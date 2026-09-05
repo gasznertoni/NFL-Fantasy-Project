@@ -1,0 +1,5 @@
+{
+  "_note": "Manifest of start/sit briefings, appended to by the scheduled routines (docs/specs/briefings-view.md). Newest first. Each entry points at a sibling <slug>.json. This file is committed empty so the path exists and the routines have something to append to rather than having to create the directory themselves.",
+  "leagueId": "league-2",
+  "briefings": []
+}
