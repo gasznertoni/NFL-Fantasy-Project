@@ -419,6 +419,21 @@ class PostgresStore(Store):
 # ---------------------------------------------------------------------------
 # Selection
 # ---------------------------------------------------------------------------
+def _resolve_cache_dir(root: str) -> Path:
+    """A relative FANTASY_STORE_DIR resolves against the REPO ROOT, not the cwd.
+
+    generate_report.py runs from backend/ while the natural thing to write in
+    .env is `backend/.store`. Resolving that against the cwd would silently
+    create `backend/backend/.store` -- a cache that works, is gitignored by
+    luck rather than by the rule, and is invisibly separate from the one every
+    other entry point uses. Absolute paths are left alone.
+    """
+    path = Path(root).expanduser()
+    if path.is_absolute():
+        return path
+    return (Path(__file__).resolve().parent.parent / path).resolve()
+
+
 def open_store(
     database_url: Optional[str] = None, cache_dir: Optional[str] = None, quiet: bool = False
 ) -> Store:
@@ -443,7 +458,7 @@ def open_store(
     root = cache_dir if cache_dir is not None else os.environ.get("FANTASY_STORE_DIR")
     if root:
         try:
-            store = FileStore(Path(root))
+            store = FileStore(_resolve_cache_dir(root))
             if not quiet:
                 print(f"  store: filesystem cache at {root} (no prediction log)")
             return store

@@ -10,3 +10,9 @@ docs/research/phase1-local-results.json
 # Rotowire red zone / route-efficiency fetch cache (backend/rotowire.py).
 # Regenerated on demand and ~13 MB; a fetch cache, not source.
 backend/rotowire_cache_*.json
+
+# Shared-data-store phase-0 cache (backend/store.py, FANTASY_STORE_DIR).
+# Content-addressed model fits and news summaries. Regenerated on demand and
+# keyed by content hash, so a stale entry is unreachable rather than wrong --
+# a fetch/compute cache, not source.
+backend/.store/

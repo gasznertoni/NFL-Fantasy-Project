@@ -239,3 +239,40 @@ class TestNewsCaching(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestCacheDirResolution(unittest.TestCase):
+    """A relative FANTASY_STORE_DIR must resolve against the repo root.
+
+    generate_report.py runs from backend/ while the natural .env value is
+    `backend/.store`. Resolving against the cwd would create
+    backend/backend/.store -- a cache that works, is gitignored by luck rather
+    than by the rule, and is invisibly separate from the one other entry points
+    use.
+    """
+
+    def test_relative_path_resolves_against_the_repo_root(self):
+        from store import _resolve_cache_dir
+
+        resolved = _resolve_cache_dir("backend/.store")
+        self.assertTrue(resolved.is_absolute())
+        self.assertEqual(resolved.parent.name, "backend")
+        self.assertNotIn("backend/backend", str(resolved))
+
+    def test_absolute_path_is_left_alone(self):
+        from store import _resolve_cache_dir
+
+        self.assertEqual(str(_resolve_cache_dir("/tmp/somewhere")), "/tmp/somewhere")
+
+    def test_resolution_does_not_depend_on_the_cwd(self):
+        import os
+
+        from store import _resolve_cache_dir
+
+        here = os.getcwd()
+        try:
+            first = _resolve_cache_dir("backend/.store")
+            os.chdir("/tmp")
+            self.assertEqual(_resolve_cache_dir("backend/.store"), first)
+        finally:
+            os.chdir(here)
