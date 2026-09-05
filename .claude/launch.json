@@ -12,6 +12,23 @@
       ],
       "port": 5173,
       "url": "http://localhost:5173"
+    },
+    {
+      "name": "frontend-pages-preview",
+      "runtimeExecutable": "npm",
+      "runtimeArgs": [
+        "--prefix",
+        "frontend",
+        "run",
+        "preview",
+        "--",
+        "--port",
+        "4173",
+        "--base",
+        "/NFL-Fantasy-Project/"
+      ],
+      "port": 4173,
+      "url": "http://localhost:4173"
     }
   ]
 }
