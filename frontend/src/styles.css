@@ -1274,3 +1274,132 @@ body {
   color: var(--color-text-faint);
   align-self: center;
 }
+
+/* ---------------------------------------------------------------------------
+   Briefings view (docs/specs/briefings-view.md)
+
+   A briefing is a short dated note with a lineup in it, not a ranked table --
+   so this leans on prose rhythm and one strong signal (the source banner)
+   rather than the dense grid the Weekly Report uses.
+   --------------------------------------------------------------------------- */
+
+.briefing-week { margin-bottom: 2rem; }
+.briefing-list { display: grid; gap: 0.75rem; }
+
+.briefing-card {
+  display: grid; gap: 0.35rem; text-align: left; width: 100%;
+  padding: 0.9rem 1rem; border-radius: var(--radius);
+  background: var(--color-surface); box-shadow: var(--shadow-sm);
+  border: 0; color: inherit; font: inherit; cursor: pointer;
+}
+.briefing-card:hover { box-shadow: var(--shadow-md); }
+.briefing-card:focus-visible { outline: 2px solid var(--color-accent); outline-offset: 2px; }
+.briefing-card-head { display: flex; align-items: center; gap: 0.5rem; flex-wrap: wrap; }
+.briefing-card-date { font-variant-numeric: tabular-nums; color: var(--color-text-muted); font-size: 0.85rem; }
+.briefing-card-summary { font-weight: 600; }
+
+.briefing-kind {
+  font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+  padding: 0.15rem 0.45rem; border-radius: var(--radius-sm);
+  background: var(--color-accent-soft); color: var(--color-accent);
+}
+
+/* The staleness chip and the banner below are the same signal at two
+   densities: a briefing built on non-live data must never look live. */
+.briefing-stale-chip {
+  font-size: 0.7rem; letter-spacing: 0.06em; text-transform: uppercase;
+  padding: 0.15rem 0.45rem; border-radius: var(--radius-sm);
+  border: 1px solid currentColor; color: var(--color-low);
+}
+
+.briefing-source {
+  display: flex; align-items: baseline; gap: 0.6rem; flex-wrap: wrap;
+  padding: 0.75rem 1rem; border-radius: var(--radius-md); margin: 1rem 0 1.5rem;
+  font-size: 0.9rem; border: 1px solid var(--color-divider);
+}
+.briefing-source-label {
+  font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase; font-weight: 700;
+}
+.briefing-source-live { background: var(--color-surface); color: var(--color-text-muted); }
+.briefing-source-live .briefing-source-label { color: var(--color-accent); }
+/* Deliberately the loudest thing on the page. The best output the routines
+   produced was a briefing that said its data was two days old. */
+.briefing-source-stale {
+  background: var(--color-low-soft);
+  border-color: var(--color-low); color: var(--color-text);
+}
+.briefing-source-stale .briefing-source-label { color: var(--color-low); }
+.briefing-source-error {
+  background: var(--color-bad-soft); border-color: var(--color-bad);
+}
+.briefing-source-note { flex-basis: 100%; color: var(--color-text-muted); font-size: 0.85rem; }
+
+.briefing-back {
+  background: none; border: 0; color: var(--color-accent); cursor: pointer;
+  font: inherit; padding: 0; margin-bottom: 0.75rem;
+}
+.briefing-detail-head { display: flex; align-items: baseline; gap: 0.75rem; flex-wrap: wrap; }
+.briefing-detail h3 { margin: 1.75rem 0 0.6rem; display: flex; align-items: baseline; gap: 0.6rem; }
+.briefing-total { font-size: 0.85rem; font-weight: 400; color: var(--color-text-muted); }
+
+.briefing-lineup { width: 100%; border-collapse: collapse; }
+.briefing-lineup th {
+  text-align: left; font-size: 0.72rem; letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--color-text-faint); padding: 0.4rem 0.5rem; font-weight: 600;
+}
+.briefing-lineup td { padding: 0.6rem 0.5rem; border-top: 1px solid var(--color-divider); vertical-align: top; }
+.briefing-slot {
+  font-size: 0.72rem; letter-spacing: 0.05em; color: var(--color-text-muted);
+  white-space: nowrap; padding-top: 0.75rem !important;
+}
+.briefing-player { display: block; font-weight: 600; }
+.briefing-meta { display: block; font-size: 0.8rem; color: var(--color-text-muted); }
+.briefing-reason { display: block; font-size: 0.82rem; color: var(--color-text-muted); margin-top: 0.2rem; }
+.briefing-flag, .briefing-practice {
+  margin-left: 0.4rem; padding: 0.05rem 0.35rem; border-radius: var(--radius-sm);
+  font-size: 0.72rem; border: 1px solid currentColor;
+}
+.briefing-flag { color: var(--color-low); }
+.briefing-practice { color: var(--color-accent); }
+.briefing-row-risky td { background: color-mix(in srgb, var(--color-low-soft) 55%, transparent); }
+
+.briefing-num { text-align: right; white-space: nowrap; }
+/* Expected points is the headline; the conditional number is deliberately
+   smaller. Sleeper shows the conditional figure, so a reader arrives primed
+   for the wrong one. */
+.briefing-expected {
+  display: block; font-size: 1.1rem; font-weight: 700; font-variant-numeric: tabular-nums;
+}
+.briefing-sub { display: block; font-size: 0.78rem; color: var(--color-text-muted); }
+
+.briefing-nochange { color: var(--color-text-muted); font-style: italic; }
+.briefing-changes { list-style: none; padding: 0; display: grid; gap: 0.5rem; }
+.briefing-change {
+  padding: 0.6rem 0.8rem; border-radius: var(--radius-md);
+  background: var(--color-surface); box-shadow: var(--shadow-sm);
+}
+.briefing-change-action {
+  font-size: 0.7rem; letter-spacing: 0.08em; text-transform: uppercase;
+  margin-right: 0.5rem; font-weight: 700;
+}
+.briefing-change-start .briefing-change-action { color: var(--color-good); }
+.briefing-change-bench .briefing-change-action { color: var(--color-low); }
+.briefing-delta { margin-left: 0.5rem; font-variant-numeric: tabular-nums; color: var(--color-text-muted); }
+
+.briefing-details { margin-top: 1rem; }
+.briefing-details summary { cursor: pointer; font-weight: 600; padding: 0.4rem 0; }
+.briefing-practice-list { padding-left: 1.1rem; }
+.briefing-caveats {
+  margin-top: 1.5rem; padding: 0.75rem 1rem; border-left: 3px solid var(--color-divider);
+  color: var(--color-text-muted); font-size: 0.9rem;
+}
+.briefing-markdown {
+  white-space: pre-wrap; word-break: break-word; font-size: 0.82rem;
+  background: var(--color-bg); padding: 0.9rem; border-radius: var(--radius-md);
+  max-height: 32rem; overflow-y: auto;
+}
+
+@media (max-width: 640px) {
+  .briefing-lineup .briefing-slot { padding-left: 0 !important; }
+  .briefing-sub { font-size: 0.72rem; }
+}

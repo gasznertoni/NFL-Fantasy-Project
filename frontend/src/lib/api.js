@@ -145,3 +145,41 @@ export async function getPlayerPool(leagueId = 'league-1') {
 export async function getDefaultTeamConfig(leagueId = 'league-1') {
   return fetchJsonFixture(`${import.meta.env.BASE_URL}mock/${leagueId}/default-team-config.json`);
 }
+
+/**
+ * List a league's start/sit briefings, newest first.
+ *
+ * Briefings are written three times a week by the scheduled routines (see
+ * docs/specs/briefings-view.md) into `briefings/`, alongside a manifest they
+ * append to. Returns [] rather than null when there are none: an empty
+ * briefing list is a legitimate state, not a failure, and the view should
+ * render its empty state rather than an error.
+ *
+ * @param {string} [leagueId]
+ * @returns {Promise<Array<object>>} BriefingSummary[], newest first.
+ */
+export async function listBriefings(leagueId = 'league-2') {
+  const data = await fetchJsonFixture(
+    `${import.meta.env.BASE_URL}mock/${leagueId}/briefings/index.json`
+  );
+  const briefings = data && Array.isArray(data.briefings) ? data.briefings : [];
+  // Sort defensively rather than trusting the manifest's order: it is appended
+  // to by an unattended agent, and a mis-ordered manifest should show the right
+  // briefing first anyway. `slug` is YYYY-MM-DD-<kind>, so it sorts as a string.
+  return [...briefings].sort((a, b) => String(b.slug || '').localeCompare(String(a.slug || '')));
+}
+
+/**
+ * Fetch one briefing by slug.
+ * @param {string} leagueId
+ * @param {string} slug - e.g. "2026-09-05-sat"
+ * @returns {Promise<object|null>} the Briefing, or null if absent.
+ */
+export async function getBriefing(leagueId, slug) {
+  if (!slug || !/^[\w-]+$/.test(slug)) {
+    return null;
+  }
+  return fetchJsonFixture(
+    `${import.meta.env.BASE_URL}mock/${leagueId}/briefings/${slug}.json`
+  );
+}

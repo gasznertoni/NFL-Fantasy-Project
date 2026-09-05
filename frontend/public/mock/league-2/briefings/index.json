@@ -1,5 +1,15 @@
 {
   "_note": "Manifest of start/sit briefings, appended to by the scheduled routines (docs/specs/briefings-view.md). Newest first. Each entry points at a sibling <slug>.json. This file is committed empty so the path exists and the routines have something to append to rather than having to create the directory themselves.",
   "leagueId": "league-2",
-  "briefings": []
+  "briefings": [
+    {
+      "slug": "2026-09-05-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-09-05T06:11:09Z",
+      "week": 1,
+      "lineupTotal": 129.74,
+      "changeSummary": "bench Tee Higgins, start Jameson Williams",
+      "sourceIsLive": false
+    }
+  ]
 }

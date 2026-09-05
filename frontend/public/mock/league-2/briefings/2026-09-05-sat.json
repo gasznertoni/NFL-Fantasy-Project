@@ -1,0 +1,183 @@
+{
+  "slug": "2026-09-05-sat",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 1,
+  "kind": "saturday",
+  "generatedAt": "2026-09-05T06:11:09Z",
+  "runUrl": "https://claude.ai/code/session_01B2draNPrRQdD5YRR5wqNFi",
+  "source": {
+    "label": "committed fixture weekly-report-week-1.json",
+    "asOf": "2026-09-03T10:51:47Z",
+    "isLive": false,
+    "note": "nflreadpy.load_injuries(2026) was not published yet, and Sleeper/ESPN are proxy-blocked in the routine sandbox."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040691",
+      "name": "Jaxson Dart",
+      "position": "QB",
+      "opponent": "DAL",
+      "expectedPoints": 17.98,
+      "conditionalPoints": 19.14,
+      "playProbability": 0.94,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "BAL",
+      "expectedPoints": 17.02,
+      "conditionalPoints": 18.8,
+      "playProbability": 0.905,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "CIN",
+      "expectedPoints": 12.29,
+      "conditionalPoints": 13.58,
+      "playProbability": 0.905,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "NE",
+      "expectedPoints": 18.07,
+      "conditionalPoints": 19.3,
+      "playProbability": 0.936,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "PIT",
+      "expectedPoints": 13.52,
+      "conditionalPoints": 14.44,
+      "playProbability": 0.936,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0039338",
+      "name": "Brock Bowers",
+      "position": "TE",
+      "opponent": "MIA",
+      "expectedPoints": 13.63,
+      "conditionalPoints": 15.21,
+      "playProbability": 0.896,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "DAL",
+      "expectedPoints": 13.73,
+      "conditionalPoints": 15.17,
+      "playProbability": 0.905,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "NO",
+      "expectedPoints": 9.29,
+      "conditionalPoints": 11.81,
+      "playProbability": 0.787,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0037224",
+      "name": "Cameron Dicker",
+      "position": "K",
+      "opponent": "ARI",
+      "expectedPoints": 7.22,
+      "conditionalPoints": 7.99,
+      "playProbability": 0.903,
+      "designation": "Questionable"
+    },
+    {
+      "slot": "DEF",
+      "playerId": "PHI",
+      "name": "Eagles D/ST",
+      "position": "DST",
+      "opponent": "WAS",
+      "expectedPoints": 6.99,
+      "conditionalPoints": 6.99,
+      "playProbability": 1.0,
+      "designation": "Healthy"
+    }
+  ],
+  "lineupTotal": 129.74,
+  "changes": [
+    {
+      "action": "bench",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "reason": "Questionable, 52% to play \u2014 expected value falls below the bench alternative"
+    },
+    {
+      "action": "start",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "reason": "79% to play; higher expected value than the man he replaces"
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "why": "Questionable \u2014 could flip either way",
+      "newsDue": "Friday final designation"
+    },
+    {
+      "playerId": "00-0037224",
+      "name": "Cameron Dicker",
+      "why": "Questionable \u2014 could flip either way",
+      "newsDue": "Friday final designation"
+    },
+    {
+      "playerId": "00-0038997",
+      "name": "Josh Downs",
+      "why": "Questionable \u2014 could flip either way",
+      "newsDue": "Friday final designation"
+    }
+  ],
+  "opponentNotes": [],
+  "byesAhead": [
+    {
+      "week": 6,
+      "players": [
+        "Jameson Williams"
+      ]
+    },
+    {
+      "week": 7,
+      "players": [
+        "Cameron Dicker",
+        "Quentin Johnston"
+      ]
+    }
+  ],
+  "caveats": [
+    "Reconstructed from the run that produced it (session linked above) so the Briefings view had real data to render before the routines began writing their own. The lineup and change were recomputed from the same fixture that run read; `asOf` is that fixture's timestamp, not the one currently on disk. Nothing here is invented, but it is a reconstruction and the routines' own briefings from 2026-09-07 onward are the primary record.",
+    "Six days before kickoff. Wednesday and Friday practice reports will move these numbers before Sunday."
+  ],
+  "markdown": "See the linked run for the full prose. Headline: no live 2026 injury feed existed yet, so this was built from the same-day committed fixture, and the one lineup call was driven by a Questionable designation with a did-not-practise note."
+}

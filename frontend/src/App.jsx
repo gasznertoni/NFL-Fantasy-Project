@@ -3,9 +3,11 @@ import WeeklyReportView from './components/WeeklyReportView.jsx'
 import TeamConfigView from './components/TeamConfigView.jsx'
 import TrackRecordView from './components/TrackRecordView.jsx'
 import ExploreView from './components/ExploreView.jsx'
+import BriefingsView from './components/BriefingsView.jsx'
 
 const TABS = [
   { id: 'report', label: 'Weekly Report' },
+  { id: 'briefings', label: 'Briefings' },
   { id: 'explore', label: 'Explore' },
   { id: 'my-team', label: 'My Team' },
   { id: 'track-record', label: 'Track Record' },
@@ -94,6 +96,7 @@ export default function App() {
 
       <main className="app-main">
         {activeTab === 'report' && <WeeklyReportView leagueId={activeLeagueId} />}
+        {activeTab === 'briefings' && <BriefingsView leagueId={activeLeagueId} />}
         {activeTab === 'explore' && <ExploreView leagueId={activeLeagueId} />}
         {activeTab === 'my-team' && <TeamConfigView leagueId={activeLeagueId} />}
         {activeTab === 'track-record' && <TrackRecordView leagueId={activeLeagueId} />}
