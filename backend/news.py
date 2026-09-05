@@ -36,6 +36,11 @@ RISK_LEVELS = ("none", "low", "medium", "high")
 
 DEFAULT_NEWS_FLAG = {"designation": "Healthy", "riskLevel": "none", "summary": None}
 
+# Hoisted so the news cache can key on it: swapping the summarisation model
+# must invalidate cached summaries by construction, not by remembering to
+# flush them. See news_summaries.model in the store schema.
+SUMMARY_MODEL = "claude-haiku-4-5-20251001"
+
 # Sleeper injury_status strings → our designation/riskLevel enums
 _SLEEPER_DESIGNATION_MAP = {
     "Questionable": ("Questionable", "low"),
@@ -267,13 +272,29 @@ def _parse_json_object(raw_text: str) -> dict[str, Any]:
 SUMMARY_FAILURES: list[str] = []
 
 
-def summarize_player_news(player_name: str, articles: list[dict[str, Any]], client: Any) -> dict[str, Any]:
+def summarize_player_news(
+    player_name: str,
+    articles: list[dict[str, Any]],
+    client: Any,
+    store: Any = None,
+    player_id: Optional[str] = None,
+) -> dict[str, Any]:
     """Summarize a player's relevant articles into a validated newsFlag.
 
     Args:
         client: any object exposing `.messages.create(...)` matching the
             Anthropic SDK's shape (duck-typed deliberately, so tests can
             pass a fake without the `anthropic` package installed).
+        store: optional backend.store.Store. When supplied together with
+            `player_id`, the summary is looked up by
+            `(player_id, sha256(prompt))` before the API call and written
+            after it. 167 of the 936 players in a week-1 fixture carry a
+            summary, so an unchanged article being free is most of a run's
+            LLM cost. Content-addressed on the PROMPT, not the article list,
+            because the prompt is what the model actually saw -- a change to
+            build_summary_prompt must invalidate the cache too.
+        player_id: the cache key's other half. Without it there is nothing
+            stable to key on, so the cache is skipped rather than guessed at.
     Returns:
         DEFAULT_NEWS_FLAG immediately if there are no relevant articles at
         all -- an explicit "no news" case, not something to spend an LLM
@@ -283,9 +304,33 @@ def summarize_player_news(player_name: str, articles: list[dict[str, Any]], clie
         return dict(DEFAULT_NEWS_FLAG)
 
     prompt = build_summary_prompt(player_name, articles)
+
+    cache_key = None
+    if store is not None and player_id:
+        try:
+            from store import content_hash
+
+            cache_key = content_hash(prompt, SUMMARY_MODEL)
+            hit = store.get_news_summary(player_id, cache_key)
+            # The model check is belt-and-braces: SUMMARY_MODEL is already in
+            # the hash, so a model swap changes the key. Keeping it means a
+            # hand-written or migrated row cannot smuggle in a stale model.
+            if hit and hit.get("model") == SUMMARY_MODEL:
+                return _validate_news_flag(
+                    {
+                        "designation": hit.get("designation"),
+                        "riskLevel": hit.get("risk_level"),
+                        "summary": hit.get("summary"),
+                    }
+                )
+        except Exception:  # noqa: BLE001
+            # Same contract as everything else here: a store problem must not
+            # take down the report. Fall through to the live API call.
+            cache_key = None
+
     try:
         response = client.messages.create(
-            model="claude-haiku-4-5-20251001",
+            model=SUMMARY_MODEL,
             max_tokens=300,
             messages=[{"role": "user", "content": prompt}],
         )
@@ -304,7 +349,21 @@ def summarize_player_news(player_name: str, articles: list[dict[str, Any]], clie
         SUMMARY_FAILURES.append(f"{player_name}: {type(exc).__name__}: {exc}")
         return dict(DEFAULT_NEWS_FLAG)
 
-    return _validate_news_flag(candidate)
+    flag = _validate_news_flag(candidate)
+
+    # Write back only on a real, validated summary. A degraded result is never
+    # cached: caching a failure would make one bad API call permanent, which is
+    # the opposite of the never-take-down-the-pipeline contract.
+    if cache_key and flag.get("summary"):
+        try:
+            store.put_news_summary(
+                player_id, cache_key, flag["summary"],
+                flag.get("designation"), flag.get("riskLevel"), SUMMARY_MODEL,
+            )
+        except Exception:  # noqa: BLE001
+            pass
+
+    return flag
 
 
 def build_anthropic_client():

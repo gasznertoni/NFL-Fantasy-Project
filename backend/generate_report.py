@@ -167,6 +167,30 @@ def build_player_pool_entry(player: dict[str, Any], news_flag: dict[str, Any]) -
     }
 
 
+def _store_projection_rows(weekly_report: dict[str, Any]) -> list[dict[str, Any]]:
+    """weekly-report JSON -> store `projections` rows.
+
+    Note `points` is the EXPECTED value and `conditional_points` the
+    if-he-plays number, matching the column comments in the migration. Getting
+    these the wrong way round is the single easiest mistake a downstream query
+    can make, which is why both are carried explicitly rather than one being
+    derived.
+    """
+    rows = []
+    for entry in weekly_report.get("projections", []):
+        projection = entry.get("projection") or {}
+        rows.append({
+            "player_id": entry.get("playerId"),
+            "tier": projection.get("tier"),
+            "points": projection.get("points"),
+            "conditional_points": projection.get("conditionalPoints"),
+            "play_probability": projection.get("playProbability"),
+            "floor": projection.get("floor"),
+            "ceiling": projection.get("ceiling"),
+        })
+    return rows
+
+
 def _mixture_band(
     interval_model: Optional[Any],
     position: str,
@@ -928,6 +952,7 @@ def load_news_flags_nflreadpy(
     pool: list[dict[str, Any]],
     client: Any,
     espn_injury_rows: Optional[list[dict[str, Any]]] = None,
+    store: Any = None,
 ) -> dict[str, dict[str, Any]]:
     """One fetch_espn_news() call for the whole pool, then per-player
     matching + summarization. Sleeper injury designations are fetched once
@@ -972,7 +997,10 @@ def load_news_flags_nflreadpy(
         if not player_articles or client is None:
             flag = dict(DEFAULT_NEWS_FLAG)
         else:
-            flag = summarize_player_news(player["name"], player_articles, client)
+            flag = summarize_player_news(
+                player["name"], player_articles, client,
+                store=store, player_id=player["playerId"],
+            )
         flags[player["playerId"]] = apply_sleeper_designation(
             flag, player["name"], player.get("espnId"), sleeper_data
         )
@@ -1130,6 +1158,28 @@ def main(argv: Optional[list[str]] = None) -> None:
     pool = pool + dst_pool
 
     print(f"Loading {args.season} schedule...")
+    # The shared store (backend/store.py). Optional by construction: with no
+    # DATABASE_URL and no FANTASY_STORE_DIR this is a NullStore and every call
+    # below is a no-op, so the pipeline behaves exactly as it did before it
+    # existed. See docs/design/shared-data-store.md.
+    from store import config_hash as _config_hash
+    from store import open_store, pack_bundle, unpack_bundle
+
+    store = open_store()
+    run_id = None
+    if store.enabled:
+        import subprocess
+
+        try:
+            git_sha = subprocess.run(
+                ["git", "rev-parse", "HEAD"], capture_output=True, text=True, timeout=5
+            ).stdout.strip() or None
+        except Exception:  # noqa: BLE001
+            git_sha = None
+        run_id = store.start_run(args.season, args.week, git_sha, None)
+        if run_id:
+            print(f"  store: run {run_id} opened")
+
     schedule_games = load_schedule_nflreadpy(args.season)
 
     # The week the SEASON is on, which is not the week being generated and not
@@ -1145,7 +1195,6 @@ def main(argv: Optional[list[str]] = None) -> None:
         print(f"  season is on week {current_week}")
     except Exception as exc:  # noqa: BLE001
         print(f"  could not resolve the current week ({exc}) -- manifest omits it.")
-
 
     print(f"Loading {args.season} game logs (nflreadpy player stats)...")
     game_logs = load_all_game_logs_nflreadpy(args.season)
@@ -1180,7 +1229,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             )
         else:
             print("Fetching + summarizing ESPN news...")
-        news_flags = load_news_flags_nflreadpy(pool, client, espn_injury_rows)
+        news_flags = load_news_flags_nflreadpy(pool, client, espn_injury_rows, store=store)
 
     # Fetch raw FantasyPros + Rotowire data once (network calls); scoring is
     # applied per-league below so each league's projected_points reflect its
@@ -1481,13 +1530,33 @@ def main(argv: Optional[list[str]] = None) -> None:
             import calibration as calibration_module
             from calibration_fit import fit_from_history
 
-            return fit_from_history(
+            # Keyed on the SCORING CONFIG, not the league. Two leagues sharing
+            # a config hit the same cached bundle, which is what removes the
+            # per-league double-fit this loop otherwise pays for.
+            cfg_hash = _config_hash(
+                scoring_config,
+                window=args.window,
+                seasons=CALIBRATION_TRAIN_SEASONS,
+                blend=not args.skip_blend,
+            )
+            cached = store.get_model_fit(
+                args.season, args.week, "", cfg_hash, "calibration"
+            )
+            if cached is not None:
+                print("  calibration: reused a cached fit (same scoring config)")
+                return unpack_bundle(cached)
+
+            fitted = fit_from_history(
                 scoring_config,
                 season=args.season,
                 seasons=list(range(args.season - CALIBRATION_TRAIN_SEASONS, args.season)),
                 window=args.window,
                 fit_blend=not args.skip_blend,
             )
+            store.put_model_fit(
+                args.season, args.week, "", cfg_hash, "calibration", pack_bundle(fitted)
+            )
+            return fitted
         except Exception as exc:  # noqa: BLE001
             print(f"  Calibration/blend fit failed ({exc}) -- using uncalibrated projections.")
             return out
@@ -1601,6 +1670,17 @@ def main(argv: Optional[list[str]] = None) -> None:
             )
             print(f"Wrote {pool_path} ({len(player_pool['players'])} players)")
 
+            # Alongside the fixture, never instead of it. The fixture stays the
+            # only thing the frontend reads (design doc, "explicitly out of
+            # scope"); this is the append-only record the eval layer will move
+            # onto in phase 2.
+            written = store.write_projections(
+                run_id, league_id, args.season, args.week,
+                _store_projection_rows(weekly_report),
+            )
+            if written:
+                print(f"  store: logged {written} projections for {league_id}")
+
     # ---------------------------------------------------------------------------
     # Single-league path: backward-compatible behavior, unchanged.
     # ---------------------------------------------------------------------------
@@ -1640,6 +1720,19 @@ def main(argv: Optional[list[str]] = None) -> None:
             f"({len(weekly_report['projections'])} projections, {len(weekly_report['waiverTargets'])} waiver targets)"
         )
         print(f"Wrote {pool_path} ({len(player_pool['players'])} players)")
+
+        written = store.write_projections(
+            run_id, "single", args.season, args.week,
+            _store_projection_rows(weekly_report),
+        )
+        if written:
+            print(f"  store: logged {written} projections")
+
+    # Close the run last, whatever path ran. A run left 'running' is a run that
+    # crashed, which is exactly what the status column is for -- so this is
+    # deliberately not in a finally that would mark a crash as 'ok'.
+    store.finish_run(run_id, "ok")
+    store.close()
 
 
 if __name__ == "__main__":
