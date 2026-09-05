@@ -677,7 +677,10 @@ def now_iso() -> str:
 
 
 def _update_manifest(
-    manifest_path: "Path", week: int, current_week: Optional[int] = None
+    manifest_path: "Path",
+    week: int,
+    current_week: Optional[int] = None,
+    team_count: Optional[int] = None,
 ) -> None:
     """Write/update manifest.json for a league's fixture directory.
 
@@ -689,6 +692,12 @@ def _update_manifest(
                    18 on the day before week 1.
       currentWeek  the week the season is actually on, from the real schedule
                    (season_week.py). This is what a UI should open on.
+      teamCount    how many teams are in the league. Published because
+                   replacement level is a per-league quantity: the Nth best
+                   player at a position is startable somewhere in an 8-team
+                   league and long since rostered in a 14-team one, and a
+                   frontend comparing players across positions cannot compute
+                   that without it.
 
     The frontend used to default to latestWeek and so opened on week 18 all
     preseason. Written as its own field rather than by redefining latestWeek,
@@ -710,6 +719,9 @@ def _update_manifest(
     resolved = current_week if current_week is not None else existing.get("currentWeek")
     if resolved is not None:
         manifest["currentWeek"] = resolved
+    teams = team_count if team_count is not None else existing.get("teamCount")
+    if teams is not None:
+        manifest["teamCount"] = teams
     manifest_path.write_text(json.dumps(manifest, indent=2, allow_nan=False) + "\n")
 
 
@@ -1663,7 +1675,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             report_path.write_text(json.dumps(weekly_report, indent=2, allow_nan=False) + "\n")
             pool_path.write_text(json.dumps(player_pool, indent=2, allow_nan=False) + "\n")
             manifest_path = out_dir / "manifest.json"
-            _update_manifest(manifest_path, args.week, current_week)
+            _update_manifest(manifest_path, args.week, current_week, team_count)
             print(
                 f"Wrote {report_path} "
                 f"({len(weekly_report['projections'])} projections, {len(weekly_report['waiverTargets'])} waiver targets)"

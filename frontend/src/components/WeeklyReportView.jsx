@@ -14,7 +14,7 @@ import WeekSelector from './WeekSelector.jsx'
 import PlayerCard from './PlayerCard.jsx'
 import PlayerPickerRow from './PlayerPickerRow.jsx'
 import LoadingSkeleton from './LoadingSkeleton.jsx'
-import { lineupProjection, betterLineup, waiverReplacement } from '../lib/lineup.js'
+import { lineupProjection, betterLineup, waiverReplacement, replacementLevels } from '../lib/lineup.js'
 import EmptyState from './EmptyState.jsx'
 
 const FORMAT_LABEL = {
@@ -68,6 +68,7 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
   // playerId -> expected points for each horizon week, index 0 = `week`.
   const [pointsByWeek, setPointsByWeek] = useState(null)
   const [horizonWeeks, setHorizonWeeks] = useState(1)
+  const [teamCount, setTeamCount] = useState(null)
 
   function toggleRow(id) {
     setExpandedRows((prev) => {
@@ -91,6 +92,7 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
       // preseason. Fall back to latestWeek when currentWeek is absent --
       // generate_report omits it rather than guessing if the schedule cannot
       // be read, and older manifests predate the field.
+      if (manifest.teamCount > 0) setTeamCount(manifest.teamCount)
       const current = manifest.currentWeek
       if (current && current > 0) setWeek(current)
       else if (latest && latest > 0) setWeek(latest)
@@ -145,6 +147,16 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
     })
     return () => { cancelled = true }
   }, [week, maxWeek, leagueId])
+
+  // Replacement level per position, from this league's own slots and team
+  // count. Without it the waiver advice compares raw totals across positions
+  // and a D/ST outranks a WR for arithmetic reasons rather than real ones.
+  // Null until both the horizon and the team count are known; waiverReplacement
+  // then falls back to raw totals and the wording says so.
+  const replacement =
+    slots && pool && pointsByWeek && teamCount
+      ? replacementLevels(slots, teamCount, pointsByWeek, pool)
+      : null
 
   const metaReady = slots !== null && pool !== null && config !== undefined
   const slotOrder = metaReady ? startingSlotOrder(slots) : []
@@ -263,22 +275,31 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
       pointsByWeek,
       candidateId,
       weeks: horizonWeeks,
+      replacement,
     })
     if (!result) return null
 
     if (result.kind === 'empty-slot') return `Fills your open ${result.slotName} slot.`
 
     const window = result.weeks > 1 ? `next ${result.weeks} weeks` : 'this week'
+    // With replacement levels the compared numbers are value ABOVE the last
+    // startable player at each position, which is the only way a D/ST and a WR
+    // can be weighed against each other. Say which it is rather than printing
+    // two numbers whose meaning depends on state the reader cannot see.
+    const basis = result.adjusted ? 'above replacement' : 'projected'
+    const inV = result.adjusted ? result.inSurplus : result.inHorizon
+    const outV = result.adjusted ? result.outSurplus : result.outHorizon
+
     if (result.kind === 'hold') {
       return (
         `Better than ${result.name} (${result.slotName}) this week only ` +
-        `(${fmt(result.inWeek)} vs ${fmt(result.outWeek)}), but worse over the ${window} ` +
-        `(${result.inHorizon.toFixed(1)} vs ${result.outHorizon.toFixed(1)}) -- probably not worth the drop.`
+        `(${fmt(result.inWeek)} vs ${fmt(result.outWeek)}), but worth less over the ${window} ` +
+        `(${inV.toFixed(1)} vs ${outV.toFixed(1)} ${basis}) -- probably not worth the drop.`
       )
     }
     return (
       `Would replace ${result.name} (${result.slotName}) -- ` +
-      `${result.inHorizon.toFixed(1)} vs ${result.outHorizon.toFixed(1)} over the ${window}.`
+      `${inV.toFixed(1)} vs ${outV.toFixed(1)} ${basis} over the ${window}.`
     )
   }
 
