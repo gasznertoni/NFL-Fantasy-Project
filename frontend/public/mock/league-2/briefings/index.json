@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-09-07-mon",
+      "kind": "monday",
+      "generatedAt": "2026-09-07T06:15:57Z",
+      "week": 1,
+      "lineupTotal": 129.74,
+      "changeSummary": "no changes since Saturday; lineup holds (bench Tee Higgins, start Jameson Williams); week 1 hasn't kicked off yet",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-09-05-sat",
       "kind": "saturday",
       "generatedAt": "2026-09-05T19:34:00Z",
