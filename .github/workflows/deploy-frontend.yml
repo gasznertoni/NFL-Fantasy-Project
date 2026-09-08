@@ -1,9 +1,20 @@
-# Builds the React app and publishes it to GitHub Pages.
+# Builds the React app and checks the fixtures shipped with it.
 #
-# Runs on a push that touches the frontend -- which includes the briefings the
-# scheduled start/sit routines commit, so a new briefing reaches the deployed
-# site without anyone doing anything.
-name: Deploy frontend
+# Deployment itself is Vercel's job, not this workflow's: the Vercel project is
+# connected to this repo's git remote and deploys every push to main from the
+# `frontend/` root directory. That covers the briefings the scheduled start/sit
+# routines commit -- a new briefing reaches the deployed site without anyone
+# doing anything, same as before.
+#
+# This used to publish to GitHub Pages. It never once succeeded: Pages was never
+# enabled on the repo, and `actions/configure-pages` cannot create the site
+# itself ("Create Pages site failed. Error: Resource not accessible by
+# integration"), so every run since 2026-09-05 failed at that step. Rather than
+# maintain a second deploy target that needs its own subpath `base` (see
+# vite.config.js) and a manual repo-settings flip, the workflow keeps the part
+# that was earning its place -- catching a broken build or missing fixtures
+# before Vercel ships them -- and leaves deployment to Vercel.
+name: Frontend build check
 
 on:
   push:
@@ -11,18 +22,14 @@ on:
     paths:
       - 'frontend/**'
       - '.github/workflows/deploy-frontend.yml'
+  pull_request:
+    paths:
+      - 'frontend/**'
+      - '.github/workflows/deploy-frontend.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
-  pages: write
-  id-token: write
-
-# Let a running deploy finish rather than cancelling it; a half-published site
-# is worse than a slightly stale one.
-concurrency:
-  group: pages
-  cancel-in-progress: false
 
 jobs:
   build:
@@ -36,23 +43,15 @@ jobs:
           cache: npm
           cache-dependency-path: frontend/package-lock.json
 
-      - name: Configure Pages
-        id: pages
-        uses: actions/configure-pages@v5
-        with:
-          # Creates the Pages site on first run so this does not need a manual
-          # settings flip. Silently no-ops if Pages is already enabled.
-          enablement: true
-
       - run: npm ci
         working-directory: frontend
 
+      # No VITE_BASE: Vercel serves from the root, so vite.config.js's '/'
+      # fallback is the value that actually ships. Building with the same base
+      # Vercel uses is the point -- a subpath build here would check a bundle
+      # nobody deploys.
       - name: Build
         working-directory: frontend
-        # base_path comes back from configure-pages already carrying the repo
-        # subpath, so this stays correct if the repo is ever renamed.
-        env:
-          VITE_BASE: ${{ steps.pages.outputs.base_path }}
         run: npm run build
 
       - name: Fail if the fixtures did not ship
@@ -62,19 +61,10 @@ jobs:
         # "quiet" rather than broken. Catch that here instead of in the browser.
         run: |
           test -f dist/index.html
+          test -f dist/mock/league-1/manifest.json
+          test -f dist/mock/league-1/weekly-report-week-1.json
+          test -f dist/mock/league-2/manifest.json
+          # league-2 only: the scheduled start/sit routines write briefings for
+          # that league, and league-1 has no briefings/ directory at all.
           test -f dist/mock/league-2/briefings/index.json
           echo "fixtures present: $(find dist/mock -name '*.json' | wc -l) json files"
-
-      - uses: actions/upload-pages-artifact@v3
-        with:
-          path: frontend/dist
-
-  deploy:
-    needs: build
-    runs-on: ubuntu-latest
-    environment:
-      name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
-    steps:
-      - id: deployment
-        uses: actions/deploy-pages@v4
