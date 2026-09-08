@@ -75,6 +75,17 @@ ROLLED_BANDS = ("fg_made_0_39", "fg_made_50_plus")
 NATIVE_BANDS = ("fg_made_0_19", "fg_made_20_29", "fg_made_30_39",
                 "fg_made_50_59", "fg_made_60_plus")
 
+# MISSED field goals have the same two-family problem, added 2026-09-06 for
+# league-1's final settings: it charges -2 for a missed kick inside 40 and only
+# -1 from 40-49, and defines no line at all beyond 50 -- so a missed 55-yarder
+# is free. league-2 charges one flat -1 at every distance. Both families are
+# emitted; a config defining both would double-charge every miss.
+FLAT_MISS_BAND = ("fg_missed",)
+BANDED_MISS_BANDS = ("fg_missed_0_39", "fg_missed_40_49",
+                     "fg_missed_50_59", "fg_missed_60_plus")
+
+FG_MISSED_0_39_COLUMNS = ("fg_missed_0_19", "fg_missed_20_29", "fg_missed_30_39")
+
 
 def validate_fg_band_family(linear_config: dict) -> None:
     """Raise if a scoring config mixes the rolled and native FG band families.
@@ -99,8 +110,51 @@ FG_MISSED_COLUMNS = ("fg_missed", "fg_blocked")
 PAT_MISSED_COLUMNS = ("pat_missed", "pat_blocked")
 
 
+def validate_fg_miss_band_family(linear_config: dict) -> None:
+    """Raise if a scoring config mixes the flat and banded FG-miss families.
+
+    Same failure mode, and same reasoning, as validate_fg_band_family(): both
+    families are emitted into every kicker stat line, so a config defining keys
+    from both charges each missed kick twice."""
+    flat = [k for k in FLAT_MISS_BAND if k in linear_config]
+    banded = [k for k in BANDED_MISS_BANDS if k in linear_config]
+    if flat and banded:
+        raise ValueError(
+            "scoring config mixes FG-miss families and would double-charge "
+            f"missed field goals: flat {flat} alongside banded {banded}. Use "
+            "one family only -- either fg_missed, or the banded "
+            "fg_missed_0_39/fg_missed_40_49/fg_missed_50_59/fg_missed_60_plus."
+        )
+
+
 def _sum_columns(row: dict[str, Any], columns: tuple[str, ...]) -> float:
     return sum(row.get(c) or 0 for c in columns)
+
+
+def _blocked_distances(row: dict[str, Any]) -> list[float]:
+    """Distances of this game's blocked FGs, from nflreadpy's
+    `fg_blocked_list` -- a ";"-separated string ("36;44" for a two-block
+    game). `fg_blocked_distance` is NOT usable here: it is the SUM of the
+    distances (80 for that same game), not a distance.
+
+    A block is folded into the miss band matching its distance, keeping the
+    module's standing decision that a blocked kick counts as a miss (docstring
+    modeling decision #2) while respecting league-1's distance bands. If the
+    list is missing or unparseable the blocks are dropped rather than guessed
+    into a band -- charging the wrong band is worse than charging nothing, and
+    this is a 24-kicks-a-season category."""
+    raw = row.get("fg_blocked_list")
+    if not raw or not isinstance(raw, str):
+        return []
+    out = []
+    for part in raw.replace(",", ";").split(";"):
+        part = part.strip()
+        if part:
+            try:
+                out.append(float(part))
+            except ValueError:
+                continue
+    return out
 
 
 def nflreadpy_kicker_row_to_stat_line(row: dict[str, Any]) -> dict[str, float]:
@@ -114,6 +168,8 @@ def nflreadpy_kicker_row_to_stat_line(row: dict[str, Any]) -> dict[str, float]:
     key collisions (the two modules' category names are entirely
     disjoint)."""
     out: dict[str, float] = {}
+    if row.get("position") == "K":
+        out["position"] = "K"
     # Rolled family (league-1).
     made_0_39 = _sum_columns(row, FG_MADE_0_39_COLUMNS)
     if made_0_39:
@@ -131,9 +187,31 @@ def nflreadpy_kicker_row_to_stat_line(row: dict[str, Any]) -> dict[str, float]:
         val = row.get(nfl_col)
         if val:
             out[our_col] = val
+    # Flat family (league-2): every miss, blocked kicks included, one bucket.
     fg_missed = _sum_columns(row, FG_MISSED_COLUMNS)
     if fg_missed:
         out["fg_missed"] = fg_missed
+    # Banded family (league-1). nflreadpy's six native missed-distance buckets
+    # sum exactly to its own fg_missed total (checked over 2025: 140 = 140),
+    # so blocked kicks are genuinely NOT in them and are added here by distance.
+    banded = {
+        "fg_missed_0_39": _sum_columns(row, FG_MISSED_0_39_COLUMNS),
+        "fg_missed_40_49": row.get("fg_missed_40_49") or 0,
+        "fg_missed_50_59": row.get("fg_missed_50_59") or 0,
+        "fg_missed_60_plus": row.get("fg_missed_60_") or 0,
+    }
+    for distance in _blocked_distances(row):
+        if distance < 40:
+            banded["fg_missed_0_39"] += 1
+        elif distance < 50:
+            banded["fg_missed_40_49"] += 1
+        elif distance < 60:
+            banded["fg_missed_50_59"] += 1
+        else:
+            banded["fg_missed_60_plus"] += 1
+    for key, value in banded.items():
+        if value:
+            out[key] = value
     pat_missed = _sum_columns(row, PAT_MISSED_COLUMNS)
     if pat_missed:
         out["pat_missed"] = pat_missed

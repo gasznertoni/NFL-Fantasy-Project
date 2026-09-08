@@ -1,38 +1,54 @@
 {
   "_PLACEHOLDER": false,
-  "_note": "MOSTLY REAL as of 2026-08-16 (updated same day: 2pt conversions and FG 50+ confirmed absent from ESPN's League Info screen entirely, not just missing from the original screenshots -- see _linear_category_notes). Real values confirmed hands-on from the builder's actual ESPN league settings (League Info > Scoring) -- CLAUDE.md Next Steps items 1-2 (real values + the 4 schema questions) are now answered for every category below except the DST points-allowed/yards-allowed tiers (see _tiers_note -- the one remaining gap, still being tracked down, not yet confirmed either way). Two things confirmed real but NOT YET BUILT in code -- see _new_mechanics_not_yet_built below and CLAUDE.md's Next Steps -- so this file alone isn't sufficient to produce fully correct real points yet, just closer than the pure guess it replaces. reception=1 (changed from the old 0.5 half-PPR guess) is the single biggest change: this is a FULL PPR league, not half-PPR -- the frontend's leagueFormatAssumption ('half_ppr') needs to change to match, that's a frontend/generate_report.py follow-up, not something this file alone fixes.",
-  "_schema_questions_answered_2026_08_16": "CLAUDE.md Next Steps item 2's four open questions, now answered from the real settings: (a) forced fumble is its own category, separate from recovered -- YES, 'Each Fumble Forced (FF)' = 1 (was guessed at 0). (b) a plain non-lost 'Fumble' penalty exists as its own category, separate from 'Fumble Lost' -- YES, 'Total Fumbles (FUM)' = -1 stacks with 'Total Fumbles Lost (FUML)' = -2 (a lost fumble costs -3 total, not just -2) -- this league has BOTH categories, the placeholder only ever modeled fumble_lost. (c) offensive yardage-milestone bonuses ARE configurable -- YES, but the real bands are narrower than guessed: only ONE tier each (400+ passing=2.5, 200+ rush/rec=1), not the two-tier 300/400 and 100/200 structure this file used to guess -- see the milestones section below, already updated. There's also a genuinely NEW mechanic the placeholder never modeled at all: a flat +1 bonus for any TD play (pass/rush/rec) covering 50+ yards, on top of the base 6 -- see _new_mechanics_not_yet_built. (d) defensive/return TD handling -- ANSWERED, and it changes backend/dst.py's def_st_td shape, not just its value: the real settings show only ONE explicit TD-credit line under Miscellaneous, 'Fumble Recovered for TD (FTD)' = 6 -- no separate 'Interception Return TD' or 'Punt/Kickoff Return TD' bonus line appears anywhere in the settings (Passing/Rushing/Receiving/Kicking/Miscellaneous/Defensive-Players sections were all captured top to bottom with no visible gaps). dst.py's DST_TD_COLUMNS currently sums nflreadpy's def_tds (which bundles INT-return AND fumble-return TDs together) plus special_teams_tds into one def_st_td bucket, crediting all of them at the same rate -- the real rule looks narrower (fumble-recovery TDs only get the +6; INT-return and kick/punt-return TDs may get nothing beyond the base def_int/return-yardage points already awarded). Needs a code follow-up to confirm nflreadpy can actually separate fumble-return TDs from INT-return TDs within def_tds, and narrow dst.py's mapping if so -- not just a config-value change. Flagged in CLAUDE.md Next Steps.",
-  "_new_mechanics_not_yet_built": "Two things the real settings confirmed exist but nothing in backend/ produces yet: (1) the 50+ yard TD distance bonus (PTD50/RTD50/RETD50, all +1) -- this is a per-play stat ('was this specific TD 50+ yards'), not a cumulative-yardage milestone like the existing milestones mechanism handles, so it can't just be added as a JSON value -- it needs a real data-source check (does nflreadpy's weekly-aggregated player_stats carry a count of long TD plays, or does this need play-by-play data instead) before it can be built at all. (2) def_st_td's shape narrowing per the schema-questions note above. Both are new Next Steps items, not done by this file.",
+  "_note": "FINAL, confirmed 2026-09-06 from the builder's own screenshots of ESPN's complete League Settings > Scoring screen for the AUT-HUN Football League (14 teams, League Manager format). This REPLACES the 2026-08-16 values wholesale -- the league was re-configured between the two captures and the differences are structural, not cosmetic. See _changed_2026_09_06 for the full before/after and _still_unconfirmed for the two blocks this capture did not cover.",
+  "_changed_2026_09_06": "Twelve changes, several of which invert long-standing project assumptions. (1) PASSING TOUCHDOWNS ARE 4, NOT 6. CLAUDE.md's own framing -- 'this league uses 6-point passing touchdowns (not the 4-point default most presets assume)' -- is now false for league-1 and has been corrected there. (2) Passing yards are 1 per 20 (0.05/yd), not 1 per 25 (0.04). (3) NEW: each completion +0.1 and each incompletion -0.1, a per-attempt efficiency term nothing in this repo modelled. (4) NEW: 'Sacked' -0.5 per sack taken. (5) TE-PREMIUM PPR: a reception is worth 1.0 to a TE and 0.5 to a QB/RB/WR. The league is no longer full PPR for anyone but tight ends, and it was never half-PPR for tight ends -- this is the first genuinely position-scoped value in the config, and it is what forced resolve_value() into scoring.py. (6) NEW: rushing and receiving FIRST DOWNS at 0.75 each -- a large, high-frequency volume term (a 6-catch WR typically banks 3-4 of them). (7) 2-point conversions now score 2 across pass/rush/rec; they were confirmed absent in August and are confirmed present now. (8) Milestones re-priced and re-banded: RY100/REY100 at 0.75 (TE 1.0, QB 0), RY200 at 2, REY200 at 1 (TE 2), P400 unchanged at 2.5. (9) FG made re-banded to ESPN's six native buckets at 3/3/3/4/5/5 -- the 40-49 band went 3 -> 4 and 50+ now pays 5. (10) FG missed is now DISTANCE-BANDED: -2 inside 40, -1 from 40-49, and NO LINE at all beyond 50, so a missed 55-yarder is free. (11) The 50+/40+ yard TD distance bonuses are confirmed real with values -- see _not_computable. (12) The D/ST yards-allowed tail is CONFIRMED: the screenshot shows 500-549 = -6 and 550+ = -7, matching this file's existing placeholder ladder character-for-character. That block is no longer a guess at its tail, which materially raises confidence in the rest of it (see _tiers_note).",
   "linear": {
-    "pass_yd": 0.04,
-    "pass_td": 6,
+    "pass_yd": 0.05,
+    "pass_completion": 0.1,
+    "pass_incompletion": -0.1,
+    "pass_td": 4,
     "pass_int": -2,
-    "pass_2pt": 0,
+    "pass_2pt": 2,
+    "pass_sacked": -0.5,
     "rush_yd": 0.1,
     "rush_td": 6,
-    "rush_2pt": 0,
+    "rush_first_down": 0.75,
+    "rush_2pt": 2,
     "rec_yd": 0.1,
+    "reception": {
+      "TE": 1,
+      "default": 0.5
+    },
     "rec_td": 6,
+    "rec_first_down": 0.75,
+    "rec_2pt": 2,
     "return_td": 6,
-    "rec_2pt": 0,
-    "reception": 1,
+    "kick_return_yd": 0.1,
+    "punt_return_yd": 0.1,
     "fumble": -1,
     "fumble_lost": -2,
-    "fumble_forced": 1,
+    "fumble_recovery_td": 6,
+    "fumble_forced": 0.25,
     "def_sack": 1,
     "def_int": 2,
-    "def_fumble_rec": 1,
+    "def_fumble_rec": 2,
     "def_safety": 2,
     "def_blocked_kick": 2,
-    "def_fumble_rec_td": 6,
-    "fg_made_0_39": 3,
-    "fg_made_40_49": 3,
-    "fg_made_50_plus": 3,
-    "fg_missed": -2,
+    "fg_made_0_19": 3,
+    "fg_made_20_29": 3,
+    "fg_made_30_39": 3,
+    "fg_made_40_49": 4,
+    "fg_made_50_59": 5,
+    "fg_made_60_plus": 5,
+    "fg_missed_0_39": -2,
+    "fg_missed_40_49": -1,
     "pat_made": 1,
-    "pat_missed": -1
+    "pat_missed": -1,
+    "def_td": 6,
+    "def_st_td": 6,
+    "def_2pt_return": 2
   },
-  "_linear_category_notes": "Confirmed real 2026-08-16 (matches or replaces the old guess -- see git diff for exact before/after): pass_yd, pass_td, pass_int, rush_yd, rush_td, rec_yd, rec_td, reception (0.5->1, full PPR), fumble_lost, fumble_forced (0->1), def_sack, def_int, def_fumble_rec (2->1), def_safety, def_blocked_kick, def_return_yd (0.02->0.1), fg_made_0_39, fg_made_40_49 (4->3), fg_missed (-1->-2, and confirmed flat across both observed distance bands rather than the old single-value guess being wrong about structure too), pat_made, pat_missed. NEW category added, confirmed real, needs a stat-line-assembly mapping added to scoring.py's column map before it does anything (currently just sits in config unused): 'fumble' = -1 (any fumble, stacks with fumble_lost). NEW category added, confirmed real, needs BOTH a column mapping AND doesn't exist as data yet -- see _new_mechanics_not_yet_built: none, pass_sacked/PTD50/RTD50/RETD50 style per-play bonuses aren't in this linear block at all yet, deliberately, since there's no stat_line field to map them from. UPDATED 2026-08-16 (second pass) -- confirmed by checking ESPN's League Info screen directly, not just absent from the first round of screenshots: pass_2pt/rush_2pt/rec_2pt (2->0 -- this league genuinely does not award points for 2-point conversions, no line exists for it anywhere in League Info). fg_made_50_plus (5->3 -- no separate 50+ band exists in this league's Kicking settings either; treated as a '40+' catch-all at the same rate as fg_made_40_49 (3), since ESPN has to score a 50+ yard make somehow and the highest defined band is the only reasonable read -- fg_missed's single flat -2 already covers a 50+ miss the same way, no separate value needed there). def_st_td's VALUE (6) happens to already match the real 'Fumble Recovered for TD' line, but its SHAPE is flagged separately above -- don't read the value match as the shape question being closed too.",
+  "_linear_notes": "`reception` is position-scoped: {\"TE\": 1, \"default\": 0.5}, read by scoring.resolve_value(). Position comes from stat_line[\"position\"], which projections.load_full_pool_game_logs, dst.assemble_dst_stat_line and kicker.nflreadpy_kicker_row_to_stat_line all set. FG MADE uses ESPN's six NATIVE distance buckets, so this config must not also define the rolled fg_made_0_39/fg_made_50_plus keys -- kicker.validate_fg_band_family() raises if it does. FG MISSED uses the BANDED family for the same reason; kicker.validate_fg_miss_band_family() guards it. There is deliberately no fg_missed_50_59 or fg_missed_60_plus key: ESPN's screen has no such line, so a long miss scores exactly nothing. D/ST TOUCHDOWNS: this league credits all five TD lines (Kickoff Return, Punt Return, Interception Return, Fumble Return, Blocked Punt/FG Return) at 6, so no decomposition is needed -- def_td covers the defensive pair and def_st_td the special-teams ones. That RETIRES the v15 narrowing to fumble-recovery TDs only, which was inferred from an August capture where no INT/kick-return TD line was visible; the 2026-09-06 capture shows all five explicitly. def_fumble_rec_td is no longer defined by either league. RETURN YARDAGE: the Miscellaneous block's KR10/PR10 lines are CONFIRMED and are the PLAYER side (linear.kick_return_yd / punt_return_yd, 0.1/yd). The Team Defense / Special Teams block has no return-yardage line at all, which independently re-confirms the 2026-09-02 removal of def_return_yd.",
   "milestones": {
     "pass_yd": {
       "mode": "highest",
@@ -47,8 +63,12 @@
       "mode": "highest",
       "tiers": [
         {
+          "threshold": 100,
+          "points": 0.75
+        },
+        {
           "threshold": 200,
-          "points": 1
+          "points": 2
         }
       ]
     },
@@ -56,47 +76,82 @@
       "mode": "highest",
       "tiers": [
         {
+          "threshold": 100,
+          "points": {
+            "TE": 1,
+            "QB": 0,
+            "default": 0.75
+          }
+        },
+        {
           "threshold": 200,
-          "points": 1
+          "points": {
+            "TE": 2,
+            "QB": 1,
+            "default": 1
+          }
         }
       ]
     }
   },
-  "_milestones_note": "Replaced 2026-08-16 -- the old guess had a two-tier structure (300/400 passing at 3/5, 100/200 rush/rec at 3/5) that doesn't match the real league at all. The real settings show exactly one tier each, at different thresholds and much lower point values: 400+ passing yards = 2.5, 200+ rushing yards = 1, 200+ receiving yards = 1 -- no 300+ or 100+ tier exists. High confidence this is the complete list (the real Passing/Rushing/Receiving sections were each captured start-to-finish with no visible gaps), but this replaced a real structural assumption the old milestones bore no resemblance to, worth double-checking against the app directly once.",
+  "_milestones_note": "mode is \"highest\", not \"cumulative\": ESPN's bands read '100-199 yard game' and '200+ yard game', which are mutually exclusive, so a 210-yard rushing game pays 2 and not 2.75. Milestone points are position-scoped the same way linear values are -- a 120-yard receiving game pays a TE 1.0, an RB/WR 0.75 and a QB nothing.",
+  "_not_computable": {
+    "_why": "Confirmed real in the 2026-09-06 settings, deliberately NOT in `linear` because nflreadpy's weekly aggregates cannot produce them and a category with no source column would sit here scoring a silent zero -- exactly the failure mode CLAUDE.md's 'a column-map key that matches nothing is silent' note exists to prevent. Listed here so the config stays a faithful record of the real league without pretending the engine implements it. Unchanged in kind from the v15 investigation (docs/research/50-yard-td-bonus.md): load_player_stats() carries passing_40/rushing_40/receiving_40, which count 40+ yard PLAYS, not 40+ yard TOUCHDOWNS. load_pbp() could resolve it; the scope call made in v15 still stands. Also not computable, added 2026-09-06 and both negligible: '1pt Safety' (1PSF, worth 2 to a D/ST and 1 to a player) has no nflreadpy column -- it is the conversion-safety rule and is vanishingly rare. The player-side 2pt Return (2PTRET) likewise has no player-level column; the D/ST side IS mapped, from def_2pt_made.",
+    "pass_td_50": 1,
+    "rush_td_50": 1,
+    "rec_td_40": {
+      "TE": 1,
+      "default": 0
+    },
+    "rec_td_50": {
+      "TE": 2,
+      "default": 1
+    },
+    "dst_1pt_safety": 2,
+    "player_1pt_safety": 1
+  },
   "tiers": {
     "def_points_allowed": [
       {
         "max": 0,
-        "points": 10
+        "points": 5
       },
       {
         "max": 6,
-        "points": 7
-      },
-      {
-        "max": 13,
         "points": 4
       },
       {
-        "max": 20,
+        "max": 13,
+        "points": 3
+      },
+      {
+        "max": 17,
         "points": 1
       },
       {
-        "max": 27,
+        "max": 21,
         "points": 0
+      },
+      {
+        "max": 27,
+        "points": -1
       },
       {
         "max": 34,
         "points": -1
       },
       {
+        "max": 45,
+        "points": -3
+      },
+      {
         "max": 999,
-        "points": -4
+        "points": -5
       }
     ],
     "def_yards_allowed": [
       {
-        "max": 100,
+        "max": 99,
         "points": 5
       },
       {
@@ -109,7 +164,7 @@
       },
       {
         "max": 349,
-        "points": 0
+        "points": 1
       },
       {
         "max": 399,
@@ -133,12 +188,8 @@
       }
     ]
   },
-  "_tiers_note": "STILL FULLY PLACEHOLDER -- unlike everything else in this file, the 2026-08-16 screenshots never showed a Points Allowed or Yards Allowed settings screen (these are usually their own dedicated sub-page in ESPN's D/ST scoring settings, separate from the general Scoring list this file's other values came from). Both tier tables below are still the original guess, completely unconfirmed. This is the single biggest remaining gap in this file -- get screenshots of those two specific settings screens next.",
-  "_def_st_td_rename_note": "2026-09-02: this league's single D/ST touchdown rule is ESPN's \"Fumble Recovered for TD (FTD) = 6\" (confirmed v15, docs/research/dst-td-decomposition.md). It was keyed as def_st_td when this was the only league; league-2 has a genuinely different rule set that needs def_st_td to mean a special-teams return TD, so this key was renamed to def_fumble_rec_td. Pure rename -- same source column (fumble_recovery_tds), same 6 points, identical scoring.",
-  "_def_return_yd_removed_2026_09_02": "REMOVED (was 0.1 pts/yd). At 0.1 pts per return yard this single category produced 11.46 of a 16.66 pts/game D/ST average -- 68.8% of every D/ST score -- and put four D/STs in the week-10 top 20 at 20.6-22.6 points, against a typical ESPN D/ST of 7-9. The v16 audit flagged it and deliberately left it as a league-settings question. It was resolved 2026-09-02 by league-2's complete ESPN 'Scoring Settings' screen, which lists every D/ST category and has NO return-yardage line at all; league-2 scores 6.57 pts/game. ESPN's default D/ST set does not include return yardage either. Removed with the builder's explicit confirmation. Effect: league-1 D/ST mean 16.66 -> 5.20 pts/game.",
-  "_unconfirmed": [
-    "tiers.def_yards_allowed -- the only block here never seen on a real ESPN settings screen. Re-examined 2026-09-02 and the evidence now points toward it being CORRECT, which is the opposite of the second audit's initial read. Three reasons. (1) ESPN's own D/ST support page states a defence gains and loses points on yards allowed, so unlike def_return_yd this is a genuine ESPN category, not an invention. (2) The points-allowed ladder in this same placeholder block (10/7/4/1/0/-1/-4) is character-for-character identical to league-2's CONFIRMED values, so whoever wrote this block was transcribing ESPN's standard table rather than guessing -- and that table verified exactly where it could be checked. (3) The only counter-evidence is that league-2's screen has no yards-allowed line, but league-2 is a heavily customised league (4-point passing TDs, six FG bands, scoring 2-point conversions), so its commissioner switching the category off says nothing about this league. Impact if wrong: mean -0.52 pts/game, sd 2.31, range -7 to +5. Removing it moves the D/ST mean from 5.20 to 5.72 and leaves the ranking almost intact -- Spearman 0.944, 7 of the top 8 unchanged, largest single move 9 places. Low stakes either way; confirm opportunistically rather than chasing it."
-  ],
-  "_placeholder_note": "_PLACEHOLDER flipped to false 2026-09-02. Every category here is now confirmed from the real ESPN settings screen except the one block listed in _unconfirmed. The old blanket flag made generate_report.py print 'projections will be inaccurate until real values are entered' on every run, which stopped being true after v13-v14 and was actively misleading -- a warning that is always on is a warning nobody reads.",
-  "_def_return_yd_vs_yards_allowed": "These two were NOT the same question, though the second audit initially framed them that way. def_return_yd is not an ESPN D/ST category at all -- it was worth 68.8% of every D/ST score and was correctly removed. def_yards_allowed IS an ESPN category, is worth a tenth as much, and is probably right. Do not remove it by analogy."
+  "_tiers_note": "CONFIRMED 2026-09-06 from the real settings screen -- and BOTH ladders were wrong before, which retracts the reasoning recorded in v18. Points allowed was 10/7/4/1/0/-1/-4 on bands 0/6/13/20/27/34/+; it is really 5/4/3/1/0/-1/-1/-3/-5 on bands 0/1-6/7-13/14-17/18-21/22-27/28-34/35-45/46+. Yards allowed was right in seven of nine rows; the 300-349 band pays 1, not 0, and the top band is 'less than 100', so its max is 99 rather than 100. The v18 argument for keeping the old ladder was that it was 'character-for-character identical to league-2's CONFIRMED values, so whoever wrote this block was transcribing ESPN's standard table rather than guessing'. That inference was invalid: the two leagues genuinely have different points-allowed ladders, so matching league-2 was evidence of a shared DEFAULT, not of this league's real settings. Worth remembering as a general lesson -- agreement with a different league's confirmed values is not confirmation. One band is inferred rather than seen: ESPN's screen lists PA14 (14-17) then jumps to PA22 (22-27), omitting the 18-21 row. It is set to 0 here, which is ESPN's default and the only value that keeps the ladder monotone between the 1 above it and the -1 below.",
+  "_def_return_yd_removed_2026_09_02": "REMOVED (was 0.1 pts/yd on the D/ST side) and STILL REMOVED after the 2026-09-06 recapture. At 0.1 pts per return yard this single category produced 11.46 of a 16.66 pts/game D/ST average -- 68.8% of every D/ST score. Note the Miscellaneous block's KR10/PR10 lines are the PLAYER-side equivalent and ARE scored (see linear.kick_return_yd); that is a different category from crediting a team defence with its return unit's yardage, which no ESPN D/ST settings screen has ever shown for either league.",
+  "_def_st_td_rename_note": "History, kept because the shape changed twice. v15 narrowed this league's D/ST touchdown credit to fumble-recovery TDs only (def_st_td -> def_fumble_rec_td), inferring from the August capture that no INT-return or kick-return TD line existed. The 2026-09-06 capture shows all five TD lines explicitly at 6 each, so the narrowing is retired and this league now uses the same def_td + def_st_td pair as league-2. Separately: nflreadpy's `fumble_recovery_tds` is NOT a defensive column -- it sits beside fumble_recovery_own/_opp and includes a team's own offensive fumble recovered for a score. Measured over 2024-25 it exceeds def_tds on 35 team-games, so it was never a subset of it. Nothing scores off it now, but do not map it back onto a D/ST category.",
+  "_confirmed_2026_09_06": "Every block of this league's ESPN scoring screen has now been captured: Passing, Rushing, Receiving, Kicking, Miscellaneous, Team Defense / Special Teams, and both the points-allowed and yards-allowed ladders. Nothing in this file is a guess any more, with the two exceptions called out explicitly: the 18-21 points-allowed band (inferred, see _tiers_note) and the categories in _not_computable (real, but with no source column). That closes the single longest-running open item in this project -- the D/ST tier tables had been carrying an unconfirmed placeholder since the first config was written."
 }

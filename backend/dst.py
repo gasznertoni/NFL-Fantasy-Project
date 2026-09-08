@@ -68,29 +68,39 @@ DST_DIRECT_COLUMN_MAP = {
     "fumble_recovery_opp": "def_fumble_rec",
     "def_safeties": "def_safety",
     "def_fumbles_forced": "fumble_forced",
-    # Three DISTINCT touchdown concepts, emitted under three distinct names so
-    # each league's config can score exactly the rule it actually has. Before
-    # 2026-09-02 fumble_recovery_tds was emitted as "def_st_td", which worked
-    # only because league-1 was the sole league and its one TD-credit line was
-    # the fumble-recovery bonus. league-2's real settings score a general
-    # "Defense TD" AND a separate "Special teams td", so the names now mean
-    # what they say:
+    # Touchdown concepts, emitted under distinct names so each league's config
+    # scores exactly the rule it has:
     #
-    #   def_fumble_rec_td  fumble recovered and returned for a score
-    #                      (league-1's "Fumble Recovered for TD, FTD = 6")
     #   def_td             any defensive touchdown -- INT return, fumble return
-    #                      (league-2's "Defense TD = 6")
-    #   def_st_td          kick/punt return touchdown by the special-teams unit
-    #                      (league-2's "Special teams td = 6")
+    #   def_st_td          kick/punt/blocked-kick return TD by the ST unit
+    #   def_fumble_rec_td  fumble recovered and returned for a score
     #
-    # A config scores only the keys it defines, so league-1 sees exactly the
-    # number it saw before this change and league-2 sees its own two rules.
+    # As of 2026-09-06 NEITHER shipped league defines def_fumble_rec_td: both
+    # credit every defensive and special-teams touchdown at 6, so both use the
+    # def_td + def_st_td pair. league-1 used def_fumble_rec_td between v15 and
+    # 2026-09-06 because the August settings capture showed only a
+    # "Fumble Recovered for TD" line; the final capture shows all five TD lines
+    # (Kickoff Return, Punt Return, Interception Return, Fumble Return, Blocked
+    # Punt/FG Return) explicitly, so that narrowing is retired.
+    #
+    # WARNING on fumble_recovery_tds, established 2026-09-06: it is NOT a
+    # defensive column. It sits beside fumble_recovery_own / fumble_recovery_opp
+    # in nflreadpy's team table and counts a team's fumble recoveries returned
+    # for a score from ANY phase, including its own offence recovering in the
+    # end zone. Over 2024-25 it EXCEEDS def_tds on 35 team-games, so it was
+    # never the subset of def_tds that v15 assumed. It is left mapped because
+    # the category is real and correctly named, but do not point a D/ST rule at
+    # it without decomposing the offensive share first.
+    #
     # NOTE def_td and def_fumble_rec_td overlap by construction -- a fumble
     # returned for a score is also a defensive touchdown -- so a config must
     # not define both. validate_dst_td_categories() enforces that.
     "fumble_recovery_tds": "def_fumble_rec_td",
     "def_tds": "def_td",
     "special_teams_tds": "def_st_td",
+    # ESPN's "2pt Return (2PTRET)" -- the defence returning a failed conversion.
+    # Rare (4 across 2024-25) but a real, mapped line in both leagues' settings.
+    "def_2pt_made": "def_2pt_return",
 }
 
 # def_td already includes every fumble-return score, so pairing it with

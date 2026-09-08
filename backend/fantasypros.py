@@ -21,7 +21,7 @@ fixtures, no network) and real network/data adapters (bottom half,
 from __future__ import annotations
 
 import time
-from typing import Any
+from typing import Any, Optional
 
 from scoring import compute_league_points
 
@@ -78,6 +78,94 @@ REQUEST_DELAY_SECONDS = 2.0
 # ---------------------------------------------------------------------------
 
 
+# ---------------------------------------------------------------------------
+# Imputation for categories FantasyPros does not publish.
+#
+# Added 2026-09-06, when league-1's final ESPN settings began scoring rushing
+# and receiving first downs (0.75 each), completions (+0.1), incompletions
+# (-0.1) and sacks taken (-0.5). FantasyPros' free-tier projection carries
+# yards/TDs/receptions/interceptions/fumbles and nothing else, so under the new
+# config a consensus-tier stat line silently loses real points -- measured on
+# 2025 actuals: RB 3.29 and WR 2.98 pts/game, roughly a third of an RB's score.
+#
+# That matters more than the absolute error: the consensus tier and the
+# in-house tier are ranked against each other for start/sit advice, so a bias
+# that hits only one of them makes the two numbers non-comparable. Leaving the
+# categories absent is NOT the safe default here -- "absent contributes 0" is
+# correct for a rule a league does not have, and wrong for a rule it does.
+#
+# Least squares on 2022-25 load_player_stats(), one fit per position, keyed on
+# only the fields FantasyPros actually publishes. Fit quality (R2 / MAE in
+# natural units): receiving first downs QB .665/.003, RB .702/.287,
+# WR .842/.473, TE .803/.431; rushing first downs QB .662/.643, RB .763/.669,
+# WR .594/.053, TE .646/.038; completions .780/3.00 and attempts .703/5.24 off
+# passing yards. Net effect at WR: a ~3 pt/game systematic bias traded for
+# ~0.35 pts of noise.
+#
+# Sacks are the exception and are deliberately a CONSTANT: passing yards carry
+# essentially no signal about sacks taken (R2 = 0.043), so a regression here
+# would be false precision. 2.13 is the 2022-25 per-game mean for a QB with at
+# least one attempt.
+#
+# Coefficients are [intercept, ...] in the order named by each comment. These
+# are estimates of a projection's expected value, not of any one game.
+# ---------------------------------------------------------------------------
+# [intercept, per reception, per receiving yard]
+RECEIVING_FIRST_DOWN_MODEL = {
+    "QB": [-0.0002, 0.2505, 0.0381],
+    "RB": [-0.0168, 0.0591, 0.0377],
+    "WR": [-0.0172, 0.2872, 0.0253],
+    "TE": [-0.0402, 0.1747, 0.0352],
+}
+# [intercept, per rushing yard] -- carries are not published, so yards only.
+RUSHING_FIRST_DOWN_MODEL = {
+    "QB": [0.2881, 0.0610],
+    "RB": [0.1275, 0.0480],
+    "WR": [0.0110, 0.0426],
+    "TE": [0.0147, 0.0565],
+}
+# [intercept, per passing yard]
+COMPLETIONS_MODEL = [3.3079, 0.0751]
+ATTEMPTS_MODEL = [7.4872, 0.1047]
+MEAN_SACKS_PER_GAME = 2.13
+
+
+def _linear(model: list[float], *features: float) -> float:
+    return max(0.0, model[0] + sum(m * f for m, f in zip(model[1:], features)))
+
+
+def impute_unpublished_categories(
+    stat_line: dict[str, float], position: Optional[str]
+) -> dict[str, float]:
+    """Add the scoring categories FantasyPros does not publish, estimated from
+    the ones it does. Returns a new dict; the input is not mutated.
+
+    Safe to run for every league: it only adds stat-line keys, and a league
+    whose config does not define a category ignores it entirely (league-2 has
+    no first-down, completion or sack line, so this is a no-op there).
+
+    Only fills a key that is absent, so a real published value always wins."""
+    out = dict(stat_line)
+    receptions = out.get("reception", 0) or 0
+    rec_yd = out.get("rec_yd", 0) or 0
+    rush_yd = out.get("rush_yd", 0) or 0
+    pass_yd = out.get("pass_yd", 0) or 0
+
+    if position in RECEIVING_FIRST_DOWN_MODEL and (receptions or rec_yd):
+        out.setdefault("rec_first_down",
+                       _linear(RECEIVING_FIRST_DOWN_MODEL[position], receptions, rec_yd))
+    if position in RUSHING_FIRST_DOWN_MODEL and rush_yd:
+        out.setdefault("rush_first_down",
+                       _linear(RUSHING_FIRST_DOWN_MODEL[position], rush_yd))
+    if pass_yd:
+        completions = _linear(COMPLETIONS_MODEL, pass_yd)
+        attempts = _linear(ATTEMPTS_MODEL, pass_yd)
+        out.setdefault("pass_completion", completions)
+        out.setdefault("pass_incompletion", max(0.0, attempts - completions))
+        out.setdefault("pass_sacked", MEAN_SACKS_PER_GAME)
+    return out
+
+
 def fantasypros_stats_to_stat_line(stats: dict[str, Any]) -> dict[str, float]:
     """Map one player's FantasyPros `stats` object to this module's
     stat_line shape via FANTASYPROS_COLUMN_MAP -- same pattern as
@@ -91,7 +179,11 @@ def fantasypros_stats_to_stat_line(stats: dict[str, Any]) -> dict[str, float]:
     return out
 
 
-def project_consensus_player(player: dict[str, Any], scoring_config: dict[str, Any]) -> dict[str, Any]:
+def project_consensus_player(
+    player: dict[str, Any],
+    scoring_config: dict[str, Any],
+    position: Optional[str] = None,
+) -> dict[str, Any]:
     """One FantasyPros player entry (the raw `{"fpid", "name", "position_id",
     "team_id", "stats": {...}}` shape the API returns) -> a projection dict.
     Player identity (name/position/team) is deliberately NOT re-derived
@@ -102,10 +194,15 @@ def project_consensus_player(player: dict[str, Any], scoring_config: dict[str, A
     just be a second, potentially-disagreeing source of truth for the same
     fact."""
     stat_line = fantasypros_stats_to_stat_line(player.get("stats", {}))
-    result = compute_league_points(stat_line, scoring_config)
+    stat_line = impute_unpublished_categories(stat_line, position)
+    result = compute_league_points(stat_line, scoring_config, position=position)
     return {
         "source": "consensus",
         "fpid": player.get("fpid"),
+        # Carried at the top level, NOT inside stat_line: stat lines are
+        # averaged key-by-key when the two consensus feeds are blended, and a
+        # string in there breaks that arithmetic.
+        "position": position,
         "projected_points": result.total,
         "stat_line": stat_line,
         "breakdown": result.breakdown,
@@ -130,13 +227,16 @@ def build_consensus_tier(
     here just means that player falls back to the in-house tier instead of
     the whole report generation failing."""
     out: dict[str, dict[str, Any]] = {}
-    for players in raw_players_by_position.values():
+    for position, players in raw_players_by_position.items():
         for player in players:
             fpid = player.get("fpid")
             player_id = fpid_to_player_id.get(fpid)
             if player_id is None:
                 continue
-            out[player_id] = project_consensus_player(player, scoring_config)
+            # The position key is the grouping this dict is built on, and is
+            # needed twice over now: to pick the right imputation model, and
+            # because league-1 prices a TE reception at double an RB/WR one.
+            out[player_id] = project_consensus_player(player, scoring_config, position)
     return out
 
 

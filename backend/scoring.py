@@ -20,7 +20,7 @@ projection logic in projections.py.
 from __future__ import annotations
 
 from dataclasses import dataclass
-from typing import Any
+from typing import Any, Optional
 
 
 @dataclass
@@ -35,7 +35,30 @@ class ScoringResult:
         return self.total
 
 
-def _linear_points(stat_line: dict[str, Any], linear_config: dict[str, float]) -> dict[str, float]:
+def resolve_value(value: Any, position: Optional[str]) -> float:
+    """Resolve one config value, which may be position-scoped.
+
+    A scoring value is normally a plain number. league-1's real ESPN settings
+    price several categories differently by position -- a TE reception is worth
+    1.0 where an RB/WR reception is 0.5, and the receiving-yardage milestones
+    pay TE > RB/WR > QB -- so a value may instead be a dict of
+    {POSITION: number, ..., "default": number}. An unlisted position falls to
+    "default"; a dict with no "default" and no match contributes 0, matching
+    this module's standing "an absent rule scores nothing" contract.
+
+    Kept public because kicker.py and dst.py validate configs against it."""
+    if isinstance(value, dict):
+        if position is not None and position in value:
+            return value[position]
+        return value.get("default", 0)
+    return value
+
+
+def _linear_points(
+    stat_line: dict[str, Any],
+    linear_config: dict[str, float],
+    position: Optional[str] = None,
+) -> dict[str, float]:
     """category * value for every category present in both the stat line
     and the config. A category missing from stat_line contributes 0 rather
     than raising -- raw stat sources don't always include every column for
@@ -45,12 +68,18 @@ def _linear_points(stat_line: dict[str, Any], linear_config: dict[str, float]) -
     breakdown = {}
     for category, value_per_unit in linear_config.items():
         raw = stat_line.get(category)
-        if raw:
-            breakdown[category] = raw * value_per_unit
+        if raw and raw == raw:
+            points = resolve_value(value_per_unit, position)
+            if points:
+                breakdown[category] = raw * points
     return breakdown
 
 
-def _milestone_points(stat_line: dict[str, Any], milestone_config: dict[str, dict]) -> dict[str, float]:
+def _milestone_points(
+    stat_line: dict[str, Any],
+    milestone_config: dict[str, dict],
+    position: Optional[str] = None,
+) -> dict[str, float]:
     """Yardage milestone bonuses (e.g. 300+/400+ passing). Each category maps
     to {"mode": "highest"|"cumulative", "tiers": [{"threshold", "points"}, ...]}
     -- `mode` lives once per category, not duplicated on every tier entry,
@@ -72,10 +101,12 @@ def _milestone_points(stat_line: dict[str, Any], milestone_config: dict[str, dic
         if not met:
             continue
         if mode == "cumulative":
-            breakdown[f"{category}_milestone"] = sum(t["points"] for t in met)
+            total = sum(resolve_value(t["points"], position) for t in met)
         else:
             best = max(met, key=lambda t: t["threshold"])
-            breakdown[f"{category}_milestone"] = best["points"]
+            total = resolve_value(best["points"], position)
+        if total:
+            breakdown[f"{category}_milestone"] = total
     return breakdown
 
 
@@ -96,7 +127,11 @@ def _tier_points(stat_line: dict[str, Any], tier_config: dict[str, list]) -> dic
     return breakdown
 
 
-def compute_league_points(stat_line: dict[str, Any], scoring_config: dict[str, Any]) -> ScoringResult:
+def compute_league_points(
+    stat_line: dict[str, Any],
+    scoring_config: dict[str, Any],
+    position: Optional[str] = None,
+) -> ScoringResult:
     """Compute this league's fantasy points for one player-game (or one
     team-game, for DST) from a raw stat line.
 
@@ -108,15 +143,23 @@ def compute_league_points(stat_line: dict[str, Any], scoring_config: dict[str, A
             NFLREADPY_COLUMN_MAP below for the nflreadpy column mapping.
         scoring_config: {"linear": {...}, "milestones": {...}, "tiers": {...}}.
             Any of the three top-level keys may be omitted/empty.
+        position: "QB"/"RB"/"WR"/"TE"/"K"/"DST", needed only where the config
+            prices a category by position (see resolve_value). Defaults to
+            stat_line["position"], which projections.load_full_pool_game_logs
+            and the DST/K assemblers already set on every row they build -- so
+            existing two-argument callers keep working unchanged and stay
+            correct. Pass it explicitly only to override that.
 
     Returns:
         ScoringResult with the total and a per-category breakdown (useful
         for the report view surfacing "why this projection", and for unit
         tests asserting individual category math rather than only the sum).
     """
+    if position is None:
+        position = stat_line.get("position")
     breakdown: dict[str, float] = {}
-    breakdown.update(_linear_points(stat_line, scoring_config.get("linear", {})))
-    breakdown.update(_milestone_points(stat_line, scoring_config.get("milestones", {})))
+    breakdown.update(_linear_points(stat_line, scoring_config.get("linear", {}), position))
+    breakdown.update(_milestone_points(stat_line, scoring_config.get("milestones", {}), position))
     breakdown.update(_tier_points(stat_line, scoring_config.get("tiers", {})))
     # round(int, 2) returns an int in Python 3 (e.g. an empty stat_line
     # sums to 0, not 0.0) -- force float first so ScoringResult.total is
@@ -152,6 +195,17 @@ NFLREADPY_OFFENSE_COLUMN_MAP = {
     # response -- see docs/research/scoring-engine-audit.md.
     "passing_interceptions": "pass_int",
     "passing_2pt_conversions": "pass_2pt",
+    # Added 2026-09-06 with league-1's final ESPN settings, which price the
+    # passing line far more finely than any preset: a completion is +0.1, an
+    # incompletion -0.1, and a sack taken -0.5. All three were worth nothing
+    # here before, and all three are real columns on load_player_stats()
+    # (checked against a live 2025 response, per the standing rule that a
+    # column-map key matching nothing is silent). Incompletions have no column
+    # of their own and are derived below as attempts - completions.
+    "completions": "pass_completion",
+    "sacks_suffered": "pass_sacked",
+    "rushing_first_downs": "rush_first_down",
+    "receiving_first_downs": "rec_first_down",
     "rushing_yards": "rush_yd",
     "rushing_tds": "rush_td",
     "rushing_2pt_conversions": "rush_2pt",
@@ -171,6 +225,13 @@ NFLREADPY_OFFENSE_COLUMN_MAP = {
     # them as their own column. Rare (43 across 2023-25, all RB/WR/TE) but a
     # full 6-point swing when they happen, and previously worth 0 to us.
     "special_teams_tds": "return_td",
+    # Return yardage accrued by an offensive player. league-1's Miscellaneous
+    # block scores kickoff and punt return yards at 1 per 10 (0.1/yd) each.
+    # This is the PLAYER side only -- the D/ST-side return-yardage question is
+    # a separate one, still resolved as "no such category", see the league-1
+    # config's _def_return_yd_removed_2026_09_02 note.
+    "kickoff_return_yards": "kick_return_yd",
+    "punt_return_yards": "punt_return_yd",
     # A player who recovers a fumble and scores. league-2's real ESPN settings
     # carry this as its own MISC line ("Fumble Recovery TD = 6"); league-1 has
     # no such player-side rule and simply does not define the category, so this
@@ -189,6 +250,9 @@ def nflreadpy_row_to_stat_line(row: dict[str, Any]) -> dict[str, float]:
     2026-08-16) is summed the same way across the parallel non-"_lost"
     columns -- unconfirmed column names, see the map's own comment."""
     out: dict[str, float] = {}
+    position = row.get("position")
+    if position is not None and position == position:
+        out["position"] = position
     for nfl_col, our_col in NFLREADPY_OFFENSE_COLUMN_MAP.items():
         val = row.get(nfl_col)
         if not val:
@@ -203,4 +267,14 @@ def nflreadpy_row_to_stat_line(row: dict[str, Any]) -> dict[str, float]:
         if val != val:
             continue
         out[our_col] = out.get(our_col, 0) + val
+    # Incompletions are not a column -- nflreadpy carries attempts and
+    # completions, and league-1 charges -0.1 for the difference. Derived here
+    # rather than in the map because it is a subtraction, not a rename. Guarded
+    # for NaN on both sides and floored at zero so a bad row can never turn
+    # into a positive incompletion credit.
+    attempts = row.get("attempts")
+    if attempts and attempts == attempts:
+        incomplete = attempts - out.get("pass_completion", 0)
+        if incomplete > 0:
+            out["pass_incompletion"] = incomplete
     return out

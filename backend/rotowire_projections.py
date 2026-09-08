@@ -35,6 +35,7 @@ from __future__ import annotations
 import time
 from typing import Any, Optional
 
+from fantasypros import impute_unpublished_categories
 from scoring import compute_league_points
 
 # Display names for the two consensus feeds, used to label each projection
@@ -56,7 +57,11 @@ ROTOWIRE_COLUMN_MAP_QB: dict[str, str] = {
     "offpassyard": "pass_yd",
     "offpasstd": "pass_td",
     "offpassint": "pass_int",
-    "offpasscomp": "pass_cmp",
+    # Real projected completions and attempts. league-1 scores a completion at
+    # +0.1 and an incompletion at -0.1 as of 2026-09-06, so these stopped being
+    # unscored bookkeeping fields: pass_completion is the scoring category, and
+    # pass_incompletion is derived from the pair in rotowire_stats_to_stat_line.
+    "offpasscomp": "pass_completion",
     "offpassatt": "pass_att",
     "offrushyard": "rush_yd",
     "offrushtd": "rush_td",
@@ -93,15 +98,27 @@ def rotowire_stats_to_stat_line(row: dict[str, Any], position: str) -> dict[str,
             continue
         if val:
             out[our_key] = out.get(our_key, 0.0) + val
+    # Rotowire publishes attempts and completions, so incompletions are exact
+    # here rather than estimated the way they are for FantasyPros.
+    attempts = out.pop("pass_att", 0.0)
+    if attempts:
+        incomplete = attempts - out.get("pass_completion", 0.0)
+        if incomplete > 0:
+            out["pass_incompletion"] = incomplete
     return out
 
 
 def project_rotowire_player(row: dict[str, Any], position: str, scoring_config: dict[str, Any]) -> dict[str, Any]:
     stat_line = rotowire_stats_to_stat_line(row, position)
-    result = compute_league_points(stat_line, scoring_config)
+    # Rotowire, like FantasyPros, publishes no first downs and no sacks taken,
+    # both of which league-1 scores. Same estimator, and it only fills keys that
+    # are absent -- so Rotowire's real completions survive untouched.
+    stat_line = impute_unpublished_categories(stat_line, position)
+    result = compute_league_points(stat_line, scoring_config, position=position)
     return {
         "source": "consensus",
         "rw_player_id": row.get("playerid"),
+        "position": position,
         "projected_points": result.total,
         "stat_line": stat_line,
         "breakdown": result.breakdown,
@@ -168,10 +185,21 @@ def blend_consensus_projections(
             for k in all_keys:
                 a = fp["stat_line"].get(k, 0.0)
                 b = rw["stat_line"].get(k, 0.0)
+                # A stat line can carry non-numeric bookkeeping keys (position
+                # is the one that bites); averaging those is meaningless, so
+                # take whichever side has a value and move on.
+                if isinstance(a, str) or isinstance(b, str):
+                    averaged[k] = a or b
+                    continue
                 averaged[k] = (a + b) / 2.0
-            result = compute_league_points(averaged, scoring_config)
+            # league-1 pays a TE reception double an RB/WR one, so a blended
+            # line MUST be scored with a position or every blended tight end
+            # silently loses half a point per catch.
+            position = fp.get("position") or rw.get("position")
+            result = compute_league_points(averaged, scoring_config, position=position)
             out[pid] = {
                 "source": "consensus",
+                "position": position,
                 "projected_points": result.total,
                 "stat_line": averaged,
                 "breakdown": result.breakdown,

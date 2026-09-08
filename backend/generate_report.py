@@ -112,6 +112,15 @@ LEAGUE_FORMAT_ASSUMPTION = "ppr"
 # so the real data pull spans WEEK1_TRAIN_SEASONS + 2.
 WEEK1_TRAIN_SEASONS = 4
 
+# Completed seasons pulled for the week-1 K / D/ST per-entity baselines
+# (backend/week1_kdst.py). Six back, minus 2020, gives ~110 kicker and ~128
+# defence (prior -> next week 1) pairs to fit the shrinkage constant on --
+# comfortably above that module's MIN_FIT_OBSERVATIONS floor of 30, while
+# still being recent enough that the positional mean reflects current scoring
+# environments. Only the single season before the target supplies the priors
+# themselves; a two-season prior was measured and was worse at both positions.
+KDST_HISTORY_SEASONS = 6
+
 # Seasons of injury-report history the availability model trains on. Injury
 # data starts at 2018 in nflreadpy, and the report vocabulary has been stable
 # throughout, so more is strictly better here -- 6 is a compromise with fetch
@@ -367,6 +376,7 @@ def build_weekly_report_and_pool(
     week1_projections: Optional[dict[str, dict[str, Any]]] = None,
     play_probabilities: Optional[dict[str, float]] = None,
     positional_baselines: Optional[dict[str, float]] = None,
+    entity_baselines: Optional[dict[str, float]] = None,
     shrinkage_ks: Optional[dict[str, float]] = None,
     affines: Optional[dict[str, tuple[float, float]]] = None,
     interval_model: Optional[Any] = None,
@@ -434,6 +444,13 @@ def build_weekly_report_and_pool(
             top of the estimator improvements -- the single largest measured
             lever in the backend. None (the default) reproduces the old
             conditional-on-playing behaviour exactly.
+        entity_baselines: {playerId: float} -- a per-ENTITY baseline that wins
+            over the positional one for that player. Built by week1_kdst.py for
+            kickers and team defences in week 1, where a positional mean is the
+            entire projection (no current-season log exists, so shrinkage
+            weights the sample at zero and project_player returns the baseline
+            verbatim) and therefore gives every kicker and every defence the
+            same number. Empty or None restores exactly the old behaviour.
         positional_baselines: {position: float} -- what empirical-Bayes
             shrinkage pulls a thin sample toward. Keyed by POSITION, not by
             player: unlike the legacy window mode (which only shrank thin
@@ -581,7 +598,11 @@ def build_weekly_report_and_pool(
             projection = project_player(
                 game_log, scoring_config, season, week,
                 window=window, decay=decay, calibration_scale=cal_scale,
-                positional_baseline=(positional_baselines or {}).get(player["position"]),
+                positional_baseline=(
+                    (entity_baselines or {}).get(player_id)
+                    if (entity_baselines or {}).get(player_id) is not None
+                    else (positional_baselines or {}).get(player["position"])
+                ),
                 shrinkage_k=(shrinkage_ks or {}).get(player_id),
                 play_probability=(play_probabilities or {}).get(player_id),
                 affine=(affines or {}).get(player_id),
@@ -1573,6 +1594,50 @@ def main(argv: Optional[list[str]] = None) -> None:
             print(f"  Calibration/blend fit failed ({exc}) -- using uncalibrated projections.")
             return out
 
+    # ------------------------------------------------------------------
+    # Week-1 per-entity baselines for K and D/ST. Without these both
+    # positions collapse to a single positional mean in week 1 -- every
+    # kicker projecting the same number, every defence projecting the same
+    # number -- which leaves two of the eight starting slots unrankable.
+    # See backend/week1_kdst.py for the measurement behind it.
+    # ------------------------------------------------------------------
+    _kdst_cache: dict[str, dict[str, float]] = {}
+
+    def _build_kdst_baselines_for_config(scoring_config: dict[str, Any]) -> dict[str, float]:
+        if args.week != 1 or args.skip_week1_model:
+            return {}
+        # Keyed on the scoring config, not the league: the estimate is a
+        # prior-season average scored through that config, so two leagues
+        # sharing one config share the answer.
+        cache_key = _config_hash(scoring_config, seasons=KDST_HISTORY_SEASONS)
+        if cache_key in _kdst_cache:
+            return _kdst_cache[cache_key]
+        merged: dict[str, float] = {}
+        try:
+            import week1_kdst
+
+            history_seasons = [
+                s for s in range(args.season - KDST_HISTORY_SEASONS, args.season)
+                # 2020 is excluded everywhere in this project's week-1 work:
+                # empty stadiums and distorted lines make it a poor prior.
+                if s != 2020
+            ]
+            fits = week1_kdst.fit_from_history(args.season, scoring_config, history_seasons)
+            for position, fit in fits.items():
+                merged.update(fit["estimates"])
+                print(
+                    f"  week-1 {position}: {len(fit['estimates'])} per-entity baselines "
+                    f"(k={fit['k']} fitted on {fit['n_fit']} rows, "
+                    f"positional mean {fit['positional_mean']})"
+                )
+        except Exception as exc:  # noqa: BLE001
+            # Never fatal: falling back to the flat positional baseline is the
+            # previous behaviour, which was usable if uninformative.
+            print(f"  week-1 K/DST per-entity baselines failed ({exc}) -- using flat baselines.")
+            merged = {}
+        _kdst_cache[cache_key] = merged
+        return merged
+
     # Rotowire red zone / route-efficiency stats -- fetched once per run (cached
     # to disk, so repeated same-day runs are free). The result is shared across
     # leagues since it's player-level, not league-scoring-dependent.
@@ -1660,6 +1725,7 @@ def main(argv: Optional[list[str]] = None) -> None:
                 window=args.window,
                 consensus_projections=consensus_projections,
                 week1_projections=_build_week1_for_config(scoring_config),
+                entity_baselines=_build_kdst_baselines_for_config(scoring_config),
                 play_probabilities=play_probabilities,
                 game_context=game_context,
                 decay=DEFAULT_DECAY,
@@ -1712,6 +1778,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             window=args.window,
             consensus_projections=consensus_projections,
             week1_projections=_build_week1_for_config(scoring_config),
+            entity_baselines=_build_kdst_baselines_for_config(scoring_config),
             play_probabilities=play_probabilities,
             game_context=game_context,
             decay=DEFAULT_DECAY,

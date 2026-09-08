@@ -1,20 +1,18 @@
 {
+  "_note": "Seeded from backend/leagues/league-1/roster.json. One entry per slot in this league's roster-slots.json, by array index. Regenerate rather than hand-edit if the roster changes -- the by-index contract makes a manual edit easy to get subtly wrong.",
   "slotAssignments": [
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
-    null,
+    "00-0040691",
+    "00-0036997",
+    "00-0038543",
+    "00-0040128",
+    "00-0037247",
+    "00-0034351",
+    "JAX",
+    "00-0037224",
+    "00-0037664",
+    "00-0038997",
+    "00-0041547",
+    "00-0034855",
     null
-  ],
-  "_note": " Extended 2026-09-03 with 2 trailing IR slots."
+  ]
 }

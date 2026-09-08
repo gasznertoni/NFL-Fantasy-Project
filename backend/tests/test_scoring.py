@@ -2,13 +2,19 @@
 lines with known expected output, run before this logic feeds any
 projection so a scoring-formula bug is caught here, not downstream."""
 
+import json
 import os
 import sys
 import unittest
+from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
-from scoring import compute_league_points, nflreadpy_row_to_stat_line  # noqa: E402
+from scoring import (  # noqa: E402
+    compute_league_points,
+    nflreadpy_row_to_stat_line,
+    resolve_value,
+)
 
 CONFIG = {
     "linear": {"pass_yd": 0.04, "pass_td": 6, "pass_int": -2, "reception": 0.5, "rec_yd": 0.1},
@@ -179,6 +185,145 @@ class TestNflreadpyColumnMap(unittest.TestCase):
         row = {"passing_yards": 0, "passing_tds": None}
         mapped = nflreadpy_row_to_stat_line(row)
         self.assertEqual(mapped, {})
+
+
+class TestPositionScopedValues(unittest.TestCase):
+    """league-1's final ESPN settings (2026-09-06) price several categories by
+    position -- a TE reception is 1.0 where an RB/WR reception is 0.5, and the
+    receiving-yardage milestones pay TE > RB/WR > QB. Before that every value
+    in a config was a plain number."""
+
+    CFG = {
+        "linear": {"reception": {"TE": 1, "default": 0.5}, "rec_yd": 0.1},
+        "milestones": {"rec_yd": {"mode": "highest", "tiers": [
+            {"threshold": 100, "points": {"TE": 1, "QB": 0, "default": 0.75}}]}},
+    }
+
+    def test_resolve_value_passes_plain_numbers_through(self):
+        self.assertEqual(resolve_value(0.5, "TE"), 0.5)
+        self.assertEqual(resolve_value(-2, None), -2)
+
+    def test_resolve_value_prefers_an_exact_position_then_default(self):
+        value = {"TE": 1, "default": 0.5}
+        self.assertEqual(resolve_value(value, "TE"), 1)
+        self.assertEqual(resolve_value(value, "WR"), 0.5)
+        self.assertEqual(resolve_value(value, None), 0.5)
+
+    def test_resolve_value_scores_nothing_when_nothing_matches(self):
+        # Matches the module's standing "an absent rule contributes 0" contract
+        # rather than raising -- e.g. rec_td_40 is {"TE": 1} with no default.
+        self.assertEqual(resolve_value({"TE": 1}, "WR"), 0)
+
+    def test_tight_end_reception_premium_changes_the_total(self):
+        line = {"reception": 6, "rec_yd": 80}
+        self.assertEqual(compute_league_points(line, self.CFG, position="TE").total, 14.0)
+        self.assertEqual(compute_league_points(line, self.CFG, position="WR").total, 11.0)
+
+    def test_position_is_read_off_the_stat_line_by_default(self):
+        # projections.load_full_pool_game_logs, dst.assemble_dst_stat_line and
+        # kicker.nflreadpy_kicker_row_to_stat_line all set stat_line["position"],
+        # so two-argument callers stay correct without being touched.
+        line = {"reception": 6, "rec_yd": 80, "position": "TE"}
+        self.assertEqual(compute_league_points(line, self.CFG).total, 14.0)
+
+    def test_explicit_position_argument_overrides_the_stat_line(self):
+        line = {"reception": 6, "rec_yd": 80, "position": "TE"}
+        self.assertEqual(compute_league_points(line, self.CFG, position="WR").total, 11.0)
+
+    def test_milestone_points_are_position_scoped_too(self):
+        line = {"rec_yd": 120, "reception": 0}
+        for position, expected in (("TE", 13.0), ("WR", 12.75), ("QB", 12.0)):
+            self.assertAlmostEqual(
+                compute_league_points(line, self.CFG, position=position).total, expected)
+
+
+class TestFinalLeagueOneColumns(unittest.TestCase):
+    """Columns added 2026-09-06 for league-1's final settings. Each was checked
+    against a live load_player_stats() response first -- a key matching nothing
+    is silent, which is how three defects survived the v16 audit."""
+
+    def test_completions_sacks_and_first_downs_map(self):
+        row = {"completions": 22, "sacks_suffered": 3,
+               "rushing_first_downs": 4, "receiving_first_downs": 5}
+        mapped = nflreadpy_row_to_stat_line(row)
+        self.assertEqual(mapped["pass_completion"], 22)
+        self.assertEqual(mapped["pass_sacked"], 3)
+        self.assertEqual(mapped["rush_first_down"], 4)
+        self.assertEqual(mapped["rec_first_down"], 5)
+
+    def test_return_yardage_maps_for_the_player_side(self):
+        row = {"kickoff_return_yards": 61, "punt_return_yards": 18}
+        mapped = nflreadpy_row_to_stat_line(row)
+        self.assertEqual(mapped["kick_return_yd"], 61)
+        self.assertEqual(mapped["punt_return_yd"], 18)
+
+    def test_incompletions_are_derived_from_attempts_minus_completions(self):
+        mapped = nflreadpy_row_to_stat_line({"attempts": 35, "completions": 22})
+        self.assertEqual(mapped["pass_incompletion"], 13)
+
+    def test_a_perfect_game_records_no_incompletions(self):
+        mapped = nflreadpy_row_to_stat_line({"attempts": 4, "completions": 4})
+        self.assertNotIn("pass_incompletion", mapped)
+
+    def test_incompletions_never_go_negative(self):
+        # Defensive: a completions > attempts row would otherwise turn into a
+        # positive credit at -0.1 a unit.
+        mapped = nflreadpy_row_to_stat_line({"attempts": 3, "completions": 5})
+        self.assertNotIn("pass_incompletion", mapped)
+
+    def test_nan_attempts_do_not_produce_a_nan_incompletion(self):
+        mapped = nflreadpy_row_to_stat_line({"attempts": float("nan"), "completions": 4})
+        self.assertNotIn("pass_incompletion", mapped)
+
+    def test_position_rides_along_on_the_stat_line(self):
+        self.assertEqual(nflreadpy_row_to_stat_line({"position": "TE"})["position"], "TE")
+        self.assertNotIn("position", nflreadpy_row_to_stat_line({"position": float("nan")}))
+
+    def test_a_nan_stat_cell_is_skipped_rather_than_poisoning_the_total(self):
+        result = compute_league_points({"pass_yd": float("nan"), "pass_td": 2},
+                                       {"linear": {"pass_yd": 0.05, "pass_td": 4}})
+        self.assertEqual(result.total, 8.0)
+
+
+class TestRealLeagueOneConfigEndToEnd(unittest.TestCase):
+    """One realistic game per position through the actual shipped config, so a
+    hand-edit to the JSON that changes a total shows up as a failing number."""
+
+    @classmethod
+    def setUpClass(cls):
+        path = Path(__file__).resolve().parents[1] / "leagues" / "league-1" / "scoring-config.json"
+        cls.cfg = json.loads(path.read_text())
+
+    def test_quarterback_line(self):
+        # 300 yds, 22/35, 2 TD, 1 INT, 2 sacks: 15 + 2.2 - 1.3 + 8 - 2 - 1 = 20.9
+        line = {"position": "QB", "pass_yd": 300, "pass_completion": 22,
+                "pass_incompletion": 13, "pass_td": 2, "pass_int": 1, "pass_sacked": 2}
+        self.assertAlmostEqual(compute_league_points(line, self.cfg).total, 20.9)
+
+    def test_the_same_receiving_line_pays_a_tight_end_more(self):
+        line = {"rec_yd": 80, "reception": 6, "rec_first_down": 4, "rec_td": 1}
+        te = compute_league_points(line, self.cfg, position="TE").total
+        wr = compute_league_points(line, self.cfg, position="WR").total
+        # 8 yds + 3 first downs + 6 TD = 17 shared; receptions add 6 or 3.
+        self.assertAlmostEqual(te, 23.0)
+        self.assertAlmostEqual(wr, 20.0)
+        self.assertAlmostEqual(te - wr, 3.0)   # 6 receptions x the 0.5 premium
+
+    def test_rushing_milestone_takes_the_highest_band_not_the_sum(self):
+        # 210 yards clears both the 100 and 200 bands; ESPN's bands read
+        # "100-199" and "200+", so this pays 2, not 2.75.
+        line = {"position": "RB", "rush_yd": 210}
+        self.assertAlmostEqual(compute_league_points(line, self.cfg).total, 23.0)
+
+    def test_a_long_missed_field_goal_is_free(self):
+        # league-1 defines no fg_missed_50_59 line at all, so it scores nothing.
+        line = {"position": "K", "fg_made_50_59": 1, "fg_missed_50_59": 1}
+        self.assertAlmostEqual(compute_league_points(line, self.cfg).total, 5.0)
+
+    def test_passing_touchdowns_are_worth_four(self):
+        # Regression guard: this league paid 6 until 2026-09-06 and CLAUDE.md
+        # described the 6 as one of its defining features.
+        self.assertEqual(self.cfg["linear"]["pass_td"], 4)
 
 
 if __name__ == "__main__":

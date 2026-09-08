@@ -14,6 +14,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from fantasypros import (  # noqa: E402
     build_consensus_tier,
     fantasypros_stats_to_stat_line,
+    impute_unpublished_categories,
     project_consensus_player,
 )
 
@@ -138,6 +139,64 @@ class TestBuildConsensusTier(unittest.TestCase):
 
     def test_empty_crosswalk_produces_empty_tier(self):
         self.assertEqual(build_consensus_tier(self.raw_by_position, CONFIG, {}), {})
+
+
+class TestImputingUnpublishedCategories(unittest.TestCase):
+    """league-1 began scoring first downs, completions, incompletions and sacks
+    on 2026-09-06. FantasyPros publishes none of them, so leaving them absent
+    biased the consensus tier low by ~3 pts/game at RB and WR -- against an
+    in-house tier that had the real numbers, which is what made it a ranking
+    problem and not just an accuracy one."""
+
+    def test_receiving_first_downs_are_estimated_for_a_receiver(self):
+        out = impute_unpublished_categories({"reception": 8.0, "rec_yd": 110.0}, "WR")
+        self.assertAlmostEqual(out["rec_first_down"], -0.0172 + 0.2872 * 8 + 0.0253 * 110, places=4)
+
+    def test_rushing_first_downs_are_estimated_from_rushing_yards(self):
+        out = impute_unpublished_categories({"rush_yd": 80.0}, "RB")
+        self.assertAlmostEqual(out["rush_first_down"], 0.1275 + 0.0480 * 80, places=4)
+
+    def test_a_published_value_always_beats_an_estimate(self):
+        out = impute_unpublished_categories(
+            {"reception": 8.0, "rec_yd": 110.0, "rec_first_down": 3.0}, "WR")
+        self.assertEqual(out["rec_first_down"], 3.0)
+
+    def test_quarterbacks_get_completions_incompletions_and_sacks(self):
+        out = impute_unpublished_categories({"pass_yd": 280.0}, "QB")
+        self.assertGreater(out["pass_completion"], 0)
+        self.assertGreater(out["pass_incompletion"], 0)
+        self.assertEqual(out["pass_sacked"], 2.13)
+
+    def test_sacks_are_a_constant_not_a_regression(self):
+        # Passing yards carry essentially no signal about sacks taken
+        # (R2 = 0.043), so a per-yard coefficient would be false precision.
+        a = impute_unpublished_categories({"pass_yd": 150.0}, "QB")["pass_sacked"]
+        b = impute_unpublished_categories({"pass_yd": 400.0}, "QB")["pass_sacked"]
+        self.assertEqual(a, b)
+
+    def test_a_player_with_no_relevant_volume_gets_nothing(self):
+        out = impute_unpublished_categories({"rec_td": 1.0}, "WR")
+        self.assertNotIn("rec_first_down", out)
+        self.assertNotIn("pass_completion", out)
+
+    def test_estimates_are_never_negative(self):
+        out = impute_unpublished_categories({"reception": 0.0, "rec_yd": 0.1}, "TE")
+        self.assertGreaterEqual(out["rec_first_down"], 0.0)
+
+    def test_the_input_stat_line_is_not_mutated(self):
+        line = {"reception": 8.0, "rec_yd": 110.0}
+        impute_unpublished_categories(line, "WR")
+        self.assertEqual(line, {"reception": 8.0, "rec_yd": 110.0})
+
+    def test_no_position_means_no_first_down_estimate(self):
+        out = impute_unpublished_categories({"reception": 8.0, "rec_yd": 110.0}, None)
+        self.assertNotIn("rec_first_down", out)
+
+    def test_position_stays_out_of_the_stat_line(self):
+        # It is carried on the projection dict instead: stat lines get averaged
+        # key-by-key when the two consensus feeds are blended, and a string in
+        # there breaks that arithmetic.
+        self.assertNotIn("position", impute_unpublished_categories({"rec_yd": 50.0}, "WR"))
 
 
 if __name__ == "__main__":

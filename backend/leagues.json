@@ -1,10 +1,13 @@
 {
+  "_note": "The two real leagues this tool generates for. `leagueFormat` is a coarse label carried through to each report's leagueFormatAssumption field; the authoritative scoring is always the league's own scoring-config.json, never this string.",
   "leagues": [
     {
       "leagueId": "league-1",
-      "displayName": "ESPN 14-team PPR",
+      "displayName": "AUT-HUN Football League",
       "teamCount": 14,
-      "leagueFormat": "ppr",
+      "leagueFormat": "te_premium",
+      "_leagueFormatNote": "Was \"ppr\" until 2026-09-06. The final ESPN settings pay a TE 1.0 per reception and a QB/RB/WR 0.5 -- TE-premium half-PPR, which is neither of the presets this field used to carry.",
+      "roster": "1 QB, 1 RB, 1 WR, 1 TE, 2 FLEX (W/R/T), 1 K, 1 D/ST, 4 BN, 1 IR",
       "scoringConfigPath": "leagues/league-1/scoring-config.json",
       "outDir": "../frontend/public/mock/league-1"
     },

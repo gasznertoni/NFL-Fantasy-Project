@@ -21,6 +21,8 @@ const FORMAT_LABEL = {
   half_ppr: 'half-PPR',
   ppr: 'PPR',
   standard: 'standard',
+  // league-1 from 2026-09-06: 1.0 per reception for a TE, 0.5 for everyone else.
+  te_premium: 'TE-premium',
 }
 
 // Slot value used for the de-emphasized "sit" / bench group.

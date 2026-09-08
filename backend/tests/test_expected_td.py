@@ -123,23 +123,46 @@ class TestEnrichGameLogs(unittest.TestCase):
 
 
 class TestRealLeagueConfigs(unittest.TestCase):
-    """The two shipped configs really do price touchdowns differently, which is
-    what makes the per-league split necessary rather than decorative."""
+    """Touchdown values must come from each league's own config.
+
+    Until 2026-09-06 these two configs disagreed on passing touchdowns (6 vs 4)
+    and that disagreement was the test. league-1's final ESPN settings moved it
+    to 4, so the two real configs now agree and can no longer prove the split
+    works on their own -- test_per_league_split_is_functional does that with
+    configs built to differ, and the assertions below became what they should
+    always have been: a regression guard pinning each shipped config's real
+    value, so the old hardcoded 6 cannot quietly return."""
 
     def _cfg(self, name):
         path = Path(__file__).resolve().parents[1] / "leagues" / name / "scoring-config.json"
         return json.loads(path.read_text())
 
-    def test_league_configs_disagree_on_passing_tds(self):
-        self.assertEqual(td_point_values(self._cfg("league-1"))["pass_td"], 6.0)
+    def test_league_configs_both_price_passing_tds_at_four(self):
+        self.assertEqual(td_point_values(self._cfg("league-1"))["pass_td"], 4.0)
         self.assertEqual(td_point_values(self._cfg("league-2"))["pass_td"], 4.0)
 
-    def test_same_expected_row_scores_differently_per_league(self):
+    def test_rushing_and_receiving_tds_are_six_in_both(self):
+        for name in ("league-1", "league-2"):
+            values = td_point_values(self._cfg(name))
+            self.assertEqual(values["rush_td"], 6.0, name)
+            self.assertEqual(values["rec_td"], 6.0, name)
+
+    def test_same_expected_row_scores_the_same_in_both_real_leagues(self):
         row = {"pass_touchdown_exp": 1.5, "rush_touchdown_exp": 0.2, "rec_touchdown_exp": 0.0}
         one = expected_td_points(row, td_point_values(self._cfg("league-1")))
         two = expected_td_points(row, td_point_values(self._cfg("league-2")))
-        self.assertAlmostEqual(one, 10.2)
+        self.assertAlmostEqual(one, 7.2)
         self.assertAlmostEqual(two, 7.2)
+
+    def test_per_league_split_is_functional(self):
+        """The real configs agreeing is a fact about the leagues, not about the
+        code -- so prove the per-league plumbing still routes different values
+        with two configs built to differ."""
+        four = {"linear": {"pass_td": 4, "rush_td": 6, "rec_td": 6}}
+        six = {"linear": {"pass_td": 6, "rush_td": 6, "rec_td": 6}}
+        row = {"pass_touchdown_exp": 1.5, "rush_touchdown_exp": 0.2, "rec_touchdown_exp": 0.0}
+        self.assertAlmostEqual(expected_td_points(row, td_point_values(four)), 7.2)
+        self.assertAlmostEqual(expected_td_points(row, td_point_values(six)), 10.2)
 
 
 if __name__ == "__main__":

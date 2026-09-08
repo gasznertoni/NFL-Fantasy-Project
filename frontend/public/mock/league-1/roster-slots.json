@@ -1,3 +1,18 @@
 {
-  "slots": ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "DST", "K", "BENCH", "BENCH", "BENCH", "BENCH", "IR", "IR"]
+  "_note": "AUT-HUN Football League, 14 teams. Mirrors backend/leagues/league-1/roster.json's `slots` + `benchSlots` + `irSlots`: 1 QB, 1 RB, 1 WR, 1 TE, 2 FLEX, 1 DST, 1 K, 4 BN, 1 IR. Corrected 2026-09-06 -- this file previously carried 2 RB, 2 WR, 1 FLEX and 2 IR, which was league-2's shape, not this league's.",
+  "slots": [
+    "QB",
+    "RB",
+    "WR",
+    "TE",
+    "FLEX",
+    "FLEX",
+    "DST",
+    "K",
+    "BENCH",
+    "BENCH",
+    "BENCH",
+    "BENCH",
+    "IR"
+  ]
 }
