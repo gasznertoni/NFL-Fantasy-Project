@@ -1,0 +1,184 @@
+{
+  "slug": "2026-09-09-wed",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 1,
+  "kind": "wednesday",
+  "generatedAt": "2026-09-09T20:05:15Z",
+  "source": {
+    "label": "committed fixture weekly-report-week-1.json (no live 2026 injury/practice feed exists yet)",
+    "asOf": "2026-09-08T20:40:07Z",
+    "isLive": false,
+    "note": "nflreadpy.load_injuries(2026) still raises ValueError('Season must be between 2009 and 2025') as of this run (checked 2026-09-09T20:05 UTC). Sleeper, ESPN and Rotowire remain proxy-blocked and were not retried. Today is exactly the day the first real Wednesday practice report would publish -- but no live source carries the structured DNP/Limited/Full field this run exists to surface. The 'practice' values below are reconstructed from pre-Wednesday narrative injury-summary text already baked into the fixture, not the structured field the fitted availability model actually consumes -- treat them as directional, not authoritative. Current week (1) cross-checked against load_schedules(2026): all 16 week-1 games show NaN scores (unplayed), and the earliest kickoff (NE @ SEA) is tonight 20:20 ET, about 4 hours after this run."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040691",
+      "name": "Jaxson Dart",
+      "position": "QB",
+      "opponent": "DAL",
+      "expectedPoints": 18.01,
+      "conditionalPoints": 19.17,
+      "playProbability": 0.94,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "BAL",
+      "expectedPoints": 17.06,
+      "conditionalPoints": 18.85,
+      "playProbability": 0.905,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "DAL",
+      "expectedPoints": 13.71,
+      "conditionalPoints": 15.15,
+      "playProbability": 0.905,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "NE",
+      "expectedPoints": 18.25,
+      "conditionalPoints": 19.49,
+      "playProbability": 0.936,
+      "designation": "Healthy",
+      "reason": "Locks tonight -- NE @ SEA kicks off 20:20 ET, hours before the rest of the roster's slate. Set this slot before kickoff, not Sunday morning."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "PIT",
+      "expectedPoints": 13.52,
+      "conditionalPoints": 14.44,
+      "playProbability": 0.936,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0039338",
+      "name": "Brock Bowers",
+      "position": "TE",
+      "opponent": "MIA",
+      "expectedPoints": 13.96,
+      "conditionalPoints": 15.57,
+      "playProbability": 0.896,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "CIN",
+      "expectedPoints": 12.26,
+      "conditionalPoints": 13.54,
+      "playProbability": 0.905,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0040663",
+      "name": "Harold Fannin Jr.",
+      "position": "TE",
+      "opponent": "JAX",
+      "expectedPoints": 9.8,
+      "conditionalPoints": 10.93,
+      "playProbability": 0.896,
+      "designation": "Healthy",
+      "reason": "Flips into the lineup over Jameson Williams this run (9.80 vs 9.29 expected) -- his projection moved up from 9.25 Monday to 9.80 today in the fixture refresh; not a role or roster change, just an updated number."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0037224",
+      "name": "Cameron Dicker",
+      "position": "K",
+      "opponent": "ARI",
+      "expectedPoints": 8.33,
+      "conditionalPoints": 9.22,
+      "playProbability": 0.903,
+      "designation": "Questionable",
+      "reason": "Questionable but 90% to play -- coach reportedly 'not concerned,' no missed-practice language in the narrative, though no live Wednesday practice bucket is confirmed either. Low real risk."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "PHI",
+      "name": "Eagles D/ST",
+      "position": "DST",
+      "opponent": "WAS",
+      "expectedPoints": 8.32,
+      "conditionalPoints": 8.32,
+      "playProbability": 1.0,
+      "designation": "Healthy"
+    }
+  ],
+  "lineupTotal": 133.22,
+  "changes": [
+    {
+      "action": "start",
+      "playerId": "00-0040663",
+      "name": "Harold Fannin Jr.",
+      "replacing": "Jameson Williams",
+      "deltaExpectedPoints": 0.51,
+      "reason": "Fannin's projection rose to 9.80 (was 9.25 Monday) while Williams held at 9.29 -- flips the second FLEX. Driven by the fixture refresh, not new practice data."
+    },
+    {
+      "action": "bench",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "reason": "Edged out of FLEX2 by Fannin's updated projection; still the top bench option at 9.29 expected."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "why": "Questionable, bruised heel. Narrative has him back at practice Monday, but CIN's actual Wednesday injury report -- due today -- isn't in any live source this run reached. Model has him at 0.519 to play, effectively worst-case; if today's real report shows Limited or Full, his true play probability is almost certainly higher than that, which would put him back in the FLEX conversation over Fannin (conditional 15.62 vs 10.93).",
+      "newsDue": "CIN practice report due today (Wed 9/9); final designation Fri 9/11"
+    },
+    {
+      "playerId": "00-0038997",
+      "name": "Josh Downs",
+      "why": "Questionable, calf. Narrative says he practiced Tuesday and is 'expected to be off the injury report,' but the model shows the same 0.519 play probability as Higgins despite a different injury and a more optimistic trend -- looks like a generic Questionable fallback rather than two independently modeled risks. Bench WR, not a lineup call yet, but a clean Friday tag makes him FLEX-relevant.",
+      "newsDue": "Final designation Fri 9/11"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0038543",
+      "text": "Jaxon Smith-Njigba's game (SEA vs NE) kicks off tonight at 20:20 ET, roughly 4 hours after this run and days ahead of the rest of the roster's Sunday/Monday games. Lock that slot now."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 6,
+      "players": ["Tee Higgins", "Jameson Williams"]
+    },
+    {
+      "week": 7,
+      "players": ["Cameron Dicker", "Quentin Johnston"]
+    }
+  ],
+  "caveats": [
+    "No live 2026 injury/practice feed exists. nflreadpy.load_injuries(2026) still raises ValueError('Season must be between 2009 and 2025') as of this run; Sleeper, ESPN and Rotowire remain proxy-blocked. This is the run whose whole purpose is the Wednesday practice column, and that column could not be sourced live -- the 'practice' field on Cameron Dicker's row and the watch-list practice trends are inferred from narrative injury-summary text already in the committed fixture, generated 2026-09-08, not from a structured Wednesday report.",
+    "Fell back to frontend/public/mock/league-2/weekly-report-week-1.json, generatedAt 2026-09-08T20:40:07Z. Sanity-checked before trusting it: 992 players, designations genuinely mixed (817 Healthy / 89 Questionable / 71 IR / 15 Out), playProbability spans 40 distinct values from 0.002 to 1.0 rather than one per designation bucket.",
+    "Current week (1) cross-checked against load_schedules(2026): all 16 week-1 games carry NaN scores (unplayed), consistent with week 1 not yet underway.",
+    "Higgins and Downs share an identical 0.519 play probability despite different injuries and different narrative trajectories -- worth re-running once a real practice report exists to see whether they actually diverge.",
+    "Total lineup expected points rose from 129.74 (Monday) to 133.22 today. Most of that is the fixture refresh itself (Eagles D/ST 6.99 to 8.32, Dicker 7.22 to 8.33, small increases across the rest of the lineup), not new practice information -- none is available yet."
+  ],
+  "markdown": "## Source and freshness\n\n**Not live.** `nflreadpy.load_injuries(2026)` still raises `ValueError: Season must be between 2009 and 2025` as of this run (checked 2026-09-09T20:05 UTC). Sleeper, ESPN and Rotowire remain proxy-blocked and were not retried. Today is exactly the day the season's first real Wednesday practice report would publish -- and that is the one column no reachable source carries yet.\n\nFell back to the committed fixture `frontend/public/mock/league-2/weekly-report-week-1.json`, generated **2026-09-08T20:40:07Z** (about a day old). Sanity-checked before trusting it: across the full 992-player pool, designations are genuinely mixed (817 Healthy, 89 Questionable, 71 IR, 15 Out) and `playProbability` spans 40 distinct values from 0.002 to 1.0, not one value per designation bucket -- this is real model output, not a flat default.\n\nCurrent week cross-checked against `load_schedules(2026)`: all 16 week-1 games still show `NaN` scores, and the earliest kickoff (NE @ SEA) is tonight at 20:20 ET -- about 4 hours after this run. Week 1 confirmed, consistent with the schedule.\n\n## Practice report\n\nThis is the reason the Wednesday run exists, and this week it comes with an asterisk: no live source has today's actual practice designations, so the buckets below are reconstructed from narrative injury-summary text captured *before* today, not the structured DNP/Limited/Full field the fitted availability model consumes. Treat direction, not the exact number, as the signal.\n\n| Player | Designation | Practice signal (narrative, pre-Wed) | Model P(play) | Read |\n|---|---|---|---|---|\n| Tee Higgins (CIN) | Questionable | Returned to practice Monday after a bruised heel; CIN's real Wednesday report (today) not yet seen | 0.519 | Priced near worst-case. If today's actual report shows Limited/Full, true risk is almost certainly lower than this number implies. |\n| Josh Downs (IND) | Questionable | Practiced Tuesday, calf; narrative says \"expected to be off the injury report\" | 0.519 | Identical number to Higgins despite a more optimistic trend and a different injury -- looks like a generic Questionable fallback, not two independently modeled risks. |\n| Cameron Dicker (LAC) | Questionable | \"Minor issue,\" coach reportedly not concerned, no missed-practice language | 0.903 | Low real risk -- model already prices this correctly high; monitor only. |\n\nFor reference, the fitted model's Questionable splits by real practice bucket (from the availability model's training data) are DNP 0.511, Limited 0.702, Full 0.790, vs. 0.694 for Questionable overall. Higgins and Downs currently sit essentially at the DNP floor -- almost certainly a placeholder for \"practice status unknown,\" not a claim that either player actually sat out.\n\n## Start these ten\n\n| Slot | Player | Opp | Expected pts | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Jaxson Dart | @DAL | 18.01 | 94.0% | 19.17 |\n| RB | Jonathan Taylor | vs BAL | 17.06 | 90.5% | 18.85 |\n| RB | Cam Skattebo | @DAL | 13.71 | 90.5% | 15.15 |\n| WR | Jaxon Smith-Njigba | vs NE (tonight 8:20p ET) | 18.25 | 93.6% | 19.49 |\n| WR | Drake London | @PIT | 13.52 | 93.6% | 14.44 |\n| TE | Brock Bowers | vs MIA | 13.96 | 89.6% | 15.57 |\n| FLEX | Bucky Irving | @CIN | 12.26 | 90.5% | 13.54 |\n| FLEX | Harold Fannin Jr. | @JAX | 9.80 | 89.6% | 10.93 |\n| K | Cameron Dicker | vs ARI | 8.33 | 90.3% | 9.22 |\n| DEF | Eagles D/ST | vs WAS | 8.32 | 100% | 8.32 |\n| **Total** | | | **133.22** | | |\n\nBench (expected-points order): Jameson Williams WR (9.29), Quentin Johnston WR (8.47), Tee Higgins WR (8.10), Josh Downs WR (4.82), Matthew Stafford QB (15.95, no usable slot behind Dart).\n\nOne real decision this run: **start Harold Fannin Jr. over Jameson Williams at the second FLEX.** Fannin's projection climbed to 9.80 (was 9.25 Monday) while Williams held flat at 9.29 -- a fixture-refresh move, not new practice or role information. Everything else picks itself: Healthy players ranked by expected points, no position-minimum conflicts. Higgins stays benched at 8.10 expected -- but see Practice Report above, that number is the least trustworthy on the roster right now.\n\n## Changes since Monday\n\n- **FLEX2 flips: Fannin in, Williams out** (+0.51 expected pts). Not a practice or role change -- Fannin's projection simply moved up in the fixture refresh.\n- **Lineup total up 129.74 to 133.22** (+3.48), mostly from Eagles D/ST (6.99 to 8.32) and Cameron Dicker (7.22 to 8.33) jumping in the refreshed fixture, plus small gains across the rest of the lineup. None of this reflects today's practice reports -- those aren't in any reachable source yet.\n- No roster moves. Same 15 players as Monday and as `roster.json` (captured 2026-09-03).\n\n## Still uncertain\n\n- **Tee Higgins** -- the one lineup call that could still move. His 0.519 play probability is almost certainly a placeholder for \"no real practice data yet,\" not a genuine coin-flip read on a heel injury he was already back at practice for on Monday. Today's actual CIN practice report and Friday's final designation both bear directly on whether he should be in over Fannin.\n- **Josh Downs** -- same placeholder-probability pattern as Higgins; bench-only for now, would need a clean Friday tag to become FLEX-relevant.\n- **Cameron Dicker** -- nominally Questionable but low real risk per the narrative; not expected to move.\n\n## Opponent notes\n\nJaxon Smith-Njigba's game (SEA vs NE) is tonight's season opener, kicking off 20:20 ET -- about 4 hours after this run and days before the rest of the roster's Sunday/Monday slate. Lock that WR slot now rather than waiting for Friday's designation wave, which governs everyone else.\n\n## Byes ahead\n\nNo rostered player has a bye in the next two weeks (weeks 1-3) -- clear through week 5. First cluster: **week 6** (Tee Higgins, Jameson Williams) and **week 7** (Cameron Dicker -- the only rostered K -- and Quentin Johnston). No performance data exists yet to rank a waiver replacement for either; revisit once week 1 results are in.\n\n## Caveats\n\n- No live 2026 injury/practice feed. `load_injuries(2026)` still fails; Sleeper/ESPN/Rotowire proxy-blocked. This run's practice column is narrative-inferred from a fixture generated before today's real reports, not the structured field the model actually uses.\n- Fell back to the committed fixture (generatedAt 2026-09-08T20:40:07Z), sanity-checked (mixed designations, 40 distinct playProbability values) before use.\n- Higgins and Downs share an identical 0.519 play probability despite different injuries and different narrative trends -- likely a generic Questionable placeholder, not two independently resolved risks. Re-run once real practice data lands.\n- Most of tonight's total increase over Monday (129.74 to 133.22) is the fixture refresh itself, not new injury information."
+}

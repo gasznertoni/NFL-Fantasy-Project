@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-09-09-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-09-09T20:05:15Z",
+      "week": 1,
+      "lineupTotal": 133.22,
+      "changeSummary": "start Fannin over Williams at FLEX2 (+0.51); no live Wednesday practice feed reached, Higgins/Downs practice buckets are narrative-inferred only",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-09-07-mon",
       "kind": "monday",
       "generatedAt": "2026-09-07T06:15:57Z",
