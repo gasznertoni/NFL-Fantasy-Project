@@ -118,7 +118,13 @@ def _tier_points(stat_line: dict[str, Any], tier_config: dict[str, list]) -> dic
     breakdown = {}
     for category, bands in tier_config.items():
         raw = stat_line.get(category)
-        if raw is None or not bands:
+        # `raw is None` alone is not a missing-value test against feed data:
+        # a NaN is neither None nor equal to itself, and `nan <= max` is False
+        # for EVERY band, so a NaN silently matched no band and the category
+        # contributed nothing -- up to 5 points of points-allowed credit
+        # vanishing without a trace. Same guard _linear_points already carries.
+        # Added 2026-09-09 (third audit); see docs/research/third-audit-2026-09-09.md.
+        if raw is None or raw != raw or not bands:
             continue
         for band in sorted(bands, key=lambda b: b.get("max", float("inf"))):
             if raw <= band.get("max", float("inf")):

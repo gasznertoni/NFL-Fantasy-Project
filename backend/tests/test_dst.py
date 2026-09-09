@@ -174,3 +174,65 @@ class TestBuildDstGameLogs(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestUnplayedGameScores(unittest.TestCase):
+    """Third audit (2026-09-09): the fourth instance of this repo's NaN trap.
+
+    load_schedules() spells an unplayed game's score as float("nan"), not None
+    -- all 272 of 2026's REG rows, checked live. The guard here was
+    `if points_allowed is None`, the exact shape season_week.py shipped and v19
+    had to fix. Every test below FAILS against the pre-fix module.
+
+    Note what the failure looked like: not a crash and not a wrong number, but
+    def_points_allowed = nan riding into the stat line, where _tier_points'
+    `nan <= max` is False for every band, so the whole points-allowed tier --
+    up to 5 points, the difference between a shutout and a blowout -- was
+    silently absent from the score.
+    """
+
+    def test_nan_score_is_treated_as_unplayed_not_as_zero(self):
+        game = {"game_id": "G", "home_team": "BUF", "away_team": "NYJ",
+                "home_score": float("nan"), "away_score": float("nan")}
+        from dst import _points_allowed_for_team_game
+        self.assertIsNone(_points_allowed_for_team_game(game, "BUF"))
+        self.assertIsNone(_points_allowed_for_team_game(game, "NYJ"))
+
+    def test_a_real_score_still_resolves_from_the_opponents_side(self):
+        game = {"game_id": "G", "home_team": "BUF", "away_team": "NYJ",
+                "home_score": 24, "away_score": 10}
+        from dst import _points_allowed_for_team_game
+        self.assertEqual(_points_allowed_for_team_game(game, "BUF"), 10.0)
+        self.assertEqual(_points_allowed_for_team_game(game, "NYJ"), 24.0)
+        self.assertEqual(_points_allowed_for_team_game(game, "MIA"), None)
+
+    def test_a_shutout_is_still_scored_zero_not_dropped(self):
+        """0 is falsy; the guard must test for missing, not for empty."""
+        game = {"game_id": "G", "home_team": "BUF", "away_team": "NYJ",
+                "home_score": 31, "away_score": 0}
+        from dst import _points_allowed_for_team_game
+        self.assertEqual(_points_allowed_for_team_game(game, "BUF"), 0.0)
+
+    def test_unplayed_game_produces_no_game_log_entry(self):
+        team_rows = [
+            {"game_id": "G", "team": "BUF", "opponent_team": "NYJ", "season": 2026,
+             "week": 1, "def_sacks": 3, "passing_yards": 200, "rushing_yards": 90},
+            {"game_id": "G", "team": "NYJ", "opponent_team": "BUF", "season": 2026,
+             "week": 1, "def_sacks": 1, "passing_yards": 150, "rushing_yards": 60},
+        ]
+        schedule = [{"game_id": "G", "season": 2026, "week": 1, "home_team": "BUF",
+                     "away_team": "NYJ", "home_score": float("nan"),
+                     "away_score": float("nan")}]
+        self.assertEqual(build_dst_game_logs(team_rows, schedule), {})
+
+    def test_played_game_still_produces_a_scored_points_allowed_tier(self):
+        team_rows = [
+            {"game_id": "G", "team": "BUF", "opponent_team": "NYJ", "season": 2026,
+             "week": 1, "def_sacks": 3, "passing_yards": 200, "rushing_yards": 90},
+            {"game_id": "G", "team": "NYJ", "opponent_team": "BUF", "season": 2026,
+             "week": 1, "def_sacks": 1, "passing_yards": 150, "rushing_yards": 60},
+        ]
+        schedule = [{"game_id": "G", "season": 2026, "week": 1, "home_team": "BUF",
+                     "away_team": "NYJ", "home_score": 20, "away_score": 3}]
+        logs = build_dst_game_logs(team_rows, schedule)
+        self.assertEqual(logs["BUF"][0]["def_points_allowed"], 3.0)
