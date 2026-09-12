@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-09-12-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-09-12T06:16:00Z",
+      "week": 1,
+      "lineupTotal": 124.92,
+      "changeSummary": "start Higgins over Fannin at FLEX2 -- first LIVE injury/practice feed of the season resolves his placeholder risk; Bowers' expected points drop 13.96 to 7.70 on a newly-surfaced knee/DNP (still starts, no better option)",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-09-09-wed",
       "kind": "wednesday",
       "generatedAt": "2026-09-09T20:05:15Z",
