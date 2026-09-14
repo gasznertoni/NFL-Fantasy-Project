@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-09-14-mon",
+      "kind": "monday",
+      "generatedAt": "2026-09-14T06:20:00Z",
+      "week": 2,
+      "lineupTotal": 95.83,
+      "changeSummary": "bench Bowers for the first time (confirmed Out/DNP all of Week 1 with a knee injury, start Fannin instead); Skattebo holds his flex spot after a strong Week 1; blend.py disabled this run after it collapsed the whole player pool to near-zero projections with only one game of 2026 history -- see caveats",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-09-12-sat",
       "kind": "saturday",
       "generatedAt": "2026-09-12T06:16:00Z",
