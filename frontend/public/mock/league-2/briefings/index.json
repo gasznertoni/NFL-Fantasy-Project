@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-09-16-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-09-16T20:16:45Z",
+      "week": 2,
+      "lineupTotal": 95.83,
+      "changeSummary": "no changes since Monday -- live injury feed refreshed but Week 2 coverage is still only BUF/DET, nothing new for any rostered player; Bowers' real unresolved knee injury remains invisible to the model (flagged, doesn't change the TE call)",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-09-14-mon",
       "kind": "monday",
       "generatedAt": "2026-09-14T06:20:00Z",
