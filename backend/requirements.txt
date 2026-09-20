@@ -19,6 +19,12 @@
 # this locally, same as scripts/probe_sources.py already documents for
 # nflreadpy.
 
+# generate_report.py's load_env_file() reads the repo-root .env so a local
+# run picks up ANTHROPIC_API_KEY / FANTASYPROS_API_KEY. Not in
+# requirements-dev.txt on purpose -- the test suite never calls main(), and
+# the loader warns-and-continues if this is absent.
+python-dotenv>=1.0
+
 requests>=2.31
 nflreadpy
 pyarrow
