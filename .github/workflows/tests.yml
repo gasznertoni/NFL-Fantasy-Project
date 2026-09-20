@@ -82,8 +82,19 @@ jobs:
         run: npm test
 
       - name: Build
-        # The deploy workflow builds too, but only on a push to main that
-        # touches frontend/. This catches a broken build on a pull request,
-        # before it can reach the deploy.
         working-directory: frontend
         run: npm run build
+
+      - name: Fail if the fixtures did not ship
+        # Inherited from deploy-frontend.yml, which was deleted 2026-09-20
+        # after failing 11 of 11 runs (it published to GitHub Pages, which was
+        # never enabled; Vercel does the real deploy through its own GitHub
+        # App). This check was the one part of it worth keeping. The app is
+        # static JSON fetched at runtime -- if public/mock/ does not make it
+        # into the bundle the site still loads, renders an empty shell, and
+        # looks merely quiet rather than broken.
+        working-directory: frontend
+        run: |
+          test -f dist/index.html
+          test -f dist/mock/league-2/briefings/index.json
+          echo "fixtures present: $(find dist/mock -name '*.json' | wc -l) json files"
