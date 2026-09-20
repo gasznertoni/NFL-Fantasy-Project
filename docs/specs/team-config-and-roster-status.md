@@ -244,6 +244,25 @@ One-time seed, fetched only when `localStorage` has no saved config yet.
   slot is unassigned. Array length always equals `slots.length`.
 - Seed values above are exactly today's week-1 fixture's start (9) + sit (3) players, in slot order —
   chosen so first-load looks identical to current behavior until the user edits their team.
+- **Generated, never hand-edited** (added 2026-09-20). `backend/generate_team_config.py` builds this
+  file from `backend/leagues/<league>/roster.json`, which is the roster's source of truth. It was
+  hand-maintained until then — its own note said "regenerate rather than hand-edit" while nothing
+  existed to regenerate it — and the two drifted: league-2 kept seeding Quentin Johnston and Harold
+  Fannin Jr. for seventeen days after they were dropped. The join is not a zip. `roster.json` spells
+  the same roster differently (league-2 lists `K` before `DEF`; `roster-slots.json` lists `DST`
+  before `K`), so starters are placed by **slot name** with `DEF`/`D/ST` aliased to `DST`, bench and
+  IR fill their own sections in roster order, and players are resolved against `player-pool.json` by
+  name plus position plus team. Every disagreement raises rather than warns — an unresolvable player,
+  a pool entry contradicting the roster, a duplicate, a slot-count mismatch, an ineligible position.
+  `--check` reports what would change and exits non-zero without writing;
+  `test_generate_team_config.py::test_checked_in_fixture_matches_its_roster` runs the same comparison
+  against the real files, so a roster change without a regeneration fails the suite.
+
+  ```bash
+  python3 backend/generate_team_config.py                   # every league
+  python3 backend/generate_team_config.py --league league-2
+  python3 backend/generate_team_config.py --check           # diff only, no write
+  ```
 
 ### 3.5 `localStorage` schema
 
