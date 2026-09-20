@@ -20,6 +20,12 @@ export default function TeamConfigView({ leagueId = 'league-1' }) {
 
   useEffect(() => {
     let cancelled = false
+    // Back to "loading" FIRST. Without this, a league switch leaves the
+    // previous league's slots on screen while the new league's fixtures load,
+    // and useTeamConfig seeds the new league's roster against them -- which
+    // is how league-2's 17 players got stamped with league-1's 13 slots.
+    setSlots(null)
+    setPool(null)
     Promise.all([getRosterSlots(leagueId), getPlayerPool(leagueId)]).then(([slotData, poolData]) => {
       if (cancelled) return
       setSlots(slotData.slots || [])
@@ -30,13 +36,15 @@ export default function TeamConfigView({ leagueId = 'league-1' }) {
     }
   }, [leagueId])
 
-  const { config, assign, clear, swap, reset } = useTeamConfig(slots, leagueId)
-
   const poolById = useMemo(() => {
     const map = new Map()
     for (const p of pool || []) map.set(p.playerId, p)
     return map
   }, [pool])
+
+  // The pool goes in so the config is healed of position-illegal placements
+  // on read and the mutators refuse to create new ones.
+  const { config, assign, clear, swap, reset } = useTeamConfig(slots, leagueId, poolById)
 
   const loading = slots === null || pool === null || config === undefined
 

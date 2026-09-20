@@ -108,6 +108,11 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
   useEffect(() => {
     let cancelled = false
     setReport(undefined)
+    // Slots and pool go back to "unknown" too, not just the report: holding
+    // the previous league's slots across a switch lets useTeamConfig seed the
+    // new league against the wrong slot array. See its seed guard.
+    setSlots(null)
+    setPool(null)
     Promise.all([getWeeklyReport(week, leagueId), getRosterSlots(leagueId), getPlayerPool(leagueId)]).then(
       ([reportData, slotData, poolData]) => {
         if (cancelled) return
@@ -123,7 +128,7 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
     }
   }, [week, leagueId])
 
-  const { config } = useTeamConfig(slots, leagueId)
+  const { config } = useTeamConfig(slots, leagueId, pool)
 
   // Horizon fetch for waiver advice. Separate from the main report load so a
   // slow or missing future week never delays or breaks the week on screen --
