@@ -47,6 +47,7 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Optional
 
+import entity_prior
 from news import DEFAULT_NEWS_FLAG
 from blend import build_feature_row as blend_build_feature_row
 from blend import rolling_volume
@@ -1709,6 +1710,45 @@ def main(argv: Optional[list[str]] = None) -> None:
         _kdst_cache[cache_key] = merged
         return merged
 
+    # ------------------------------------------------------------------
+    # Weeks 2+: per-player prior-season shrinkage targets for QB/RB/WR/TE.
+    # Without these the in-house tier collapses toward one number per
+    # position in the early weeks -- in the real 2026 week-2 report, every
+    # non-consensus tight end landed in a 2.33-4.91 band (sd 0.56) and a
+    # 95%-snap starter ranked 126th of 209. See backend/entity_prior.py for
+    # the measurement, including what survives the blend and what does not.
+    # ------------------------------------------------------------------
+    _entity_prior_cache: dict[str, dict[str, float]] = {}
+
+    def _build_entity_priors_for_config(
+        scoring_config: dict[str, Any], positional_baselines: dict[str, Any]
+    ) -> dict[str, float]:
+        if args.week < entity_prior.FIRST_COVERED_WEEK:
+            return {}
+        if not positional_baselines:
+            # Nothing to shrink toward means nothing to build a target from --
+            # the same degrade project_player already makes.
+            return {}
+        cache_key = _config_hash(scoring_config, seasons=1)
+        if cache_key in _entity_prior_cache:
+            return _entity_prior_cache[cache_key]
+        built: dict[str, float] = {}
+        try:
+            prior_logs = entity_prior.load_prior_season_logs_nflreadpy(args.season)
+            means = entity_prior.entity_season_means(prior_logs, scoring_config)
+            built = entity_prior.entity_baselines(means, positional_baselines)
+            print(
+                f"  prior-season shrinkage targets: {len(built)} players "
+                f"(QB/RB/WR/TE, from {args.season - 1}, k={entity_prior.DEFAULT_PRIOR_K})"
+            )
+        except Exception as exc:  # noqa: BLE001
+            # Never fatal: the flat positional baseline is the previous
+            # behaviour -- collapsed, but not broken.
+            print(f"  prior-season shrinkage targets failed ({exc}) -- using flat baselines.")
+            built = {}
+        _entity_prior_cache[cache_key] = built
+        return built
+
     # Rotowire red zone / route-efficiency stats -- fetched once per run (cached
     # to disk, so repeated same-day runs are free). The result is shared across
     # leagues since it's player-level, not league-scoring-dependent.
@@ -1785,6 +1825,10 @@ def main(argv: Optional[list[str]] = None) -> None:
             out_dir = backend_dir / league["outDir"]
             out_dir.mkdir(parents=True, exist_ok=True)
 
+            # Resolved once rather than splatted inline: the prior-season
+            # targets need this bundle's positional_baselines to shrink toward.
+            calibration_bundle = _build_calibration_for_config(scoring_config)
+
             weekly_report, player_pool = build_weekly_report_and_pool(
                 args.season,
                 args.week,
@@ -1796,11 +1840,18 @@ def main(argv: Optional[list[str]] = None) -> None:
                 window=args.window,
                 consensus_projections=consensus_projections,
                 week1_projections=_build_week1_for_config(scoring_config),
-                entity_baselines=_build_kdst_baselines_for_config(scoring_config),
+                entity_baselines={
+                    # Disjoint by construction -- K/D/ST in week 1, QB/RB/WR/TE
+                    # from week 2 -- so the merge order cannot matter.
+                    **_build_kdst_baselines_for_config(scoring_config),
+                    **_build_entity_priors_for_config(
+                        scoring_config, calibration_bundle.get("positional_baselines") or {}
+                    ),
+                },
                 play_probabilities=play_probabilities,
                 game_context=game_context,
                 decay=DEFAULT_DECAY,
-                **_build_calibration_for_config(scoring_config),
+                **calibration_bundle,
                 league_id=league_id,
                 league_format=league_format,
                 rostered_rank_cutoff=rostered_rank_cutoff,
@@ -1838,6 +1889,8 @@ def main(argv: Optional[list[str]] = None) -> None:
         scoring_config = json.loads(args.scoring_config.read_text())
         consensus_projections = _build_consensus_for_config(scoring_config, pool)
 
+        calibration_bundle = _build_calibration_for_config(scoring_config)
+
         weekly_report, player_pool = build_weekly_report_and_pool(
             args.season,
             args.week,
@@ -1849,11 +1902,16 @@ def main(argv: Optional[list[str]] = None) -> None:
             window=args.window,
             consensus_projections=consensus_projections,
             week1_projections=_build_week1_for_config(scoring_config),
-            entity_baselines=_build_kdst_baselines_for_config(scoring_config),
+            entity_baselines={
+                **_build_kdst_baselines_for_config(scoring_config),
+                **_build_entity_priors_for_config(
+                    scoring_config, calibration_bundle.get("positional_baselines") or {}
+                ),
+            },
             play_probabilities=play_probabilities,
             game_context=game_context,
             decay=DEFAULT_DECAY,
-            **_build_calibration_for_config(scoring_config),
+            **calibration_bundle,
             rz_stats_by_player=rz_stats,
         )
 
