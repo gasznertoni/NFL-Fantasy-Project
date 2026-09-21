@@ -202,6 +202,56 @@ it zeros, and fall back to the prior-season rate. A one-line guard in the
 adapter that builds the grid; a test that a season with zero published weeks
 produces the same P(play) at week 12 as at week 1.
 
+### 4.1 Addendum, 2026-09-21: a second, different availability failure — root cause found
+
+Finding 1 above is about P(play) being **deflated**. Separately, the scheduled
+run of 2026-09-15 (Actions run 34980286952, commit `741a862`, authored by
+`github-actions[bot]`) shipped week-2 fixtures in which P(play) was **absent
+entirely** — 0 of 993 rows in both leagues carried `playProbability` or
+`conditionalPoints`, against 992 of 992 in the week-1 fixture. Two check-ins
+narrowed that to "environment-specific to the Actions runner" and stopped
+there, because the run log had not been read.
+
+It has now been read, and the cause is one line of that log:
+
+```
+Availability model failed (Failed to download
+https://github.com/nflverse/nflverse-data/releases/download/stats_player/stats_player_week_2024.parquet:
+500 Server Error: Internal Server Error) -- projections stay conditional-on-playing.
+```
+
+So it is not the runner's configuration. It is a **transient 500 on one
+nflverse release asset**, caught by the broad `except Exception` around the
+availability block in `generate_report.py`, which prints one line to stdout and
+continues. The job then wrote, committed and pushed the fixtures with a green
+conclusion.
+
+**Why it reproduces only in CI.** The same log says
+`store: disabled (no DATABASE_URL or FANTASY_STORE_DIR) -- pre-store behaviour`.
+The Actions job sets neither, so every run re-downloads every parquet cold; a
+local run with `FANTASY_STORE_DIR` set serves them from cache and never touches
+the failing URL. That is why the model fit reproduced locally on CI's exact
+2020–2025 range while the shipped fixture had nothing — the model was never the
+problem, and neither was the feed.
+
+**Current state.** The shipped week-2 fixtures were regenerated locally on
+2026-09-20 (`9a4f574`) and now carry P(play) on 1000 of 1000 rows in both
+leagues, so the symptom is gone from `main`. The *defect* is not: neither
+`.github/workflows/weekly-report.yml` nor `backend/availability.py` has changed,
+so the next scheduled run can reproduce it on any transient upstream 500. Note
+also that `9a4f574`'s commit message attributes the stale week-2 fixtures to
+"pre-season placeholders written 2026-09-08"; that file's own `generatedAt` is
+`2026-09-15T14:33:33Z` and its author is the bot, so the scheduled path — not
+staleness — is what produced it.
+
+**Recommended fix** (again not applied here): set `FANTASY_STORE_DIR` with an
+`actions/cache` step so the workflow stops re-downloading cold, and make the
+availability failure loud — either retry the download, or let the commit step
+refuse to push a report whose rows carry no `playProbability`. A run that
+silently ships a different report and reports success is the same failure shape
+as the silent column-map miss and the three NaN guards: a missing input treated
+as a legitimate absence.
+
 ---
 
 ## 5. Findings 2 and 3 (Medium, both FIXED in `aa55fb9`)
