@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-09-21-mon",
+      "kind": "monday",
+      "generatedAt": "2026-09-21T06:24:31Z",
+      "week": 3,
+      "lineupTotal": 59.49,
+      "changeSummary": "pivoting to Week 3 (Week 2's Monday-nighter, NYG@LA, is still unplayed but doesn't affect any Week 3 slot); bench Drake London for Jameson Williams and slide Golden into FLEX -- a thin, low-confidence 0.49-point edge on 2 games of data, no Week 3 injury report exists anywhere yet, and FantasyPros is unavailable in this sandbox so Taylor/Irving/JSN/Likely run on the more conservative in-house model instead of vendor consensus",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-09-19-sat",
       "kind": "saturday",
       "generatedAt": "2026-09-19T06:16:18Z",
