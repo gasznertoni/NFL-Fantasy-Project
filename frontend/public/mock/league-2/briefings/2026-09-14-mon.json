@@ -1,0 +1,187 @@
+{
+  "slug": "2026-09-14-mon",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 2,
+  "kind": "monday",
+  "generatedAt": "2026-09-14T06:20:00Z",
+  "source": {
+    "label": "nflreadpy.load_injuries(2026) -- live, but its most recent filing is still the Week 1 report -- + generate_report.py end-to-end (availability model fitted fresh this run on 2021-2025; blend disabled, see note)",
+    "asOf": "2026-09-12T00:00:00Z",
+    "isLive": true,
+    "note": "load_injuries(2026) responded live (182 rows) but every row is dated to the Week 1 report -- no Week 2 designation exists yet, which is expected: teams don't file practice reports until Wed/Thu of game week. Sleeper and ESPN news remained proxy-blocked (403); FantasyPros consensus skipped (no API key). Ran generate_report.py --skip-blend: the rolling-volume+Vegas blend (blend.py) collapsed the whole player pool to implausible near-zero conditional points with only one game of 2026 history (top WR in the entire pool projected 6.0 pts, top TE 4.1) -- a real pipeline issue at this point in the season, not a judgment call, so this run falls back to the calibrated rolling-average tier instead. Worth a look before the next blend-eligible week."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040691",
+      "name": "Jaxson Dart",
+      "position": "QB",
+      "opponent": "@LAR",
+      "expectedPoints": 16.85,
+      "conditionalPoints": 17.72,
+      "playProbability": 0.951,
+      "designation": null
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "@KC",
+      "expectedPoints": 14.71,
+      "conditionalPoints": 15.95,
+      "playProbability": 0.922,
+      "designation": null
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "vs CLE",
+      "expectedPoints": 12.58,
+      "conditionalPoints": 13.64,
+      "playProbability": 0.922,
+      "designation": null
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "@ARI",
+      "expectedPoints": 14.34,
+      "conditionalPoints": 15.13,
+      "playProbability": 0.948,
+      "designation": null
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "@HOU",
+      "expectedPoints": 6.33,
+      "conditionalPoints": 7.71,
+      "playProbability": 0.821,
+      "designation": null,
+      "reason": "Edges the other bench/flex WRs (Williams 6.18, London 5.92, Downs 5.20, Johnston 4.49) by a thin model margin after one game of 2026 data -- treat this whole tier as noisy, not settled."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0040663",
+      "name": "Harold Fannin Jr.",
+      "position": "TE",
+      "opponent": "@TB",
+      "expectedPoints": 4.59,
+      "conditionalPoints": 5.02,
+      "playProbability": 0.915,
+      "designation": null,
+      "reason": "Beats Bowers by only 0.06 expected points in the model, but Bowers played zero snaps in Week 1 (ruled Out, knee, DNP all week) -- start the healthy body until a Week 2 practice report says otherwise."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "@LAR",
+      "expectedPoints": 9.83,
+      "conditionalPoints": 10.66,
+      "playProbability": 0.922,
+      "designation": null,
+      "reason": "81 rush yards + a TD in Week 1 on the Giants' backfield -- clears the flex tier easily, no roster action needed."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "@BUF",
+      "expectedPoints": 6.18,
+      "conditionalPoints": 7.53,
+      "playProbability": 0.821,
+      "designation": null,
+      "reason": "Narrowly ahead of Drake London (5.92) for the second flex spot -- same noisy-tier caveat as Higgins above."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0037224",
+      "name": "Cameron Dicker",
+      "position": "K",
+      "opponent": "vs LV",
+      "expectedPoints": 5.44,
+      "conditionalPoints": 5.58,
+      "playProbability": 0.975,
+      "designation": null
+    },
+    {
+      "slot": "DEF",
+      "playerId": "PHI",
+      "name": "Eagles D/ST",
+      "position": "DST",
+      "opponent": "@TEN",
+      "expectedPoints": 4.98,
+      "conditionalPoints": 4.98,
+      "playProbability": 1.0,
+      "designation": null
+    }
+  ],
+  "lineupTotal": 95.83,
+  "changes": [
+    {
+      "action": "bench",
+      "playerId": "00-0039338",
+      "name": "Brock Bowers",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "Confirmed Out (knee, DNP all week) and did not play a single snap in Week 1 -- Saturday's briefing had already priced in the DNP risk (p=0.76) but he still started; this week the model plus that real history moves Fannin ahead of him for the first time. No Week 2 designation exists yet, so this is provisional pending Wednesday's report."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "Held his flex spot after a legitimately strong Week 1 (81 yards, 1 TD) -- role looks real, not a fluke matchup."
+    },
+    {
+      "action": "start",
+      "playerId": null,
+      "name": "Whole lineup",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "Every projection reset for new Week 2 opponents. Lineup total drops from Saturday's 124.92 (Week 1) to 95.83 -- not a real decline, just Week 1's numbers coming from a mix of the week-1 cold-start model and one week of shrinkage-heavy, small-sample estimates for Week 2. Treat the absolute total as noisy this early; the ranking within it is what matters."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0039338",
+      "name": "Brock Bowers",
+      "why": "Knee injury cost him all of Week 1 (Out, DNP). No Week 2 designation filed yet. If he's tagged Questionable-or-worse again, Fannin is already the correct start per this briefing -- if he's a full-go, re-check before Sunday.",
+      "newsDue": "Wed/Thu Week 2 practice report"
+    },
+    {
+      "playerId": null,
+      "name": "Higgins / J. Williams / London / Downs WR tier",
+      "why": "All four bench/flex WRs cluster within 2 expected points of each other (4.5-6.3) on a single game of 2026 data -- this ordering is genuinely unsettled and will likely reshuffle once real Week 2 practice reports and a second game of data land.",
+      "newsDue": "Wed/Thu Week 2 practice report"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0039338",
+      "text": "Bowers' Week 2 opponent (LAC) is irrelevant while his own health is the open question -- don't read anything into the matchup until he's confirmed to practice."
+    }
+  ],
+  "byesAhead": [],
+  "caveats": [
+    "season_week.load_current_week_nflreadpy(2026) still returns Week 1, because Chiefs @ Broncos (Monday Night, week 1) hadn't been played as of this run -- but no rostered player is on either team, so this briefing treats Week 2 as the actionable week for every lineup decision. Flagging the disagreement per the runbook's instruction rather than silently picking a week.",
+    "No Week 2 injury/practice report exists anywhere yet (confirmed empty via nflreadpy.load_injuries(2026, week=2) -- 0 rows) -- every playProbability above comes from the fitted availability model's depth-chart and shrunk-play-rate features only, not a current designation. This is expected for a Monday, not a data failure.",
+    "The rolling-volume + Vegas blend (blend.py) was disabled for this run (--skip-blend) -- with only one game of current-season history it collapsed the entire 993-player pool to implausible near-zero conditional points (top-projected WR league-wide came out at 6.0, top TE at 4.1). Falling back to the calibrated rolling-average tier instead; this looks like a real bug worth investigating before it's relied on again once a second week of data exists.",
+    "Sleeper and ESPN news/injury endpoints are proxy-blocked (403) in this sandbox, matching the known environment note -- nflreadpy was the only source used, as intended.",
+    "FantasyPros consensus tier was skipped (no API key in this sandbox); every projection above is the in-house estimate tier.",
+    "This is the only file this run touched: frontend/public/mock/league-2/briefings/2026-09-14-mon.json and this briefings/index.json manifest entry."
+  ],
+  "markdown": "# Intuitech Fantasy (league-2) -- Monday Briefing, Week 2\n\n## Source and freshness\n\n**Live, but Week 1's report is the newest one that exists.** `nflreadpy.load_injuries(2026)` returned live (182 rows), but every row is dated to the Week 1 report -- `load_injuries(2026, week=2)` came back empty (0 rows), which is expected on a Monday: teams don't file Week 2 practice reports until Wed/Thu. Sleeper and ESPN news/injury endpoints were proxy-blocked (403), as expected in this sandbox. FantasyPros consensus was skipped (no API key). Every projection below is the in-house rate-based tier, run through `generate_report.py`'s availability model (freshly fitted this run on 2021-2025, AUC-class model per `availability.py`) -- **with the rolling-volume/Vegas blend turned off**, because it collapsed the entire 993-player pool to near-zero conditional points with only one game of 2026 history (see Caveats). All `playProbability` values come from depth-chart + shrunk-play-rate features, not a current designation -- there isn't one yet.\n\n**Week note:** `season_week.py`'s own detector still reports Week 1, because the Chiefs @ Broncos Monday-nighter hadn't been played as of this run -- but no rostered player is on either team, so this briefing treats **Week 2** as the actionable week throughout.\n\n## Start these ten\n\n| Slot | Player | Opp | Expected pts | If-he-plays | P(play) |\n|---|---|---|---|---|---|\n| QB | Jaxson Dart | @LAR | **16.85** | 17.72 | 95.1% |\n| RB | Jonathan Taylor | @KC | **14.71** | 15.95 | 92.2% |\n| RB | Bucky Irving | vs CLE | **12.58** | 13.64 | 92.2% |\n| WR | Jaxon Smith-Njigba | @ARI | **14.34** | 15.13 | 94.8% |\n| WR | Tee Higgins | @HOU | **6.33** | 7.71 | 82.1% |\n| TE | Harold Fannin Jr. | @TB | **4.59** | 5.02 | 91.5% |\n| FLEX | Cam Skattebo | @LAR | **9.83** | 10.66 | 92.2% |\n| FLEX | Jameson Williams | @BUF | **6.18** | 7.53 | 82.1% |\n| K | Cameron Dicker | vs LV | **5.44** | 5.58 | 97.5% |\n| DEF | Eagles D/ST | @TEN | **4.98** | 4.98 | 100% |\n\n**Lineup total (expected): 95.83.**\n\n**Bench:** Matthew Stafford (QB, 10.00 exp), Drake London (WR, 5.92), Josh Downs (WR, 5.20), Quentin Johnston (WR, 4.49), Brock Bowers (TE, 4.53 -- see below).\n\nOne flip worth calling out plainly: **start Fannin over Bowers at TE.** The model has them essentially tied (4.59 vs 4.53), but Bowers didn't play a single snap in Week 1 -- ruled Out with a knee injury, did not practice all week. There's no Week 2 designation yet either way, so this is the healthy body over the unresolved one until Wednesday says otherwise.\n\n## Changes since Saturday's briefing (Week 1, total 124.92)\n\n- **Bowers benched for the first time.** Saturday's briefing flagged his DNP risk (p=0.76) but still started him -- he ended up not playing at all. This week Fannin gets the nod.\n- **Skattebo holds his flex spot.** 81 rush yards + a TD in Week 1 looks like a real role, not a matchup fluke -- no roster action needed.\n- **Everything else reset for new Week 2 opponents.** The drop from 124.92 to 95.83 is not a real decline -- Week 1's number leaned on the week-1 cold-start model, and Week 2's leans on one game of shrinkage-heavy, small-sample estimates. Trust the *ranking* within this list more than the absolute total this early.\n\n## Watch list\n\n- **Brock Bowers (TE) -- knee.** Out and DNP all of Week 1; no Week 2 tag yet. If he's Questionable-or-worse again, Fannin is already the right start per this briefing. If he's a full go, worth a second look before Sunday.\n- **The whole WR bench/flex tier (Higgins, Williams, London, Downs) is bunched within 2 points of each other on a single game of data.** This ordering is genuinely unsettled and will likely reshuffle once real Week 2 practice reports and a second week of production land -- re-check Wednesday night.\n\n## Opponent notes\n\n- Bowers' Week 2 matchup (@LAC) doesn't matter until his own health is resolved -- don't read anything into it yet.\n\n## Byes ahead\n\n**None in the next two weeks.** First cluster to plan around: **Week 6**, where Tee Higgins (CIN) and Jameson Williams (DET) -- both currently in your flex mix -- are on bye the same week. Nothing to do yet, but start watching the waiver wire for WR depth as Week 6 approaches; five bench spots go fast with two same-position byes landing together.\n\n## Caveats\n\n- `season_week.py` disagreed with reality on which week is \"current\" (see above) -- resolved manually, not silently.\n- No Week 2 injury report exists anywhere yet; confirmed via a direct, empty `load_injuries(2026, week=2)` call. Expected for a Monday, not a data failure.\n- **The rolling-volume + Vegas blend (`blend.py`) looked broken at this point in the season** -- with one game of 2026 history it drove the entire 993-player pool to implausible near-zero conditional points (top WR league-wide: 6.0 pts; top TE: 4.1 pts). This run used `--skip-blend` and fell back to the calibrated rolling-average tier instead. Worth a look by whoever's driving the backend before the next report leans on it.\n- Sleeper/ESPN proxy-blocked as expected; FantasyPros skipped (no key in this sandbox).\n- Only `frontend/public/mock/league-2/briefings/2026-09-14-mon.json` and the briefings `index.json` manifest were touched.\n"
+}

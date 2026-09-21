@@ -1,0 +1,100 @@
+# Runs both test suites on every push and pull request.
+#
+# Added 2026-09-20. Until then this repo had 626 backend tests, 21 frontend
+# tests and a fixture-drift guard, and ran none of them automatically -- the
+# only two workflows deploy the site and regenerate fixtures. Three of the
+# defects in CLAUDE.md's history shipped past a green local suite that nobody
+# had re-run, so the tests existing was never the same as the tests running.
+#
+# Deliberately NOT path-filtered. The obvious filtering -- backend job on
+# backend/**, frontend job on frontend/** -- would skip the backend job on a
+# commit that only touches frontend/public/mock/, which is exactly the commit
+# the drift guard exists for: the scheduled weekly-report run regenerates
+# player-pool.json, and if a rostered player falls out of it,
+# test_checked_in_fixture_matches_its_roster is what notices. The whole thing
+# takes well under a minute, so there is nothing to save by being clever.
+name: Tests
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+# Superseded runs are worth cancelling here -- unlike the Pages deploy, where
+# a half-finished publish is worse than a stale one.
+concurrency:
+  group: tests-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  backend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: pip
+          cache-dependency-path: backend/requirements-dev.txt
+
+      - name: Install test dependencies
+        # requirements-dev.txt, not requirements.txt -- see that file for why
+        # the suite does not need nflreadpy, pandas or pyarrow.
+        run: pip install -r backend/requirements-dev.txt
+
+      - name: pytest
+        # From backend/, not the repo root: the test modules import their
+        # siblings by bare name (`from availability import ...`), so
+        # collection fails anywhere else.
+        working-directory: backend
+        run: python -m pytest tests -q
+
+      - name: Check default-team-config.json is in sync with roster.json
+        # Redundant with test_checked_in_fixture_matches_its_roster, and kept
+        # anyway: this prints the actual per-slot diff ("slot 13 (BENCH):
+        # Josh Downs -> Alec Pierce") where the assertion only says the file
+        # is stale. `always()` so it still reports when pytest failed.
+        if: always()
+        run: python3 backend/generate_team_config.py --check
+
+  frontend:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+
+      - run: npm ci
+        working-directory: frontend
+
+      - name: Tests
+        # `node --test tests/` -- Node's built-in runner, no test dependency.
+        working-directory: frontend
+        run: npm test
+
+      - name: Build
+        working-directory: frontend
+        run: npm run build
+
+      - name: Fail if the fixtures did not ship
+        # Inherited from deploy-frontend.yml, which was deleted 2026-09-20
+        # after failing 11 of 11 runs (it published to GitHub Pages, which was
+        # never enabled; Vercel does the real deploy through its own GitHub
+        # App). This check was the one part of it worth keeping. The app is
+        # static JSON fetched at runtime -- if public/mock/ does not make it
+        # into the bundle the site still loads, renders an empty shell, and
+        # looks merely quiet rather than broken.
+        working-directory: frontend
+        run: |
+          test -f dist/index.html
+          test -f dist/mock/league-2/briefings/index.json
+          echo "fixtures present: $(find dist/mock -name '*.json' | wc -l) json files"

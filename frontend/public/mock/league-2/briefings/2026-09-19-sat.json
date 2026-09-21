@@ -1,0 +1,169 @@
+{
+  "slug": "2026-09-19-sat",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 2,
+  "kind": "saturday",
+  "generatedAt": "2026-09-19T06:16:18Z",
+  "source": {
+    "label": "nflreadpy.load_injuries(2026) -- live, full coverage -- + generate_report.py end-to-end (in-house tier only; availability model freshly fitted on 2021-2025; blend disabled -- see note)",
+    "asOf": "2026-09-19T06:13:18Z",
+    "isLive": true,
+    "note": "load_injuries(2026) returned 246 Week 2 rows across all 32 teams this run -- a real change from Wednesday, when only BUF/DET (11 rows) had reported. Every rostered player now has a genuine live designation, not an absence-of-data default. Cross-checked exact player IDs (not name matching) against the full Week 2 injury table: exactly one rostered player has a tag -- Brock Bowers (LV, TE), Doubtful / Knee / Limited Participation in Practice. season_week.load_current_week_nflreadpy(2026) returns Week 2, cross-checked against load_schedules(2026): Week 2's Thursday opener (DET @ BUF) is final (BUF 41-31), all 13 Sunday games and the NYG@LA Monday nighter still show no score -- agrees with the schedule and confirms this is a genuine Saturday-morning, games-mostly-ahead report, not a stale week detection. FantasyPros consensus was skipped (no API key); Rotowire's weekly-projections endpoint and ESPN's news/injury endpoint are both proxy-blocked (403) in this sandbox, same as every prior run. blend.py (rolling-volume + Vegas context) was run with --skip-blend again -- unresolved since the 2026-09-14 finding, not re-tested this run to keep this report inside its time budget; flagged again rather than silently assumed fixed."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040691",
+      "name": "Jaxson Dart",
+      "position": "QB",
+      "opponent": "@LAR",
+      "expectedPoints": 16.85,
+      "conditionalPoints": 17.72,
+      "playProbability": 0.951,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "@KC",
+      "expectedPoints": 14.71,
+      "conditionalPoints": 15.95,
+      "playProbability": 0.922,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "vs CLE",
+      "expectedPoints": 12.58,
+      "conditionalPoints": 13.64,
+      "playProbability": 0.922,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "@ARI",
+      "expectedPoints": 14.34,
+      "conditionalPoints": 15.13,
+      "playProbability": 0.948,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "@HOU",
+      "expectedPoints": 6.33,
+      "conditionalPoints": 7.71,
+      "playProbability": 0.821,
+      "designation": "Healthy",
+      "reason": "Clears the bench WR tier (Downs 6.00, London 5.92, Johnston 4.49) by a thin margin, same ordering as Wednesday -- no new tag for any of the four."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0040663",
+      "name": "Harold Fannin Jr.",
+      "position": "TE",
+      "opponent": "vs TB",
+      "expectedPoints": 4.59,
+      "conditionalPoints": 5.02,
+      "playProbability": 0.915,
+      "designation": "Healthy",
+      "reason": "Starts over Bowers, and the call is now on much firmer ground than Wednesday's -- Bowers has a confirmed live Doubtful/knee/Limited tag as of this run, not an absent-data placeholder. See lineup note below and watch list."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "@LAR",
+      "expectedPoints": 9.83,
+      "conditionalPoints": 10.66,
+      "playProbability": 0.922,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "@BUF",
+      "expectedPoints": 5.3,
+      "conditionalPoints": 5.3,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "GAME ALREADY FINAL -- Thursday night, DET lost 31-41 at BUF. Nothing left to decide here: this row carries his real, final stat line (2 rec, 33 yds, 5.3 pts under league-2 scoring), not a pre-game projection. If this slot was not locked in before Thursday's 8:15p ET kickoff, that decision has already been made one way or the other and cannot be changed now."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0037224",
+      "name": "Cameron Dicker",
+      "position": "K",
+      "opponent": "vs LV",
+      "expectedPoints": 5.44,
+      "conditionalPoints": 5.58,
+      "playProbability": 0.975,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "DEF",
+      "playerId": "PHI",
+      "name": "Eagles D/ST",
+      "position": "DST",
+      "opponent": "@TEN",
+      "expectedPoints": 4.98,
+      "conditionalPoints": 4.98,
+      "playProbability": 1.0,
+      "designation": "Healthy"
+    }
+  ],
+  "lineupTotal": 94.95,
+  "changes": [],
+  "watchList": [
+    {
+      "playerId": "00-0039338",
+      "name": "Brock Bowers",
+      "why": "Now carries a confirmed live Week 2 tag: Doubtful, knee, Limited Participation in Practice -- a real update from Wednesday, when nflreadpy's feed hadn't reached LV yet and the model was reading an undesignated thin sample at 81.4% P(play). With the real tag in, the fitted model collapses him to 2.4% P(play) (historical base rate for Doubtful is 1.15%, so this is in the expected range) and 0.14 expected points. Does not change tonight's call -- Fannin was already starting over him on Wednesday's numbers -- but the reasoning is now solid instead of provisional. His if-he-plays number (5.57) is still a shade above Fannin's (5.02), so this is worth one more look only if he is somehow upgraded before Sunday's 4:05p ET inactives list for LV @ LAC.",
+      "newsDue": "Official inactives list, ~90 minutes before LV @ LAC kickoff Sunday (4:05p ET / ~22:05 Budapest -- inactives post around 2:35p ET / ~20:35 Budapest)"
+    },
+    {
+      "playerId": null,
+      "name": "Higgins / Downs / London / Johnston WR tier",
+      "why": "Still bunched within 2 expected points (4.49-6.33) with no live tags for any of the three bench names. Ordering unchanged from Wednesday -- nothing new landed for any of their teams this run.",
+      "newsDue": "Sunday's 1:00p ET early-window inactives (Higgins/HOU game, London/ATL game) and the 4:05p window (Johnston/LAC game)"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0037240",
+      "text": "Jameson Williams' game (DET @ BUF) was Thursday night and is already final -- his row above carries the real result, not a projection. Nothing actionable here anymore."
+    },
+    {
+      "playerId": "00-0036223",
+      "text": "Jonathan Taylor and Josh Downs (bench) both play the Sunday Night finale, IND @ KC, 8:20p ET -- last chance to react to the rest of Sunday's early/late-window injury news before that slot locks."
+    },
+    {
+      "playerId": "00-0040691",
+      "text": "Jaxson Dart, Cam Skattebo, and bench QB Matthew Stafford (opposing this game, LAR) all play Monday Night Football, NYG @ LA, 8:15p ET -- the very last lineup decision of the week, after every other game (including SNF) has already been played."
+    }
+  ],
+  "byesAhead": [],
+  "caveats": [
+    "nflreadpy.load_injuries(2026) returned full Week 2 coverage this run (246 rows, all 32 teams) -- a genuine improvement over Wednesday's 11-row, 2-team partial pull. Exact player-ID cross-check (not name matching) confirms exactly one rostered player has a live tag: Brock Bowers, Doubtful/Knee/Limited.",
+    "Jameson Williams' Thursday game (DET @ BUF) is already final. His lineup row above is his real stat line (2 rec, 33 yds, 5.3 league-2 points), not a projection -- flagged so it isn't read as a live start/sit call. Total lineup points (94.95) is 0.88 below Wednesday's 95.83 purely because of this swap from a 6.18 projection to a 5.30 actual; nothing else in the lineup moved.",
+    "Brock Bowers' Doubtful/knee tag is new and real this run (was an undesignated placeholder on Wednesday). It doesn't change tonight's TE call -- Fannin was already ahead -- but it firms up the reasoning and is worth one more look only if LV upgrades him before Sunday's inactives.",
+    "blend.py (rolling-volume + Vegas-context refinement) was run with --skip-blend again this run, per the unresolved 2026-09-14/2026-09-16 finding (it collapsed the player pool to near-zero conditional points with the blend on). Not re-tested this run to stay inside the time budget -- flagged again rather than assumed fixed.",
+    "FantasyPros consensus tier skipped (no API key in this sandbox); Rotowire weekly-projections and ESPN news/injury endpoints are proxy-blocked (403), as in every prior run. Every projection below is the in-house rolling-average tier with availability and calibration applied.",
+    "This run wrote only frontend/public/mock/league-2/briefings/2026-09-19-sat.json and this index.json manifest entry; nothing else in the repository was touched."
+  ],
+  "markdown": "# Intuitech Fantasy (league-2) -- Saturday Briefing, Week 2\n\n## Source and freshness\n\n**Live, and this time genuinely full.** `nflreadpy.load_injuries(2026)` returned **246 Week 2 rows across all 32 teams** this run -- a real jump from Wednesday's 11 rows covering only Thursday's two teams (BUF, DET). Cross-checked by exact player ID (not name substring matching, which can silently miss or misfire) against the full Week 2 table: **exactly one of this roster's 15 players has a live tag.**\n\n`season_week.load_current_week_nflreadpy(2026)` returns **Week 2**, confirmed against the schedule: Thursday's opener (DET @ BUF, final 41-31) is done, and all 13 Sunday games plus the Monday nighter (NYG @ LA) still show no score. This is a genuine mid-week-2 report with most of the week still ahead, not a stale detection.\n\nFantasyPros was skipped (no API key). Rotowire and ESPN news/injury are proxy-blocked (403), same as every prior run -- every number below is the in-house tier with availability and calibration applied, run through `generate_report.py` end-to-end. The rolling-volume/Vegas blend (`blend.py`) was run with `--skip-blend` again, per the unresolved finding from the last two briefings; not re-tested this run to stay inside budget.\n\n## Start these ten\n\n| Slot | Player | Opp | Expected pts | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Jaxson Dart | @LAR (Mon 8:15p) | **16.85** | 95.1% | 17.72 |\n| RB | Jonathan Taylor | @KC (Sun SNF 8:20p) | **14.71** | 92.2% | 15.95 |\n| RB | Bucky Irving | vs CLE (Sun 1:00p) | **12.58** | 92.2% | 13.64 |\n| WR | Jaxon Smith-Njigba | @ARI (Sun 4:25p) | **14.34** | 94.8% | 15.13 |\n| WR | Tee Higgins | @HOU (Sun 1:00p) | **6.33** | 82.1% | 7.71 |\n| TE | Harold Fannin Jr. | vs TB (Sun 1:00p) | **4.59** | 91.5% | 5.02 |\n| FLEX | Cam Skattebo | @LAR (Mon 8:15p) | **9.83** | 92.2% | 10.66 |\n| FLEX | Jameson Williams | @BUF -- **FINAL** | **5.30 (actual)** | played | 5.30 |\n| K | Cameron Dicker | vs LV (Sun 4:05p) | **5.44** | 97.5% | 5.58 |\n| DEF | Eagles D/ST | @TEN (Sun 1:00p) | **4.98** | 100% | 4.98 |\n| **Total** | | | **94.95** | | |\n\nBench (expected-points order): Matthew Stafford QB (10.00 -- no usable slot behind Dart), Josh Downs WR (6.00), Drake London WR (5.92), Quentin Johnston WR (4.49), Brock Bowers TE (0.14 -- see below).\n\n**Be decisive: nine of these ten calls are unchanged and unambiguous.** The one thing worth a second look is Jameson Williams' row -- his game is over, not upcoming (see below).\n\n## Jameson Williams already played\n\nDET @ BUF kicked off Thursday night and is final (BUF won 41-31). Williams caught 2 of his targets for 33 yards -- **5.30 points under league-2 scoring**, a real result, not a projection. Whatever this slot was set to before 8:15p ET Thursday is now locked in; there is nothing left to decide here today. His row above carries the actual stat line so the lineup total is honest, not a phantom pre-game number. That swap (5.30 actual vs. Wednesday's 6.18 projection) accounts for the entire 0.88-point drop in tonight's total versus Wednesday's 95.83 -- nothing else in the lineup moved.\n\n## Bowers: real tag, same call, more confidence\n\nBrock Bowers now carries a genuine live Week 2 designation for the first time this season: **Doubtful, knee, Limited Participation in Practice.** Wednesday's briefing had him at an artifact 81.4% P(play) because no LV rows existed yet in the feed; with the real tag in, the fitted availability model puts him at **2.4%** (the historical base rate for a Doubtful designation is 1.15% across 262 cases, so this is squarely in range) and **0.14 expected points**. This doesn't flip anything -- Fannin was already the start on Wednesday's numbers -- but it moves the reasoning from \"the model doesn't have data yet\" to \"the model has seen a real Doubtful tag and priced it correctly.\" His if-he-plays number (5.57) still edges Fannin's (5.02), so if LV upgrades him before Sunday's ~2:35p ET inactives list (LV @ LAC, 4:05p ET), it's worth one more look -- but Doubtful rarely reverses that fast.\n\n## Changes since Wednesday\n\n**None in the lineup itself** -- same ten slots, same players. What changed is the *evidence* behind two of those calls: full injury coverage returned (Bowers' tag went from absent-data placeholder to a confirmed real designation), and Jameson Williams' Thursday game resolved from a projection to an actual result.\n\n## Watch list\n\n- **Brock Bowers** -- Doubtful/knee/Limited is real now, not a placeholder. Final word comes with LV's inactives list Sunday afternoon. Doesn't change today's call.\n- **Higgins / Downs / London / Johnston** -- still bunched (4.49-6.33 expected), no live tags for any of them as of this pull. Ordering unchanged from Wednesday. Early (1:00p ET) and late (4:05p ET) Sunday inactives lists are the next checkpoints.\n\n## Opponent notes\n\n- **Jameson Williams (DET @ BUF)** -- game over, see above.\n- **Jonathan Taylor / Josh Downs (IND @ KC)** -- Sunday Night Football, 8:20p ET. Last chance to react to the rest of Sunday's news before that slot locks.\n- **Jaxson Dart / Cam Skattebo (NYG @ LA)**, with bench QB Stafford on the other side of that game -- Monday Night Football, 8:15p ET, the very last decision point of the week.\n\n## Byes ahead\n\n**None in the next two weeks (weeks 3-4).** The next cluster is still **Week 6** -- Tee Higgins (CIN) and Jameson Williams (DET), both in the active lineup mix -- worth starting to plan waiver cover for given only five bench spots and two same-position byes landing together.\n\n## Caveats\n\n- Full Week 2 injury coverage returned this run (246 rows, all 32 teams) -- a real improvement, cross-checked by exact player ID. Only Brock Bowers among this roster has a live tag.\n- Jameson Williams' FLEX row is his real Thursday-night result (5.30 pts), not a projection -- accounts for the entire gap between this week's 94.95 total and Wednesday's 95.83.\n- Bowers' Doubtful/knee/Limited tag is new and real; doesn't change the TE call (Fannin already ahead) but replaces a data-absence artifact with a genuine read.\n- blend.py was run with --skip-blend again per the unresolved finding from the last two briefings; not re-tested this run.\n- FantasyPros (no key), Rotowire, and ESPN news/injury remain unavailable in this sandbox -- in-house tier only.\n- Only this briefing file and the manifest entry were written to the repository."
+}

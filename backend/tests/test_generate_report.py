@@ -14,6 +14,7 @@ sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 import generate_report  # noqa: E402
 from generate_report import (  # noqa: E402
     assemble_player_pool,
+    load_env_file,
     assemble_weekly_report,
     build_player_pool_entry,
     build_projection_entry,
@@ -318,6 +319,82 @@ class TestDualLeagueScoring(unittest.TestCase):
         ids_b = {p["playerId"] for p in report_b["projections"]}
         self.assertEqual(ids_a, ids_b)
         self.assertIn("qb-dual-test", ids_a)
+
+
+class LoadEnvFileTest(unittest.TestCase):
+    """generate_report reads every API key straight off os.environ. Before
+    load_env_file() existed, a local run saw an empty environment even with a
+    populated .env one directory up, and silently produced a different report:
+    no ANTHROPIC_API_KEY skips the news layer, no FANTASYPROS_API_KEY skips the
+    consensus tier, and on 2026-09-20 that moved a tight end from an in-house
+    3.52 to a consensus 13.53 -- a different start/sit call, logged only as two
+    easily-missed lines."""
+
+    def setUp(self):
+        self._saved = {
+            k: os.environ.get(k)
+            for k in ("ANTHROPIC_API_KEY", "FANTASYPROS_API_KEY", "GR_TEST_ONLY")
+        }
+        for k in self._saved:
+            os.environ.pop(k, None)
+
+    def tearDown(self):
+        for k, v in self._saved.items():
+            if v is None:
+                os.environ.pop(k, None)
+            else:
+                os.environ[k] = v
+
+    def _write_env(self, body):
+        import tempfile
+        from pathlib import Path
+
+        tmp = Path(tempfile.mkdtemp()) / ".env"
+        tmp.write_text(body)
+        return tmp
+
+    def test_absent_env_file_is_not_an_error(self):
+        from pathlib import Path
+
+        load_env_file(Path("/nonexistent-directory-for-tests/.env"))
+
+    def test_missing_python_dotenv_warns_and_continues(self):
+        """python-dotenv is deliberately NOT in requirements-dev.txt, so this
+        is the path CI itself takes. It must not raise."""
+        import builtins
+
+        real_import = builtins.__import__
+
+        def blocked(name, *args, **kwargs):
+            if name == "dotenv":
+                raise ImportError("No module named dotenv")
+            return real_import(name, *args, **kwargs)
+
+        builtins.__import__ = blocked
+        try:
+            load_env_file(self._write_env("GR_TEST_ONLY=from_file\n"))
+        finally:
+            builtins.__import__ = real_import
+        self.assertIsNone(os.environ.get("GR_TEST_ONLY"))
+
+    def test_loads_keys_from_the_file(self):
+        try:
+            import dotenv  # noqa: F401
+        except ImportError:
+            self.skipTest("python-dotenv not installed (requirements-dev.txt)")
+        load_env_file(self._write_env("GR_TEST_ONLY=from_file\n"))
+        self.assertEqual(os.environ.get("GR_TEST_ONLY"), "from_file")
+
+    def test_real_environment_beats_the_file(self):
+        """The GitHub Actions workflows inject the same keys as real env vars.
+        A stale .env must never clobber them, so override stays False."""
+        try:
+            import dotenv  # noqa: F401
+        except ImportError:
+            self.skipTest("python-dotenv not installed (requirements-dev.txt)")
+        os.environ["GR_TEST_ONLY"] = "from_ci"
+        load_env_file(self._write_env("GR_TEST_ONLY=from_file\n"))
+        self.assertEqual(os.environ.get("GR_TEST_ONLY"), "from_ci")
 
 
 if __name__ == "__main__":

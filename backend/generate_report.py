@@ -1104,9 +1104,80 @@ def load_rotowire_stats_or_empty(
         return {}
 
 
+def load_env_file(env_path: Optional[Path] = None) -> None:
+    """Load the repo-root .env into os.environ before anything reads a key.
+
+    Every key in this script is read straight off os.environ. The GitHub
+    Actions workflows inject them as real environment variables, so CI was
+    always fine -- but a local run saw an empty environment even with a
+    fully-populated .env sitting one directory up, and nothing failed. The
+    run just quietly produced a different report: no ANTHROPIC_API_KEY skips
+    the news layer, no FANTASYPROS_API_KEY skips the consensus tier.
+
+    That is not cosmetic. On 2026-09-20 a keyless local run put Dallas
+    Goedert in the in-house tier at 3.52 points; with the key loaded he
+    resolves to the consensus tier at 13.53 -- the difference between
+    benching and starting him. Two easily-missed lines in a hundred lines of
+    log output were the only evidence.
+
+    `override=False` is python-dotenv's default and is deliberate here: the
+    workflows' injected secrets must beat whatever a stale local .env
+    carries.
+
+    python-dotenv is in requirements.txt but deliberately NOT in
+    requirements-dev.txt -- the test suite runs on pytest + requests alone
+    (see that file's own note) and never calls main(). So a missing
+    dependency warns and continues rather than raising: the script degrades
+    to exactly the pre-2026-09-20 behaviour, and says so, because the whole
+    point of this function is that the silent version cost a lineup call.
+
+    `env_path` defaults to the repo-root .env and is a parameter so the tests
+    can point at a temporary file -- the real .env is gitignored, so a test
+    that depended on it would pass locally and prove nothing in CI.
+    """
+    import os
+
+    try:
+        from dotenv import load_dotenv
+    except ImportError:
+        print(
+            "  python-dotenv not installed -- .env not read. Any key not already "
+            "in the environment will be treated as absent (news layer and "
+            "FantasyPros tier skipped)."
+        )
+        return
+
+    if env_path is None:
+        env_path = Path(__file__).resolve().parent.parent / ".env"
+    if not env_path.exists():
+        return
+    load_dotenv(env_path)
+
+    # Say which keys are live. The failure this function exists to prevent was
+    # invisible precisely because absence was only ever reported downstream,
+    # one line per consumer, long after the run had committed to it.
+    present = [
+        name
+        for name in ("ANTHROPIC_API_KEY", "FANTASYPROS_API_KEY")
+        if os.environ.get(name)
+    ]
+    missing = [
+        name
+        for name in ("ANTHROPIC_API_KEY", "FANTASYPROS_API_KEY")
+        if not os.environ.get(name)
+    ]
+    print(
+        f"  env: loaded {env_path.name}"
+        + (f" -- {', '.join(present)} set" if present else "")
+        + (f"; {', '.join(missing)} still missing" if missing else "")
+    )
+
+
 def main(argv: Optional[list[str]] = None) -> None:
     import argparse
     import os
+
+    load_env_file()
 
     # nflreadpy caches in MEMORY by default, so every run re-downloads every
     # file -- and a full report touches a dozen of them across several seasons.

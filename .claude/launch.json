@@ -14,7 +14,7 @@
       "url": "http://localhost:5173"
     },
     {
-      "name": "frontend-pages-preview",
+      "name": "frontend-preview",
       "runtimeExecutable": "npm",
       "runtimeArgs": [
         "--prefix",
@@ -23,9 +23,7 @@
         "preview",
         "--",
         "--port",
-        "4173",
-        "--base",
-        "/NFL-Fantasy-Project/"
+        "4173"
       ],
       "port": 4173,
       "url": "http://localhost:4173"

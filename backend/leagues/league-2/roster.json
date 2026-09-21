@@ -1,8 +1,8 @@
 {
-  "_note": "The builder's actual team in the Intuitech Fantasy league (league-2), captured 2026-09-02 from the Sleeper app. 8-team league, snake draft, 7th slot. Roster spec: 1 QB, 2 RB, 2 WR, 1 TE, 2 FLEX (W/R/T), 1 K, 1 DEF, 5 BN, 2 IR. `byeWeek` matters for lineup planning -- with only 5 bench spots and 8 teams, a bye-week hole is usually filled from waivers rather than the bench. 2026-09-03: dropped Woody Marks (RB, HOU) for Quentin Johnston (WR, LAC) -- see the week-1 analysis; Marks was RB4 behind Taylor/Irving/Skattebo and the most expendable body, Johnston is healthy with the best week-1 game script in the candidate set and a clean week-7 bye.",
+  "_note": "The builder's actual team in the Intuitech Fantasy league (league-2), captured 2026-09-02 from the Sleeper app. 8-team league, snake draft, 7th slot. Roster spec: 1 QB, 2 RB, 2 WR, 1 TE, 2 FLEX (W/R/T), 1 K, 1 DEF, 5 BN, 2 IR. `byeWeek` matters for lineup planning -- with only 5 bench spots and 8 teams, a bye-week hole is usually filled from waivers rather than the bench. 2026-09-03: dropped Woody Marks (RB, HOU) for Quentin Johnston (WR, LAC) -- see the week-1 analysis; Marks was RB4 behind Taylor/Irving/Skattebo and the most expendable body, Johnston is healthy with the best week-1 game script in the candidate set and a clean week-7 bye. 2026-09-20 (week 2): dropped Harold Fannin Jr. (TE, CLE) for Isaiah Likely (TE) and Quentin Johnston (WR, LAC) for Matthew Golden (WR, GB), both on week-1 evidence -- Likely 8/8 for 78 and 2 TD, Golden 6/12 for 95, against Fannin's 2/3 for 21 and Johnston's 2/6 for 17. Note Likely plays for the NYG in 2026, not Baltimore: that puts three Giants (Dart, Skattebo, Likely) on one roster, so a bad NYG game script now costs three slots at once. Week-2 lineup set the same day: Likely into the TE slot over Brock Bowers (Doubtful, meniscus, P(play) 0.02) and Golden into a WR slot over Tee Higgins, on 12 targets and a 30% target share against Higgins' 6 and 17.6%. Note `starters`/`bench` here is the WEEKLY LINEUP, not just roster composition -- generate_team_config.py seeds the site's My Team tab from this split by index, so leaving a benched starter in the array ships a lineup that starts a doubtful player.",
   "leagueId": "league-2",
   "platform": "sleeper",
-  "capturedAt": "2026-09-03",
+  "capturedAt": "2026-09-20",
   "slots": ["QB", "RB", "RB", "WR", "WR", "TE", "FLEX", "FLEX", "K", "DEF"],
   "benchSlots": 5,
   "irSlots": 2,
@@ -11,19 +11,19 @@
     {"slot": "RB",   "name": "Jonathan Taylor",    "position": "RB",  "team": "IND", "byeWeek": 13},
     {"slot": "RB",   "name": "Bucky Irving",       "position": "RB",  "team": "TB",  "byeWeek": 10},
     {"slot": "WR",   "name": "Jaxon Smith-Njigba", "position": "WR",  "team": "SEA", "byeWeek": 11},
-    {"slot": "WR",   "name": "Drake London",       "position": "WR",  "team": "ATL", "byeWeek": 11},
-    {"slot": "TE",   "name": "Brock Bowers",       "position": "TE",  "team": "LV",  "byeWeek": 13},
-    {"slot": "FLEX", "name": "Tee Higgins",        "position": "WR",  "team": "CIN", "byeWeek": 6},
+    {"slot": "WR",   "name": "Matthew Golden",     "position": "WR",  "team": "GB",  "byeWeek": 11},
+    {"slot": "TE",   "name": "Isaiah Likely",      "position": "TE",  "team": "NYG", "byeWeek": 8},
+    {"slot": "FLEX", "name": "Drake London",       "position": "WR",  "team": "ATL", "byeWeek": 11},
     {"slot": "FLEX", "name": "Cam Skattebo",       "position": "RB",  "team": "NYG", "byeWeek": 8},
     {"slot": "K",    "name": "Cameron Dicker",     "position": "K",   "team": "LAC", "byeWeek": 7},
     {"slot": "DEF",  "name": "Eagles D/ST",        "position": "DST", "team": "PHI", "byeWeek": 10}
   ],
   "bench": [
     {"name": "Matthew Stafford",  "position": "QB", "team": "LAR", "byeWeek": 11},
-    {"name": "Quentin Johnston",  "position": "WR", "team": "LAC", "byeWeek": 7},
+    {"name": "Tee Higgins",       "position": "WR", "team": "CIN", "byeWeek": 6},
     {"name": "Jameson Williams",  "position": "WR", "team": "DET", "byeWeek": 6},
     {"name": "Josh Downs",        "position": "WR", "team": "IND", "byeWeek": 13},
-    {"name": "Harold Fannin Jr.", "position": "TE", "team": "CLE", "byeWeek": 11}
+    {"name": "Brock Bowers",      "position": "TE", "team": "LV",  "byeWeek": 13}
   ],
   "injuredReserve": []
 }

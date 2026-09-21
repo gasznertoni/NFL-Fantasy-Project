@@ -59,11 +59,39 @@ Targets automatically exclude anyone already on my configured team.
      a stamp that no longer matches the current slots is re-mapped **by slot name**, not by index;
      a player whose slot no longer exists falls to a free `BENCH`, then `IR`, rather than
      vanishing. This is what makes the next shape change safe without another bump.
+  3. The stamp is **mandatory**, on read and on write (added 2026-09-20). A record without one is
+     discarded and the league re-seeds from `default-team-config.json`; `saveTeamConfig` refuses to
+     write one at all. Defence 1 had a hole: the pre-dual-league key
+     `nfl-fantasy-assistant:team-config:v1` was copied into `storageKey('league-1')` on mount, an
+     expression that ended in `:v1` when the migration was written and in `:v2` by the time it
+     shipped. The copy therefore re-admitted exactly the configs the bump discards, unstamped, and
+     an unstamped record took the index-join path. That migration is gone and the legacy key is
+     never read.
+  4. **Every write uses the same coordinate system as the read** (added 2026-09-20). The mutators
+     took a slot index counted against the slots *on screen* and applied it to the array *as
+     stored*; those are the same number only while the stamp matches. Once it did not, assigning to
+     league-1's FLEX wrote into the stored TE slot — the new player surfaced under TE and the tight
+     end already there was overwritten silently. Mutators now take the current `slots`, start from
+     `loadTeamConfig`'s re-seated array, refuse an out-of-range index, and re-stamp on save, so a
+     stale record heals on its first edit.
+  5. **A seed is never stamped with another league's slots** (added 2026-09-20). `leagueId` changes
+     the moment the user picks from the league dropdown while the new `roster-slots.json` is still
+     loading, so the hook ran once with the new league and the old league's slot array and stamped
+     league-2's 17-entry roster with league-1's 13 slots. `default-team-config.json` is one entry
+     per slot by contract, so the seed is skipped (with a `console.warn`) when the lengths disagree,
+     and both views reset `slots`/`pool` to `null` on a league change rather than holding the
+     previous league's.
+  6. **Position eligibility is an invariant of the stored roster, not just of the picker**
+     (added 2026-09-20). `sanitizeAssignments(slots, assignments, poolById)` runs on load when the
+     pool is known and moves anyone sitting in a slot his position cannot hold to a free `BENCH`,
+     then `IR` — so a browser already holding a corrupt config heals itself instead of needing
+     "Reset to default". A player missing from the pool is left exactly where he is: his position
+     is unknown, not wrong, and the view already renders that state.
 - **`BENCH` and `IR` are the non-starting slots** (`NON_STARTING_SLOTS` in `lib/teamConfig.js`).
   Weekly Report must exclude both from its starting-slot groups, and must not merge them into one
   another: a bench player is startable and simply is not started this week, an IR player cannot be
   started at all. IR gets its own de-emphasized section, rendered only when an IR slot is occupied.
-- **Slots support a swap (`Move`), not just assign/clear** (added 2026-09-03). `swapSlots(a, b)`
+- **Slots support a swap (`Move`), not just assign/clear** (added 2026-09-03). `swapSlots(slots, a, b)`
   exchanges two slots' contents and persists once; an empty target makes it a move.
   `canSwapSlots(slots, assignments, poolById, a, b)` gates it and checks eligibility in **both
   directions** — moving a WR into FLEX is legal, but the RB coming back the other way must be legal
@@ -216,6 +244,25 @@ One-time seed, fetched only when `localStorage` has no saved config yet.
   slot is unassigned. Array length always equals `slots.length`.
 - Seed values above are exactly today's week-1 fixture's start (9) + sit (3) players, in slot order —
   chosen so first-load looks identical to current behavior until the user edits their team.
+- **Generated, never hand-edited** (added 2026-09-20). `backend/generate_team_config.py` builds this
+  file from `backend/leagues/<league>/roster.json`, which is the roster's source of truth. It was
+  hand-maintained until then — its own note said "regenerate rather than hand-edit" while nothing
+  existed to regenerate it — and the two drifted: league-2 kept seeding Quentin Johnston and Harold
+  Fannin Jr. for seventeen days after they were dropped. The join is not a zip. `roster.json` spells
+  the same roster differently (league-2 lists `K` before `DEF`; `roster-slots.json` lists `DST`
+  before `K`), so starters are placed by **slot name** with `DEF`/`D/ST` aliased to `DST`, bench and
+  IR fill their own sections in roster order, and players are resolved against `player-pool.json` by
+  name plus position plus team. Every disagreement raises rather than warns — an unresolvable player,
+  a pool entry contradicting the roster, a duplicate, a slot-count mismatch, an ineligible position.
+  `--check` reports what would change and exits non-zero without writing;
+  `test_generate_team_config.py::test_checked_in_fixture_matches_its_roster` runs the same comparison
+  against the real files, so a roster change without a regeneration fails the suite.
+
+  ```bash
+  python3 backend/generate_team_config.py                   # every league
+  python3 backend/generate_team_config.py --league league-2
+  python3 backend/generate_team_config.py --check           # diff only, no write
+  ```
 
 ### 3.5 `localStorage` schema
 
@@ -337,16 +384,33 @@ async function getPlayerPool(): Promise<{ players: PoolPlayer[] }>
 async function getDefaultTeamConfig(): Promise<{ slotAssignments: (string|null)[] }>
 
 // lib/teamConfig.js
-function loadTeamConfig(slotCount: number): { slotAssignments: (string|null)[] }
-  // Sync localStorage read. Returns a null-filled array of length slotCount if nothing saved yet
-  // (caller is responsible for triggering the one-time seed from getDefaultTeamConfig() on first run).
-function saveTeamConfig(config: { slotAssignments }): void
-function assignPlayerToSlot(slotIndex: number, playerId: string): { slotAssignments }
-function clearSlot(slotIndex: number): { slotAssignments }
-function resetTeamConfig(): void
-function eligiblePositions(slotName: string): string[]   // §2 eligibility rule
+//
+// `slots` -- the CURRENT slot-name array -- is the first argument everywhere it
+// appears, because it is the coordinate system every slot index counts against.
+// Passing the wrong one (another league's, or a stale shape) is the defect class
+// this module has been through three times; see §2's defences 3-6.
+function loadTeamConfig(slots: string[], leagueId?: string, poolById?: Map<string, PoolPlayer>)
+  : { slotAssignments: (string|null)[] }
+  // Sync localStorage read, re-seated onto `slots` and (with a pool) sanitized.
+  // Null-filled array of slots.length if nothing saved yet -- the caller triggers
+  // the one-time seed from getDefaultTeamConfig() on first run.
+function saveTeamConfig(config: { slotAssignments }, leagueId?: string, slots?: string[]): void
+  // No stamp available -> writes nothing. An unstamped record reads as absent.
+function sanitizeAssignments(slots, assignments, poolById): (string|null)[]
+function assignPlayerToSlot(slots, slotIndex: number, playerId: string, leagueId?, poolById?)
+  : { slotAssignments }   // refuses an ineligible position when poolById is given
+function clearSlot(slots, slotIndex: number, leagueId?): { slotAssignments }
+function swapSlots(slots, indexA: number, indexB: number, leagueId?, poolById?): { slotAssignments }
+function canSwapSlots(slots, assignments, poolById, indexA, indexB): boolean
+function resetTeamConfig(leagueId?): void
+function eligiblePositions(slotName: string): string[]|null   // §2 eligibility rule; null = any
+function isPositionEligible(slotName: string, position: string): boolean
 function isPlayerRostered(playerId: string, config: { slotAssignments }): boolean  // used by §5 filter
+function useTeamConfig(slots, leagueId?, poolById?)  // load/seed lifecycle + mutators
 ```
+
+Regression tests: `frontend/tests/teamConfig.test.mjs`, run with `npm --prefix frontend test`
+(Node's built-in runner — no test dependency).
 
 ## 10. Acceptance Criteria
 

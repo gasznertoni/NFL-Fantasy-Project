@@ -1,0 +1,19 @@
+# What the TEST SUITE needs, which is far less than requirements.txt.
+#
+# Every nflreadpy/pandas/pyarrow/anthropic import in this backend sits inside
+# a function, not at module scope -- the "Real data adapter -- NOT exercised
+# by the test suite" pattern you will find in generate_report.py,
+# generate_track_record.py and every load_* helper. So the 626 tests import
+# and run without any of the heavy data stack: verified on a clean venv
+# 2026-09-20, where pytest + requests alone is enough and the full suite
+# finishes in about three seconds.
+#
+# That is why CI installs this file rather than requirements.txt. Keeping it
+# separate is also what makes a test run cheap enough to put on every push --
+# requirements.txt pulls pyarrow and pandas, which is minutes, not seconds.
+#
+# `requests` is here rather than being test-only: news.py and
+# espn_injuries.py import it at module scope, so three test modules fail to
+# COLLECT without it.
+pytest>=8.0
+requests>=2.31
