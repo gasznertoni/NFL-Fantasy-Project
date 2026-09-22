@@ -1,0 +1,186 @@
+{
+  "slug": "2026-09-21-mon",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 3,
+  "kind": "monday",
+  "generatedAt": "2026-09-21T06:24:31Z",
+  "runUrl": "https://claude.ai/code/session_01SZDDhxCHb1xzbhPCsZQhDR",
+  "source": {
+    "label": "nflreadpy (schedules/rosters/player stats/depth charts) + generate_report.py end-to-end (in-house tier only -- no FantasyPros key; ESPN/Rotowire/Sleeper proxy-blocked)",
+    "asOf": "2026-09-21T06:19:45Z",
+    "isLive": true,
+    "note": "Live data, but no Week 3 injury/practice report exists yet anywhere (nflreadpy.load_injuries(2026) caps at Week 2) -- expected timing, not a source failure; first Week 3 practice reports post Wednesday. season_week.load_current_week_nflreadpy returns Week 2 because Week 2's Monday-nighter (NYG @ LA) hasn't been played yet; this briefing targets Week 3 per this routine's own Monday-transition precedent (2026-09-14)."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040691",
+      "name": "Jaxson Dart",
+      "position": "QB",
+      "opponent": "vs TEN",
+      "expectedPoints": 13.0,
+      "conditionalPoints": 14.23,
+      "playProbability": 0.914,
+      "designation": "No report yet"
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "vs HOU",
+      "expectedPoints": 9.19,
+      "conditionalPoints": 9.86,
+      "playProbability": 0.932,
+      "designation": "No report yet"
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "vs MIN",
+      "expectedPoints": 6.8,
+      "conditionalPoints": 7.29,
+      "playProbability": 0.932,
+      "designation": "No report yet"
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "@WAS",
+      "expectedPoints": 5.46,
+      "conditionalPoints": 5.72,
+      "playProbability": 0.955,
+      "designation": "No report yet"
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "vs NYJ",
+      "expectedPoints": 3.21,
+      "conditionalPoints": 3.81,
+      "playProbability": 0.842,
+      "designation": "No report yet",
+      "reason": "Edges London/Downs/Higgins by a thin margin (0.22-0.49 pts) for the vacated WR slot -- low-confidence, 2 games of data, no consensus check available."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "vs TEN",
+      "expectedPoints": 3.54,
+      "conditionalPoints": 4.13,
+      "playProbability": 0.856,
+      "designation": "No report yet"
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "vs TEN",
+      "expectedPoints": 6.2,
+      "conditionalPoints": 7.15,
+      "playProbability": 0.867,
+      "designation": "No report yet"
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0040667",
+      "name": "Matthew Golden",
+      "position": "WR",
+      "opponent": "vs ATL (Thu 9/24)",
+      "expectedPoints": 3.2,
+      "conditionalPoints": 3.9,
+      "playProbability": 0.82,
+      "designation": "No report yet",
+      "reason": "Moved from the dedicated WR slot into FLEX so Williams' higher-graded number can occupy WR2; same player, same start, different slot label."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0037224",
+      "name": "Cameron Dicker",
+      "position": "K",
+      "opponent": "@BUF",
+      "expectedPoints": 4.16,
+      "conditionalPoints": 4.25,
+      "playProbability": 0.979,
+      "designation": "No report yet"
+    },
+    {
+      "slot": "DEF",
+      "playerId": "PHI",
+      "name": "Eagles D/ST",
+      "position": "DST",
+      "opponent": "@CHI (Mon 9/28)",
+      "expectedPoints": 4.73,
+      "conditionalPoints": 4.73,
+      "playProbability": 1.0,
+      "designation": "No report yet"
+    }
+  ],
+  "lineupTotal": 59.49,
+  "changes": [
+    {
+      "action": "bench",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "reason": "2.72 expected pts is last among the five FLEX-eligible WRs this week (vs GB Thursday); replaced by Williams. Thin margin (0.49 pts) on 2 games of data -- low confidence."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "replacing": "Drake London",
+      "deltaExpectedPoints": 0.49,
+      "reason": "Grades marginally ahead of London/Downs/Higgins for the vacated WR slot (Golden shifts to FLEX to make room). Same caveat: thin margin, no FantasyPros check available."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0039338",
+      "name": "Brock Bowers",
+      "why": "Last confirmed live status: Week 2 Doubtful/knee/Limited. No Week 3 report yet -- chronic, worth re-checking Wednesday even though it doesn't threaten Likely's TE spot.",
+      "newsDue": "2026-09-23 (Wednesday practice report)"
+    },
+    {
+      "playerId": "00-0040667",
+      "name": "Matthew Golden",
+      "why": "Plays Drake London's Falcons Thursday night (9/24) -- same game decides both players' value.",
+      "newsDue": "2026-09-24 (kickoff)"
+    },
+    {
+      "playerId": null,
+      "name": "All rostered players",
+      "why": "No Week 3 injury/practice designations exist anywhere yet. First real read comes Wednesday.",
+      "newsDue": "2026-09-23"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "text": "Golden (GB) and London (ATL) play each other Thursday night -- GB hosts ATL. Green Bay's home offense is part of why Golden's FLEX case is live and Atlanta's tough matchup is part of why London grades lowest of the FLEX-eligible WRs."
+    },
+    {
+      "text": "Three rostered Giants -- Dart, Skattebo, and Likely -- all play TEN this week. Correlated risk: one game script moves all three together, for better or worse."
+    },
+    {
+      "text": "Taylor and Downs share an opponent (both IND vs HOU) -- no lineup implication, both are already slotted correctly."
+    }
+  ],
+  "byesAhead": [],
+  "caveats": [
+    "No live Week 3 injury/practice data exists anywhere yet (nflreadpy.load_injuries caps at Week 2) -- every designation above reads 'No report yet,' not 'confirmed healthy.' Re-run Wednesday, especially for Bowers.",
+    "FantasyPros consensus tier unavailable in this sandbox (no FANTASYPROS_API_KEY) -- Taylor/Irving/JSN/Likely are scored by the more conservative in-house model rather than the vendor consensus this tool normally uses for top-10-per-position players. Doesn't change any starting slot.",
+    "ESPN's and Rotowire's endpoints are proxy-blocked in this sandbox (expected); Sleeper likewise. No opponent-news layer beyond the schedule facts stated above.",
+    "The Williams-over-London call is a ~0.5-point edge on 2 games of data -- treat it as a coin flip, not a strong signal.",
+    "Week 2's final game (NYG @ LA, Monday Night) had not been played as of this run; it doesn't affect this Week 3 lineup since all three Giants start regardless of tonight's outcome."
+  ],
+  "markdown": "# Week 3 Start/Sit Briefing \u2014 Monday, 2026-09-21\n\n## Source and freshness\n\n**Live** \u2014 `nflreadpy` (schedules, rosters, player stats, depth charts) + the repo's fitted `AvailabilityModel`, run end-to-end via `generate_report.py` at 2026-09-21T06:19:45Z. Two real gaps, both stated up front rather than hidden:\n\n- **No Week 3 injury/practice report exists yet anywhere** \u2014 `nflreadpy.load_injuries(2026)` only carries weeks 1\u20132 (this is normal: teams' first Week 3 practice reports post Wednesday, two days from now). Sleeper is proxy-blocked in this sandbox regardless. So every player below is scored on depth-chart rank + play-rate history, not fresh injury news \u2014 P(play) is real and live-computed, but \"Healthy\" designations here mean \"nothing to report yet,\" not \"confirmed clean.\"\n- **FantasyPros consensus tier is unavailable** (no `FANTASYPROS_API_KEY` in this sandbox), so Taylor, Irving, JSN and Likely \u2014 who'd normally get FantasyPros' vendor number \u2014 are instead scored by the in-house rolling-average model on just 2 games of 2026 data. That model is real and live, but it understates established veterans early in a season more than the vendor consensus would. It does **not** change any of tonight's slot-lock decisions (see below), but it does mean the point totals for our top four are conservative.\n\n`season_week.load_current_week_nflreadpy` returns **Week 2** (Week 2's last game, NYG @ LA Monday Night, hasn't been played \u2014 it kicks off later today, US time). Consistent with this routine's own Monday cadence (the 2026-09-14 briefing did the same thing while Week 1's Monday-nighter was still pending), this briefing targets **Week 3**, the next lineup decision, and calls out the still-live Week 2 game separately below.\n\n## Start these ten (Week 3)\n\n| Slot | Player | Opp | Expected pts | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Jaxson Dart | vs TEN | **13.00** | 91.4% | 14.23 |\n| RB | Jonathan Taylor | vs HOU | **9.19** | 93.2% | 9.86 |\n| RB | Bucky Irving | vs MIN | **6.80** | 93.2% | 7.29 |\n| WR | Jaxon Smith-Njigba | @WAS | **5.46** | 95.5% | 5.72 |\n| WR | Jameson Williams | vs NYJ | **3.21** | 84.2% | 3.81 |\n| TE | Isaiah Likely | vs TEN | **3.54** | 85.6% | 4.13 |\n| FLEX | Cam Skattebo | vs TEN | **6.20** | 86.7% | 7.15 |\n| FLEX | Matthew Golden | vs ATL (Thu) | **3.20** | 82.0% | 3.90 |\n| K | Cameron Dicker | @BUF | **4.16** | 97.9% | 4.25 |\n| DEF | Eagles D/ST | @CHI (Mon 9/28) | **4.73** | 100% | 4.73 |\n\n**Lineup total (expected): 59.49**\n\n**Sit:** Drake London (bench \u2014 his 2.72 expected pts is last among the five FLEX-eligible WRs), Tee Higgins (2.78), Josh Downs (2.99), Brock Bowers (2.40, TE2), Matthew Stafford (7.86, QB2 \u2014 irrelevant, one QB slot).\n\n## Changes\n\n**One lineup change from the default roster order: bench Drake London, start Jameson Williams, and slide Matthew Golden from a dedicated WR slot into FLEX.** London (2.72 exp pts, @GB Thursday) grades below all three bench WRs \u2014 Williams (3.21), Downs (2.99), Higgins (2.78) \u2014 and Williams comes out slightly ahead. **Call this low-confidence**: the whole WR2/FLEX2 tier (London/Higgins/Williams/Downs, plus Golden) spans just 0.5 points, on 2 games of data, with no FantasyPros number to check it against. If you'd rather not chase 0.5 points of noise, London-over-Williams is a perfectly defensible hold. Everything else matches how the roster is already ordered.\n\nSince Saturday's briefing (Week 2), the owner also already executed two waiver moves on 2026-09-20 (Harold Fannin Jr. \u2192 Isaiah Likely at TE, Quentin Johnston \u2192 Matthew Golden at WR) \u2014 both are reflected in the roster and in this lineup already, not new decisions from this run.\n\n## Watch list\n\n- **Brock Bowers (TE, LV)** \u2014 last confirmed live status was Week 2 Doubtful/knee/Limited practice. No Week 3 report yet; if he's healthier this week it still doesn't threaten Likely's TE spot (Likely is the clear play), but it's the one designation worth re-checking Wednesday since it's chronic.\n- **Matthew Golden (WR, GB) vs Drake London (WR, ATL)** \u2014 same game, Thursday night (9/24), and they guard each other's fantasy value directly (see Opponent notes). Whichever offense controls that game script moves both numbers.\n- **All Week 3 designations** \u2014 none exist yet. Re-run Wednesday for the first real practice-report read, which is also when the London/Williams FLEX call gets its first real evidence beyond the rolling average.\n- **Bills D/ST** projects at 6.36 this week (vs our Eagles D/ST's 4.73) in the in-house model and may be worth a waiver look if available in-league \u2014 not acted on here since roster availability across the other 7 teams isn't visible from this run.\n\n## Opponent notes\n\n- **Golden (GB) and London (ATL) play each other Thursday night** \u2014 GB hosts ATL. A tough Packers front for Atlanta's offense is part of why London grades lowest of the FLEX-eligible WRs this week; conversely Golden's Green Bay offense at home is the more favorable side of that same game.\n- **Three rostered Giants \u2014 Dart, Skattebo, Likely \u2014 all play TEN this week.** That's correlated risk: a poor Giants game script (trailing big, run-heav's abandoned) would flatten all three at once, whereas a positive script lifts the whole trio together. Worth knowing you can't diversify away from this one.\n- **Taylor and Downs share an opponent** (both IND, vs HOU) \u2014 no lineup implication since both are already rostered appropriately (Taylor starts, Downs sits), just noted for completeness.\n\n## Byes ahead\n\n**None in the next two weeks (Weeks 3\u20134).** Nearest byes: **Tee Higgins and Jameson Williams, both Week 6** \u2014 three weeks out. Both are currently bench/flex-competitive WRs, so if either is traded up into a lock-in role before Week 6, plan a waiver replacement early rather than relying on the thin bench (5 spots, already carrying a QB2, a TE2, and 3 WRs).\n\n## Caveats\n\n- No live Week 3 injury/practice data exists anywhere yet (confirmed via `nflreadpy.load_injuries`, which caps at Week 2) \u2014 every \"Healthy\" designation above means \"nothing reported,\" not \"cleared.\" Re-run Wednesday for the real read, especially on Bowers.\n- FantasyPros consensus tier unavailable in this sandbox (no API key) \u2014 Taylor/Irving/JSN/Likely's expected-points numbers are the more conservative in-house estimate, not the vendor consensus this tool normally uses for top-10-per-position players. Their starting slots aren't in question either way.\n- ESPN's and Rotowire's endpoints are proxy-blocked in this sandbox (expected, per known network reality); Sleeper likewise. No opponent-news layer beyond the schedule/matchup facts stated above.\n- The Williams-over-London call is a ~0.5-point edge on 2 games of data \u2014 treat it as a coin flip, not a strong signal.\n- Week 2's final game (NYG @ LA, Monday Night) had not been played as of this run; it does not affect this Week 3 lineup, since all three Giants already start regardless of tonight's outcome.\n"
+}
