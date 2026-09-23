@@ -84,8 +84,8 @@
       "team": "CHI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Case Keenum is working with the first-team offense at practice as the Bears deal with injuries to their top two quarterbacks, making him a potential starter option for Monday's game against the Eagles."
       }
     },
     {
@@ -128,8 +128,8 @@
       "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Zach Ertz signed with the Eagles practice squad after tearing his ACL last December and will need time to ramp up before being ready to play."
       }
     },
     {
@@ -194,8 +194,8 @@
       "team": "NYG",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Odell Beckham Jr. is active and healthy but has received minimal offensive usage (14 snaps, no targets) through two games, though he could see increased opportunities if Malik Nabers' shoulder injury sidelines the top receiver."
       }
     },
     {
@@ -228,7 +228,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Hip"
+        "summary": "Mike Evans did not practice Wednesday due to a hip injury suffered in Sunday's game and will be carefully managed heading into Week 3."
       }
     },
     {
@@ -260,8 +260,8 @@
       "team": "NYG",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Jameis Winston is active and poised to start for the Giants against Tennessee after Jaxson Dart suffered a serious knee injury, though Winston's recent performance in relief was inefficient."
       }
     },
     {
@@ -304,8 +304,8 @@
       "team": "JAX",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Abdullah is active but seeing minimal offensive snaps (6 of 59) behind other running backs on the depth chart."
       }
     },
     {
@@ -315,8 +315,8 @@
       "team": "WAS",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Marcus Mariota is expected to start Sunday against Seattle while Jayden Daniels recovers from a dislocated elbow, potentially giving Mariota a multi-game opportunity as the Commanders' starter."
       }
     },
     {
@@ -358,9 +358,9 @@
       "position": "WR",
       "team": "BAL",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "medium",
+        "summary": "Chris Moore is listed as questionable for the upcoming game."
       }
     },
     {
@@ -415,7 +415,7 @@
       "newsFlag": {
         "designation": "Doubtful",
         "riskLevel": "medium",
-        "summary": "Ankle"
+        "summary": "DeMarcus Robinson sustained a high-ankle sprain with a 3-to-6 week recovery timeline and will likely be placed on injured reserve."
       }
     },
     {
@@ -546,8 +546,8 @@
       "team": "SF",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Kittle returned from an Achilles tear and performed well with 80 yards and a touchdown in Week 2, though he is still building back to full strength after the injury."
       }
     },
     {
@@ -558,7 +558,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Aaron Jones is working through a knee injury this week but his status remains unclear."
+        "summary": "Aaron Jones is dealing with a knee injury and did not participate in Wednesday's practice, with his status for Sunday's game against Tampa Bay uncertain."
       }
     },
     {
@@ -744,8 +744,8 @@
       "team": "GB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Jonnu Smith played 13 snaps in Week 2 but is seeing reduced playing time due to new acquisition Mark Redman, which warrants monitoring going forward."
       }
     },
     {
@@ -789,7 +789,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Lower Leg"
+        "summary": "David Njoku was placed on injured reserve with a fibula injury and will miss at least four games."
       }
     },
     {
@@ -799,8 +799,8 @@
       "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Kamara made his season debut in Week 2 after recovering from a sprained MCL but is operating in a limited role within a three-man backfield committee."
       }
     },
     {
@@ -821,8 +821,8 @@
       "team": "TB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Godwin played in Sunday's game and caught 3 passes for 46 yards, though his limited target share and age-related decline in production warrant monitoring."
       }
     },
     {
@@ -910,7 +910,7 @@
       "newsFlag": {
         "designation": "Doubtful",
         "riskLevel": "medium",
-        "summary": "Knee - MCL"
+        "summary": "Goedert suffered a sprained MCL in Week 2 and is expected to miss multiple weeks."
       }
     },
     {
@@ -1064,7 +1064,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Shoulder - AC Joint"
+        "summary": "DJ Moore suffered an AC joint sprain in Week 2 and participated in Wednesday's practice in a red non-contact jersey, with his availability for Sunday's game against the Chargers uncertain."
       }
     },
     {
@@ -1097,7 +1097,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Arm"
+        "summary": "Saquon Barkley suffered a neck/shoulder stinger early in Sunday's game against the Titans and is questionable to return, with Tank Bigsby and Will Shipley potentially taking over backfield duties."
       }
     },
     {
@@ -1141,7 +1141,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Lower Body"
+        "summary": "Sam Darnold (glute) is practicing Wednesday and trending ahead of schedule in recovery, but his Week 3 availability against Washington will depend on his practice participation levels throughout the week."
       }
     },
     {
@@ -1161,9 +1161,9 @@
       "position": "WR",
       "team": "JAX",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Jakobi Meyers is dealing with a thumb injury that has limited his practice participation, but he has continued to play in games with the Jaguars managing the injury cautiously."
       }
     },
     {
@@ -1196,7 +1196,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ankle"
+        "summary": "Ashton Dulin has been designated as Questionable for upcoming games, indicating his availability status is uncertain."
       }
     },
     {
@@ -1262,7 +1262,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
-        "summary": null
+        "summary": "Kyler Murray has cleared concussion protocol and will return as the starting quarterback for the Vikings against the Buccaneers on Sunday."
       }
     },
     {
@@ -1317,7 +1317,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Undisclosed"
+        "summary": "Tony Pollard is listed as questionable after sitting out Wednesday practice due to unspecified soreness."
       }
     },
     {
@@ -1449,7 +1449,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Hamstring"
+        "summary": "Ty Johnson has been designated as questionable for the upcoming game, indicating uncertainty about his availability."
       }
     },
     {
@@ -1569,8 +1569,8 @@
       "team": "WAS",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "McLaurin is active and led the team in receiving yards and targets, though the potential extended absence of QB Jayden Daniels due to an elbow injury could impact his future performance."
       }
     },
     {
@@ -1712,8 +1712,8 @@
       "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Johnson dealt with an illness during the week but played in Sunday's game with reduced snap count (36 of 68) and routes (23), though he led the team in targets with four catches for 66 yards."
       }
     },
     {
@@ -1724,7 +1724,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Toe"
+        "summary": "Rico Dowdle (toe) did not participate in Wednesday's practice and is wearing a walking boot on his right foot, with his availability for Week 3 against the Bengals dependent on his practice participation by Friday."
       }
     },
     {
@@ -1735,7 +1735,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Hamstring"
+        "summary": "J.K. Dobbins suffered a hamstring injury in Sunday's game and is expected to practice this week with a chance to play against the Rams if he continues to improve."
       }
     },
     {
@@ -1777,9 +1777,9 @@
       "position": "RB",
       "team": "NE",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Reggie Gilliam is listed as Questionable for upcoming games."
       }
     },
     {
@@ -1789,8 +1789,8 @@
       "team": "ATL",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Tagovailoa was a full participant in practice after missing two games with an oblique injury, but will serve as backup to Michael Penix Jr."
       }
     },
     {
@@ -1823,7 +1823,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Foot"
+        "summary": "Pittman (foot) was limited in Wednesday's practice after missing Week 3 and needs to reach full participation by Friday to avoid an official designation for the Bengals game."
       }
     },
     {
@@ -1834,7 +1834,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Personal"
+        "summary": "Jauan Jennings is listed as questionable for upcoming games."
       }
     },
     {
@@ -1866,8 +1866,8 @@
       "team": "CHI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "D'Andre Swift is active and performed well in Week 2, but faces potential offense changes in Week 3 due to QB Caleb Williams' hamstring injury."
       }
     },
     {
@@ -2075,8 +2075,8 @@
       "team": "CIN",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Burrow played through back tightness in Week 2 and completed the game successfully, though he took five sacks and should be monitored for the back issue going forward."
       }
     },
     {
@@ -2142,7 +2142,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Hamstring"
+        "summary": "Nico Collins (hamstring) hasn't participated in on-field work since injuring himself last Wednesday and may miss up to two games, though he could potentially play Sunday at Indianapolis if he participates in drills by week's end."
       }
     },
     {
@@ -2153,7 +2153,7 @@
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Jonathon Brooks (Panthers RB) is out with a core muscle injury, which could increase Chuba Hubbard's workload going forward."
+        "summary": "Chuba Hubbard is active and healthy, and is poised to see increased workload in Week 3 with backfield mate Jonathon Brooks out for at least six weeks following core muscle surgery."
       }
     },
     {
@@ -2373,7 +2373,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Back"
+        "summary": "Kene Nwangwu has been designated as Questionable for upcoming availability."
       }
     },
     {
@@ -2416,8 +2416,8 @@
       "team": "NE",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Stevenson is active and healthy but faces reduced offensive role following TreVeyon Henderson's season debut and needs to improve ball security after fumbling in Week 2."
       }
     },
     {
@@ -2613,9 +2613,9 @@
       "position": "RB",
       "team": "NO",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Travis Etienne is dealing with a hamstring injury and was limited in Wednesday practice, putting his availability for Sunday's game against the Raiders in question."
       }
     },
     {
@@ -2790,8 +2790,8 @@
       "team": "GB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Melton suffered a stinger in the previous game but was a full practice participant and is expected to be available for Thursday's game against the Falcons."
       }
     },
     {
@@ -2802,7 +2802,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Hamstring"
+        "summary": "Dareke Young exited Sunday's game with a hamstring injury and is questionable to return against the Chargers."
       }
     },
     {
@@ -2834,8 +2834,8 @@
       "team": "DAL",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Tyler Goodson is inactive for Week 2 due to coach's decision as a healthy scratch, not due to injury."
       }
     },
     {
@@ -2901,7 +2901,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Undisclosed"
+        "summary": "Jaylen Warren is dealing with a shoulder injury and was limited in Wednesday's practice, but is trending positively and may see increased workload if Rico Dowdle cannot play."
       }
     },
     {
@@ -2933,8 +2933,8 @@
       "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Olave dealt with a minor hamstring issue during the week but played fully healthy and produced 8 catches for 86 yards and a touchdown on Sunday."
       }
     },
     {
@@ -3087,8 +3087,8 @@
       "team": "IND",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Ogletree was limited by a neck injury Wednesday but progressed to full practice participation Thursday and is trending toward playing Sunday against Baltimore."
       }
     },
     {
@@ -3306,9 +3306,9 @@
       "position": "RB",
       "team": "LAR",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Calf"
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Ronnie Rivers has been placed on the Injured Reserve list."
       }
     },
     {
@@ -3374,7 +3374,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Alec Pierce was placed on injured reserve to rehabilitate a heel injury."
+        "summary": "Alec Pierce has been placed on injured reserve for a left heel injury that recurred after surgery, sidelining him for at least four games with an uncertain return timeline."
       }
     },
     {
@@ -3517,7 +3517,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Hamstring"
+        "summary": "Chig Okonkwo is dealing with a hamstring injury that kept him out of Sunday's game and will be in rehab mode for Week 3 prep, making his availability uncertain."
       }
     },
     {
@@ -3616,7 +3616,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Charlie Kolar sustained a left forearm injury in Sunday's game but will not be placed on injured reserve, leaving his availability status uncertain."
+        "summary": "Charlie Kolar suffered a fractured left forearm requiring surgery and will miss at least Week 3, with the Chargers optimistically targeting his return before their Week 7 bye rather than placing him on injured reserve."
       }
     },
     {
@@ -3913,7 +3913,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Concussion"
+        "summary": "Tyson Bagent was placed in concussion protocol Tuesday and won't practice Wednesday, making him unlikely to be available for Monday's game against the Eagles."
       }
     },
     {
@@ -4187,8 +4187,8 @@
       "team": "LAC",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Davis sustained an undisclosed injury in Week 1 but was a full participant in Wednesday's practice and is on track to play Sunday against the Raiders."
       }
     },
     {
@@ -4210,7 +4210,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Personal"
+        "summary": "Aidan O'Connell has been designated as Questionable for the upcoming game."
       }
     },
     {
@@ -4309,7 +4309,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Bengals WR Andrei Iosivas is expected to miss 4-6 weeks due to a thumb injury."
+        "summary": "Andrei Iosivas tore a ligament in his thumb, requires surgery, and is expected to miss 4-6 weeks after being placed on injured reserve."
       }
     },
     {
@@ -4715,8 +4715,8 @@
       "team": "TB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Sean Tucker made his season debut in Week 2 after missing Week 1 with a hamstring injury, though he remains in a deep reserve role behind other running backs."
       }
     },
     {
@@ -4736,9 +4736,9 @@
       "position": "WR",
       "team": "DEN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "medium",
+        "summary": "Marvin Mims Jr. is listed as questionable for an upcoming game."
       }
     },
     {
@@ -4781,8 +4781,8 @@
       "team": "GB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Tucker Kraft is active and playing in his return from a torn ACL, though he may still be working his way back to full strength after limited production through two games."
       }
     },
     {
@@ -4837,7 +4837,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Undisclosed"
+        "summary": "Tyjae Spears will not practice Wednesday due to unspecified soreness and his availability for upcoming games is uncertain."
       }
     },
     {
@@ -4847,8 +4847,8 @@
       "team": "MIA",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "low",
-        "summary": "De'Von Achane is being downgraded in fantasy rankings for Week 3, likely due to matchup or usage concerns rather than injury."
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -4903,7 +4903,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Hamstring"
+        "summary": "Zay Flowers missed Week 2 with a hamstring injury and did not participate in Wednesday's practice, making his availability for Sunday's game against the Cowboys uncertain despite earlier optimism from the head coach."
       }
     },
     {
@@ -4924,8 +4924,8 @@
       "team": "LV",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Mayer is active and serving as the No. 1 tight end, but his role is at risk of being reduced when Brock Bowers returns from his knee injury in Week 3."
       }
     },
     {
@@ -4935,8 +4935,8 @@
       "team": "KC",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Rashee Rice is active and produced 83 yards on 4 receptions in Week 2, though Mike Clay has some unspecified concerns about him going forward."
       }
     },
     {
@@ -4958,7 +4958,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Groin"
+        "summary": "Puka Nacua is dealing with a groin injury that kept him inactive for Week 2, and his status for Week 3 against the Broncos remains uncertain pending his return to practice."
       }
     },
     {
@@ -5002,7 +5002,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Neck"
+        "summary": "Jayden Reed has been ruled out for Thursday's game against the Falcons due to a neck injury suffered against the Jets, with coach LaFleur stating it's too early to determine if he can play again this season pending additional medical tests."
       }
     },
     {
@@ -5057,7 +5057,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Knee - ACL"
+        "summary": "Zach Charbonnet, recovering from a left ACL tear suffered in January, will not have his practice window opened this week and remains unavailable for game action as the Seahawks continue their cautious approach to his return."
       }
     },
     {
@@ -5155,8 +5155,8 @@
       "team": "SEA",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Holani is active and saw increased snaps (18) in Week 2, with potential for more opportunities in Week 3 if Price remains sidelined with a shoulder injury."
       }
     },
     {
@@ -5200,7 +5200,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Shoulder"
+        "summary": "Malik Nabers suffered a shoulder injury in Monday's loss to the Rams and participated in Wednesday's walk-through practice, with his status to be determined later in the week ahead of the Week 3 matchup against the Titans."
       }
     },
     {
@@ -5211,7 +5211,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Knee - Meniscus"
+        "summary": "Brock Bowers is day-to-day with a left knee meniscus injury and will practice Wednesday in limited capacity as he works toward a potential Week 3 return after missing the first two games."
       }
     },
     {
@@ -5233,7 +5233,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Panthers RB Jonathon Brooks underwent surgery for a core muscle injury and is expected to miss at least six weeks."
+        "summary": "Jonathon Brooks was placed on injured reserve Wednesday after suffering a core muscle injury that requires surgery and will sideline him for at least six weeks."
       }
     },
     {
@@ -5596,7 +5596,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ankle"
+        "summary": "Jalen Coker has an ankle injury that limited him in Wednesday's practice, but his availability for Sunday's game against the Browns is not in question."
       }
     },
     {
@@ -5915,7 +5915,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Quadriceps"
+        "summary": "Jordan Whittington has been designated as Questionable for upcoming games."
       }
     },
     {
@@ -5991,8 +5991,8 @@
       "team": "GB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "medium",
+        "summary": "Lloyd scored his first career touchdown but played only 16 snaps and fumbled in the fourth quarter, leading to reduced playing time with other backs taking over his role going forward."
       }
     },
     {
@@ -6079,8 +6079,8 @@
       "team": "TB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "McMillan returned from a Week 1 knee injury absence to play limited snaps (7 of 65) in Week 2, with expectations for gradual increases in playing time but possible continued snap count limitations Week 3."
       }
     },
     {
@@ -6102,7 +6102,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Neck"
+        "summary": "Jaylen Wright suffered a stinger (neck injury) during Sunday's game and is day-to-day heading into Week 3, with his practice participation Wednesday to determine his availability against the Chiefs."
       }
     },
     {
@@ -6201,7 +6201,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Elbow"
+        "summary": "Jayden Daniels is out for Week 3 against the Seahawks with a dislocated left elbow and has no confirmed timeline for return, with the team gathering additional medical opinions and potential for extended absence given his history of reaggravation with this injury."
       }
     },
     {
@@ -6222,8 +6222,8 @@
       "team": "LAC",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "McConkey was cleared from his questionable tag due to a rib injury and played in Week 2, securing 3 targets for 35 yards against the Raiders."
       }
     },
     {
@@ -6244,8 +6244,8 @@
       "team": "ATL",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Michael Penix Jr. has been cleared to start for the Falcons in Week 3 after recovering from November ACL surgery, though he is still early in his return from a significant knee injury."
       }
     },
     {
@@ -6256,7 +6256,7 @@
       "newsFlag": {
         "designation": "Doubtful",
         "riskLevel": "medium",
-        "summary": "Hamstring"
+        "summary": "Caleb Williams suffered a right hamstring strain in Week 2 against the Vikings and did not participate in Wednesday's practice, with his availability for Monday's game against the Eagles uncertain."
       }
     },
     {
@@ -6672,9 +6672,9 @@
       "position": "WR",
       "team": "SF",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "low",
+        "summary": "Watkins is inactive for Week 2 due to coach's decision and will be a healthy scratch for the second consecutive game."
       }
     },
     {
@@ -6728,8 +6728,8 @@
       "team": "LAC",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Gadsden is the only healthy tight end on the Chargers' roster and is expected to see an elevated role due to injuries to Njoku and Kolar."
       }
     },
     {
@@ -6881,9 +6881,9 @@
       "position": "QB",
       "team": "JAX",
       "newsFlag": {
-        "designation": "Healthy",
+        "designation": "Out",
         "riskLevel": "none",
-        "summary": null
+        "summary": "Ewers is inactive for Sunday's game against the Broncos due to coach's decision, as the Jaguars prefer to use Nick Mullens as the backup behind Trevor Lawrence."
       }
     },
     {
@@ -6894,7 +6894,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Undisclosed"
+        "summary": "Monangai is dealing with multiple lower-body issues including a knee injury and hamstring problem that have limited his practice participation, though he has played in both games so far."
       }
     },
     {
@@ -7686,7 +7686,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Knee"
+        "summary": "Arian Smith was placed on injured reserve due to a knee injury sustained against the Packers and is eligible to return at the earliest in Week 7."
       }
     },
     {
@@ -7728,9 +7728,9 @@
       "position": "QB",
       "team": "SF",
       "newsFlag": {
-        "designation": "Healthy",
+        "designation": "Out",
         "riskLevel": "none",
-        "summary": null
+        "summary": "Rourke is inactive for Sunday's game against the Dolphins due to coach's decision and will serve as the emergency third quarterback."
       }
     },
     {
@@ -8038,7 +8038,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Jaxson Dart is expected to have season-ending knee surgery and will miss the remainder of the season."
+        "summary": "Jaxson Dart suffered ACL-intact but significant MCL, PCL, and meniscus damage to his left knee and will undergo season-ending surgery, with Jameis Winston taking over as the Giants' starting quarterback."
       }
     },
     {
@@ -8159,7 +8159,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Hamstring"
+        "summary": "RJ Harvey is recovering from a hamstring injury that caused him to miss Week 2 and his Week 3 availability depends on his practice participation this week."
       }
     },
     {
@@ -8180,8 +8180,8 @@
       "team": "CHI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Burden is active and played in Week 2 despite a slow start, though there's uncertainty around the Bears' QB situation with Caleb Williams dealing with a hamstring injury."
       }
     },
     {
@@ -8192,7 +8192,7 @@
       "newsFlag": {
         "designation": "Doubtful",
         "riskLevel": "medium",
-        "summary": "Thumb"
+        "summary": "Mason Taylor (thumb) missed Wednesday's practice and is viewed as week-to-week, likely to miss Week 3 against Detroit unless he can practice Thursday or Friday."
       }
     },
     {
@@ -8202,8 +8202,8 @@
       "team": "LAR",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Ferguson is active and produced well (6 rec, 54 yards, 1 TD) in Week 2, but remains part of a deep tight-end room with unpredictable usage week-to-week."
       }
     },
     {
@@ -8312,8 +8312,8 @@
       "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Makai Lemon is active and playing, though he experienced a hamstring injury during training camp that limited his availability and may affect his ramp-up in production."
       }
     },
     {
@@ -8334,8 +8334,8 @@
       "team": "BAL",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Sarratt was active for Week 2 but did not play snaps and appears to be a healthy scratch behind other receiving options."
       }
     },
     {
@@ -8873,8 +8873,8 @@
       "team": "NYJ",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Sadiq is active and healthy, but could see increased opportunity if starter Mason Taylor's thumb injury sidelines him in Week 3."
       }
     },
     {
@@ -8885,7 +8885,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Ankle"
+        "summary": "De'Zhaun Stribling was placed on injured reserve after suffering a left ankle deltoid sprain that requires surgery and an expected 10-week recovery period."
       }
     },
     {
@@ -8917,8 +8917,8 @@
       "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Oscar Delp returned from a Week 1 hamstring injury to play in Week 2 against Baltimore, though he saw limited offensive snaps and appears to be behind other tight ends on the depth chart."
       }
     },
     {
@@ -8983,8 +8983,8 @@
       "team": "SF",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Kaelon Black played in Sunday's game despite being listed as questionable with a groin injury and is expected to continue in a backup role splitting carries with McCaffrey in Week 3."
       }
     },
     {
@@ -9026,9 +9026,9 @@
       "position": "WR",
       "team": "ARI",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "low",
+        "summary": "Reggie Virgil is inactive for Sunday's game against the Seahawks due to coach's decision and has been a healthy scratch for the first two games of the season."
       }
     },
     {
@@ -9147,9 +9147,9 @@
       "position": "WR",
       "team": "JAX",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "low",
+        "summary": "C.J. Williams is inactive for Sunday's game against the Broncos due to coach's decision, not injury."
       }
     },
     {
@@ -9158,9 +9158,9 @@
       "position": "TE",
       "team": "CIN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "low",
+        "summary": "Jack Endries is inactive for Sunday's game against the Buccaneers due to coach's decision, as he is buried on the depth chart behind multiple tight ends."
       }
     },
     {
@@ -9258,8 +9258,8 @@
       "team": "NYG",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Zvada is active and performing well as the Giants' kicker, but his fantasy value is at risk due to a knee injury to QB Jaxson Dart that may reduce offensive scoring opportunities."
       }
     },
     {
@@ -9445,8 +9445,8 @@
       "team": "ATL",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Jack Strand appeared in relief as an undrafted rookie but performed poorly and faces potential release or practice squad assignment with Michael Penix potentially returning."
       }
     },
     {
@@ -10073,7 +10073,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Thigh"
+        "summary": "Eli Raridon suffered a thigh injury during Sunday's game against the Steelers and has been ruled out for the remainder of the contest."
       }
     },
     {
@@ -10359,7 +10359,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ankle"
+        "summary": "Jonah Coleman sustained a sprained ankle in Sunday's win over Jacksonville and his practice activity should be monitored ahead of the Week 3 matchup versus the Rams."
       }
     },
     {
@@ -10403,7 +10403,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Chest"
+        "summary": "Jadarian Price suffered a shoulder injury in Week 2 and is listed as questionable, though he is expected to practice this week with a chance to ramp up before Sunday's game."
       }
     },
     {
@@ -10414,7 +10414,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ankle"
+        "summary": "Caleb Douglas sustained an ankle injury in Week 2 and won't practice Wednesday, putting his availability for Week 3 against the Chiefs in serious question."
       }
     },
     {
@@ -10435,8 +10435,8 @@
       "team": "MIA",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Chris Bell is active and healthy but has limited offensive snap count (24 of 59) and could see increased opportunity if teammate Caleb Douglas misses Week 3 due to ankle injury."
       }
     },
     {
@@ -10480,7 +10480,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Hip"
+        "summary": "Brenen Thompson has been designated as Questionable for upcoming games."
       }
     },
     {
