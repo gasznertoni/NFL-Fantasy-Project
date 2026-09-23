@@ -17,11 +17,17 @@ import LoadingSkeleton from './LoadingSkeleton.jsx'
 import { lineupProjection, betterLineup, waiverReplacement, replacementLevels } from '../lib/lineup.js'
 import EmptyState from './EmptyState.jsx'
 
+// Display names for each league's scoring format, shown beside the title.
+// Worth surfacing because the two leagues genuinely differ -- league-1 is
+// TE-premium (1.0 per reception for a TE, 0.5 for everyone else) and league-2
+// is full PPR -- so the same player is a different number in each, and the
+// header is the only place that says which one is on screen. An unrecognised
+// key falls back to the raw value rather than rendering nothing, so a new
+// format added to the backend shows up here as itself instead of vanishing.
 const FORMAT_LABEL = {
   half_ppr: 'half-PPR',
   ppr: 'PPR',
   standard: 'standard',
-  // league-1 from 2026-09-06: 1.0 per reception for a TE, 0.5 for everyone else.
   te_premium: 'TE-premium',
 }
 
@@ -332,7 +338,14 @@ export default function WeeklyReportView({ leagueId = 'league-1' }) {
   return (
     <section aria-label="Weekly report">
       <div className="view-header">
-        <h1>Weekly Report</h1>
+        <div className="view-header-title">
+          <h1>Weekly Report</h1>
+          {report?.leagueFormatAssumption && (
+            <span className="format-badge">
+              {FORMAT_LABEL[report.leagueFormatAssumption] || report.leagueFormatAssumption} scoring
+            </span>
+          )}
+        </div>
         <WeekSelector
           week={week}
           minWeek={MIN_SELECTABLE_WEEK}

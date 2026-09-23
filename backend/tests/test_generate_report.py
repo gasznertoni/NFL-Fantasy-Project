@@ -19,6 +19,7 @@ from generate_report import (  # noqa: E402
     build_weekly_report_and_pool,
     normalize_team,
     opponent_for_team_week,
+    should_skip_red_zone_fetch,
 )
 
 CONFIG = {"linear": {"rush_yd": 0.1, "rush_td": 6}}
@@ -392,6 +393,47 @@ class LoadEnvFileTest(unittest.TestCase):
         os.environ["GR_TEST_ONLY"] = "from_ci"
         load_env_file(self._write_env("GR_TEST_ONLY=from_file\n"))
         self.assertEqual(os.environ.get("GR_TEST_ONLY"), "from_ci")
+
+
+class TestShouldSkipRedZoneFetch(unittest.TestCase):
+    """The red-zone fetch reads current-season logs, so it is a ~25-minute
+    no-op until a game has been played. The guard used to be `week == 1`,
+    which reads the season's state off the week NUMBER -- true only during a
+    season already under way. Regenerating weeks 2-18 of 2026 before kickoff
+    paid the full no-op fifteen times."""
+
+    LOGS = {"00-0012345": [{"season": 2026, "week": 1}]}
+
+    def test_the_explicit_flag_wins_over_everything(self):
+        skip, reason = should_skip_red_zone_fetch(9, self.LOGS, True)
+        self.assertTrue(skip)
+        self.assertIn("skip-rotowire", reason)
+
+    def test_week_one_skips_even_with_logs_present(self):
+        # True a priori, and does not depend on a load having succeeded.
+        skip, reason = should_skip_red_zone_fetch(1, self.LOGS, False)
+        self.assertTrue(skip)
+        self.assertEqual(reason, "week 1")
+
+    def test_a_season_with_no_games_played_skips_at_any_week(self):
+        # The regression this guard was widened for: week 9 of a season that
+        # has not kicked off used to run the full fetch and return nothing.
+        for week in (2, 9, 18):
+            skip, reason = should_skip_red_zone_fetch(week, {}, False)
+            self.assertTrue(skip, week)
+            self.assertIn("no games played", reason)
+
+    def test_a_season_under_way_actually_fetches(self):
+        skip, reason = should_skip_red_zone_fetch(3, self.LOGS, False)
+        self.assertFalse(skip)
+        self.assertIsNone(reason)
+
+    def test_the_old_week_number_rule_alone_would_have_run_the_no_op(self):
+        # Pins the difference rather than just the new behaviour: under the
+        # previous condition (week == 1) this case fetched; it now skips.
+        week, logs = 9, {}
+        self.assertFalse(week == 1)
+        self.assertTrue(should_skip_red_zone_fetch(week, logs, False)[0])
 
 
 if __name__ == "__main__":

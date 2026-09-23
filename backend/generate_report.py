@@ -1160,6 +1160,38 @@ def load_env_file(env_path: Optional[Path] = None) -> None:
     )
 
 
+def should_skip_red_zone_fetch(
+    week: int,
+    game_logs: dict[str, Any],
+    skip_flag: bool,
+) -> tuple[bool, Optional[str]]:
+    """Whether to skip the Rotowire red-zone fetch, and why.
+
+    The fetch reads CURRENT-SEASON per-game logs, so it has nothing to return
+    until a game has been played -- and it costs one request per player at a
+    0.5s delay, about 25 minutes of no-op.
+
+    This used to be `week == 1`, which reads the season's state off the week
+    NUMBER. That is only the same thing during a season already under way.
+    Regenerating weeks 2-18 of 2026 before kickoff paid the full no-op on all
+    fifteen weeks and had to be worked around by hand.
+
+    An empty `game_logs` is the direct signal: load_all_game_logs_nflreadpy and
+    its DST counterpart both return nothing (and say so) for a season that has
+    not started. Week 1 is kept as an explicit subset because it is true a
+    priori and does not depend on a load having succeeded.
+
+    Returns (skip, reason); reason is None when the fetch should run.
+    """
+    if skip_flag:
+        return True, "--skip-rotowire set"
+    if week == 1:
+        return True, "week 1"
+    if not game_logs:
+        return True, "no games played yet this season"
+    return False, None
+
+
 def main(argv: Optional[list[str]] = None) -> None:
     import argparse
     import os
@@ -1782,17 +1814,15 @@ def main(argv: Optional[list[str]] = None) -> None:
     # to disk, so repeated same-day runs are free). The result is shared across
     # leagues since it's player-level, not league-scoring-dependent.
     rz_stats: dict[str, dict[str, Any]] = {}
-    if args.skip_rotowire:
-        print("--skip-rotowire set: waiver rationale will omit red zone / tprr annotations.")
-    elif args.week == 1:
-        # Week 1 has no red-zone data BY DEFINITION -- these are current-season
-        # per-game logs and no game has been played. The fetch is one request
-        # per player with a 0.5s delay, so it is a ~25-minute no-op: the first
-        # 2026 week-1 run spent that long to report "0/773 fetched
-        # successfully". The CI workflow already passes --skip-rotowire for
-        # week 1; this makes a manual run behave the same way, because
-        # correctness should not depend on remembering a flag.
-        print("Week 1: skipping the Rotowire red-zone fetch -- no games played yet, so it has no data.")
+    skip_rz, skip_rz_reason = should_skip_red_zone_fetch(
+        args.week, game_logs, args.skip_rotowire
+    )
+    if skip_rz:
+        # Reasoning lives in should_skip_red_zone_fetch's docstring.
+        print(
+            f"Skipping the Rotowire red-zone fetch ({skip_rz_reason}) -- "
+            "waiver rationale will omit red zone / tprr annotations."
+        )
     else:
         print(f"Fetching Rotowire red zone / route stats ({args.season} season)...")
         rz_stats = load_rotowire_stats_or_empty(pool, args.season)
