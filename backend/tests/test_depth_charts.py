@@ -13,6 +13,7 @@ from depth_charts import (
     bucket_rank,
     rank_map_from_legacy,
     rank_map_from_snapshots,
+    slot_ranks,
 )
 
 
@@ -118,6 +119,58 @@ class TestSnapshotSchema(unittest.TestCase):
     def test_no_rows_yields_nothing(self):
         out = rank_map_from_snapshots([], self._weeks(**{"1": "2025-09-07T00:00Z"}))
         self.assertEqual(out, {})
+
+
+class TestSlotRanks(unittest.TestCase):
+    """The 2025 feed's pos_rank runs across the whole position; the legacy
+    feed's depth_team ran within a slot. This is CIN's real 2025 week-3 chart:
+    read raw, Higgins (the starting WR2) is a depth-2 backup and Iosivas (the
+    starting WR3) is third string."""
+
+    DT = "2025-09-19T07:14:12Z"
+
+    def _row(self, name, slot, rank, grp="3WR 1TE", team="CIN"):
+        return {"season": 2025, "dt": self.DT, "team": team, "pos_grp": grp,
+                "gsis_id": name, "pos_slot": slot, "pos_rank": rank}
+
+    def cin_receivers(self):
+        return [
+            self._row("chase", 1, 1), self._row("tinsley", 1, 4),
+            self._row("higgins", 2, 2), self._row("jones", 2, 5),
+            self._row("iosivas", 8, 3), self._row("burton", 8, 6),
+        ]
+
+    def test_every_starting_receiver_is_depth_one(self):
+        ranks = dict(zip([r["gsis_id"] for r in self.cin_receivers()], slot_ranks(self.cin_receivers())))
+        self.assertEqual(ranks, {"chase": 1.0, "higgins": 1.0, "iosivas": 1.0,
+                                 "tinsley": 2.0, "jones": 2.0, "burton": 2.0})
+
+    def test_rank_map_uses_the_slot_meaning(self):
+        out = rank_map_from_snapshots(self.cin_receivers(), {2025: {3: "2025-09-21T00:00Z"}})
+        self.assertEqual(out[(2025, 3, "higgins")], 1.0)
+        self.assertEqual(out[(2025, 3, "iosivas")], 1.0)
+        self.assertEqual(out[(2025, 3, "burton")], 2.0)
+
+    def test_single_slot_positions_are_unchanged(self):
+        rows = [self._row("qb1", 9, 1), self._row("qb2", 9, 2), self._row("qb3", 9, 3)]
+        self.assertEqual(slot_ranks(rows), [1.0, 2.0, 3.0])
+
+    def test_slots_do_not_mix_across_teams_groupings_or_snapshots(self):
+        rows = [
+            self._row("a", 1, 1), self._row("b", 1, 2, team="PIT"),
+            self._row("c", 1, 3, grp="Special Teams"),
+            {**self._row("d", 1, 4), "dt": "2025-09-20T07:00:00Z"},
+        ]
+        self.assertEqual(slot_ranks(rows), [1.0, 1.0, 1.0, 1.0])
+
+    def test_ties_share_a_rank(self):
+        rows = [self._row("a", 1, 1), self._row("b", 1, 1), self._row("c", 1, 4)]
+        self.assertEqual(slot_ranks(rows), [1.0, 1.0, 2.0])
+
+    def test_rows_without_a_slot_keep_their_rank(self):
+        rows = [{"dt": self.DT, "gsis_id": "p", "pos_rank": 4},
+                {"dt": self.DT, "gsis_id": "q", "pos_rank": float("nan"), "pos_slot": 1}]
+        self.assertEqual(slot_ranks(rows), [4.0, None])
 
 
 if __name__ == "__main__":
