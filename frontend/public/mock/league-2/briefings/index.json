@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-09-23-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-09-23T20:14:39Z",
+      "week": 3,
+      "lineupTotal": 62.6,
+      "changeSummary": "Start Stafford over Dart -- NYG demoted Dart to backup QB on today's depth chart after a 12% Week-2 snap share, no injury filed; also a provisional Bowers-over-Likely swap at TE (Bowers has 0 games played in 2026, no Week 3 report yet) and a thin-margin London-over-Golden WR/FLEX reshuffle. No rostered player carries any injury/practice designation yet -- only ATL/GB (Thursday) have filed Week 3 reports so far.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-09-21-mon",
       "kind": "monday",
       "generatedAt": "2026-09-21T06:24:31Z",
