@@ -15,6 +15,7 @@ from availability import (
     _SLEEPER_TO_REPORT_STATUS,
     expected_points,
     load_injury_report_sleeper,
+    merge_injury_reports,
     play_rate_history,
 )
 
@@ -283,6 +284,58 @@ class TestSleeperInjuryReport(unittest.TestCase):
             raise RuntimeError("network down")
         news.fetch_sleeper_injury_status = boom
         self.assertEqual(load_injury_report_sleeper([{"playerId": "p", "name": "x"}]), {})
+
+
+class TestMergeInjuryReports(unittest.TestCase):
+    """Mid-week nflreadpy covers only the teams that have filed. On 2026-09-23
+    that was 22 rows, all ATL/GB, and letting it win outright discarded ESPN's
+    800 -- every Out player on the other 30 teams lost his designation."""
+
+    DNP = "Did Not Participate In Practice"
+
+    def test_partial_nflreadpy_report_keeps_espn_designations_for_everyone_else(self):
+        nflreadpy_report = {"atl1": {"report_status": None, "practice_status": self.DNP}}
+        espn = {
+            "nyg_dart": {"report_status": "Out", "practice_status": None},
+            "was_daniels": {"report_status": "Out", "practice_status": None},
+        }
+        merged, source = merge_injury_reports(nflreadpy_report, espn, {})
+        self.assertEqual(merged["nyg_dart"]["report_status"], "Out")
+        self.assertEqual(merged["was_daniels"]["report_status"], "Out")
+        self.assertEqual(merged["atl1"]["practice_status"], self.DNP)
+        self.assertIn("nflreadpy 1", source)
+        self.assertIn("espn 2", source)
+
+    def test_nflreadpy_adds_practice_without_erasing_a_game_status(self):
+        # Mid-week rows carry practice but no game status yet.
+        nflreadpy_report = {"p": {"report_status": None, "practice_status": self.DNP}}
+        espn = {"p": {"report_status": "Out", "practice_status": None}}
+        merged, _ = merge_injury_reports(nflreadpy_report, espn, {})
+        self.assertEqual(merged["p"], {"report_status": "Out", "practice_status": self.DNP})
+
+    def test_nflreadpy_game_status_wins_when_it_has_one(self):
+        nflreadpy_report = {"p": {"report_status": "Questionable", "practice_status": "Full Participation in Practice"}}
+        espn = {"p": {"report_status": "Out", "practice_status": None}}
+        merged, _ = merge_injury_reports(nflreadpy_report, espn, {})
+        self.assertEqual(merged["p"]["report_status"], "Questionable")
+
+    def test_espn_wins_over_sleeper_and_sleeper_fills_gaps(self):
+        espn = {"a": {"report_status": "Doubtful", "practice_status": None}}
+        sleeper = {
+            "a": {"report_status": "Questionable", "practice_status": None},
+            "b": {"report_status": "Out", "practice_status": None},
+        }
+        merged, _ = merge_injury_reports({}, espn, sleeper)
+        self.assertEqual(merged["a"]["report_status"], "Doubtful")
+        self.assertEqual(merged["b"]["report_status"], "Out")
+
+    def test_inputs_are_not_mutated(self):
+        espn = {"p": {"report_status": "Out", "practice_status": None}}
+        merge_injury_reports({"p": {"report_status": None, "practice_status": self.DNP}}, espn, {})
+        self.assertIsNone(espn["p"]["practice_status"])
+
+    def test_no_sources(self):
+        self.assertEqual(merge_injury_reports({}, {}, {}), ({}, "none"))
 
 
 if __name__ == "__main__":

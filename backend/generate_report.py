@@ -1616,6 +1616,24 @@ def main(argv: Optional[list[str]] = None) -> None:
             # had before, which is the pre-2026-09-02 behaviour.
             print(f"  Expected-TD / snap-share feeds unavailable ({exc}) -- blend uses volume only.")
 
+    def _game_logs_for_config(scoring_config: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+        """game_logs with offense_pct and the TD/non-TD split attached.
+
+        The TD/non-TD split is in points, so it is refitted per league -- a
+        passing touchdown is worth 6 in league-1 and 4 in league-2, and a shared
+        split would be wrong for one of them.
+
+        Both the multi-league and the single-league path must go through here.
+        The single-league path used to pass the raw logs straight through, so
+        offense_pct -- a blend feature calibration_fit trains on -- was missing
+        for every player it predicted, and check_coverage raised on it.
+        """
+        if not (expected_td_rows or snap_shares):
+            return game_logs
+        from expected_td import enrich_game_logs
+
+        return enrich_game_logs(game_logs, expected_td_rows, snap_shares, scoring_config)
+
     game_context: dict[str, dict[str, Any]] = {}
     if not args.skip_blend:
         try:
@@ -1822,16 +1840,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             print(f"\n--- Generating report for {league_id} ({league['displayName']}) ---")
             consensus_projections = _build_consensus_for_config(scoring_config, pool)
 
-            # The TD/non-TD split is in points, so it is refitted per league --
-            # a passing touchdown is worth 6 in league-1 and 4 in league-2, and
-            # a shared split would be wrong for one of them.
-            league_game_logs = game_logs
-            if expected_td_rows or snap_shares:
-                from expected_td import enrich_game_logs
-
-                league_game_logs = enrich_game_logs(
-                    game_logs, expected_td_rows, snap_shares, scoring_config
-                )
+            league_game_logs = _game_logs_for_config(scoring_config)
 
             out_dir = backend_dir / league["outDir"]
             out_dir.mkdir(parents=True, exist_ok=True)
@@ -1908,7 +1917,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             scoring_config,
             pool,
             schedule_games,
-            game_logs,
+            _game_logs_for_config(scoring_config),
             news_flags,
             window=args.window,
             consensus_projections=consensus_projections,
