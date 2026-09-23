@@ -7,9 +7,9 @@
       "kind": "wednesday",
       "generatedAt": "2026-09-23T20:14:39Z",
       "week": 3,
-      "lineupTotal": 62.6,
-      "changeSummary": "Start Stafford over Dart -- NYG demoted Dart to backup QB on today's depth chart after a 12% Week-2 snap share, no injury filed; also a provisional Bowers-over-Likely swap at TE (Bowers has 0 games played in 2026, no Week 3 report yet) and a thin-margin London-over-Golden WR/FLEX reshuffle. No rostered player carries any injury/practice designation yet -- only ATL/GB (Thursday) have filed Week 3 reports so far.",
-      "sourceIsLive": true
+      "lineupTotal": 103.76,
+      "changeSummary": "CORRECTED: start Stafford because Dart is Out (knee, MCL sprain, MRI pending), not benched; Likely stays at TE because Bowers is Out (meniscus); London and Williams over Golden at WR/FLEX. The first version's numbers were deflated ~3x by a broken sandbox run. Projections now come from the 2026-09-22 CI fixture.",
+      "sourceIsLive": false
     },
     {
       "slug": "2026-09-21-mon",
