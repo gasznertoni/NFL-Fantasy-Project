@@ -359,7 +359,7 @@
       "team": "BAL",
       "newsFlag": {
         "designation": "Questionable",
-        "riskLevel": "medium",
+        "riskLevel": "low",
         "summary": "Chris Moore is listed as questionable for the upcoming game."
       }
     },
@@ -4539,8 +4539,8 @@
       "team": "CLE",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "McLaughlin is active and healthy but seeing minimal offensive snaps in a depth role behind other running backs."
       }
     },
     {
@@ -6057,8 +6057,8 @@
       "team": "ARI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Harrison is active and healthy but faces reduced offensive opportunities with limited targets and low reception totals in recent games."
       }
     },
     {
@@ -8038,7 +8038,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Jaxson Dart suffered ACL-intact but significant MCL, PCL, and meniscus damage to his left knee and will undergo season-ending surgery, with Jameis Winston taking over as the Giants' starting quarterback."
+        "summary": "Jaxson Dart sustained multi-ligament knee damage (MCL, PCL, and meniscus) and will undergo season-ending surgery, sidelining him for the remainder of the 2026 season with expected full recovery by 2027."
       }
     },
     {
@@ -10434,9 +10434,9 @@
       "position": "WR",
       "team": "MIA",
       "newsFlag": {
-        "designation": "Healthy",
+        "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Chris Bell is active and healthy but has limited offensive snap count (24 of 59) and could see increased opportunity if teammate Caleb Douglas misses Week 3 due to ankle injury."
+        "summary": "Bell played 24 snaps in Week 2 but could see increased opportunity in Week 3 if teammate Caleb Douglas' ankle injury sidelines him."
       }
     },
     {
