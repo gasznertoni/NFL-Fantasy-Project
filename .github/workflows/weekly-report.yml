@@ -59,11 +59,18 @@ jobs:
           echo "week=$WEEK" >> "$GITHUB_OUTPUT"
 
           # Rotowire's red zone / route-efficiency signals come from the
-          # CURRENT season's game logs (gl{season}). In week 1 those do not
-          # exist yet, so the fetch makes 773 sequential requests and returns
-          # 0/773 -- observed taking 50+ minutes once the endpoint started
-          # rate-limiting repeated runs. Skipped there, and ONLY there: from
-          # week 2 the logs are real and the signals feed the waiver rationale.
+          # CURRENT season's game logs (gl{season}). Before any game has been
+          # played those do not exist, so the fetch makes 773 sequential
+          # requests and returns 0/773 -- observed taking 50+ minutes once the
+          # endpoint started rate-limiting repeated runs.
+          #
+          # This week-number test is now a belt-and-braces duplicate: the
+          # script skips the fetch itself whenever the season has no completed
+          # games, for ANY week (generate_report.should_skip_red_zone_fetch).
+          # Note what the old comment here claimed -- "from week 2 the logs are
+          # real" -- is NOT true of a pre-kickoff regeneration: weeks 2-18 of
+          # 2026 were generated on 2026-09-06 with an empty season behind them,
+          # and each paid the full no-op.
           #
           # This does not touch the Rotowire *projections* tier
           # (rotowire_projections.py), which is a separate fetch and works in

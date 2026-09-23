@@ -1178,8 +1178,16 @@ def should_skip_red_zone_fetch(
 
     An empty `game_logs` is the direct signal: load_all_game_logs_nflreadpy and
     its DST counterpart both return nothing (and say so) for a season that has
-    not started. Week 1 is kept as an explicit subset because it is true a
-    priori and does not depend on a load having succeeded.
+    not started.
+
+    Week 1 stays its own branch rather than folding into the emptiness test.
+    It holds even when the logs are NOT empty, and that case matters:
+    regenerating week 1 from mid-season would otherwise annotate it with
+    season-to-date aggregates that postdate the week being projected --
+    lookahead bias in a fixture that is supposed to record what was knowable
+    at the time. (Credit where due: that reasoning came from a parallel
+    implementation of this same guard, branch claude/silly-herschel-45ea9d,
+    which is otherwise equivalent to this one and was dropped in favour of it.)
 
     Returns (skip, reason); reason is None when the fetch should run.
     """
