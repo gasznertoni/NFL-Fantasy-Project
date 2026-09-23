@@ -4,13 +4,13 @@
   "season": 2026,
   "week": 3,
   "kind": "wednesday",
-  "generatedAt": "2026-09-23T20:14:39Z",
+  "generatedAt": "2026-09-23T21:00:00Z",
   "runUrl": "https://claude.ai/code/session_0136usdDyr9WpinDCTX3UuQh",
   "source": {
-    "label": "Committed fixture weekly-report-week-3.json (CI run: FantasyPros consensus + ESPN injuries) + live nflreadpy practice report",
-    "asOf": "2026-09-22T14:19:40Z",
+    "label": "Committed fixture weekly-report-week-3.json (CI, regenerated after the blend fix: FantasyPros consensus + ESPN injuries) + live nflreadpy practice report",
+    "asOf": "2026-09-23T20:55:02Z",
     "isLive": false,
-    "note": "CORRECTED same evening. The first version of this briefing was built from a sandbox run whose projections were deflated ~3x (the DynastyProcess player-id crosswalk returns 403 here, snap share came back empty, and the blend collapsed), and which could not see ESPN's injury feed. It misread Dart as benched and started Bowers, who is Out. Projections and designations now come from the CI-built fixture (2026-09-22 14:19 UTC); the practice layer is still live nflreadpy as of 2026-09-23 20:14 UTC, where only ATL/GB have filed and no rostered player appears."
+    "note": "Third version of this briefing. The first was built on projections deflated ~3x by a blend bug (the report never passed the model the usage stats it was trained on; fixed in 2f04572), and without ESPN injuries it misread Dart and started Bowers. This version uses the fixture CI regenerated at 20:55 UTC with the fix. Live nflreadpy practice data as of 20:55 UTC covers only ATL and GB; no rostered player is on it."
   },
   "lineup": [
     {
@@ -19,11 +19,11 @@
       "name": "Matthew Stafford",
       "position": "QB",
       "opponent": "@DEN (Sun 8:20pm)",
-      "expectedPoints": 10.66,
-      "conditionalPoints": 11.14,
+      "expectedPoints": 14.2,
+      "conditionalPoints": 14.83,
       "playProbability": 0.957,
-      "designation": "No Week 3 report",
-      "reason": "Only healthy QB on the roster: Dart is Out (knee, MCL sprain). In-house number, likely conservative vs ESPN/Sleeper; irrelevant to the decision."
+      "designation": "No Week 3 report yet",
+      "reason": "Only healthy QB on the roster: Dart is out for the season."
     },
     {
       "slot": "RB",
@@ -31,10 +31,10 @@
       "name": "Jonathan Taylor",
       "position": "RB",
       "opponent": "vs HOU",
-      "expectedPoints": 18.29,
-      "conditionalPoints": 19.62,
+      "expectedPoints": 17.71,
+      "conditionalPoints": 18.99,
       "playProbability": 0.932,
-      "designation": "No Week 3 report"
+      "designation": "No Week 3 report yet"
     },
     {
       "slot": "RB",
@@ -42,10 +42,10 @@
       "name": "Bucky Irving",
       "position": "RB",
       "opponent": "vs MIN",
-      "expectedPoints": 11.63,
-      "conditionalPoints": 12.47,
+      "expectedPoints": 15.87,
+      "conditionalPoints": 17.02,
       "playProbability": 0.932,
-      "designation": "No Week 3 report"
+      "designation": "No Week 3 report yet"
     },
     {
       "slot": "WR",
@@ -53,22 +53,22 @@
       "name": "Jaxon Smith-Njigba",
       "position": "WR",
       "opponent": "@WAS",
-      "expectedPoints": 20.75,
-      "conditionalPoints": 21.73,
+      "expectedPoints": 20.51,
+      "conditionalPoints": 21.48,
       "playProbability": 0.955,
-      "designation": "No Week 3 report"
+      "designation": "No Week 3 report yet"
     },
     {
       "slot": "WR",
-      "playerId": "00-0037238",
-      "name": "Drake London",
+      "playerId": "00-0038997",
+      "name": "Josh Downs",
       "position": "WR",
-      "opponent": "@GB (Thu 8:15pm)",
-      "expectedPoints": 6.46,
-      "conditionalPoints": 6.76,
+      "opponent": "vs HOU",
+      "expectedPoints": 11.39,
+      "conditionalPoints": 11.93,
       "playProbability": 0.955,
-      "designation": "Not on ATL's report (no concern)",
-      "reason": "Tied with Williams at 6.46; both edge Golden (4.94). Thin-margin tier."
+      "designation": "No Week 3 report yet",
+      "reason": "Top of a tight WR tier: Downs, Higgins, London and Golden span 1.3 points."
     },
     {
       "slot": "TE",
@@ -76,11 +76,11 @@
       "name": "Isaiah Likely",
       "position": "TE",
       "opponent": "vs TEN",
-      "expectedPoints": 10.16,
-      "conditionalPoints": 10.97,
+      "expectedPoints": 10.45,
+      "conditionalPoints": 11.29,
       "playProbability": 0.926,
-      "designation": "No Week 3 report",
-      "reason": "Starts by default: Bowers is Out (knee, meniscus)."
+      "designation": "No Week 3 report yet",
+      "reason": "10.45 expected against Bowers' 9.86: Bowers is Questionable (knee), LV has not filed a practice report, and he has not played in 2026."
     },
     {
       "slot": "FLEX",
@@ -88,21 +88,22 @@
       "name": "Cam Skattebo",
       "position": "RB",
       "opponent": "vs TEN",
-      "expectedPoints": 10.46,
-      "conditionalPoints": 11.22,
+      "expectedPoints": 11.76,
+      "conditionalPoints": 12.61,
       "playProbability": 0.932,
-      "designation": "No Week 3 report"
+      "designation": "No Week 3 report yet"
     },
     {
       "slot": "FLEX",
-      "playerId": "00-0037240",
-      "name": "Jameson Williams",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
       "position": "WR",
-      "opponent": "vs NYJ",
-      "expectedPoints": 6.46,
-      "conditionalPoints": 7.67,
+      "opponent": "@PIT",
+      "expectedPoints": 11.03,
+      "conditionalPoints": 13.09,
       "playProbability": 0.842,
-      "designation": "No Week 3 report"
+      "designation": "No Week 3 report yet",
+      "reason": "Starts over Williams. His 84% P(play) is understated (see caveats); at a starter's ~95% he would be 12.4."
     },
     {
       "slot": "K",
@@ -113,7 +114,7 @@
       "expectedPoints": 4.16,
       "conditionalPoints": 4.25,
       "playProbability": 0.979,
-      "designation": "No Week 3 report"
+      "designation": "No Week 3 report yet"
     },
     {
       "slot": "DEF",
@@ -124,75 +125,93 @@
       "expectedPoints": 4.73,
       "conditionalPoints": 4.73,
       "playProbability": 1.0,
-      "designation": "No Week 3 report"
+      "designation": "No Week 3 report yet"
     }
   ],
-  "lineupTotal": 103.76,
+  "lineupTotal": 121.81,
   "changes": [
     {
       "action": "start",
       "playerId": "00-0026498",
       "name": "Matthew Stafford",
       "replacing": "Jaxson Dart",
-      "deltaExpectedPoints": 10.47,
-      "reason": "Dart left Monday night's game with a knee injury (initial exams: sprained MCL, MRI pending), listed Out, P(play) 0.026. Winston played the other 88% of Week 2 snaps and is now NYG's QB1."
+      "deltaExpectedPoints": 14.2,
+      "reason": "Dart is expected to have season-ending knee surgery. His fixture row still shows P(play) 0.696 because the injury model has not caught up with the news; treat him as zero."
     },
     {
       "action": "bench",
       "playerId": "00-0040691",
       "name": "Jaxson Dart",
-      "reason": "Out: knee (MCL sprain, MRI pending). 0.19 expected points."
+      "reason": "Out for the season (knee surgery). Move to IR to free a bench spot."
     },
     {
       "action": "start",
-      "playerId": "00-0037238",
-      "name": "Drake London",
+      "playerId": "00-0038997",
+      "name": "Josh Downs",
       "replacing": "Matthew Golden",
-      "deltaExpectedPoints": 1.52,
-      "reason": "London and Williams (6.46 each) both edge Golden (4.94); Williams moves WR to FLEX. Thin margin."
+      "deltaExpectedPoints": 1.3,
+      "reason": "11.39 expected, top of the WR tier behind JSN once the blend fix restored usage stats."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "replacing": "Drake London",
+      "deltaExpectedPoints": 0.21,
+      "reason": "11.03 against London's 10.82: a thin edge, but Higgins' P(play) is understated by a depth-chart defect, so the true gap is wider."
     },
     {
       "action": "bench",
       "playerId": "00-0040667",
       "name": "Matthew Golden",
-      "reason": "4.94 expected points, lowest of the WR options behind JSN/London/Williams/Downs."
+      "reason": "10.09 expected; last of the WR starters on Monday's lineup."
+    },
+    {
+      "action": "bench",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "reason": "10.82 expected, fractionally behind Downs and Higgins."
     }
   ],
   "watchList": [
     {
-      "playerId": "00-0040691",
-      "name": "Jaxson Dart",
-      "why": "MRI result on the MCL decides whether this is one week or several. Consider whether a waiver QB is worth a bench spot if it is multi-week.",
-      "newsDue": "MRI result / Friday designation"
-    },
-    {
       "playerId": "00-0039338",
       "name": "Brock Bowers",
-      "why": "Out, meniscus, 0 games played in 2026. With a 5-man bench also holding an injured Dart, he is the obvious IR candidate if the league's IR slot accepts Out designations.",
-      "newsDue": "Friday designation"
+      "why": "Upgraded to Questionable (knee, meniscus). 13.37 if he plays against Likely's 11.29; if LV's practice reports show Full by Friday, he overtakes Likely.",
+      "newsDue": "LV practice reports Thu/Fri; final designation Friday"
+    },
+    {
+      "playerId": null,
+      "name": "Backup QB",
+      "why": "With Dart gone Stafford is the only QB. His bye is Week 11, and one Stafford injury leaves the slot empty. Claim a QB with the spot Dart's IR move frees.",
+      "newsDue": "Before Stafford's Week 11 bye at the latest"
     },
     {
       "playerId": null,
       "name": "Sunday/Monday rostered players",
-      "why": "No Week 3 practice report from NYG, IND, TB, SEA, CIN, DET, LAC, PHI, LA or LV yet.",
+      "why": "No Week 3 practice report yet from NYG, IND, TB, SEA, CIN, DET, LAC, PHI, LA or LV.",
       "newsDue": "2026-09-24"
     }
   ],
   "opponentNotes": [
     {
-      "text": "Dart's injury puts Jameis Winston under center for NYG vs TEN. Skattebo and Likely both still start; a Winston offence is historically more pass-heavy and turnover-prone, which is a small plus for Likely's volume and a small minus for game script overall."
+      "text": "Jameis Winston starts for NYG vs TEN with Dart out for the season. Skattebo and Likely both still start."
     },
     {
-      "text": "Golden (GB) and London (ATL) meet Thursday night; neither is on either team's injury report."
+      "text": "Golden (GB) and London (ATL) meet Thursday night and both sit this week; neither is on an injury report."
+    },
+    {
+      "text": "Taylor and Downs both play IND vs HOU and both start: correlated, but both clear the bar on their own numbers."
     }
   ],
   "byesAhead": [],
   "caveats": [
-    "This briefing was corrected after first publication; see source.note. The original lineup total of 62.60 was an artefact of a broken sandbox run, not a real projection.",
-    "Projections are from the 2026-09-22 CI fixture, a day and a half old. Designations for Dart and Bowers come from ESPN via that run; this sandbox cannot reach ESPN directly.",
-    "Stafford, Irving, Skattebo, London, Williams and Dicker are on the in-house tier, which runs below ESPN/Sleeper for most players (Stafford 11.1 here vs roughly 16-21 on 2025-26 form). It does not change any start here, but do not compare those numbers directly with the consensus-tier ones (Taylor, JSN, Likely).",
-    "Dicker at 4.25 if he plays looks low for a kicker in this league (top Ks project 10-12); not investigated this run.",
-    "Practice report: only ATL/GB have filed for Week 3, and no rostered player is on either. No DNP/Limited/Full bucket applies to anyone on this roster yet."
+    "This is the third version of today's briefing; see source.note. The earlier lineup totals (62.60, then 103.76) came from deflated projections.",
+    "Dart's row in the fixture still says P(play) 0.696 and 8.05 expected: the availability model reads the official injury report, which has not listed him yet, while the news layer already reports season-ending surgery. Known reconciliation defect; he is treated as zero here.",
+    "Higgins, Williams and Golden have P(play) 0.82-0.84 despite being healthy starters. nflverse's 2025 depth-chart format ranks all of a team's WRs in one list, so a starting WR2 reads as a backup to a model trained mostly on the old per-slot format. Corrected, Higgins would be ~12.4 and Golden ~11.8 expected, which does not change who starts over Williams but tightens the Downs/Higgins/Golden/London tier.",
+    "Stafford, Irving, Skattebo, Downs, Higgins, London, Golden and Williams are the in-house estimate; Taylor, JSN, Likely and Bowers are FantasyPros consensus.",
+    "Dicker at 4.25 if he plays still looks low for a kicker in this league; not investigated.",
+    "Practice report: only ATL/GB have filed, and no rostered player is on either. No DNP/Limited/Full bucket applies to anyone on this roster yet."
   ],
-  "markdown": "# Week 3 Start/Sit Briefing \u2014 Wednesday, 2026-09-23 (corrected)\n\n## Source and freshness\n\n**Not live for projections.** Built from the committed CI fixture `weekly-report-week-3.json` (generated 2026-09-22 14:19 UTC, with FantasyPros consensus and ESPN injuries). The practice layer is live nflreadpy as of 2026-09-23 20:14 UTC.\n\n**Correction:** the first version of this briefing came from a sandbox run whose projections were deflated about 3x. The DynastyProcess player-id crosswalk returns 403 in this sandbox, so snap share came back empty and `blend.py` collapsed every projection: JSN was at 6.1 if he plays against 21.7 here. That run also could not reach ESPN's injury feed. As a result it misread Dart as benched and recommended starting Bowers, who is Out.\n\n## Practice report\n\nOnly Atlanta and Green Bay (Thursday's game) have filed a Week 3 report. **No rostered player is on it.** London and Golden are absent, meaning no concern was listed for either. No DNP/Limited/Full bucket applies to anyone on this roster yet.\n\n| Player | Designation | Source | P(play) |\n|---|---|---|---|\n| Jaxson Dart | **Out**: knee, sprained MCL, MRI pending (hurt Monday night) | ESPN via CI fixture | 0.026 |\n| Brock Bowers | **Out**: knee, meniscus | ESPN via CI fixture | 0.003 |\n\n## Start these ten\n\n| Slot | Player | Opp | Expected | P(play) | If he plays | Tier |\n|---|---|---|---|---|---|---|\n| QB | Matthew Stafford | @DEN (SNF) | **10.66** | 95.7% | 11.14 | in-house |\n| RB | Jonathan Taylor | vs HOU | **18.29** | 93.2% | 19.62 | consensus |\n| RB | Bucky Irving | vs MIN | **11.63** | 93.2% | 12.47 | in-house |\n| WR | Jaxon Smith-Njigba | @WAS | **20.75** | 95.5% | 21.73 | consensus |\n| WR | Drake London | @GB (Thu) | **6.46** | 95.5% | 6.76 | in-house |\n| TE | Isaiah Likely | vs TEN | **10.16** | 92.6% | 10.97 | consensus |\n| FLEX | Cam Skattebo | vs TEN | **10.46** | 93.2% | 11.22 | in-house |\n| FLEX | Jameson Williams | vs NYJ | **6.46** | 84.2% | 7.67 | in-house |\n| K | Cameron Dicker | @BUF | **4.16** | 97.9% | 4.25 | in-house |\n| DEF | Eagles D/ST | @CHI (MNF) | **4.73** | 100% | 4.73 | in-house |\n\n**Lineup total (expected): 103.76**\n\n**Sit:** Dart (Out), Bowers (Out), Golden (4.94), Downs (5.88), Higgins (5.50).\n\n## Changes since Monday\n\n- **Start Stafford, bench Dart.** Dart hurt his knee Monday night and is Out. This is forced, not a judgement call.\n- **Likely stays at TE.** Bowers is Out, so there is no decision here. (The first version of this briefing got this wrong.)\n- **WR/FLEX: London and Williams in, Golden out.** London and Williams are tied at 6.46, with Golden at 4.94. It's a thin margin.\n\n## Still uncertain\n\n- **Dart's MRI** decides whether the QB hole lasts one week or several. If it's several, a waiver QB may be worth a bench spot.\n- **Bowers** is Out with 0 games played this season. If Sleeper's IR slot takes Out designations, moving him there frees a bench spot.\n\n## Opponent notes\n\n- With Dart out, Winston starts for NYG vs TEN. Skattebo and Likely still start. Winston's offence has historically been pass-heavy and turnover-prone.\n- Golden and London meet Thursday night. Neither is on an injury report.\n\n## Byes ahead\n\nNone in Weeks 3\u20134. The nearest is Dicker in Week 7.\n"
+  "markdown": "# Week 3 Start/Sit Briefing \u2014 Wednesday, 2026-09-23 (third version)\n\n## Source and freshness\n\n**Not live for projections.** Built from `weekly-report-week-3.json` as regenerated by CI at 20:55 UTC with the blend fix (`2f04572`), FantasyPros consensus and ESPN injuries. Live nflreadpy practice data as of 20:55 UTC covers only Atlanta and Green Bay.\n\n**Why there are three versions:** the first was built on projections deflated about 3x. The weekly report never gave the blend model the usage stats it was trained on, so every in-house projection collapsed toward a positional average (JSN was at 6 if he plays). The second used the pre-fix CI report, which still carried that deflation for everyone outside the FantasyPros tier. This one uses the fixed report.\n\n## Practice report\n\nNo rostered player is on any Week 3 report yet; only ATL and GB have filed. London and Golden are absent from those two reports, meaning no concern was listed.\n\n| Player | Designation | Source | P(play) |\n|---|---|---|---|\n| Jaxson Dart | **Out for the season**: knee surgery | ESPN via CI | treated as 0 (fixture says 0.696 \u2014 stale) |\n| Brock Bowers | **Questionable**: knee, meniscus (upgraded from Out) | ESPN via CI | 0.738 |\n\n## Start these ten\n\n| Slot | Player | Opp | Expected | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Matthew Stafford | @DEN (Sun 8:20pm) | **14.2** | 95.7% | 14.83 |\n| RB | Jonathan Taylor | vs HOU | **17.71** | 93.2% | 18.99 |\n| RB | Bucky Irving | vs MIN | **15.87** | 93.2% | 17.02 |\n| WR | Jaxon Smith-Njigba | @WAS | **20.51** | 95.5% | 21.48 |\n| WR | Josh Downs | vs HOU | **11.39** | 95.5% | 11.93 |\n| TE | Isaiah Likely | vs TEN | **10.45** | 92.6% | 11.29 |\n| FLEX | Cam Skattebo | vs TEN | **11.76** | 93.2% | 12.61 |\n| FLEX | Tee Higgins | @PIT | **11.03** | 84.2% | 13.09 |\n| K | Cameron Dicker | @BUF | **4.16** | 97.9% | 4.25 |\n| DEF | Eagles D/ST | @CHI (Mon 8:15pm) | **4.73** | 100.0% | 4.73 |\n\n**Lineup total (expected): 121.81**\n\n**Sit:** Dart (season over \u2014 move to IR), Bowers (9.86, Questionable), London (10.82), Golden (10.09), Jameson Williams (9.33).\n\n## Changes since Monday\n\n- **Stafford for Dart.** Dart is expected to need season-ending knee surgery. Move him to IR; that frees a bench spot for a backup QB, which you now need.\n- **Downs and Higgins in, Golden and London out.** With usage stats restored, Downs (11.39) and Higgins (11.03) top the WR tier behind JSN. The four are within 1.3 points of each other, so treat the order as soft.\n- **Higgins over Williams.** 11.03 against 9.33 expected (13.09 vs 11.07 if they play). Williams has 13 targets and 6.9 points a game this season; Higgins has 16 and 11.7.\n- **Likely over Bowers, for now.** 10.45 against 9.86 expected. Bowers is Questionable with no practice data yet; if he practises in full by Friday, he takes the spot.\n\n## Still uncertain\n\n- **Bowers**: LV's Thursday/Friday practice reports decide the TE slot.\n- **The WR tier** (Downs, Higgins, London, Golden) is within noise; a practice report or depth-chart change could reorder it.\n\n## Byes ahead\n\nNone in Weeks 3\u20134. Nearest: Dicker, Week 7.\n"
 }

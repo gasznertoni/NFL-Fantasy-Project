@@ -5,10 +5,10 @@
     {
       "slug": "2026-09-23-wed",
       "kind": "wednesday",
-      "generatedAt": "2026-09-23T20:14:39Z",
+      "generatedAt": "2026-09-23T21:00:00Z",
       "week": 3,
-      "lineupTotal": 103.76,
-      "changeSummary": "CORRECTED: start Stafford because Dart is Out (knee, MCL sprain, MRI pending), not benched; Likely stays at TE because Bowers is Out (meniscus); London and Williams over Golden at WR/FLEX. The first version's numbers were deflated ~3x by a broken sandbox run. Projections now come from the 2026-09-22 CI fixture.",
+      "lineupTotal": 121.81,
+      "changeSummary": "Third version, on projections regenerated after the blend fix: Stafford for Dart (season-ending knee surgery, move him to IR and claim a backup QB); Downs and Higgins start at WR/FLEX over Golden and London; Higgins over Williams; Likely over Bowers (Questionable) pending Friday.",
       "sourceIsLive": false
     },
     {
