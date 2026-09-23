@@ -171,3 +171,45 @@ class TestBlendModel(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestCheckCoverage(unittest.TestCase):
+    def _fitted(self):
+        return BlendModel().fit(TestBlendModel()._rows())
+
+    def _prediction_rows(self, n=40, with_targets=True, games_used=2):
+        rows = []
+        for i in range(n):
+            row = {"player_id": f"q{i}", "position": "WR", "rolling_avg": 10.0,
+                   "shrunk_avg": 10.0, "games_used": games_used,
+                   "implied_team_total": 24.0}
+            if with_targets:
+                row["targets"] = 6.0
+            rows.append(row)
+        return rows
+
+    def test_passes_when_prediction_rows_carry_the_trained_features(self):
+        self._fitted().check_coverage(self._prediction_rows())
+
+    def test_raises_when_a_trained_feature_is_missing_for_the_whole_pool(self):
+        # The production failure: the report's loader dropped every volume
+        # column, so the blend imputed them all and collapsed.
+        from blend import BlendFeatureMismatch
+
+        with self.assertRaises(BlendFeatureMismatch) as ctx:
+            self._fitted().check_coverage(self._prediction_rows(with_targets=False))
+        self.assertIn("WR.targets", str(ctx.exception))
+
+    def test_features_never_present_in_training_are_not_required(self):
+        # target_share was absent from every training row here, so its absence
+        # at prediction time is consistent, not a mismatch.
+        rows = self._prediction_rows()
+        self.assertTrue(all("target_share" not in r for r in rows))
+        self._fitted().check_coverage(rows)
+
+    def test_week_one_rows_are_ignored(self):
+        # No prior game this season means no volume, legitimately.
+        self._fitted().check_coverage(self._prediction_rows(with_targets=False, games_used=0))
+
+    def test_too_few_rows_to_judge_is_not_an_error(self):
+        self._fitted().check_coverage(self._prediction_rows(n=5, with_targets=False))

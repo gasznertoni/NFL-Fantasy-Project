@@ -396,3 +396,46 @@ class LoadEnvFileTest(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestLoadAllGameLogsCarriesVolume(unittest.TestCase):
+    """The blend is trained on game logs from calibration_fit.load_game_logs,
+    which carries blend.VOLUME_COLUMNS. The report predicts from this loader,
+    which did not -- so every volume feature was imputed and the blend
+    collapsed every in-house projection toward the positional mean."""
+
+    class _Row(dict):
+        def to_dict(self):
+            return dict(self)
+
+    class _Frame:
+        def __init__(self, rows):
+            self._rows = rows
+            self.columns = list(rows[0])
+
+        def to_pandas(self):
+            return self
+
+        def iterrows(self):
+            return enumerate(self._rows)
+
+    def test_volume_columns_reach_the_game_log(self):
+        from unittest import mock
+
+        import generate_report
+        from blend import VOLUME_COLUMNS
+
+        row = self._Row(
+            player_id="00-0038543", week=2, opponent_team="LA", position="WR",
+            receptions=11, receiving_yards=150, receiving_tds=1, targets=13,
+            target_share=0.4, wopr=0.7, receiving_air_yards=120,
+        )
+        fake = mock.Mock()
+        fake.load_player_stats.return_value = self._Frame([row])
+        with mock.patch.dict(sys.modules, {"nflreadpy": fake}):
+            logs = generate_report.load_all_game_logs_nflreadpy(2026)
+
+        game = logs["00-0038543"][0]
+        for column in ("targets", "receptions", "target_share", "wopr", "receiving_air_yards"):
+            self.assertIn(column, VOLUME_COLUMNS)
+            self.assertEqual(game[column], row[column])

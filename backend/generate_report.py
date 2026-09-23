@@ -49,6 +49,7 @@ from typing import Any, Optional
 
 import entity_prior
 from news import DEFAULT_NEWS_FLAG
+from blend import VOLUME_COLUMNS
 from blend import build_feature_row as blend_build_feature_row
 from blend import rolling_volume
 from calibration import apply_affine
@@ -483,6 +484,7 @@ def build_weekly_report_and_pool(
     """
     consensus_projections = consensus_projections or {}
     candidates = []
+    blend_rows: list[dict[str, Any]] = []
     for player in pool:
         opponent = opponent_for_team_week(schedule_games, player["team"], season, week)
         if opponent is None:
@@ -615,11 +617,11 @@ def build_weekly_report_and_pool(
                 # switched off without touching the other.
                 volume = rolling_volume(game_log, season, week, window, decay)
                 context = (game_context or {}).get(player["team"])
-                points = blend_model.predict_one(
-                    blend_build_feature_row(
-                        player_id, player["position"], projection, volume, context
-                    )
+                blend_row = blend_build_feature_row(
+                    player_id, player["position"], projection, volume, context
                 )
+                blend_rows.append(blend_row)
+                points = blend_model.predict_one(blend_row)
                 points = apply_affine(points, (affines or {}).get(player_id))
 
             probability = (play_probabilities or {}).get(player_id)
@@ -660,6 +662,9 @@ def build_weekly_report_and_pool(
                 "news_flag": news_flag,
             }
         candidates.append(candidate)
+
+    if blend_model is not None:
+        blend_model.check_coverage(blend_rows)
 
     projection_entries = [build_projection_entry(c, c["tier"]) for c in candidates]
 
@@ -893,6 +898,12 @@ def load_all_game_logs_nflreadpy(season: int) -> dict[str, list[dict[str, Any]]]
             stat_line["season"] = season
             stat_line["week"] = int(row["week"])
             stat_line["opponent_team"] = normalize_team(row.get("opponent_team"))
+            # The blend was fitted on these columns (calibration_fit.load_game_logs
+            # copies them); without them every volume feature is imputed at
+            # prediction time and the blend collapses toward a positional mean.
+            for column in VOLUME_COLUMNS:
+                if column in row_dict:
+                    stat_line[column] = row_dict[column]
             game_logs.setdefault(player_id, []).append(stat_line)
         return game_logs
     except (KeyError, AttributeError) as exc:
