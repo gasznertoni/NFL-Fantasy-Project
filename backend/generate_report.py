@@ -49,6 +49,7 @@ from typing import Any, Optional
 
 import entity_prior
 from news import DEFAULT_NEWS_FLAG
+from blend import VOLUME_COLUMNS
 from blend import build_feature_row as blend_build_feature_row
 from blend import rolling_volume
 from calibration import apply_affine
@@ -483,6 +484,7 @@ def build_weekly_report_and_pool(
     """
     consensus_projections = consensus_projections or {}
     candidates = []
+    blend_rows: list[dict[str, Any]] = []
     for player in pool:
         opponent = opponent_for_team_week(schedule_games, player["team"], season, week)
         if opponent is None:
@@ -615,11 +617,11 @@ def build_weekly_report_and_pool(
                 # switched off without touching the other.
                 volume = rolling_volume(game_log, season, week, window, decay)
                 context = (game_context or {}).get(player["team"])
-                points = blend_model.predict_one(
-                    blend_build_feature_row(
-                        player_id, player["position"], projection, volume, context
-                    )
+                blend_row = blend_build_feature_row(
+                    player_id, player["position"], projection, volume, context
                 )
+                blend_rows.append(blend_row)
+                points = blend_model.predict_one(blend_row)
                 points = apply_affine(points, (affines or {}).get(player_id))
 
             probability = (play_probabilities or {}).get(player_id)
@@ -660,6 +662,9 @@ def build_weekly_report_and_pool(
                 "news_flag": news_flag,
             }
         candidates.append(candidate)
+
+    if blend_model is not None:
+        blend_model.check_coverage(blend_rows)
 
     projection_entries = [build_projection_entry(c, c["tier"]) for c in candidates]
 
@@ -893,6 +898,12 @@ def load_all_game_logs_nflreadpy(season: int) -> dict[str, list[dict[str, Any]]]
             stat_line["season"] = season
             stat_line["week"] = int(row["week"])
             stat_line["opponent_team"] = normalize_team(row.get("opponent_team"))
+            # The blend was fitted on these columns (calibration_fit.load_game_logs
+            # copies them); without them every volume feature is imputed at
+            # prediction time and the blend collapses toward a positional mean.
+            for column in VOLUME_COLUMNS:
+                if column in row_dict:
+                    stat_line[column] = row_dict[column]
             game_logs.setdefault(player_id, []).append(stat_line)
         return game_logs
     except (KeyError, AttributeError) as exc:
@@ -1172,6 +1183,46 @@ def load_env_file(env_path: Optional[Path] = None) -> None:
         + (f" -- {', '.join(present)} set" if present else "")
         + (f"; {', '.join(missing)} still missing" if missing else "")
     )
+
+
+def should_skip_red_zone_fetch(
+    week: int,
+    game_logs: dict[str, Any],
+    skip_flag: bool,
+) -> tuple[bool, Optional[str]]:
+    """Whether to skip the Rotowire red-zone fetch, and why.
+
+    The fetch reads CURRENT-SEASON per-game logs, so it has nothing to return
+    until a game has been played -- and it costs one request per player at a
+    0.5s delay, about 25 minutes of no-op.
+
+    This used to be `week == 1`, which reads the season's state off the week
+    NUMBER. That is only the same thing during a season already under way.
+    Regenerating weeks 2-18 of 2026 before kickoff paid the full no-op on all
+    fifteen weeks and had to be worked around by hand.
+
+    An empty `game_logs` is the direct signal: load_all_game_logs_nflreadpy and
+    its DST counterpart both return nothing (and say so) for a season that has
+    not started.
+
+    Week 1 stays its own branch rather than folding into the emptiness test.
+    It holds even when the logs are NOT empty, and that case matters:
+    regenerating week 1 from mid-season would otherwise annotate it with
+    season-to-date aggregates that postdate the week being projected --
+    lookahead bias in a fixture that is supposed to record what was knowable
+    at the time. (Credit where due: that reasoning came from a parallel
+    implementation of this same guard, branch claude/silly-herschel-45ea9d,
+    which is otherwise equivalent to this one and was dropped in favour of it.)
+
+    Returns (skip, reason); reason is None when the fetch should run.
+    """
+    if skip_flag:
+        return True, "--skip-rotowire set"
+    if week == 1:
+        return True, "week 1"
+    if not game_logs:
+        return True, "no games played yet this season"
+    return False, None
 
 
 def main(argv: Optional[list[str]] = None) -> None:
@@ -1630,6 +1681,24 @@ def main(argv: Optional[list[str]] = None) -> None:
             # had before, which is the pre-2026-09-02 behaviour.
             print(f"  Expected-TD / snap-share feeds unavailable ({exc}) -- blend uses volume only.")
 
+    def _game_logs_for_config(scoring_config: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
+        """game_logs with offense_pct and the TD/non-TD split attached.
+
+        The TD/non-TD split is in points, so it is refitted per league -- a
+        passing touchdown is worth 6 in league-1 and 4 in league-2, and a shared
+        split would be wrong for one of them.
+
+        Both the multi-league and the single-league path must go through here.
+        The single-league path used to pass the raw logs straight through, so
+        offense_pct -- a blend feature calibration_fit trains on -- was missing
+        for every player it predicted, and check_coverage raised on it.
+        """
+        if not (expected_td_rows or snap_shares):
+            return game_logs
+        from expected_td import enrich_game_logs
+
+        return enrich_game_logs(game_logs, expected_td_rows, snap_shares, scoring_config)
+
     game_context: dict[str, dict[str, Any]] = {}
     if not args.skip_blend:
         try:
@@ -1778,17 +1847,15 @@ def main(argv: Optional[list[str]] = None) -> None:
     # to disk, so repeated same-day runs are free). The result is shared across
     # leagues since it's player-level, not league-scoring-dependent.
     rz_stats: dict[str, dict[str, Any]] = {}
-    if args.skip_rotowire:
-        print("--skip-rotowire set: waiver rationale will omit red zone / tprr annotations.")
-    elif args.week == 1:
-        # Week 1 has no red-zone data BY DEFINITION -- these are current-season
-        # per-game logs and no game has been played. The fetch is one request
-        # per player with a 0.5s delay, so it is a ~25-minute no-op: the first
-        # 2026 week-1 run spent that long to report "0/773 fetched
-        # successfully". The CI workflow already passes --skip-rotowire for
-        # week 1; this makes a manual run behave the same way, because
-        # correctness should not depend on remembering a flag.
-        print("Week 1: skipping the Rotowire red-zone fetch -- no games played yet, so it has no data.")
+    skip_rz, skip_rz_reason = should_skip_red_zone_fetch(
+        args.week, game_logs, args.skip_rotowire
+    )
+    if skip_rz:
+        # Reasoning lives in should_skip_red_zone_fetch's docstring.
+        print(
+            f"Skipping the Rotowire red-zone fetch ({skip_rz_reason}) -- "
+            "waiver rationale will omit red zone / tprr annotations."
+        )
     else:
         print(f"Fetching Rotowire red zone / route stats ({args.season} season)...")
         rz_stats = load_rotowire_stats_or_empty(pool, args.season)
@@ -1837,16 +1904,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             print(f"\n--- Generating report for {league_id} ({league['displayName']}) ---")
             consensus_projections = _build_consensus_for_config(scoring_config, pool)
 
-            # The TD/non-TD split is in points, so it is refitted per league --
-            # a passing touchdown is worth 6 in league-1 and 4 in league-2, and
-            # a shared split would be wrong for one of them.
-            league_game_logs = game_logs
-            if expected_td_rows or snap_shares:
-                from expected_td import enrich_game_logs
-
-                league_game_logs = enrich_game_logs(
-                    game_logs, expected_td_rows, snap_shares, scoring_config
-                )
+            league_game_logs = _game_logs_for_config(scoring_config)
 
             out_dir = backend_dir / league["outDir"]
             out_dir.mkdir(parents=True, exist_ok=True)
@@ -1924,7 +1982,7 @@ def main(argv: Optional[list[str]] = None) -> None:
             scoring_config,
             pool,
             schedule_games,
-            game_logs,
+            _game_logs_for_config(scoring_config),
             news_flags,
             window=args.window,
             consensus_projections=consensus_projections,

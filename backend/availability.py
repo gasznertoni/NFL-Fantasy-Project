@@ -427,18 +427,49 @@ def load_current_injury_report(
     Returns (report, source) so a run says which combination it actually used.
     The three are not equivalent and should not silently look the same.
     """
-    report = load_injury_report_nflreadpy(season, week)
-    if report:
-        return report, "nflreadpy"
+    return merge_injury_reports(
+        load_injury_report_nflreadpy(season, week),
+        load_injury_report_espn(players, rows=espn_rows),
+        load_injury_report_sleeper(players),
+    )
 
-    espn = load_injury_report_espn(players, rows=espn_rows)
-    sleeper = load_injury_report_sleeper(players)
-    if espn and sleeper:
-        merged = {**sleeper, **espn}  # ESPN wins on overlap
-        return merged, f"espn+sleeper ({len(espn)}+{len(sleeper)} before merge)"
-    if espn:
-        return espn, "espn"
-    return sleeper, "sleeper"
+
+def merge_injury_reports(
+    nflreadpy_report: dict[str, dict[str, Any]],
+    espn: dict[str, dict[str, Any]],
+    sleeper: dict[str, dict[str, Any]],
+) -> tuple[dict[str, dict[str, Any]], str]:
+    """Combine the three reports per PLAYER, never per source.
+
+    nflreadpy used to win outright whenever it returned anything. Mid-week it
+    returns only the teams that have filed so far -- on 2026-09-23 that was 22
+    rows, all Atlanta or Green Bay ahead of Thursday's game -- so ESPN's 800
+    were thrown away and every Out/IR/Doubtful player on the other 30 teams
+    lost his designation: 96 of 96 went above P(play) 0.2, Jayden Daniels (Out)
+    projected 13.8 expected points. A partial report is a coverage gap, not a
+    statement that everyone missing from it is healthy.
+
+    So: ESPN/Sleeper give every player they list a designation, and an
+    nflreadpy row then overrides it field by field -- practice participation
+    always (only nflreadpy has it), report_status only when nflreadpy has one.
+    Mid-week nflreadpy rows carry practice but no game status, and dropping an
+    ESPN "Out" or "Injured Reserve" for a None would make the player look
+    healthier than any source says he is.
+    """
+    live = {**sleeper, **espn}  # ESPN wins on overlap
+    merged = {player_id: dict(row) for player_id, row in live.items()}
+    for player_id, row in nflreadpy_report.items():
+        entry = merged.setdefault(player_id, {"report_status": None, "practice_status": None})
+        entry["practice_status"] = row.get("practice_status")
+        if row.get("report_status") is not None:
+            entry["report_status"] = row["report_status"]
+
+    parts = [
+        f"{name} {len(source)}"
+        for name, source in (("nflreadpy", nflreadpy_report), ("espn", espn), ("sleeper", sleeper))
+        if source
+    ]
+    return merged, "+".join(parts) if parts else "none"
 
 
 def build_training_rows_nflreadpy(

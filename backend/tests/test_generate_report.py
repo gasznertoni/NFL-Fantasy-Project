@@ -22,6 +22,7 @@ from generate_report import (  # noqa: E402
     build_weekly_report_and_pool,
     normalize_team,
     opponent_for_team_week,
+    should_skip_red_zone_fetch,
 )
 
 CONFIG = {"linear": {"rush_yd": 0.1, "rush_td": 6}}
@@ -397,6 +398,47 @@ class LoadEnvFileTest(unittest.TestCase):
         self.assertEqual(os.environ.get("GR_TEST_ONLY"), "from_ci")
 
 
+class TestShouldSkipRedZoneFetch(unittest.TestCase):
+    """The red-zone fetch reads current-season logs, so it is a ~25-minute
+    no-op until a game has been played. The guard used to be `week == 1`,
+    which reads the season's state off the week NUMBER -- true only during a
+    season already under way. Regenerating weeks 2-18 of 2026 before kickoff
+    paid the full no-op fifteen times."""
+
+    LOGS = {"00-0012345": [{"season": 2026, "week": 1}]}
+
+    def test_the_explicit_flag_wins_over_everything(self):
+        skip, reason = should_skip_red_zone_fetch(9, self.LOGS, True)
+        self.assertTrue(skip)
+        self.assertIn("skip-rotowire", reason)
+
+    def test_week_one_skips_even_with_logs_present(self):
+        # True a priori, and does not depend on a load having succeeded.
+        skip, reason = should_skip_red_zone_fetch(1, self.LOGS, False)
+        self.assertTrue(skip)
+        self.assertEqual(reason, "week 1")
+
+    def test_a_season_with_no_games_played_skips_at_any_week(self):
+        # The regression this guard was widened for: week 9 of a season that
+        # has not kicked off used to run the full fetch and return nothing.
+        for week in (2, 9, 18):
+            skip, reason = should_skip_red_zone_fetch(week, {}, False)
+            self.assertTrue(skip, week)
+            self.assertIn("no games played", reason)
+
+    def test_a_season_under_way_actually_fetches(self):
+        skip, reason = should_skip_red_zone_fetch(3, self.LOGS, False)
+        self.assertFalse(skip)
+        self.assertIsNone(reason)
+
+    def test_the_old_week_number_rule_alone_would_have_run_the_no_op(self):
+        # Pins the difference rather than just the new behaviour: under the
+        # previous condition (week == 1) this case fetched; it now skips.
+        week, logs = 9, {}
+        self.assertFalse(week == 1)
+        self.assertTrue(should_skip_red_zone_fetch(week, logs, False)[0])
+
+
 if __name__ == "__main__":
     unittest.main()
 
@@ -432,3 +474,46 @@ class TestScoringConfigValidatorsRunInThePipeline(unittest.TestCase):
 
     def test_an_empty_config_is_not_rejected(self):
         generate_report.validate_scoring_config({}, "league-x")
+
+
+class TestLoadAllGameLogsCarriesVolume(unittest.TestCase):
+    """The blend is trained on game logs from calibration_fit.load_game_logs,
+    which carries blend.VOLUME_COLUMNS. The report predicts from this loader,
+    which did not -- so every volume feature was imputed and the blend
+    collapsed every in-house projection toward the positional mean."""
+
+    class _Row(dict):
+        def to_dict(self):
+            return dict(self)
+
+    class _Frame:
+        def __init__(self, rows):
+            self._rows = rows
+            self.columns = list(rows[0])
+
+        def to_pandas(self):
+            return self
+
+        def iterrows(self):
+            return enumerate(self._rows)
+
+    def test_volume_columns_reach_the_game_log(self):
+        from unittest import mock
+
+        import generate_report
+        from blend import VOLUME_COLUMNS
+
+        row = self._Row(
+            player_id="00-0038543", week=2, opponent_team="LA", position="WR",
+            receptions=11, receiving_yards=150, receiving_tds=1, targets=13,
+            target_share=0.4, wopr=0.7, receiving_air_yards=120,
+        )
+        fake = mock.Mock()
+        fake.load_player_stats.return_value = self._Frame([row])
+        with mock.patch.dict(sys.modules, {"nflreadpy": fake}):
+            logs = generate_report.load_all_game_logs_nflreadpy(2026)
+
+        game = logs["00-0038543"][0]
+        for column in ("targets", "receptions", "target_share", "wopr", "receiving_air_yards"):
+            self.assertIn(column, VOLUME_COLUMNS)
+            self.assertEqual(game[column], row[column])

@@ -198,6 +198,23 @@ body {
   margin-bottom: 8px;
 }
 
+/* Keeps the title and its scoring badge together on the left so the week
+   selector stays on the right, rather than the three spreading out under
+   .view-header's space-between. */
+.view-header-title {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.format-badge {
+  font-size: 12px;
+  font-weight: 500;
+  color: var(--color-text-muted);
+  white-space: nowrap;
+}
+
 .view-header h1 {
   font-size: 22px;
   font-weight: 600;

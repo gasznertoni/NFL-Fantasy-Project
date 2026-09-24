@@ -764,7 +764,12 @@ def _load_depth_ranks(nfl, pd, season: int) -> dict[str, float]:
             return {}
         latest = charts["_dt"].max()
         charts = charts[charts["_dt"] == latest]
-        ranks = pd.to_numeric(charts["pos_rank"], errors="coerce")
+        # pos_rank runs across the whole position in this feed; slot_ranks
+        # puts it back on the legacy per-slot meaning (a starting WR2 is 1).
+        from depth_charts import slot_ranks
+
+        ranks = slot_ranks(charts.drop(columns=["_dt"]).to_dict("records"))
+        ranks = pd.to_numeric(pd.Series(ranks, index=charts.index), errors="coerce")
         return charts.assign(_r=ranks).groupby("gsis_id")["_r"].min().dropna().to_dict()
 
     return {}

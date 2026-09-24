@@ -87,6 +87,28 @@ FEATURES: tuple[str, ...] = BASE_COLUMNS + VOLUME_COLUMNS + CONTEXT_COLUMNS
 # 30 sits in the middle of the flat region.
 DEFAULT_ALPHA = 30.0
 
+# check_coverage thresholds. A feature present on at least TRAINED_COVERAGE of a
+# position's in-season training rows must be present on at least
+# PREDICTED_COVERAGE of the rows it predicts, over at least COVERAGE_MIN_ROWS.
+TRAINED_COVERAGE = 0.9
+PREDICTED_COVERAGE = 0.5
+COVERAGE_MIN_ROWS = 20
+
+
+class BlendFeatureMismatch(ValueError):
+    """A feature the blend was trained with is missing at prediction time."""
+
+
+def _in_season(row: dict[str, Any]) -> bool:
+    # Rows with no prior game this season legitimately carry no volume at all,
+    # in training and prediction alike, so they would only dilute the check.
+    return (num(row.get("games_used")) or 0) > 0
+
+
+def _coverage(rows: list[dict[str, Any]], features: Iterable[str]) -> dict[str, float]:
+    return {f: sum(num(r.get(f)) is not None for r in rows) / len(rows) for f in features}
+
+
 # Below this many training rows a position keeps its base estimate untouched.
 # ~2 seasons of a position's player-weeks; under that the ~34-column fit is not
 # worth trusting over the rolling average it would be replacing.
@@ -141,14 +163,51 @@ class BlendModel:
             targets = [float(num(r["actual_points"])) for r in pos_rows]
             mean, std = column_stats(design)
             beta = ridge([standardize(v, mean, std) for v in design], targets, self.alpha)
+            in_season = [r for r in pos_rows if _in_season(r)]
             self._fits[position] = {
                 "beta": beta,
                 "mean": mean,
                 "std": std,
                 "medians": medians,
                 "ceiling": max(targets),
+                "coverage": _coverage(in_season, self.features) if in_season else {},
             }
         return self
+
+    def check_coverage(self, rows: Iterable[dict[str, Any]]) -> None:
+        """Raise BlendFeatureMismatch if the rows about to be predicted are
+        missing a feature the fit nearly always had.
+
+        predict_one imputes a missing feature with its training median, which
+        is right for one player and silently wrong for all of them: when a
+        loader drops a column for the whole pool, every projection is pulled
+        toward the positional mean and nothing errors. That happened for real
+        -- the report's game-log loader never carried the volume columns, and
+        the blend projected Jaxon Smith-Njigba, averaging 34 points, at 6.
+        """
+        by_pos: dict[str, list[dict[str, Any]]] = {}
+        for row in rows:
+            if _in_season(row) and row.get("position") in self._fits:
+                by_pos.setdefault(row["position"], []).append(row)
+
+        problems = []
+        for position, pos_rows in sorted(by_pos.items()):
+            if len(pos_rows) < COVERAGE_MIN_ROWS:
+                continue
+            trained = self._fits[position].get("coverage") or {}
+            predicted = _coverage(pos_rows, self.features)
+            for feature in self.features:
+                if trained.get(feature, 0.0) >= TRAINED_COVERAGE and predicted[feature] < PREDICTED_COVERAGE:
+                    problems.append(
+                        f"{position}.{feature}: {trained[feature]:.0%} of training rows, "
+                        f"{predicted[feature]:.0%} of {len(pos_rows)} prediction rows"
+                    )
+        if problems:
+            raise BlendFeatureMismatch(
+                "blend features present in training are missing at prediction time -- "
+                "projections would collapse toward the positional mean. Fix the loader, "
+                "or run with --skip-blend. " + "; ".join(problems)
+            )
 
     def predict_one(self, row: dict[str, Any]) -> float:
         """Refined points for one player-week.

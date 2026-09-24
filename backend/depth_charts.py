@@ -5,8 +5,12 @@ Why this is its own module: nflverse changed the depth-chart feed in 2025 and
 the two shapes need different handling, but three callers want the same answer.
 
     through 2024   one row per player per week, with a `depth_team` rank
+                   WITHIN a slot (all three starting receivers are 1)
     2025 onward    a stream of timestamped league-wide snapshots (`dt`,
-                   `pos_rank`, `pos_abb`) with no week column at all
+                   `pos_rank`, `pos_slot`, `pos_abb`) with no week column at
+                   all, and a `pos_rank` that runs ACROSS the position (the
+                   three starting receivers are 1, 2 and 3) -- slot_ranks
+                   converts it back to the legacy meaning
 
 The newer feed also extends past the season, so it MUST be filtered to
 snapshots taken on or before the week in question -- an unfiltered read hands
@@ -102,6 +106,45 @@ def rank_map_from_legacy(rows: list[dict[str, Any]]) -> dict[tuple[int, int, str
     return out
 
 
+def slot_ranks(rows: list[dict[str, Any]]) -> list[Optional[float]]:
+    """Each snapshot row's rank WITHIN ITS SLOT, aligned with `rows`.
+
+    The two feeds do not mean the same thing by rank. The legacy `depth_team`
+    ranks within a slot: all three starting receivers are 1 and their backups 2.
+    The 2025 feed's `pos_rank` is an ordinal across the whole position instead
+    -- Chase 1, Higgins 2, Iosivas 3, then the backups 4-6 -- and `pos_slot`
+    says which receiver slot each belongs to. Every team lines up as
+    "3WR 1TE", so QB/RB/TE have one slot and are unaffected, but read raw,
+    the WR2 starter is a depth-2 backup and the WR3 starter lands in the
+    third-string bucket. The availability model learned its depth
+    coefficients on the legacy meaning, so a healthy Tee Higgins came out at
+    P(play) 0.842 against JSN's 0.955.
+
+    Re-ranking by pos_rank within (snapshot, team, grouping, slot) recovers
+    the legacy meaning exactly: slot 1 is Chase 1 / Tinsley 2, slot 2 Higgins
+    1 / Jones 2, slot 8 Iosivas 1 / Burton 2. Ties share a rank. A row with
+    no slot keeps its pos_rank -- there is nothing to re-rank it against.
+    """
+    keys: list[Optional[tuple]] = []
+    groups: dict[tuple, set[float]] = {}
+    for row in rows:
+        rank = _number(row.get("pos_rank"))
+        slot = _number(row.get("pos_slot"))
+        if rank is None or slot is None:
+            keys.append(None)
+            continue
+        key = (str(row.get("dt")), row.get("team"), row.get("pos_grp"), slot)
+        groups.setdefault(key, set()).add(rank)
+        keys.append(key)
+
+    order = {key: {r: i + 1 for i, r in enumerate(sorted(ranks))} for key, ranks in groups.items()}
+    out: list[Optional[float]] = []
+    for row, key in zip(rows, keys):
+        rank = _number(row.get("pos_rank"))
+        out.append(rank if key is None else float(order[key][rank]))
+    return out
+
+
 def rank_map_from_snapshots(
     rows: list[dict[str, Any]],
     week_starts: dict[int, dict[int, Any]],
@@ -111,11 +154,13 @@ def rank_map_from_snapshots(
     Each week takes the LATEST snapshot at or before that week's first kickoff.
     The as-of filter is the whole point: the feed extends past the season, so an
     unfiltered read hands a week-1 projection a chart from the following March.
+
+    Ranks are re-expressed within each slot first (see slot_ranks), so a
+    starting WR2 is depth 1 here exactly as he was in the legacy feed.
     """
     parsed: list[tuple[int, datetime, str, float]] = []
-    for row in rows:
+    for row, rank in zip(rows, slot_ranks(rows)):
         stamp = _parse_timestamp(row.get("dt"))
-        rank = _number(row.get("pos_rank"))
         season = _number(row.get("season"))
         player_id = row.get("gsis_id")
         if stamp is None or rank is None or season is None or not player_id:
