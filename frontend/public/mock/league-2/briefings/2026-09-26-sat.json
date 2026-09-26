@@ -1,0 +1,173 @@
+{
+  "slug": "2026-09-26-sat",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 3,
+  "kind": "saturday",
+  "generatedAt": "2026-09-26T06:18:05Z",
+  "source": {
+    "label": "Committed fixture weekly-report-week-3.json (FantasyPros consensus + ESPN injuries, generated 2026-09-23 post-fix) + live nflreadpy.load_injuries(2026) practice/status report",
+    "asOf": "2026-09-23T21:24:40Z",
+    "isLive": true,
+    "note": "Live injury table now covers 30 of 32 teams with a final report_status (111 of 300 rows), a real step up from Wednesday -- essentially the full Friday-designation set this Saturday-morning run is supposed to see. Checked every rostered player by exact player ID against it: only Jaxson Dart (no new status, still practice-DNP) and Brock Bowers (Questionable, DNP) carry any row at all; every other rostered player has zero injury-table rows, consistent with the fixture's 'Healthy' designations. Nothing changed from Wednesday's briefing as a result -- this run confirms the fixture rather than overriding it. season_week.load_current_week_nflreadpy(2026) returns Week 3, cross-checked against load_schedules(2026): Thursday's GB@ATL is final (ATL 35-14), all 14 remaining Week 3 games are still unplayed -- agrees with a genuine Saturday-before-the-Sunday-slate report."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "position": "QB",
+      "opponent": "vs DEN (Sun 8:20pm ET)",
+      "expectedPoints": 14.2,
+      "conditionalPoints": 14.83,
+      "playProbability": 0.958,
+      "designation": "Healthy",
+      "reason": "Only viable QB on the roster -- Dart is out for the season."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "vs HOU (Sun 1:00pm ET)",
+      "expectedPoints": 17.71,
+      "conditionalPoints": 18.99,
+      "playProbability": 0.933,
+      "designation": "Healthy",
+      "reason": "Top overall projection on the roster; automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "vs MIN (Sun 4:05pm ET)",
+      "expectedPoints": 15.88,
+      "conditionalPoints": 17.02,
+      "playProbability": 0.933,
+      "designation": "Healthy",
+      "reason": "Clear RB2, no injury flag."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "@ WAS (Sun 1:00pm ET)",
+      "expectedPoints": 20.53,
+      "conditionalPoints": 21.51,
+      "playProbability": 0.955,
+      "designation": "Healthy",
+      "reason": "Highest projection on the whole roster."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "@ PIT (Sun 1:00pm ET)",
+      "expectedPoints": 12.5,
+      "conditionalPoints": 13.09,
+      "playProbability": 0.955,
+      "designation": "Healthy",
+      "reason": "Beats Golden, Downs, London and Williams for the second WR spot; unchanged since Wednesday."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "vs TEN (Sun 1:00pm ET)",
+      "expectedPoints": 10.46,
+      "conditionalPoints": 11.29,
+      "playProbability": 0.926,
+      "designation": "Healthy",
+      "reason": "Comfortably ahead of a Questionable Bowers on expected points (10.46 vs 6.19)."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "vs TEN (Sun 1:00pm ET)",
+      "expectedPoints": 11.76,
+      "conditionalPoints": 12.61,
+      "playProbability": 0.933,
+      "designation": "Healthy",
+      "reason": "Edges Golden by 0.01 expected point for the first flex spot; effectively a coin flip either way."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0040667",
+      "name": "Matthew Golden",
+      "position": "WR",
+      "opponent": "vs ATL -- game already final (Thu)",
+      "expectedPoints": 11.75,
+      "conditionalPoints": 12.31,
+      "playProbability": 0.955,
+      "designation": "Healthy",
+      "reason": "Thursday night game already played and locked in: 5 catches on 12 targets for 100 yards and a TD, well above his 12.31 if-he-plays projection, in a 35-14 loss. Nothing left to decide here -- shown for the record."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0037224",
+      "name": "Cameron Dicker",
+      "position": "K",
+      "opponent": "@ BUF (Sun 1:00pm ET)",
+      "expectedPoints": 4.16,
+      "conditionalPoints": 4.25,
+      "playProbability": 0.979,
+      "designation": "Healthy",
+      "reason": "Only kicker rostered."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "PHI",
+      "name": "Eagles D/ST",
+      "position": "DST",
+      "opponent": "@ CHI (Mon 8:15pm ET)",
+      "expectedPoints": 4.73,
+      "conditionalPoints": 4.73,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Only defense rostered; plays Monday night, so this slot resolves last of the ten."
+    }
+  ],
+  "lineupTotal": 123.68,
+  "changes": [],
+  "watchList": [
+    {
+      "playerId": "00-0039338",
+      "name": "Brock Bowers",
+      "why": "Questionable, DNP in practice this week, working back from the knee issue that cost him Weeks 1-2. Already correctly benched behind Likely on tonight's numbers (6.19 expected vs 10.46) -- would only matter if he were somehow upgraded to Probable/no-tag before kickoff, which the live feed does not show.",
+      "newsDue": "Sun, ~90 min before LV @ NO kickoff (4:25pm ET) when inactives are announced"
+    },
+    {
+      "playerId": "00-0040691",
+      "name": "Jaxson Dart",
+      "why": "Season-ending knee surgery (MCL/PCL/meniscus), P(play) 0.003. Not a start/sit question any more -- a roster-mechanics one: he is still sitting on a bench spot, not IR. Move him to IR before Wednesday's byes-and-waivers run to free the spot; Tyler Shough (NO, vs LV, 17.97-point consensus projection this week) is the best rostered-QB-replacement on waivers in the fixture's own list.",
+      "newsDue": null
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0037838",
+      "text": "Likely, Skattebo and the inactive Dart all share the NYG vs TEN game (Sun 1:00pm ET) -- a bad Giants game script would cost two active roster spots at once, not just one."
+    },
+    {
+      "playerId": "00-0036410",
+      "text": "Higgins draws Pittsburgh's defense on the road; still the clear start over Golden/Downs/London/Williams on the numbers, just don't expect a ceiling week."
+    }
+  ],
+  "byesAhead": [],
+  "caveats": [
+    "No changes from Wednesday's (2026-09-23) briefing -- this run exists to confirm the lineup against live Friday/Saturday designations, not to revise it, and nothing on the roster moved.",
+    "Every number above comes from the committed week-3 fixture (generated 2026-09-23, after the blend/injury-merge/depth-chart fixes described in that fixture's own history). This run did not call generate_report.py -- the fixture was current, per the routine's own rule against regenerating a fresh-enough file.",
+    "Stafford, Irving, Skattebo, Downs, Higgins, London, Golden and Williams are the in-house estimate tier; Taylor, JSN, Likely and Bowers are FantasyPros consensus. Both are shown as expected points (P(play) x conditional), never the raw conditional number.",
+    "No rostered player has a bye in Weeks 4 or 5. The nearest byes are Tee Higgins and Jameson Williams (both Week 6) -- three weeks out, but flagged early since the roster only carries 5 bench spots.",
+    "Dicker at 4.16 expected (4.25 if he plays) still reads low for a kicker in this league's field-goal distance bands; carried forward from Wednesday's briefing as unresolved, not re-investigated this run.",
+    "The FLEX2 spot (Skattebo vs Golden, 11.76 vs 11.75) is inside model noise -- treat as a coin flip, not a confident edge. Golden's outcome is now moot for this slot since his game already happened; the call only matters going forward.",
+    "Live nflreadpy overlay checked player-by-player against the fixture (not just team-level); LAR (Stafford's team) has filed zero injury-table rows at all this week, which reads as no designations rather than missing data."
+  ],
+  "markdown": "# Week 3 Start/Sit \u2014 Saturday, Sept 26\n\n## Source and freshness\n\nPrimary source: the committed **week-3 fixture** (`weekly-report-week-3.json`, generated **2026-09-23 21:24 UTC** \u2014 after the blend/injury-merge/depth-chart fixes). Overlaid with a **live** `nflreadpy.load_injuries(2026)` pull just now: 30 of 32 teams now carry a final Friday designation (111 of 300 rows) \u2014 essentially the full injury picture for Sunday's slate. Checked every rostered player by exact ID: only Dart and Bowers carry any row at all, both unchanged from Wednesday. **No changes since the last briefing.**\n\nCurrent week confirmed as Week 3 via `season_week.py`, cross-checked against the schedule: Thursday's GB@ATL is final (ATL 35\u201314); the other 14 games are still ahead.\n\n## Start these ten \u2014 123.68 expected points\n\n| Slot | Player | Opp | Expected | If he plays | P(play) |\n|---|---|---|---|---|---|\n| QB | Matthew Stafford | vs DEN (Sun 8:20pm) | **14.20** | 14.83 | 95.8% |\n| RB | Jonathan Taylor | vs HOU (Sun 1:00pm) | **17.71** | 18.99 | 93.3% |\n| RB | Bucky Irving | vs MIN (Sun 4:05pm) | **15.88** | 17.02 | 93.3% |\n| WR | Jaxon Smith-Njigba | @ WAS (Sun 1:00pm) | **20.53** | 21.51 | 95.5% |\n| WR | Tee Higgins | @ PIT (Sun 1:00pm) | **12.50** | 13.09 | 95.5% |\n| TE | Isaiah Likely | vs TEN (Sun 1:00pm) | **10.46** | 11.29 | 92.6% |\n| FLEX | Cam Skattebo (RB) | vs TEN (Sun 1:00pm) | **11.76** | 12.61 | 93.3% |\n| FLEX | Matthew Golden (WR) | vs ATL \u2014 **final** | **11.75**\\* | 12.31 | 95.5% |\n| K | Cameron Dicker | @ BUF (Sun 1:00pm) | **4.16** | 4.25 | 97.9% |\n| DEF | Eagles D/ST | @ CHI (Mon 8:15pm) | **4.73** | 4.73 | 100% |\n\n\\*Golden already played Thursday and locked in 5/12 for 100 yards and a TD \u2014 well above his projection, in a 35\u201314 loss. Nothing to decide there any more; shown for the record.\n\n**Bench:** Josh Downs (11.39), Drake London (10.82), Jameson Williams (10.57), Brock Bowers (6.19, Questionable), Jaxson Dart (0.03, Out for the season).\n\n## Changes\n\n**None since Wednesday's briefing.** Same lineup, same designations, now confirmed against a materially fuller live injury report (30/32 teams with a final tag, up from 22 rows Wednesday).\n\n## Watch list\n\n- **Brock Bowers** (Questionable, DNP practice, knee) \u2014 correctly benched behind Likely (6.19 vs 10.46 expected). Only reopens if he's upgraded before the LV@NO 4:25pm kickoff Sunday; the live feed shows no such upgrade.\n- **Jaxson Dart** \u2014 this is no longer a start/sit question, it's a roster one. Season-ending knee surgery, P(play) 0.3%. He's still occupying a bench spot instead of IR. **Move him to IR** and grab a streaming QB \u2014 Tyler Shough (NO, 17.97-pt consensus vs LV) is the top rostered QB on the waiver list right now.\n\n## Opponent notes\n\n- Likely, Skattebo, and the inactive Dart all share the **NYG vs TEN** game \u2014 a bad Giants script costs two active lineup spots at once, not one.\n- Higgins is on the road against Pittsburgh's defense; still the clear start, just don't expect a ceiling game.\n\n## Byes ahead\n\nNone in Weeks 4\u20135. Nearest: **Tee Higgins and Jameson Williams, both Week 6** \u2014 three weeks out, worth starting to plan around given only 5 bench spots.\n\n## Caveats\n\n- No `generate_report.py` run this time \u2014 the fixture was fresh enough per the routine's own rule, so this is a confirmation pass, not a new generation.\n- Stafford/Irving/Skattebo/Downs/Higgins/London/Golden/Williams are the in-house estimate tier; Taylor/JSN/Likely/Bowers are FantasyPros consensus. All figures above are **expected points** (P(play) \u00d7 conditional), never the raw if-he-plays number treated as an expectation.\n- Dicker at 4.16 still reads low for a kicker in this league's distance-graded FG bands \u2014 flagged again, not re-investigated.\n- FLEX2 (Skattebo vs Golden, 11.76 vs 11.75) is inside model noise; Golden's outcome for this week is already locked in regardless.\n"
+}
