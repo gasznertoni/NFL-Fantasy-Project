@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-09-28-mon",
+      "kind": "monday",
+      "generatedAt": "2026-09-28T06:21:16Z",
+      "week": 4,
+      "lineupTotal": 137.9,
+      "changeSummary": "Pivoting to Week 4 (the committed Week 4 fixture predates the season and is unusable; regenerated live via generate_report.py, no vendor sources reachable in this sandbox). Dart remains out for the season and unrostered from the lineup, still not moved to IR. Bowers starts for the first time this year, over Higgins, on a ~1.4-point expected-value edge despite an Out/Doubtful/Questionable history in Weeks 1-3 and no Week 4 report yet -- Higgins is the safer alternative. New: Higgins and Jameson Williams share a Week 6 bye, flagged for waiver planning.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-09-26-sat",
       "kind": "saturday",
       "generatedAt": "2026-09-26T06:18:05Z",
