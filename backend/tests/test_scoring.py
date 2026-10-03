@@ -328,3 +328,33 @@ class TestRealLeagueOneConfigEndToEnd(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestTierNanGuard(unittest.TestCase):
+    """Third audit (2026-09-09). _linear_points has guarded NaN since v18;
+    _tier_points did not. `nan <= band_max` is False for every band including
+    the catch-all, so a NaN tier input matched nothing and the category
+    contributed 0 -- indistinguishable from a league that has no such rule."""
+
+    CONFIG = {"tiers": {"def_points_allowed": [
+        {"max": 0, "points": 5}, {"max": 13, "points": 3}, {"max": 999, "points": -5}]}}
+
+    def test_a_nan_tier_input_scores_nothing_and_does_not_poison_the_total(self):
+        result = compute_league_points({"def_points_allowed": float("nan")}, self.CONFIG)
+        self.assertEqual(result.total, 0.0)
+        self.assertNotIn("def_points_allowed", result.breakdown)
+
+    def test_a_nan_alongside_real_categories_leaves_the_rest_intact(self):
+        config = {"linear": {"def_sack": 1}, **self.CONFIG}
+        result = compute_league_points(
+            {"def_sack": 3, "def_points_allowed": float("nan")}, config)
+        self.assertEqual(result.total, 3.0)
+
+    def test_a_real_shutout_still_scores_its_band(self):
+        """0 must not be swept up by the missing-value guard."""
+        result = compute_league_points({"def_points_allowed": 0}, self.CONFIG)
+        self.assertEqual(result.breakdown["def_points_allowed"], 5)
+
+    def test_the_catch_all_band_still_applies_to_a_blowout(self):
+        result = compute_league_points({"def_points_allowed": 45}, self.CONFIG)
+        self.assertEqual(result.breakdown["def_points_allowed"], -5)

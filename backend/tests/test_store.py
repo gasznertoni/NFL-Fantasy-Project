@@ -40,8 +40,17 @@ class TestDisabledByDefault(unittest.TestCase):
 
     def test_unreachable_database_falls_back_rather_than_raising(self):
         """A scheduled Saturday report is not the place to discover the
-        database is down."""
-        store = open_store(database_url="postgresql://nobody@127.0.0.1:1/none", quiet=True)
+        database is down.
+
+        cache_dir="" is passed explicitly. Without it this test reads the
+        AMBIENT FANTASY_STORE_DIR, so it passed on a bare checkout and failed
+        for anyone who had actually configured the phase-0 cache -- including
+        the documented run instructions and the scheduled workflow. A test
+        whose result depends on the developer's environment is not a test.
+        Found by the third audit, 2026-09-09."""
+        store = open_store(
+            database_url="postgresql://nobody@127.0.0.1:1/none", cache_dir="", quiet=True
+        )
         self.assertFalse(store.enabled)
 
 
