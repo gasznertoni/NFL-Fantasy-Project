@@ -3,6 +3,42 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-03-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-10-03T06:18:08Z",
+      "week": 4,
+      "lineupTotal": 133.19,
+      "changeSummary": "No lineup changes since Wednesday -- confirmed against a now-complete live injury report (all 32 teams filed, up from CLE/PIT only). Zero Out/Doubtful/Questionable tags landed on this roster; Bowers' Weeks 1-3 Out/Doubtful/Questionable trend did not repeat, de-risking the TE call. Dart still sits in the nominal QB slot, not moved to IR, five briefings running.",
+      "sourceIsLive": true
+    },
+    {
+      "slug": "2026-09-30-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-09-30T20:08:57Z",
+      "week": 4,
+      "lineupTotal": 133.19,
+      "changeSummary": "Fresh committed fixture landed (regenerated Monday afternoon with FantasyPros consensus + ESPN injuries, replacing Monday's sandbox-degraded numbers): start Skattebo (13.64) over Likely (10.31), +3.33 net -- Bowers now fills TE outright at 12.16 despite the lowest play probability in the lineup (0.801, entirely a Weeks 1-3 history effect, no fresh Week 4 signal). No rostered player's team has filed a Week 4 practice report yet (only CLE/PIT have); Dart still sits in the nominal QB slot, not moved to IR.",
+      "sourceIsLive": false
+    },
+    {
+      "slug": "2026-09-28-mon",
+      "kind": "monday",
+      "generatedAt": "2026-09-28T06:21:16Z",
+      "week": 4,
+      "lineupTotal": 137.9,
+      "changeSummary": "Pivoting to Week 4 (the committed Week 4 fixture predates the season and is unusable; regenerated live via generate_report.py, no vendor sources reachable in this sandbox). Dart remains out for the season and unrostered from the lineup, still not moved to IR. Bowers starts for the first time this year, over Higgins, on a ~1.4-point expected-value edge despite an Out/Doubtful/Questionable history in Weeks 1-3 and no Week 4 report yet -- Higgins is the safer alternative. New: Higgins and Jameson Williams share a Week 6 bye, flagged for waiver planning.",
+      "sourceIsLive": true
+    },
+    {
+      "slug": "2026-09-26-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-09-26T06:18:05Z",
+      "week": 3,
+      "lineupTotal": 123.68,
+      "changeSummary": "No changes since Wednesday -- confirmed against a now-full live injury report (30/32 teams with a final designation, up from 22 rows). Golden's Thursday game is already final (5/12 for 100 yards and a TD); Dart still needs to move to IR.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-09-23-wed",
       "kind": "wednesday",
       "generatedAt": "2026-09-23T21:26:09Z",

@@ -55,12 +55,27 @@ DEFAULT_SHRINKAGE_K: dict[str, float] = {
     "RB": 1.11,
     "WR": 1.30,
     "TE": 1.64,
-    # DST and K were never in the variance-component study (the audit covered
+    # DST was never in the variance-component study (the audit covered
     # QB/RB/WR/TE only). 1.5 is the midpoint of the four measured values, used
-    # so these positions are shrunk *somewhat* rather than not at all -- flagged
-    # as an unvalidated default, not a measurement.
+    # so it is shrunk *somewhat* rather than not at all -- flagged as an
+    # unvalidated default, not a measurement.
     "DST": 1.5,
-    "K": 1.5,
+    # K is measured (2026-09-25), and it is nothing like the skill positions.
+    # Only 2-6% of a kicker's week-to-week variance belongs to the kicker (ICC
+    # .021-.056 over 2021-25, against ~.4-.5 for QB/RB/WR/TE), so a couple of
+    # games say almost nothing. It used to inherit ~1.5 like DST, which let two
+    # PAT-only weeks drag Cameron Dicker (9.4 pts/game in 2025) to 4.25.
+    # Leave-one-season-out over 2021-25, weeks 2-18, both leagues: RMSE is flat
+    # from ~20 to ~60 with per-fold optima 25-50, and k=30 takes league-1
+    # 4.842 -> 4.646 and league-2 4.879 -> 4.679 (p ~1e-12) with pairwise
+    # start/sit accuracy unchanged (0.524, a near coin flip in every variant --
+    # kicker ranking from kicker history is barely possible at all). A
+    # constant, not a run-time fit: the variance-component estimate swings
+    # 17-46 by season and is degenerate in 2022, when between-kicker variance
+    # rounds to zero. Shrinking toward each kicker's own prior season instead
+    # of the kicker mean was measured too and did not help (league-2 pairwise
+    # .524 -> .519), so the target stays the positional mean.
+    "K": 30.0,
 }
 
 # Minimum player-seasons before a fitted k is trusted over the default above.

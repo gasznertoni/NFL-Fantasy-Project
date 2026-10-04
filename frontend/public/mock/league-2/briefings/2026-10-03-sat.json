@@ -1,0 +1,183 @@
+{
+  "slug": "2026-10-03-sat",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 4,
+  "kind": "saturday",
+  "generatedAt": "2026-10-03T06:18:08Z",
+  "runUrl": "https://claude.ai/code/session_01WEQzCCCDR2gQACTMdsTMjb",
+  "source": {
+    "label": "Committed fixture weekly-report-week-4.json (FantasyPros consensus + ESPN injuries, regenerated 2026-09-29 after Week 3's Monday-night finale) + live nflreadpy.load_injuries(2026) final Week 4 report",
+    "asOf": "2026-09-29T15:53:54Z",
+    "isLive": true,
+    "note": "Live nflreadpy.load_injuries(2026) for Week 4 now covers all 32 teams (313 rows) -- the full final Friday designation set, up from 10 rows (CLE/PIT only) on Wednesday. Checked every rostered player by exact gsis_id: Taylor and Irving show Full Participation with no game-status tag; Bowers shows Limited Participation (knee) but also no game-status tag -- no Out/Doubtful/Questionable anywhere on this roster. Every other rostered player has zero injury-table rows at all, consistent with the fixture's 'Healthy' designations. This resolves Wednesday's one open question (Bowers' Weeks 1-3 Out/Doubtful/Questionable trend) in his favor and changes nothing else. season_week.load_current_week_nflreadpy(2026) returns Week 4, cross-checked against load_schedules(2026): Thursday's CLE@PIT is already final (PIT 27-24); the other 15 Week 4 games (14 Sunday, 1 Monday) are still ahead -- consistent with a genuine Saturday-before-the-Sunday-slate report."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "position": "QB",
+      "opponent": "@PHI (Sun 10/4, 1:00pm)",
+      "expectedPoints": 15.45,
+      "conditionalPoints": 16.06,
+      "playProbability": 0.962,
+      "designation": "Healthy",
+      "reason": "Only viable QB on the roster -- Dart is out for the season (RES/IR per nflreadpy roster status)."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "@WAS (Sun 10/4, 9:30am)",
+      "expectedPoints": 19.33,
+      "conditionalPoints": 20.57,
+      "playProbability": 0.94,
+      "designation": "Healthy",
+      "reason": "Highest projection on the roster; automatic start. Full practice participation, no tag."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "vs ARI (Sun 10/4, 1:00pm)",
+      "expectedPoints": 13.64,
+      "conditionalPoints": 14.52,
+      "playProbability": 0.94,
+      "designation": "Healthy",
+      "reason": "Clears Likely for the flex-adjacent RB spot; no injury report at all this week."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "vs LAC (Sun 10/4, 4:25pm)",
+      "expectedPoints": 20.48,
+      "conditionalPoints": 21.35,
+      "playProbability": 0.959,
+      "designation": "Healthy",
+      "reason": "Highest projection on the whole roster."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "@NO (Mon 10/5, 8:15pm)",
+      "expectedPoints": 15.49,
+      "conditionalPoints": 16.15,
+      "playProbability": 0.959,
+      "designation": "Healthy",
+      "reason": "Second-highest WR on the roster; last game of the week (MNF), locks last."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0039338",
+      "name": "Brock Bowers",
+      "position": "TE",
+      "opponent": "vs KC (Sun 10/4, 4:25pm)",
+      "expectedPoints": 12.16,
+      "conditionalPoints": 15.19,
+      "playProbability": 0.801,
+      "designation": "Healthy",
+      "reason": "Clears Likely's 10.31 on expected points even at a lowered play probability. That probability is a model memory of Weeks 1-3 (Out/Doubtful/Questionable each week), not a fresh signal -- LV's final Week 4 report carries no game-status tag at all, only Limited practice. De-risked since Wednesday; still the closest call in the lineup."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "vs JAX (Sun 10/4, 1:00pm)",
+      "expectedPoints": 13.88,
+      "conditionalPoints": 14.47,
+      "playProbability": 0.959,
+      "designation": "Healthy",
+      "reason": "Beats Downs/Golden/Williams outright for the flex spot. Byes Week 6 -- see byes ahead."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "vs GB (Sun 10/4, 1:00pm)",
+      "expectedPoints": 13.52,
+      "conditionalPoints": 14.39,
+      "playProbability": 0.94,
+      "designation": "Healthy",
+      "reason": "Third RB, clears every remaining WR/TE for the second flex spot. Full practice, no tag."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0037224",
+      "name": "Cameron Dicker",
+      "position": "K",
+      "opponent": "@SEA (Sun 10/4, 4:25pm)",
+      "expectedPoints": 5.39,
+      "conditionalPoints": 5.49,
+      "playProbability": 0.981,
+      "designation": "Healthy",
+      "reason": "Only kicker rostered."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "PHI",
+      "name": "Eagles D/ST",
+      "position": "DST",
+      "opponent": "vs LAR (Sun 10/4, 1:00pm)",
+      "expectedPoints": 3.85,
+      "conditionalPoints": 3.85,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Only defense rostered. Faces Stafford's Rams -- see opponent notes."
+    }
+  ],
+  "lineupTotal": 133.19,
+  "changes": [],
+  "watchList": [
+    {
+      "playerId": "00-0039338",
+      "name": "Brock Bowers",
+      "why": "Was the one open question Wednesday (P(play) 0.801, a Weeks 1-3 Out/Doubtful/Questionable trend). Now resolved favorably: LV's final Week 4 report carries no game-status tag, only Limited practice participation for a knee issue he has already been playing through. Starting him outright with more confidence than Wednesday.",
+      "newsDue": "Sun, ~90 min before LV @ KC kickoff (4:25pm ET) when inactives are announced"
+    },
+    {
+      "playerId": "00-0040691",
+      "name": "Jaxson Dart",
+      "why": "Season-ending knee surgery, P(play) 0.02 in the fixture, status independently confirmed as RES via nflreadpy.load_rosters(). Not a start/sit question -- a roster-mechanics one: he is still sitting in roster.json's nominal QB starter slot, not IR, occupying a bench-equivalent spot for nothing. Flagged in every briefing since 2026-09-23 and still unresolved. Bryce Young (CAR, 17.89-pt consensus vs DET) is the strongest rostered-QB replacement currently on waivers if the spot opens up.",
+      "newsDue": null
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0040715",
+      "text": "Skattebo (starting RB) is the only active Giants piece in the lineup this week -- Likely and the inactive Dart are also NYG vs ARI (Sun 1pm), but Likely is benched, so a bad Giants game script costs one active slot, not two."
+    },
+    {
+      "playerId": "00-0026498",
+      "text": "Stafford (LAR) faces our own Eagles D/ST (Sun 1pm) -- a good day for the Eagles defense is a bad day for our starting QB and vice versa. Partially self-hedging, not actionable."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 6,
+      "players": [
+        "Tee Higgins",
+        "Jameson Williams"
+      ]
+    }
+  ],
+  "caveats": [
+    "Ten starters total 133.19 expected points, within the 100-140 sanity band.",
+    "No changes from Wednesday's (2026-09-30) briefing -- this run exists to confirm the lineup against the final Friday/Saturday injury designations, not to revise it. The lineup itself is unchanged; the one real update is Bowers' outlook de-risking (see watch list).",
+    "Every number above comes from the committed week-4 fixture (generated 2026-09-29, after Week 3's Monday-night finale, with FantasyPros consensus and ESPN injuries restored). This run did not call generate_report.py -- the fixture postdates Week 3's final game, so it is current per the routine's own rule.",
+    "Stafford, Skattebo, Higgins, Irving, Dicker and Eagles D/ST are the in-house estimate tier; Taylor, JSN, London and Bowers are FantasyPros consensus. Both tiers are shown as expected points (P(play) x conditional), never the raw conditional number alone.",
+    "Checked every starter's if-he-plays number against the fixture's own conditionalPoints -- used the fixture directly with no independent recompute, so there is no discrepancy to flag.",
+    "Live nflreadpy.load_injuries(2026) Week 4 now covers all 32 teams (313 rows, 70 Out / 58 Questionable / 2 Doubtful league-wide) -- none of those statuses land on this roster. Matched by exact gsis_id, not name, to avoid false positives from similarly-named players (e.g. multiple 'Taylor' and 'Williams' entries elsewhere in the league).",
+    "No rostered player has a bye in Weeks 4 or 5. Tee Higgins and Jameson Williams (both Week 6) are now two weeks out -- worth a waiver plan given only 5 bench spots.",
+    "Dart still occupies a nominal starter slot in roster.json instead of IR, unresolved since 2026-09-23 across five briefings now; not something this routine can fix directly."
+  ],
+  "markdown": "# Week 4 Start/Sit — Saturday, Oct 3\n\n## Source and freshness\n\nPrimary source: the committed **week-4 fixture** (`weekly-report-week-4.json`, generated **2026-09-29 15:53 UTC**, after Week 3's Monday-night finale, with FantasyPros consensus and ESPN injuries). Overlaid with a **live** `nflreadpy.load_injuries(2026)` pull just now: **all 32 teams have filed** for Week 4 (313 rows, the full final Friday designation set, up from 10 rows Wednesday). Checked every rostered player by exact player ID: nobody on this roster carries an Out/Doubtful/Questionable tag. Taylor and Irving are full participants; Bowers is a limited participant (knee) with no game-status tag. **No lineup changes since Wednesday**, but Bowers' outlook is meaningfully de-risked -- see Watch List.\n\nCurrent week confirmed as **Week 4** via `season_week.py`, cross-checked against the schedule: Thursday's CLE@PIT is final (PIT 27–24); the other 15 games (14 Sunday, 1 Monday) are still ahead.\n\n## Start these ten — 133.19 expected points\n\n| Slot | Player | Opp | Expected | If he plays | P(play) |\n|---|---|---|---|---|---|\n| QB | Matthew Stafford | @PHI (Sun 1:00pm) | **15.45** | 16.06 | 96.2% |\n| RB | Jonathan Taylor | @WAS (Sun 9:30am) | **19.33** | 20.57 | 94.0% |\n| RB | Cam Skattebo | vs ARI (Sun 1:00pm) | **13.64** | 14.52 | 94.0% |\n| WR | Jaxon Smith-Njigba | vs LAC (Sun 4:25pm) | **20.48** | 21.35 | 95.9% |\n| WR | Drake London | @NO (Mon 8:15pm) | **15.49** | 16.15 | 95.9% |\n| TE | Brock Bowers | vs KC (Sun 4:25pm) | **12.16** | 15.19 | 80.1% |\n| FLEX | Tee Higgins (WR) | vs JAX (Sun 1:00pm) | **13.88** | 14.47 | 95.9% |\n| FLEX | Bucky Irving (RB) | vs GB (Sun 1:00pm) | **13.52** | 14.39 | 94.0% |\n| K | Cameron Dicker | @SEA (Sun 4:25pm) | **5.39** | 5.49 | 98.1% |\n| DEF | Eagles D/ST | vs LAR (Sun 1:00pm) | **3.85** | 3.85 | 100% |\n\n**Bench:** Josh Downs (12.13), Matthew Golden (11.72), Isaiah Likely (10.31), Jameson Williams (10.16), Jaxson Dart (0.02, IR-bound, not for lack of trying).\n\n## Changes\n\n**None since Wednesday's briefing.** Same lineup, same designations. The one real update this run found: Brock Bowers' Weeks 1-3 Out/Doubtful/Questionable trend did not repeat this week -- LV's final Week 4 report has him Limited in practice (knee) but with no game-status tag at all. Start him with more confidence than Wednesday's number implied.\n\n## Watch list\n\n- **Brock Bowers** (Limited practice, knee, no game-status tag) — resolved favorably since Wednesday. Final confirmation is Sunday's inactive list, ~90 minutes before the 4:25pm LV@KC kickoff, but nothing in the final report points the other way.\n- **Jaxson Dart** — still a roster-mechanics problem, not a start/sit one. Season-ending knee injury (confirmed RES via roster status), still sitting in the nominal QB slot instead of IR. Flagged in every briefing since 2026-09-23 (five straight) and still unresolved. Bryce Young (CAR, 17.89-pt consensus vs DET) is the top rostered-QB option on waivers right now if the IR move happens.\n\n## Opponent notes\n\n- Skattebo is the only *active* Giants piece in the lineup (NYG vs ARI, Sun 1pm) -- Likely and the inactive Dart are also Giants, but Likely isn't starting, so a bad Giants script this week costs one slot, not two.\n- Stafford (LAR) faces our own Eagles D/ST (Sun 1pm) -- a good Eagles defensive day is a bad day for our own starting QB and vice versa. Self-hedging, not actionable.\n\n## Byes ahead\n\nNone in Weeks 4–5. **Tee Higgins and Jameson Williams, both Week 6** — now two weeks out. Start planning a waiver claim; only 5 bench spots means a bye cluster needs a plan, not just bench depth.\n\n## Caveats\n\n- No `generate_report.py` run this time — the fixture postdates Week 3's final game, so it's current per the routine's own freshness rule; this is a confirmation pass.\n- Tier mix: Stafford/Skattebo/Higgins/Irving/Dicker/Eagles D/ST are the in-house estimate; Taylor/JSN/London/Bowers are FantasyPros consensus. All figures are **expected points** (P(play) × conditional), never the raw if-he-plays number treated as an expectation.\n- Live injury overlay matched by exact player ID, not name, across all 32 filed teams -- zero Out/Doubtful/Questionable tags landed on this roster.\n- Dart's unresolved IR status is now a five-briefing-old open item; this routine can only flag it, not fix it.\n"
+}
