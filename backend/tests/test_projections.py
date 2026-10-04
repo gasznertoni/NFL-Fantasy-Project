@@ -466,5 +466,17 @@ class TestBatchThreading(unittest.TestCase):
         self.assertGreater(results["p2"]["projected_points"], results["p1"]["projected_points"])
 
 
+class TestShrinkageFallback(unittest.TestCase):
+    def test_fallback_is_the_mean_of_the_four_measured_positions(self):
+        # Not of the whole dict: K's measured k=30 must not leak into the
+        # fallback every other caller without a position relies on.
+        from calibration import DEFAULT_SHRINKAGE_K
+        from projections import DEFAULT_SHRINKAGE_K_FALLBACK
+
+        measured = [DEFAULT_SHRINKAGE_K[p] for p in ("QB", "RB", "WR", "TE")]
+        self.assertAlmostEqual(DEFAULT_SHRINKAGE_K_FALLBACK, sum(measured) / 4)
+        self.assertGreater(DEFAULT_SHRINKAGE_K["K"], 10 * DEFAULT_SHRINKAGE_K_FALLBACK)
+
+
 if __name__ == "__main__":
     unittest.main()

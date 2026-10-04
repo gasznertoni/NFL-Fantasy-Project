@@ -20,10 +20,15 @@ from calibration import DEFAULT_SHRINKAGE_K, apply_affine
 from scoring import compute_league_points
 
 # Used when a caller asks for empirical-Bayes shrinkage without supplying a
-# per-position k. The mean of the four measured values -- a caller that knows
-# the player's position should pass calibration.DEFAULT_SHRINKAGE_K[position]
-# (or a freshly fitted k) instead of relying on this.
-DEFAULT_SHRINKAGE_K_FALLBACK = sum(DEFAULT_SHRINKAGE_K.values()) / len(DEFAULT_SHRINKAGE_K)
+# per-position k. The mean of the four measured skill-position values -- a
+# caller that knows the player's position should pass
+# calibration.DEFAULT_SHRINKAGE_K[position] (or a freshly fitted k) instead of
+# relying on this. Averaged over those four only, as this comment always said:
+# averaging the whole dict would let K's k=30 drag every fallback to ~6.
+_MEASURED_K_POSITIONS = ("QB", "RB", "WR", "TE")
+DEFAULT_SHRINKAGE_K_FALLBACK = sum(DEFAULT_SHRINKAGE_K[p] for p in _MEASURED_K_POSITIONS) / len(
+    _MEASURED_K_POSITIONS
+)
 
 # Per-position calibration multipliers validated against full 2025 season
 # (backend/csv_backtest.py, 5 749 player-week pairs, all 18 weeks).

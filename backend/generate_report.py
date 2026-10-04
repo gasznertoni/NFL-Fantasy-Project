@@ -52,7 +52,7 @@ from news import DEFAULT_NEWS_FLAG
 from blend import VOLUME_COLUMNS
 from blend import build_feature_row as blend_build_feature_row
 from blend import rolling_volume
-from calibration import apply_affine
+from calibration import DEFAULT_SHRINKAGE_K, apply_affine
 from projections import (
     DEFAULT_DECAY,
     DEFAULT_WINDOW,
@@ -606,7 +606,14 @@ def build_weekly_report_and_pool(
                     if (entity_baselines or {}).get(player_id) is not None
                     else (positional_baselines or {}).get(player["position"])
                 ),
-                shrinkage_k=(shrinkage_ks or {}).get(player_id),
+                # Fitted per player where calibration covered him; otherwise his
+                # position's k, as this function's docstring always promised.
+                # K and D/ST are never in the fitted map, and a kicker falling
+                # through to the skill-position fallback (~1.5 against a
+                # measured 30) is what dragged Dicker to 4.25 on two games.
+                shrinkage_k=(shrinkage_ks or {}).get(
+                    player_id, DEFAULT_SHRINKAGE_K.get(player["position"])
+                ),
                 play_probability=(play_probabilities or {}).get(player_id),
                 affine=(affines or {}).get(player_id),
             )

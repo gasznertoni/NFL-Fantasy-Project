@@ -436,6 +436,32 @@ class TestShouldSkipRedZoneFetch(unittest.TestCase):
         self.assertTrue(should_skip_red_zone_fetch(week, logs, False)[0])
 
 
+class TestShrinkageKResolvedByPosition(unittest.TestCase):
+    """Kickers are never in calibration's fitted per-player k map. They used to
+    fall through to the skill-position fallback (~1.5), so two PAT-only weeks
+    dragged Cameron Dicker, 9.4 points a game in 2025, to 4.25. A player missing
+    from the map now gets his position's k -- for a kicker, the measured 30."""
+
+    def _conditional(self, shrinkage_ks):
+        pool = [{"playerId": "k1", "name": "Kicker", "position": "K", "team": "LAC"}]
+        schedule = [{"season": 2026, "week": 3, "home_team": "LAC", "away_team": "DEN"}]
+        logs = {"k1": [{"season": 2026, "week": 1, "rush_yd": 10},   # 1.0 point
+                       {"season": 2026, "week": 2, "rush_yd": 20}]}  # 2.0 points
+        report, _ = build_weekly_report_and_pool(
+            2026, 3, CONFIG, pool, schedule, logs, {}, decay=1.0,
+            positional_baselines={"K": 8.0}, shrinkage_ks=shrinkage_ks,
+        )
+        # No availability model here, so points is the if-he-plays number.
+        return report["projections"][0]["projection"]["points"]
+
+    def test_a_kicker_missing_from_the_fitted_map_gets_the_kicker_k(self):
+        # Two games averaging 1.5 barely move him off the 8.0 kicker mean.
+        self.assertAlmostEqual(self._conditional({}), (2 * 1.5 + 30.0 * 8.0) / 32.0, places=2)
+
+    def test_a_fitted_per_player_k_still_wins(self):
+        self.assertAlmostEqual(self._conditional({"k1": 1.0}), (2 * 1.5 + 1.0 * 8.0) / 3.0, places=2)
+
+
 if __name__ == "__main__":
     unittest.main()
 
