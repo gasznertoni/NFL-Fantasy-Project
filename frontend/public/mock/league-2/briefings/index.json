@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-05-mon",
+      "kind": "monday",
+      "generatedAt": "2026-10-05T06:30:00Z",
+      "week": 4,
+      "lineupTotal": 143.52,
+      "changeSummary": "Week 4 is effectively closed -- 15 of 16 games final, only tonight's ATL@NO remains, featuring this roster's own Shough (NO) and London (ATL) on opposite sides. No injury-report changes vs the fixture. Confirmed the owner's two moves made yesterday: Shough in for Stafford at QB (+2.95 expected points over 3 straight 22-24pt starts), and the Downs/Bowers-for-Henderson/Coker trade (Likely reclaims TE from Bowers). Flagged a Week 6 WR crunch: Higgins and Jameson Williams bye the same week, needs a waiver add before then; Coker (newly traded for) byes Week 5 and is still Questionable on a quad.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-10-03-sat",
       "kind": "saturday",
       "generatedAt": "2026-10-03T06:18:08Z",
