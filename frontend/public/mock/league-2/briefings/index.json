@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-07-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-10-07T20:10:59Z",
+      "week": 5,
+      "lineupTotal": 136.29,
+      "changeSummary": "No lineup changes since Monday. Checked and held two thin, sub-1-point edges on the fixture's own numbers (Stafford over Shough at QB +0.66, Golden over Skattebo at FLEX +0.56) -- both smaller than the model's measured error, not real signal. Live nflreadpy injury pull added nothing: only DAL/TB (tonight's Thursday game) have filed Week 5 reports, and Irving (TB) carries no designation. Tee Higgins (Questionable, groin) still has no CIN practice report -- that's the one open item for Friday.",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-10-05-mon",
       "kind": "monday",
       "generatedAt": "2026-10-05T06:30:00Z",

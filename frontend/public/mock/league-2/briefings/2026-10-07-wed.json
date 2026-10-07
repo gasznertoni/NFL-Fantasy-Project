@@ -1,0 +1,194 @@
+{
+  "slug": "2026-10-07-wed",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 5,
+  "kind": "wednesday",
+  "generatedAt": "2026-10-07T20:10:59Z",
+  "runUrl": "https://claude.ai/code/session_01XeksgpsEuNMXF2ovEesWdj",
+  "source": {
+    "label": "Committed fixture weekly-report-week-5.json (FantasyPros consensus + ESPN injuries, regenerated after Week 4's Monday-night finale) + live nflreadpy.load_injuries(2026) Week 5 practice-report overlay",
+    "asOf": "2026-10-06T16:07:10Z",
+    "isLive": false,
+    "note": "The fixture is current -- generated 2026-10-06T16:07:10Z, after Week 4's Monday-night finale (10/5) and before Week 5's first kickoff (Thu 10/8) -- so no live recompute was needed; season_week.load_current_week_nflreadpy(2026) confirms Week 5. Pulled live nflreadpy.load_injuries(2026) for Week 5 anyway, since this is the Wednesday practice-report run: only 19 rows filed, covering just DAL and TB (tonight... Thursday's game). No other team with a rostered player -- NO, IND, NYG, SEA, ATL, CIN, LAC, PHI, LAR, GB, DET, NE -- has filed yet. The one rostered player on a filed team, Bucky Irving (TB), has no row at all, confirming the fixture's 'Healthy' tag rather than adding anything new. isLive is false because this overlay changed nothing: the Wednesday practice-bucket signal this run exists for is not there yet for a single flagged player on this roster."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040743",
+      "name": "Tyler Shough",
+      "position": "QB",
+      "opponent": "vs MIN (Sun 10/11, 1:00pm ET)",
+      "expectedPoints": 17.28,
+      "conditionalPoints": 17.91,
+      "playProbability": 0.965,
+      "designation": "Healthy",
+      "reason": "Holds over bench Stafford: fixture has Stafford marginally higher (17.94 vs 17.28, +0.66) but that gap is inside the model's own noise band -- see Still uncertain. No injury-report row for either."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "@PIT (Sun 10/11, 1:00pm ET)",
+      "expectedPoints": 17.39,
+      "conditionalPoints": 18.41,
+      "playProbability": 0.945,
+      "designation": "Healthy",
+      "reason": "Highest projection on the roster; automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "@WAS (Sun 10/11, 1:00pm ET)",
+      "expectedPoints": 11.46,
+      "conditionalPoints": 12.13,
+      "playProbability": 0.945,
+      "designation": "Healthy",
+      "reason": "Holds over bench Golden: fixture has Golden marginally higher (12.02 vs 11.46, +0.56) -- same thin-margin call as the QB spot, see Still uncertain."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "vs SF (Sun 10/11, 4:25pm ET)",
+      "expectedPoints": 22.87,
+      "conditionalPoints": 23.76,
+      "playProbability": 0.963,
+      "designation": "Healthy",
+      "reason": "Highest projection on the whole roster; automatic start."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "vs BAL (Sun 10/11, 8:20pm ET)",
+      "expectedPoints": 16.39,
+      "conditionalPoints": 17.02,
+      "playProbability": 0.963,
+      "designation": "Healthy",
+      "reason": "Clear second-best WR on the roster; automatic start."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "@WAS (Sun 10/11, 1:00pm ET)",
+      "expectedPoints": 11.67,
+      "conditionalPoints": 12.43,
+      "playProbability": 0.939,
+      "designation": "Healthy",
+      "reason": "Only rostered TE; starts by default. Same game as Skattebo -- see opponent notes on the NYG stack."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "@MIA (Sun 10/11, 1:00pm ET)",
+      "expectedPoints": 13.66,
+      "conditionalPoints": 15.45,
+      "playProbability": 0.884,
+      "designation": "Questionable",
+      "reason": "Questionable (groin), 0.884 P(play) already baked into the 13.66 expected figure. Still clears every bench WR even discounted for risk. CIN has not filed a Week 5 practice report yet -- see Practice report and Still uncertain."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "@DAL (Thu 10/8, 8:15pm ET)",
+      "expectedPoints": 13.73,
+      "conditionalPoints": 14.54,
+      "playProbability": 0.945,
+      "designation": "Healthy",
+      "reason": "Clears every remaining WR/TE for the second flex spot. First game of the week (Thursday) -- locks tonight with no new information; TB has filed its Week 5 report and Irving carries no designation at all."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0037224",
+      "name": "Cameron Dicker",
+      "position": "K",
+      "opponent": "vs DEN (Sun 10/11, 4:05pm ET)",
+      "expectedPoints": 7.69,
+      "conditionalPoints": 7.82,
+      "playProbability": 0.983,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "DEF",
+      "playerId": "PHI",
+      "name": "Eagles D/ST",
+      "position": "DST",
+      "opponent": "@JAX (Sun 10/11, 9:30am ET, London)",
+      "expectedPoints": 4.15,
+      "conditionalPoints": 4.15,
+      "playProbability": 1.0,
+      "designation": "Healthy"
+    }
+  ],
+  "lineupTotal": 136.29,
+  "changes": [],
+  "watchList": [
+    {
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "why": "Questionable (groin). CIN has not filed a Week 5 injury/practice report as of this run, so his DNP/Limited/Full bucket is unknown -- the fixture's 0.884 P(play) is a carryover estimate, not today's practice signal. His bucket matters a lot: among Questionable players league-wide, DNP implies ~0.511 P(play), Limited ~0.702, Full ~0.790, against 0.694 overall.",
+      "newsDue": "CIN practice reports expected Thu-Fri 10/8-10/9; final designation Friday"
+    },
+    {
+      "playerId": null,
+      "name": "Week 5 practice reports, league-wide",
+      "why": "Only DAL and TB have filed so far (tonight's Thursday game) -- 19 rows total, none of them a rostered player's team except TB (Irving, no designation). NO, IND, NYG, SEA, ATL, CIN, LAC, PHI, LAR, GB, DET and NE -- every other team carrying a rostered player -- have not filed. Re-check Thursday night and again Friday.",
+      "newsDue": "2026-10-08 / 2026-10-09"
+    },
+    {
+      "playerId": "00-0039491",
+      "name": "Jalen Coker",
+      "why": "Out (quadriceps) on the bench, but Carolina is on a Week 5 bye regardless -- doesn't change this week's lineup either way. Re-check his quad once CAR returns from the bye.",
+      "newsDue": "Week 6"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "text": "NYG @ WAS (Sun 1pm) is a two-player stack on this roster: Skattebo (starting RB) and Likely (starting TE) are both Giants. A bad NYG game script this week costs two of the ten starting slots at once."
+    },
+    {
+      "text": "Eagles D/ST plays the early London game @ JAX (Sun 9:30am ET) -- kicks off before every other game this week; nothing in JAX's current form flags a lineup-changing matchup."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 5,
+      "players": [
+        "Jalen Coker"
+      ]
+    },
+    {
+      "week": 6,
+      "players": [
+        "Tee Higgins",
+        "Jameson Williams"
+      ]
+    },
+    {
+      "week": 7,
+      "players": [
+        "Cameron Dicker"
+      ]
+    }
+  ],
+  "caveats": [
+    "Ten starters total 136.29 expected points, within the 100-140 sanity band.",
+    "Considered two alternate lineup moves on the fixture's own numbers -- Stafford over Shough at QB (+0.66 expected points) and Golden over Skattebo at FLEX (+0.56) -- and held both. Margins this size are smaller than the model's own measured error (backtest RMSE of several points per player-week, pairwise start/sit accuracy around 0.72-0.73), so they are not a real signal worth the roster churn; noted for the record, not acted on.",
+    "Jalen Coker (Out, quadriceps) is also on a Week 5 bye (Carolina) -- his injury status is moot this week regardless.",
+    "Compared every starter's if-he-plays number against the fixture's own conditionalPoints directly -- used the fixture as-is with no independent recompute, so there is no discrepancy to flag.",
+    "The live nflreadpy injury overlay added nothing new for this roster this run: only DAL and TB (tonight's Thursday game) have filed Week 5 reports, and the one rostered player on those teams (Irving) carries no designation at all, consistent with the fixture."
+  ],
+  "markdown": "# Week 5 Start/Sit Briefing — Wednesday, 2026-10-07\n\n## Source and freshness\n\n**Fresh committed fixture, live overlay added nothing new.** `weekly-report-week-5.json` was generated 2026-10-06T16:07:10Z — after Week 4's Monday-night finale and before Week 5's first kickoff (Thursday 10/8) — so it is current, not stale; `season_week.load_current_week_nflreadpy(2026)` independently confirms Week 5. Pulled live `nflreadpy.load_injuries(2026)` for Week 5 anyway, since this is the Wednesday practice-report run. Result: only **19 rows, covering just DAL and TB** (tonight's Thursday game). No other team with a rostered player — NO, IND, NYG, SEA, ATL, CIN, LAC, PHI, LAR, GB, DET, NE — has filed. The one rostered player on a team that has filed, Bucky Irving (TB), has no row at all — confirms the fixture's \"Healthy\" tag, adds nothing new. Marked `isLive: false` because the one thing this run exists to surface — a fresh Wednesday practice bucket — is not there yet for the one flagged player on this roster.\n\n## Practice report\n\n**Empty for this roster.** The only Questionable player on the team is **Tee Higgins (WR, CIN, groin)**, and Cincinnati has not filed a Week 5 report. His DNP/Limited/Full bucket is unknown; the fixture's 0.884 P(play) is a carryover, not a fresh signal. For context, league-wide history splits Questionable players sharply by bucket: **DNP ~0.511, Limited ~0.702, Full ~0.790**, against 0.694 overall — worth re-pulling the moment CIN files, expected Thursday or Friday.\n\nNo other rostered player carries a designation that needs a practice bucket. Jaxson Dart (IR, season-ending knee) doesn't get a fresh weekly report because he's already out for the year. Jalen Coker (Out, quad) is on Carolina's Week 5 bye anyway, so his status doesn't matter this week either way.\n\n## Start these ten\n\n| Slot | Player | Opp | Expected | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Tyler Shough | vs MIN | 17.28 | 96.5% | 17.91 |\n| RB | Jonathan Taylor | @PIT | 17.39 | 94.5% | 18.41 |\n| RB | Cam Skattebo | @WAS | 11.46 | 94.5% | 12.13 |\n| WR | Jaxon Smith-Njigba | vs SF | 22.87 | 96.3% | 23.76 |\n| WR | Drake London | vs BAL | 16.39 | 96.3% | 17.02 |\n| TE | Isaiah Likely | @WAS | 11.67 | 93.9% | 12.43 |\n| FLEX | Tee Higgins (Q) | @MIA | 13.66 | 88.4% | 15.45 |\n| FLEX | Bucky Irving | @DAL (Thu) | 13.73 | 94.5% | 14.54 |\n| K | Cameron Dicker | vs DEN | 7.69 | 98.3% | 7.82 |\n| DEF | Eagles D/ST | @JAX | 4.15 | 100% | 4.15 |\n| **Total** | | | **136.29** | | |\n\nBench: Matthew Stafford (17.94, QB), Matthew Golden (12.02, WR), Jameson Williams (11.30, WR), TreVeyon Henderson (7.62, RB), Jalen Coker (Out/bye, WR). IR: Jaxson Dart.\n\n## Changes since Monday\n\n**No lineup changes.** The roster and starting lineup are unchanged from the 2026-10-05 Monday briefing. Two swaps were checked on the fixture's own numbers and both were held:\n\n- **Stafford (17.94) over Shough (17.28) at QB** — a +0.66 edge, favoring the bench QB. Held: Shough stays, since a gap this size is well inside the model's own measured error and Shough's three straight 22-24 point actual starts (the reason he was started in the first place) aren't a reason to flip on this margin.\n- **Golden (12.02) over Skattebo (11.46) at FLEX** — a +0.56 edge. Held for the same reason: smaller than the noise.\n\nNeither is a real signal on a model with backtested RMSE of several points per player-week and pairwise start/sit accuracy around 0.72–0.73. Recorded here so it isn't silently relitigated next run without new information.\n\n## Still uncertain\n\n- **Tee Higgins' practice bucket.** Questionable/groin, but CIN hasn't filed. If Thursday or Friday's report shows a DNP, his real P(play) likely drops below the fixture's 0.884 (DNP-designated Questionables play at ~0.511 historically) — re-open the FLEX call then. A Full practice would instead push him close to a normal start.\n- **The QB and FLEX margins above** — not expected to resolve with more data this week, flagged as a standing \"don't chase this gap\" note rather than an open question.\n\n## Opponent notes\n\n- **NYG @ WAS (Sun 1pm)** is a two-player stack: Skattebo (RB) and Likely (TE) are both Giants, so one bad Giants game script costs two of the ten starting slots simultaneously.\n- **Eagles D/ST plays the early London game @ JAX (Sun 9:30am ET)** — kicks off before every other game on the slate. Nothing about JAX's current form changes the start call.\n\n## Byes ahead\n\n- **Week 5 (this week):** Jalen Coker (CAR) — bench player, no lineup impact.\n- **Week 6:** Tee Higgins (CIN) and Jameson Williams (DET) — the current FLEX starter and the best bench WR body out at once, flagged in every briefing since 2026-09-28 and still not resolved. Matthew Golden is the only healthy WR depth left if both are out. Needs a waiver add before Week 6.\n- **Week 7:** Cameron Dicker (LAC) — only rostered kicker; a streaming add will be needed that week.\n"
+}
