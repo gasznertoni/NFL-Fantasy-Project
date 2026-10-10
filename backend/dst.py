@@ -181,16 +181,33 @@ def assemble_dst_stat_line(
     return stat_line
 
 
+def _has_final_score(value: Any) -> bool:
+    """Whether a schedule score cell is a real, played-game score.
+
+    load_schedules() spells an unplayed game's score as float("nan"), NOT as
+    None -- confirmed against all 272 of 2026's REG rows. NaN is truthy and is
+    not None, so `value is None` reads every unplayed game as played. That is
+    the exact defect season_week.py shipped in v19; the same shape existed here
+    until 2026-09-09 (third audit), latent only because load_team_stats() has
+    no row for an unplayed game and the game_id join drops it first. Written as
+    a named helper, mirroring season_week._has_final_score, so the next reader
+    does not have to rediscover why `is None` is not enough."""
+    return value is not None and value == value
+
+
 def _points_allowed_for_team_game(schedule_game: dict[str, Any], team: str) -> Optional[float]:
     """The opponent's score in `schedule_game`, from this `team`'s
     perspective -- None if `team` isn't actually in this game (a caller
     bug, not an expected runtime case, but returning None rather than
-    guessing keeps this function honest about it)."""
+    guessing keeps this function honest about it), and None for a game that
+    has not been played (see _has_final_score)."""
     if team == schedule_game.get("home_team"):
-        return schedule_game.get("away_score")
-    if team == schedule_game.get("away_team"):
-        return schedule_game.get("home_score")
-    return None
+        score = schedule_game.get("away_score")
+    elif team == schedule_game.get("away_team"):
+        score = schedule_game.get("home_score")
+    else:
+        return None
+    return float(score) if _has_final_score(score) else None
 
 
 def build_dst_game_logs(

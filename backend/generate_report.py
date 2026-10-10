@@ -952,6 +952,31 @@ def load_dst_pool_and_game_logs_nflreadpy(season: int) -> tuple[list[dict[str, A
     return pool, game_logs
 
 
+def validate_scoring_config(scoring_config: dict[str, Any], league_id: str) -> None:
+    """Run every config-shape validator before a single point is computed.
+
+    kicker.validate_fg_band_family / validate_fg_miss_band_family and
+    dst.validate_dst_td_categories were added by the v18 and v20 work precisely
+    because a config that defines two overlapping category families
+    double-counts silently -- "a silent miss is worse than a crash", so they
+    raise. Until 2026-09-09 (third audit) nothing in the PIPELINE called them:
+    they ran only from tests, and validate_dst_td_categories was never applied
+    to the shipped configs at all. A guard that does not run on the path it
+    guards is not a guard. Both shipped configs pass, so this is defence in
+    depth for the next config edit, not a fix to a live miscalculation.
+    """
+    from dst import validate_dst_td_categories
+    from kicker import validate_fg_band_family, validate_fg_miss_band_family
+
+    linear = scoring_config.get("linear", {})
+    try:
+        validate_fg_band_family(linear)
+        validate_fg_miss_band_family(linear)
+        validate_dst_td_categories(linear)
+    except ValueError as exc:
+        raise ValueError(f"{league_id}: {exc}") from exc
+
+
 def build_consensus_tier_or_empty(season: int, week: int, scoring_config: dict[str, Any]) -> dict[str, dict[str, Any]]:
     """FANTASYPROS_API_KEY missing, or any part of the fetch/crosswalk
     pipeline failing, degrades to an empty consensus tier -- every player
@@ -1859,6 +1884,7 @@ def main(argv: Optional[list[str]] = None) -> None:
 
             scoring_config_path = backend_dir / league["scoringConfigPath"]
             scoring_config = json.loads(scoring_config_path.read_text())
+            validate_scoring_config(scoring_config, league_id)
 
             if scoring_config.get("_PLACEHOLDER"):
                 print(
@@ -1952,6 +1978,7 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     else:
         scoring_config = json.loads(args.scoring_config.read_text())
+        validate_scoring_config(scoring_config, "single-league")
         consensus_projections = _build_consensus_for_config(scoring_config, pool)
 
         calibration_bundle = _build_calibration_for_config(scoring_config)

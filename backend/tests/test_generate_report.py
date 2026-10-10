@@ -3,12 +3,15 @@ except the `load_*` network adapters, per that module's own docstring --
 those need nflreadpy/network and are exercised by running the script
 directly, not by this suite)."""
 
+import json
 import os
 import sys
 import unittest
+from pathlib import Path
 
 sys.path.insert(0, os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 
+import generate_report  # noqa: E402
 from generate_report import (  # noqa: E402
     assemble_player_pool,
     load_env_file,
@@ -464,6 +467,39 @@ class TestShrinkageKResolvedByPosition(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestScoringConfigValidatorsRunInThePipeline(unittest.TestCase):
+    """Third audit (2026-09-09). The three config-shape validators added by v18
+    and v20 raise rather than warn -- but until this change nothing on the
+    report-generation path called them, so they only ever ran from tests, and
+    validate_dst_td_categories was never applied to a shipped config at all.
+    A guard that does not run on the path it guards is not a guard."""
+
+    def test_both_shipped_configs_pass(self):
+        root = Path(__file__).resolve().parents[1] / "leagues"
+        for league_id in ("league-1", "league-2"):
+            config = json.loads((root / league_id / "scoring-config.json").read_text())
+            generate_report.validate_scoring_config(config, league_id)
+
+    def test_mixed_fg_made_families_are_rejected(self):
+        config = {"linear": {"fg_made_0_39": 3, "fg_made_20_29": 3}}
+        with self.assertRaises(ValueError) as ctx:
+            generate_report.validate_scoring_config(config, "league-x")
+        self.assertIn("league-x", str(ctx.exception))
+
+    def test_mixed_fg_miss_families_are_rejected(self):
+        config = {"linear": {"fg_missed": -1, "fg_missed_40_49": -1}}
+        with self.assertRaises(ValueError):
+            generate_report.validate_scoring_config(config, "league-x")
+
+    def test_overlapping_dst_touchdown_categories_are_rejected(self):
+        config = {"linear": {"def_td": 6, "def_fumble_rec_td": 6}}
+        with self.assertRaises(ValueError):
+            generate_report.validate_scoring_config(config, "league-x")
+
+    def test_an_empty_config_is_not_rejected(self):
+        generate_report.validate_scoring_config({}, "league-x")
 
 
 class TestLoadAllGameLogsCarriesVolume(unittest.TestCase):
