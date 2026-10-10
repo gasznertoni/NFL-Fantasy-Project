@@ -1,0 +1,247 @@
+{
+  "slug": "2026-10-10-sat",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 5,
+  "kind": "saturday",
+  "generatedAt": "2026-10-10T06:23:15Z",
+  "runUrl": "https://claude.ai/code/session_01Gohjmr7UFvYNDu1GTeHpx6",
+  "source": {
+    "label": "Committed fixture weekly-report-week-5.json (FantasyPros consensus + ESPN injuries, generated 2026-10-06) + live nflreadpy.load_injuries(2026) Week 5 report, overlaid through a freshly-fit AvailabilityModel (2019-2025, 54,599 player-weeks, held-out AUC 0.823)",
+    "asOf": "2026-10-06T16:07:10Z",
+    "isLive": true,
+    "note": "The Week 5 fixture (generated 2026-10-06T16:07:10Z, after Week 4's Monday-night finale and before Week 5's first kickoff) supplies every conditional projection and consensus number below unchanged. season_week.load_current_week_nflreadpy(2026) confirms Week 5, cross-checked against load_schedules(2026) -- Thursday's TB@DAL is already final, the other 15 games (14 Sunday, 1 Monday) are ahead. This is the Saturday/final-call run, so rather than trust the fixture's Monday-morning P(play) values, I refit AvailabilityModel on 2019-2025 training rows and scored every rostered player against nflreadpy.load_injuries(2026) Week 5, which now covers 30 of 32 teams (only CAR and KC, both on a Week 5 bye, have not filed -- so coverage is effectively complete for this roster). The one material move: Tee Higgins (Questionable, groin) filed Full Participation in practice, lifting his fitted P(play) from the fixture's 0.884 to 0.934. Every other rostered player carries no designation and Full Participation (or no practice row at all, which reads the same way). Conditional-points and consensus/in-house tier assignments are untouched -- only playProbability and the derived expectedPoints were recomputed."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "position": "QB",
+      "opponent": "vs BUF (Mon 10/12, 8:15pm ET)",
+      "expectedPoints": 17.95,
+      "conditionalPoints": 18.59,
+      "playProbability": 0.9655,
+      "designation": "Healthy",
+      "reason": "Owner moved him into the lineup over Shough on 10/8 and the fresh model agrees, barely: 17.95 vs bench Shough's 17.59 (+0.36), a margin inside the model's own measured error. Held, not a close call worth relitigating. No LAR injury-report row."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "@PIT (Sun 10/11, 1:00pm ET)",
+      "expectedPoints": 17.88,
+      "conditionalPoints": 18.41,
+      "playProbability": 0.9712,
+      "designation": "Healthy",
+      "reason": "Highest-floor RB on the roster; automatic start. IND has filed Full Participation, no game-status tag."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "@DAL -- game already final (Thu 10/8, TB 24-16)",
+      "expectedPoints": 13.73,
+      "conditionalPoints": 14.54,
+      "playProbability": 0.945,
+      "designation": "Healthy",
+      "reason": "Locked in and done: 165 rush yards, a rushing TD and a receiving TD on 2 catches, 31.5 actual points under this league's scoring -- more than double his 14.54 if-he-plays projection. Shown here with the pre-game numbers for consistency with every other row; nothing left to decide."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "vs SF (Sun 10/11, 4:25pm ET)",
+      "expectedPoints": 23.31,
+      "conditionalPoints": 23.76,
+      "playProbability": 0.981,
+      "designation": "Healthy",
+      "reason": "Highest single projection on the entire roster; automatic start. SF's Nick Bosa (knee) is Out -- see opponent notes."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "vs BAL (Sun 10/11, 8:20pm ET)",
+      "expectedPoints": 16.40,
+      "conditionalPoints": 17.02,
+      "playProbability": 0.9635,
+      "designation": "Healthy",
+      "reason": "Clear No. 2 WR; healthy, no designation. BAL's Lamar Jackson (ankle) is Out -- see opponent notes."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "position": "TE",
+      "opponent": "@ARI (Sun 10/11, 4:25pm ET)",
+      "expectedPoints": 12.60,
+      "conditionalPoints": 13.39,
+      "playProbability": 0.9413,
+      "designation": "Healthy",
+      "reason": "Starting TE since the 10/8 Golden-for-LaPorta trade; clears bench Likely (12.05 expected) by a real, if modest, margin. No DET injury-report row."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "@ARI (Sun 10/11, 4:25pm ET)",
+      "expectedPoints": 11.31,
+      "conditionalPoints": 11.74,
+      "playProbability": 0.9635,
+      "designation": "Healthy",
+      "reason": "Holds the slot, but only just: bench Isaiah Likely (12.05) and bench Cam Skattebo (11.78) both project ahead of him under the refreshed model, both by under 1 point -- inside model noise. Held; see caveats."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "@MIA (Sun 10/11, 1:00pm ET)",
+      "expectedPoints": 14.43,
+      "conditionalPoints": 15.45,
+      "playProbability": 0.9336,
+      "designation": "Questionable",
+      "reason": "Questionable (groin), but filed Full Participation in Friday's practice report -- the live overlay lifts P(play) from the fixture's stale 0.884 to a freshly-fit 0.934 and expected points from 13.66 to 14.43. Clears every bench WR comfortably. Final word is Sunday's inactive list."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0041145",
+      "name": "Dominic Zvada",
+      "position": "K",
+      "opponent": "@WAS (Sun 10/11, 1:00pm ET)",
+      "expectedPoints": 8.10,
+      "conditionalPoints": 8.22,
+      "playProbability": 0.9844,
+      "designation": "Healthy",
+      "reason": "Only rostered kicker since the 10/8 Dicker-for-Zvada trade; no injury designation."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "JAX",
+      "name": "Jaguars D/ST",
+      "position": "DST",
+      "opponent": "vs PHI (Sun 10/11, 9:30am ET, London)",
+      "expectedPoints": 9.47,
+      "conditionalPoints": 9.47,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Only rostered DEF since the 10/8 Eagles-for-Jaguars trade. Already the best matchup on the roster (PHI's 17.0 implied team total) and probably undersold even at that -- Philadelphia is missing both Saquon Barkley and DeVonta Smith (both hamstring, Out), neither priced into the fixture."
+    }
+  ],
+  "lineupTotal": 145.18,
+  "changes": [
+    {
+      "action": "start",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "replacing": "Tyler Shough",
+      "deltaExpectedPoints": 0.36,
+      "reason": "Owner's 10/8 lineup reset moved Stafford back in at QB over Shough. Thin edge (+0.36), held on the fresh model too."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "replacing": "Cam Skattebo",
+      "deltaExpectedPoints": 1.97,
+      "reason": "Irving moved from FLEX into the second RB slot on 10/8; Skattebo's shoulder question at the time is now resolved (Full Participation, no designation) but he stays on the bench behind Irving (13.73 vs 11.78 expected)."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "Moves off the bench into the FLEX spot Irving vacated, as part of the owner's broader 10/8 reset (same day as the Golden-for-LaPorta trade freed a roster spot)."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "replacing": "Isaiah Likely",
+      "deltaExpectedPoints": 0.55,
+      "reason": "Acquired 10/8 (traded Matthew Golden for LaPorta); starts over Likely at TE, 12.60 vs 12.05 expected on the refreshed model."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0041145",
+      "name": "Dominic Zvada",
+      "replacing": "Cameron Dicker",
+      "deltaExpectedPoints": 0.41,
+      "reason": "Traded 10/8 (Dicker for Zvada); only rostered kicker, 8.10 expected vs Dicker's 7.69 in last week's briefing."
+    },
+    {
+      "action": "start",
+      "playerId": "JAX",
+      "name": "Jaguars D/ST",
+      "replacing": "Eagles D/ST",
+      "deltaExpectedPoints": 5.32,
+      "reason": "Traded 10/8 (Eagles D/ST for Jaguars D/ST); 9.47 expected this week vs the Eagles' 4.15 last week, and the matchup has since improved further with Barkley and D. Smith both ruled Out for Philadelphia."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "why": "Questionable (groin), Full Participation in Friday's practice report -- historically close to the strongest combination a Questionable tag can carry (league-wide: DNP ~0.511, Limited ~0.702, Full ~0.790; the fitted model puts him at 0.934 given his otherwise-clean history). Worth a last check against Sunday's inactive list before the 1:00pm ET lock.",
+      "newsDue": "2026-10-11, ~11:30am ET (inactives list)"
+    },
+    {
+      "playerId": null,
+      "name": "Week 6 bye collision",
+      "why": "Tee Higgins (CIN) and Sam LaPorta + Jameson Williams (both DET) all bye in Week 6 -- the starting TE and both current FLEX bodies out the same week. Only Jalen Coker (WR) and Isaiah Likely (TE) are left on the bench to cover three vacated starting spots, which leaves zero bench depth once Likely slides into the TE slot. Needs a waiver add before the Week 6 claim deadline.",
+      "newsDue": "by 2026-10-14 (Wed waiver deadline)"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0037238",
+      "text": "ATL (London) hosts BAL Sunday night (8:20pm ET) with Baltimore QB Lamar Jackson ruled Out (ankle). A backup-QB start for the Ravens tends to mean a more conservative, run-first game plan from them -- a modest tailwind for Atlanta's own offensive snaps and game script."
+    },
+    {
+      "playerId": "00-0038543",
+      "text": "SEA (Smith-Njigba) hosts SF with 49ers EDGE Nick Bosa ruled Out (knee) -- one fewer elite pass rusher against Seattle's line, a tailwind for the whole Seahawks passing game."
+    },
+    {
+      "playerId": "JAX",
+      "text": "Jaguars D/ST faces a Philadelphia offense missing both Saquon Barkley (hamstring) and DeVonta Smith (hamstring), both ruled Out. Already the best matchup on the roster against PHI's 17.0 implied team total, and probably undersold even at that -- neither absence was known when the fixture was generated Monday."
+    },
+    {
+      "playerId": null,
+      "text": "NYG (Zvada, bench Skattebo/Likely, IR Dart) hosts WAS Sunday 1pm ET. Washington QB Jayden Daniels is healthy and filed Full Participation -- no backup-QB game script working in New York's favor there."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 6,
+      "players": [
+        "Tee Higgins",
+        "Sam LaPorta",
+        "Jameson Williams"
+      ]
+    },
+    {
+      "week": 7,
+      "players": [
+        "Jaguars D/ST"
+      ]
+    }
+  ],
+  "caveats": [
+    "Ten starters total 145.18 expected points -- above the typical 100-140 band, but driven by a fully healthy lineup plus Jaxon Smith-Njigba's 23.76-if-he-plays projection (SEA vs SF, Bosa Out). The last two briefings totalled 136.29 (10/7) and 143.52 (10/5), so this reads as a strong, healthy week rather than a broken pipeline.",
+    "Every starter's if-he-plays number matches the committed fixture's own conditionalPoints exactly -- no independent recompute was done, so there is no >30% discrepancy to flag.",
+    "Refit AvailabilityModel on 2019-2025 nflreadpy data (54,599 player-weeks) rather than trust the fixture's Monday-morning P(play), since this is the Saturday/final-call run. The one number that moved materially: Tee Higgins, 0.884 to 0.934 P(play) on Friday's confirmed Full Participation (13.66 to 14.43 expected points). Every other rostered player's P(play) moved by at most 0.03 from the fixture's value.",
+    "Considered benching Jameson Williams (11.31 expected) for bench Isaiah Likely (12.05) or Cam Skattebo (11.78) at the second FLEX spot. Both edges are under 1 point -- smaller than the model's own measured error (backtest RMSE of several points per player-week, pairwise start/sit accuracy ~0.72-0.73) -- so held, not acted on.",
+    "Stafford (17.95) over bench Shough (17.59) at QB is the same kind of thin, sub-1-point edge -- held for the same reason, and matches the lineup the owner already set on 10/8.",
+    "Bucky Irving's Thursday game is already final (31.5 actual points under this league's rules, on 165 rush yards plus a rushing and a receiving TD) -- shown in the table with his pre-game projection for consistency with every other row; nothing left to decide for that slot.",
+    "Jaxson Dart remains on IR (season-ending knee) and was not evaluated for the lineup.",
+    "Week 8 is a second, larger bye cluster worth planning around now, even though it's outside this run's two-week window: Zvada, Skattebo, Likely and IR'd Dart are all NYG, and bench QB Shough (NO) byes the same week."
+  ],
+  "markdown": "# Week 5 Start/Sit Briefing — Saturday, 2026-10-10\n\n**Final call before the Sunday 1:00pm ET lock.** Three trades landed since Wednesday's briefing (10/8: Golden for LaPorta, Dicker for Zvada, Eagles D/ST for Jaguars D/ST), and Friday's practice reports are in for every team on this roster.\n\n## Source and freshness\n\nThe committed Week 5 fixture (generated 2026-10-06T16:07:10Z, FantasyPros consensus + ESPN injuries) still supplies every conditional projection below, unchanged. But rather than trust its Monday-morning P(play) values on a Saturday/final-call run, I refit `AvailabilityModel` on 2019-2025 nflreadpy data (54,599 player-weeks, held-out AUC 0.823) and scored every rostered player against `load_injuries(2026)` Week 5, which now covers 30 of 32 teams -- only CAR and KC haven't filed, and both are on a Week 5 bye, so coverage is effectively complete. `season_week.load_current_week_nflreadpy(2026)` confirms Week 5.\n\n**The one number that moved:** Tee Higgins (Questionable, groin) filed Full Participation in practice. That lifts his fitted P(play) from the fixture's stale 0.884 to 0.934, and his expected points from 13.66 to 14.43. Every other rostered player carries no designation and Full Participation (or no injury-report row at all, which the model reads the same way) -- P(play) moved by at most 0.03 for everyone else.\n\n## Start these ten\n\n| Slot | Player | Opp | Expected | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Matthew Stafford | vs BUF (Mon) | 17.95 | 96.6% | 18.59 |\n| RB | Jonathan Taylor | @PIT | 17.88 | 97.1% | 18.41 |\n| RB | Bucky Irving | @DAL -- final (Thu) | 13.73 | 94.5% | 14.54 |\n| WR | Jaxon Smith-Njigba | vs SF | 23.31 | 98.1% | 23.76 |\n| WR | Drake London | vs BAL | 16.40 | 96.4% | 17.02 |\n| TE | Sam LaPorta | @ARI | 12.60 | 94.1% | 13.39 |\n| FLEX | Jameson Williams | @ARI | 11.31 | 96.4% | 11.74 |\n| FLEX | Tee Higgins (Q) | @MIA | 14.43 | 93.4% | 15.45 |\n| K | Dominic Zvada | @WAS | 8.10 | 98.4% | 8.22 |\n| DEF | Jaguars D/ST | vs PHI (London) | 9.47 | 100% | 9.47 |\n| **Total** | | | **145.18** | | |\n\nBench: Tyler Shough (17.59 exp, QB), Isaiah Likely (12.05, TE), Cam Skattebo (11.78, RB), TreVeyon Henderson (7.64, RB), Jalen Coker (bye, WR). IR: Jaxson Dart (season-ending knee).\n\nBucky Irving's Thursday game at Dallas is already final -- 165 rush yards, a rushing TD and a receiving TD, 31.5 actual points under this league's scoring, in a 24-16 Tampa Bay win. The table shows his pre-game projection for consistency; nothing left to decide there.\n\n## Changes since Wednesday\n\n**Three trades, plus the lineup reset the owner already made on 10/8:**\n\n- **Sam LaPorta in at TE, over Isaiah Likely** (traded Matthew Golden for LaPorta) -- 12.60 vs 12.05 expected, a real if modest edge.\n- **Dominic Zvada in at K** (traded Cameron Dicker for Zvada) -- 8.10 expected vs Dicker's 7.69 last week.\n- **Jaguars D/ST in at DEF** (traded away the Eagles D/ST) -- 9.47 expected vs the Eagles' 4.15 last week, and the Jacksonville matchup has only improved since: Philadelphia is now missing both Saquon Barkley and DeVonta Smith.\n- **Stafford back in at QB over Shough**, and **Irving into the second RB slot with Jameson Williams taking the vacated FLEX spot** -- both set by the owner the evening of the trades. The fresh model agrees with both, though the Stafford/Shough edge (+0.36) is thin enough that it isn't a confident call either way.\n\n## Watch list\n\n- **Tee Higgins** -- Questionable (groin), Full Participation Friday. That combination plays at a high rate historically, and the fitted model has him at 93.4%. Worth a last glance at Sunday's inactive list (~11:30am ET) before locking him in, but there's nothing here that should change the start call.\n- **Week 6 bye collision** -- Higgins (CIN) and both LaPorta and Jameson Williams (DET) all bye the same week. That's the starting TE and both current FLEX bodies gone at once, with only Coker (WR) and Likely (TE) left on the bench to absorb three vacated spots -- meaning zero bench depth left over once Likely slides into TE. Get a waiver claim in before Week 6's deadline.\n\n## Opponent notes\n\n- **BAL's Lamar Jackson is Out (ankle)** for tonight's game against Atlanta (London) -- a backup-QB start for Baltimore usually means a more conservative, run-first plan, a mild tailwind for Atlanta's own offensive snaps.\n- **SF's Nick Bosa is Out (knee)** against Seattle (Smith-Njigba) -- one fewer elite pass rusher is good news for the whole Seahawks passing game.\n- **Philadelphia is missing both Saquon Barkley and DeVonta Smith (both hamstring, Out)** against the Jaguars D/ST -- already this roster's best matchup (PHI's 17.0 implied team total), and probably still undersold, since neither absence existed when Monday's fixture was built.\n\n## Byes ahead\n\n- **Week 6:** Tee Higgins (CIN), Sam LaPorta (DET), Jameson Williams (DET) -- three starting-caliber bodies at once. Flagged above under Watch list; needs action before this week is out.\n- **Week 7:** Jaguars D/ST (JAX) -- only rostered DEF, will need a one-week streaming add.\n- *(Outside the two-week window, but worth planning for now: Week 8 byes Zvada, Skattebo, Likely and IR'd Dart, all NYG, plus bench QB Shough's NO bye the same week -- a second, larger roster crunch coming right behind this one.)*\n"
+}

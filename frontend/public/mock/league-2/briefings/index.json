@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-10-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-10-10T06:23:15Z",
+      "week": 5,
+      "lineupTotal": 145.18,
+      "changeSummary": "Three trades since Wednesday (Golden-for-LaPorta, Dicker-for-Zvada, Eagles-for-Jaguars D/ST) plus the owner's own 10/8 lineup reset (Stafford over Shough at QB, Irving to RB over Skattebo, Jameson Williams into the vacated FLEX). Refit the availability model on live Week 5 injury data (30/32 teams filed): Tee Higgins' Full Participation Friday lifts his P(play) 0.884->0.934 and expected points 13.66->14.43, the only material move. Held two separate sub-1-point FLEX/QB edges (Likely/Skattebo over Jameson Williams, Shough over Stafford) as inside model noise. Bucky Irving's Thursday game is already final (31.5 actual). Flagged a severe Week 6 bye collision: Higgins, LaPorta and Jameson Williams all out the same week, zero bench depth left over -- waiver claim needed before Wednesday.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-10-07-wed",
       "kind": "wednesday",
       "generatedAt": "2026-10-07T20:10:59Z",
