@@ -1,5 +1,9 @@
 # Backend — Value Engine (early build)
 
+> **What each module does, and why, is documented in [`ARCHITECTURE.md`](ARCHITECTURE.md).**
+> The code carries only one-line docstrings. Where this file or older docs say
+> "see the module docstring", that explanation now lives in `ARCHITECTURE.md`.
+
 Built while the real league scoring rules/roster are blocked on the
 commissioner (`CLAUDE.md` Next Steps item 2). Covers items 4 ("design the
 in-house projection model" — already existed as

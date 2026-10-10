@@ -1,38 +1,4 @@
-"""
-The pipeline's cache and prediction log, behind one swappable interface.
-
-Implements phases 0 and 1 of docs/design/shared-data-store.md. Read that
-first -- it argues *why*, and the argument is not the obvious one. The
-headline reason is not caching:
-
-    generate_track_record.py sources the prediction log from the same
-    committed fixtures generate_report.py overwrites, so the eval layer's
-    ground truth is a mutable file the pipeline rewrites.
-
-Regenerate week 5 in November and October's prediction is silently replaced
-by what today's model says, then graded against October's outcomes and
-reported as season-long accuracy. `projections` here is append-only, which
-is the fix; the caching wins below are real but secondary.
-
-Three backends, chosen by environment, never by a caller:
-
-    DATABASE_URL set          PostgresStore  phase 1 -- shared, durable
-    FANTASY_STORE_DIR set     FileStore      phase 0 -- content-addressed on disk
-    neither                   NullStore      today's behaviour, exactly
-
-**Optional by construction.** That is open question 2 in the design doc,
-settled here in favour of optional: with no environment set, every read
-misses and every write is dropped, so the pipeline behaves precisely as it
-did before this module existed. The cost is a little indirection; the buy is
-a pipeline that still runs on a plane, and a test suite that needs no
-database. It also means a store outage degrades to "recompute", never to
-"crash", which is the same never-take-down-the-pipeline contract news.py
-already keeps.
-
-Nothing here raises into the pipeline. Every method swallows backend errors
-and returns the miss/no-op answer, because a cache that can fail the run it
-is meant to speed up is worse than no cache.
-"""
+"""Pipeline cache and append-only prediction log. See ARCHITECTURE.md §12."""
 
 from __future__ import annotations
 
@@ -44,12 +10,8 @@ from datetime import datetime, timezone
 from pathlib import Path
 from typing import Any, Iterable, Optional
 
-# Bump when a cached artefact's *meaning* changes in a way the key does not
-# already capture. Part of every content hash below, so one edit here
-# invalidates every cache entry rather than requiring a manual flush.
 CACHE_SCHEMA_VERSION = "1"
 
-# Model-fit kinds, matching the design doc's `model_fits.kind` column.
 FIT_KINDS = ("availability", "calibration", "blend", "week1")
 
 
@@ -58,13 +20,7 @@ def _now() -> datetime:
 
 
 def content_hash(*parts: Any) -> str:
-    """A stable sha256 over arbitrary JSON-able parts.
-
-    `sort_keys` matters: a dict that round-trips through JSON with different
-    key order must hash the same, or every run misses its own cache. So does
-    `default=str` -- a stray datetime or Path in a config should degrade to a
-    stable string rather than raising and silently disabling the cache.
-    """
+    """A stable sha256 over arbitrary JSON-able parts."""
     payload = json.dumps(
         [CACHE_SCHEMA_VERSION, *parts], sort_keys=True, separators=(",", ":"), default=str
     )
@@ -72,37 +28,17 @@ def content_hash(*parts: Any) -> str:
 
 
 def config_hash(scoring_config: dict[str, Any], **model_params: Any) -> str:
-    """The key that makes the per-league double-fit disappear.
-
-    `_build_calibration_for_config` and `_build_week1_for_config` are called
-    inside generate_report.py's per-league loop, so with two leagues every fit
-    runs twice. Two leagues sharing a scoring config hash to the same value and
-    hit the same cached bundle -- which is the whole point of keying on the
-    config rather than on the league id.
-
-    Underscore-prefixed keys are dropped: the configs carry large `_note` and
-    `_unconfirmed` prose blocks that document provenance and change without
-    changing a single scoring rule.
-    """
+    """Hash of a scoring config (underscore keys dropped), so leagues can share fits."""
     scoring = {k: v for k, v in (scoring_config or {}).items() if not k.startswith("_")}
     return content_hash(scoring, model_params)
 
 
-# ---------------------------------------------------------------------------
-# Interface
-# ---------------------------------------------------------------------------
 class Store:
-    """No-op base class, and the live contract.
-
-    Subclasses override; anything they do not override keeps this behaviour,
-    which is exactly the pre-store pipeline. Deliberately a base class rather
-    than a Protocol so `NullStore` is literally this and cannot drift from it.
-    """
+    """No-op base class, and the live contract."""
 
     enabled = False
     backend = "null"
 
-    # -- caches ------------------------------------------------------------
     def get_news_summary(self, player_id: str, article_hash: str) -> Optional[dict[str, Any]]:
         return None
 
@@ -129,7 +65,6 @@ class Store:
     def put_player_games(self, rows: Iterable[dict[str, Any]], source: str) -> None:
         return None
 
-    # -- prediction log ----------------------------------------------------
     def start_run(
         self, season: int, week: int, git_sha: Optional[str], cfg_hash: Optional[str]
     ) -> Optional[str]:
@@ -152,26 +87,11 @@ class Store:
 
 
 class NullStore(Store):
-    """Explicit name for the disabled case, so a log line can say which
-    backend is live without printing 'Store'."""
+    """The disabled store, named so logs can say which backend is live."""
 
 
-# ---------------------------------------------------------------------------
-# Phase 0 -- content-addressed filesystem
-# ---------------------------------------------------------------------------
 class FileStore(Store):
-    """Phase 0: fixes the ADDRESSING without any infrastructure.
-
-    The design doc's point is that this is worth shipping even if Postgres
-    never happens -- it removes the per-league double-fit and makes a same-day
-    re-run nearly free -- and that having done it, phase 1 is a backend swap
-    rather than a rewrite.
-
-    Caches only. `start_run` / `write_projections` stay no-ops here on purpose:
-    an append-only prediction log on one laptop's filesystem is the very thing
-    the design doc says file-shaped storage cannot provide, and pretending
-    otherwise would create a second, weaker source of truth.
-    """
+    """Phase 0: content-addressed caches on disk; no prediction log."""
 
     enabled = True
     backend = "file"
@@ -190,8 +110,6 @@ class FileStore(Store):
     def _write(self, path: Path, payload: dict[str, Any]) -> None:
         try:
             path.parent.mkdir(parents=True, exist_ok=True)
-            # Write-then-rename: a killed run must not leave a truncated file
-            # that later parses as a cache hit.
             tmp = path.with_suffix(".tmp")
             tmp.write_text(json.dumps(payload, default=str))
             tmp.replace(path)
@@ -210,8 +128,6 @@ class FileStore(Store):
         )
 
     def get_model_fit(self, season, week, league_id, cfg_hash, kind):
-        # league_id is deliberately NOT in the path: two leagues with the same
-        # scoring config share the bundle, which is the double-fit fix.
         got = self._read(self.root / "fits" / f"{season}-{week}-{kind}-{cfg_hash}.json")
         return None if got is None else got.get("bundle")
 
@@ -248,37 +164,20 @@ class FileStore(Store):
             self._write(path, merged)
 
 
-# ---------------------------------------------------------------------------
-# Phase 1 -- Postgres
-# ---------------------------------------------------------------------------
 class PostgresStore(Store):
-    """Phase 1: the same interface, backed by the schema in the design doc.
-
-    This is the phase that fixes both the cold-runner cost and the mutable
-    prediction log. `projections` is APPEND ONLY -- never updated, never
-    deleted. The design doc is explicit that this should be enforced by a
-    revoked UPDATE/DELETE grant on the pipeline's role rather than by
-    discipline; migrations/001_shared_data_store.sql ships those grants.
-
-    psycopg is imported lazily so the dependency stays optional: a checkout
-    without it, or with DATABASE_URL unset, selects a different backend and
-    never touches this class.
-    """
+    """Phase 1: shared Postgres backend with an append-only projections table."""
 
     enabled = True
     backend = "postgres"
 
     def __init__(self, dsn: str):
-        import psycopg  # noqa: F401  -- fail here, not at module import
+        import psycopg  # noqa: F401
 
         self.dsn = dsn
         self._conn = psycopg.connect(dsn, autocommit=True)
 
     def _exec(self, sql: str, params: tuple = (), fetch: str = "none"):
-        """One place where every backend error is swallowed.
-
-        A cache that can fail the run it exists to speed up is worse than no
-        cache, so this returns the miss answer rather than propagating."""
+        """Run a statement; every backend error is swallowed here."""
         try:
             with self._conn.cursor() as cur:
                 cur.execute(sql, params)
@@ -294,7 +193,6 @@ class PostgresStore(Store):
                 pass
             return None
 
-    # -- caches ------------------------------------------------------------
     def get_news_summary(self, player_id, article_hash):
         row = self._exec(
             "select summary, designation, risk_level, model from news_summaries"
@@ -315,8 +213,6 @@ class PostgresStore(Store):
         )
 
     def get_model_fit(self, season, week, league_id, cfg_hash, kind):
-        # Keyed on config_hash, NOT league_id, so two leagues sharing a scoring
-        # config share the fit. league_id is stored for provenance only.
         row = self._exec(
             "select bundle from model_fits"
             " where season = %s and week = %s and config_hash = %s and kind = %s limit 1",
@@ -354,7 +250,6 @@ class PostgresStore(Store):
                  json.dumps(row.get("stat_line", {}), default=str), _now()),
             )
 
-    # -- prediction log ----------------------------------------------------
     def start_run(self, season, week, git_sha, cfg_hash):
         run_id = str(uuid.uuid4())
         ok = self._exec(
@@ -373,9 +268,7 @@ class PostgresStore(Store):
         )
 
     def write_projections(self, run_id, league_id, season, week, rows):
-        """Append-only. `do nothing` on conflict, never `do update`: a second
-        write for the same (run, league, player) is a bug, and overwriting
-        would recreate exactly the mutable-log defect this table removes."""
+        """Append-only: on conflict do nothing, never update."""
         if not run_id:
             return 0
         written = 0
@@ -416,18 +309,8 @@ class PostgresStore(Store):
             pass
 
 
-# ---------------------------------------------------------------------------
-# Selection
-# ---------------------------------------------------------------------------
 def _resolve_cache_dir(root: str) -> Path:
-    """A relative FANTASY_STORE_DIR resolves against the REPO ROOT, not the cwd.
-
-    generate_report.py runs from backend/ while the natural thing to write in
-    .env is `backend/.store`. Resolving that against the cwd would silently
-    create `backend/backend/.store` -- a cache that works, is gitignored by
-    luck rather than by the rule, and is invisibly separate from the one every
-    other entry point uses. Absolute paths are left alone.
-    """
+    """Resolve a relative FANTASY_STORE_DIR against the repo root, not the cwd."""
     path = Path(root).expanduser()
     if path.is_absolute():
         return path
@@ -437,13 +320,7 @@ def _resolve_cache_dir(root: str) -> Path:
 def open_store(
     database_url: Optional[str] = None, cache_dir: Optional[str] = None, quiet: bool = False
 ) -> Store:
-    """The only way callers get a store. Environment decides; callers never do.
-
-    Precedence: DATABASE_URL (phase 1) beats FANTASY_STORE_DIR (phase 0) beats
-    nothing (today's behaviour). A DATABASE_URL that is set but unreachable
-    falls back rather than failing the run -- a scheduled Saturday report is
-    not the place to discover the database is down.
-    """
+    """The only way callers get a store; the environment decides which."""
     dsn = database_url if database_url is not None else os.environ.get("DATABASE_URL")
     if dsn:
         try:
@@ -471,21 +348,6 @@ def open_store(
     return NullStore()
 
 
-# ---------------------------------------------------------------------------
-# Bundle packing
-# ---------------------------------------------------------------------------
-# The design doc says the fit functions "already return serialisable bundles".
-# That is true but not obviously so: calibration_fit.fit_from_history returns
-# plain dicts alongside two fitted OBJECTS (calibration.IntervalModel,
-# blend.BlendModel). Both hold nothing but floats, strings and containers, so
-# their __dict__ round-trips through JSON -- verified on fitted instances, not
-# assumed from empty ones.
-#
-# The one real hazard is that JSON turns every tuple into a list. Both classes
-# only ever unpack and index those structures, never hash them or compare them
-# to a tuple literal, so the round-trip is behaviour-preserving. A future field
-# that needs a real tuple would break silently here, which is why unpacking is
-# a named function with this note attached rather than an inline dict lookup.
 _PACKED = "__packed_model__"
 
 
@@ -501,9 +363,7 @@ def pack_bundle(bundle: dict[str, Any]) -> dict[str, Any]:
 
 
 def unpack_bundle(packed: dict[str, Any]) -> dict[str, Any]:
-    """Inverse of pack_bundle. An unknown class name yields None for that slot,
-    so a bundle cached by a newer version degrades to "refit that piece"
-    instead of raising."""
+    """Inverse of pack_bundle; an unknown class unpacks to None."""
     from importlib import import_module
 
     known = {"IntervalModel": "calibration", "BlendModel": "blend"}

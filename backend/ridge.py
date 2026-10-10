@@ -1,39 +1,15 @@
-"""
-Small dense linear-algebra kit: ridge regression, logistic regression, and the
-imputation/standardisation helpers both of them need.
-
-Why hand-rolled rather than scikit-learn: every fit in this backend is a few
-dozen columns over a few hundred to a few thousand rows, solved once per run.
-Adding scikit-learn (and its numpy/scipy pin) to requirements.txt for that is a
-bad trade in a project whose whole deployment story is "run a script." The
-closed forms below are short enough to read against the definitions they
-implement.
-
-Extracted from week1.py (2026-09-01) when availability.py and blend.py needed
-the same primitives -- week1.py still owns the week-1 feature semantics, this
-module owns only the arithmetic.
-"""
+"""Shared ridge, logistic and standardisation helpers. See ARCHITECTURE.md §4."""
 
 from __future__ import annotations
 
 import math
 from typing import Any, Optional
 
-# A linear model extrapolates without bound, and several callers feed it
-# unbounded real-world inputs. Clamping the standardised value keeps a novel
-# input "extreme" instead of "arbitrarily far" -- see week1.py's Z_CLIP note for
-# the 175.8-point projection that motivated this.
 DEFAULT_Z_CLIP = 4.0
 
 
 def num(value: Any) -> Optional[float]:
-    """None for anything that isn't a real, finite number -- NaN included.
-
-    This is the gate every other function here relies on: pandas and polars hand
-    back float("nan") rather than None for a missing numeric, and
-    `float("nan") is not None` is True, so a plain None-check lets NaN through
-    into the arithmetic where it silently poisons a whole fit.
-    """
+    """None for anything that isn't a real, finite number -- NaN included."""
     if isinstance(value, bool):
         return float(value)
     if value is None:
@@ -56,9 +32,7 @@ def median(values: list[float]) -> Optional[float]:
 
 
 def column_stats(matrix: list[list[float]]) -> tuple[list[float], list[float]]:
-    """Per-column mean and sd. A constant column gets sd 1.0 rather than 0, so
-    standardising it yields 0 everywhere and the penalty correctly gives it no
-    weight, instead of producing a division by zero."""
+    """Per-column mean and sd (a constant column gets sd 1.0)."""
     n = len(matrix)
     width = len(matrix[0])
     mean = [sum(row[j] for row in matrix) / n for j in range(width)]
@@ -79,10 +53,7 @@ def standardize(
 
 
 def solve(a: list[list[float]], b: list[float]) -> list[float]:
-    """Gauss-Jordan with partial pivoting. A singular pivot is skipped rather
-    than raised on: every caller here adds a ridge penalty to the diagonal
-    first, so a genuinely singular system means a column carried no information
-    and a zero coefficient is the right answer for it."""
+    """Gauss-Jordan with partial pivoting; singular pivots are skipped."""
     n = len(b)
     m = [row[:] + [b[i]] for i, row in enumerate(a)]
     for col in range(n):
@@ -102,14 +73,7 @@ def solve(a: list[list[float]], b: list[float]) -> list[float]:
 
 
 def ridge(design: list[list[float]], targets: list[float], alpha: float) -> list[float]:
-    """Closed-form ridge, returned as [intercept, *coefficients].
-
-    Solves (X'X + alpha*I) b = X'y with the intercept left UNPENALISED --
-    penalising it would drag the fitted level toward zero, which is a bias, not
-    regularisation. alpha > 0 also guarantees a non-singular system even when
-    columns are collinear (prior_receptions and prior_targets very much are),
-    which is as much the reason for the penalty here as the shrinkage itself.
-    """
+    """Closed-form ridge with an unpenalised intercept, as [intercept, *coefficients]."""
     n = len(design)
     width = len(design[0])
     x = [[1.0] + row for row in design]
@@ -130,20 +94,7 @@ def logistic(
     max_iter: int = 60,
     tol: float = 1e-8,
 ) -> list[float]:
-    """L2-penalised logistic regression by IRLS (Newton-Raphson on the penalised
-    log-likelihood), returned as [intercept, *coefficients].
-
-    Used by availability.py, where the outcome is binary (did the player take
-    the field) and a linear probability model would happily predict outside
-    [0, 1] for exactly the cases that matter most -- a player ruled Out.
-
-    The intercept is unpenalised, same reasoning as `ridge`. The working weight
-    p*(1-p) is floored: once a coefficient drives a fitted probability to
-    numerical 0 or 1 -- which happens immediately here, because "Out" means
-    P(play) = 0.0006 in the real data -- the unfloored weight is 0 and the
-    Hessian goes singular. Divergence is handled by simply stopping: a step
-    that fails to solve leaves the last good coefficients in place.
-    """
+    """L2-penalised logistic regression by IRLS, as [intercept, *coefficients]."""
     x = [[1.0] + row for row in design]
     n, size = len(x), len(x[0])
     beta = [0.0] * size
