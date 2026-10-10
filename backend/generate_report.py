@@ -1,44 +1,4 @@
-"""
-Orchestration script: wires scoring.py + projections.py + fantasypros.py +
-news.py + waiver_targets.py together and writes weekly-report-week-N.json
-and player-pool.json in the exact shape frontend/src/lib/api.js already
-expects -- the "generation script, not a live API" architecture from
-docs/design/backend-frontend-integration-plan.md.
-
-Follows that plan's v0 build order, with one update since the plan was
-written: real player IDs (nflreadpy's gsis_id) as `playerId` directly, no
-invented p_00123-style scheme and no permanent crosswalk table (the plan's
-recommended resolution to its own "player-ID gap" open question -- this
-project has no real users with saved localStorage data yet to migrate).
-Gap #2 -- an actual FantasyPros pull and top-10-per-position tier
-selection, originally deferred per the plan's v0 scoping ("ship 100%
-in-house first") -- is now wired in via fantasypros.py (CLAUDE.md v8 Next
-Steps item 3): a player who resolves to FantasyPros' top-10-for-position
-consensus tier gets that projection; everyone else still gets the
-in-house estimate. Waiver targets still use waiver_targets.py's templated
-(non-LLM) rationale, per the plan's suggested v0 shortcut.
-
-DST and K are now covered too (2026-08-12, closing CLAUDE.md Next Steps
-item 3 -- see dst.py and kicker.py), both in the in_house_estimate tier
-only: FantasyPros' free-tier consensus pull (fantasypros.py) stays scoped
-to its confirmed QB/RB/WR/TE top-10-per-position coverage, not extended to
-DST/K here (a separate, unscoped decision -- see backend/README.md).
-projections.py's rolling-average/shrinkage model is wired through
-unmodified for DST/K (no new modeling logic), but it was only backtested
-against QB/RB/WR/TE (docs/research/projection-model-backtest-findings.md)
--- DST/K projections haven't been through that same rigor, an honest scope
-note, not a blocker. A DST's `playerId` is its team abbreviation (e.g.
-"BUF"), not a gsis_id -- a DST isn't a per-player entity, and a real,
-stable ID already exists for it (see load_dst_pool_nflreadpy below and
-dst.py's own docstring). A K's `playerId` is a real gsis_id, same
-mechanism QB/RB/WR/TE already use.
-
-Split, like every other module in this backend, into pure/testable
-assembly functions (this module's top half) and network adapter functions
-(bottom half, prefixed `load_`) that are NOT exercised by the test suite --
-see tests/test_generate_report.py, which only exercises the pure half with
-synthetic data.
-"""
+"""Builds the weekly-report and player-pool fixtures. See ARCHITECTURE.md §10."""
 
 from __future__ import annotations
 
@@ -61,77 +21,28 @@ from projections import (
 )
 from waiver_targets import generate_rationale, select_waiver_targets
 
-# nflreadpy (2025 season, confirmed hands-on) uses "LA" for the Rams; the
-# frontend's mock fixtures and the rest of this project's docs use "LAR".
-# One-entry map so this doesn't need to grow into a full alias table for a
-# single known mismatch.
 TEAM_ABBR_DISPLAY_MAP = {"LA": "LAR"}
 
-# The positions projections.py's model was actually backtested against
-# (docs/research/projection-model-backtest-findings.md) and the scope of
-# fantasypros.py's consensus tier (fantasypros.POSITIONS mirrors this).
-# Kept separate from ROSTER_POSITIONS below since K resolves to a real
-# player via load_rosters() the same way these four do, but is excluded
-# from the backtest/FantasyPros scope both still describe.
 POOL_POSITIONS = ("QB", "RB", "WR", "TE")
 
 KICKER_POSITION = "K"
 
-# Positions resolvable via nflreadpy's load_rosters() with a real gsis_id
-# -- K joins QB/RB/WR/TE here since it's a per-player entity too, just not
-# part of POOL_POSITIONS' backtest/FantasyPros scope. DST is NOT in this
-# list -- it isn't a per-player roster entity at all, see
-# load_dst_pool_nflreadpy below.
 ROSTER_POSITIONS = POOL_POSITIONS + (KICKER_POSITION,)
 
 TIER_METADATA = {
     "consensus": {"tierLabel": "Consensus projection", "source": "FantasyPros + Rotowire"},
     "in_house_estimate": {"tierLabel": "Our estimate", "source": "In-house model"},
-    # Week 1 only. Labelled distinctly from the in-house rolling average
-    # because it is a different kind of number built from different inputs
-    # (last season plus draft capital and the opening Vegas line, with zero
-    # current-season games behind it) -- same "keep the tiers clearly
-    # labelled" rule that separates the consensus tier from ours.
     "week1_model": {"tierLabel": "Week 1 estimate", "source": "In-house model (pre-season)"},
 }
 
-# Updated 2026-08-16 once real league values landed: reception=1 in
-# leagues/league-1/scoring-config.json (was the half_ppr placeholder's 0.5) --
-# this is a full-PPR league, confirmed hands-on from the real ESPN
-# settings, not a guess. "ppr" is already a recognized key in the
-# frontend's WeeklyReportView.jsx FORMAT_LABEL map (renders as "PPR"),
-# so this is the only code change needed -- no frontend edit required.
-# Kept as a module-level constant for backward compatibility; in the
-# multi-league path (--leagues-config), each league's leagueFormat from
-# leagues.json is passed explicitly and this constant is not used.
 LEAGUE_FORMAT_ASSUMPTION = "ppr"
 
-# How many past seasons of labelled week-1 rows the cold-start model trains on
-# (backend/week1.py). Four gives ~1 350 rows across the four positions -- enough
-# for the ~56-column per-position ridge without reaching back to a materially
-# different league (scoring environment and pass rate have both drifted).
-# Each training season needs the two seasons before it for its own features,
-# so the real data pull spans WEEK1_TRAIN_SEASONS + 2.
 WEEK1_TRAIN_SEASONS = 4
 
-# Completed seasons pulled for the week-1 K / D/ST per-entity baselines
-# (backend/week1_kdst.py). Six back, minus 2020, gives ~110 kicker and ~128
-# defence (prior -> next week 1) pairs to fit the shrinkage constant on --
-# comfortably above that module's MIN_FIT_OBSERVATIONS floor of 30, while
-# still being recent enough that the positional mean reflects current scoring
-# environments. Only the single season before the target supplies the priors
-# themselves; a two-season prior was measured and was worse at both positions.
 KDST_HISTORY_SEASONS = 6
 
-# Seasons of injury-report history the availability model trains on. Injury
-# data starts at 2018 in nflreadpy, and the report vocabulary has been stable
-# throughout, so more is strictly better here -- 6 is a compromise with fetch
-# time, not a modelling limit.
 AVAILABILITY_TRAIN_SEASONS = 6
 
-# Seasons of completed play used to fit the variance components (k), the affine
-# correction, the interval quantiles and the blend. Three gives ~35k
-# player-weeks, comfortably above every one of those fits' minimum.
 CALIBRATION_TRAIN_SEASONS = 3
 
 DEFAULT_OUT_DIR = Path(__file__).resolve().parent.parent / "frontend" / "public" / "mock"
@@ -144,19 +55,10 @@ def normalize_team(team: Optional[str]) -> Optional[str]:
     return TEAM_ABBR_DISPLAY_MAP.get(team, team)
 
 
-# ---------------------------------------------------------------------------
-# Pure assembly logic -- exercised directly by tests/test_generate_report.py
-# with synthetic pool/schedule/game_log/news_flag data, no network involved.
-# ---------------------------------------------------------------------------
-
-
 def opponent_for_team_week(
     schedule_games: list[dict[str, Any]], team: str, season: int, week: int
 ) -> Optional[str]:
-    """The other team in this team's game for (season, week), or None if
-    there's no scheduled game (a bye week, or a week past the loaded
-    schedule) -- callers use None to mean "not playable this week," not
-    an error."""
+    """The other team in this team's game for (season, week), or None on a bye."""
     for game in schedule_games:
         if game.get("season") != season or game.get("week") != week:
             continue
@@ -179,14 +81,7 @@ def build_player_pool_entry(player: dict[str, Any], news_flag: dict[str, Any]) -
 
 
 def _store_projection_rows(weekly_report: dict[str, Any]) -> list[dict[str, Any]]:
-    """weekly-report JSON -> store `projections` rows.
-
-    Note `points` is the EXPECTED value and `conditional_points` the
-    if-he-plays number, matching the column comments in the migration. Getting
-    these the wrong way round is the single easiest mistake a downstream query
-    can make, which is why both are carried explicitly rather than one being
-    derived.
-    """
+    """Weekly-report JSON -> store `projections` rows (points = expected value)."""
     rows = []
     for entry in weekly_report.get("projections", []):
         projection = entry.get("projection") or {}
@@ -209,17 +104,7 @@ def _mixture_band(
     play_probability: Optional[float],
     fallback: tuple[Optional[float], Optional[float]] = (None, None),
 ) -> dict[str, Optional[float]]:
-    """{"floor", "ceiling"} for a tier's projection, accounting for the chance
-    the player does not play at all.
-
-    The published band describes the player's actual outcome, which is a
-    mixture: exactly zero with probability 1 - p, the conditional distribution
-    otherwise. IntervalModel.interval knows how to read that off the fitted
-    quantile curve. When no model is available this falls back to the
-    conditional band unchanged -- deliberately NOT scaled by p, because that
-    transformation is simply wrong (it holds the floor away from zero while
-    pulling the ceiling toward it). See docs/research/second-audit-2026-09-02.md.
-    """
+    """{floor, ceiling} for a projection, accounting for the chance he does not play."""
     if interval_model is not None:
         band = interval_model.interval(
             position, conditional_points, play_probability=play_probability
@@ -234,9 +119,7 @@ def _mixture_band(
 
 
 def _consensus_source_label(consensus: dict[str, Any]) -> Optional[str]:
-    """Which feeds actually produced this consensus projection, or None to
-    fall back to the tier default (entries built before the blend recorded
-    provenance)."""
+    """Which feeds produced this consensus projection, or None for the tier default."""
     try:
         from rotowire_projections import consensus_source_label
 
@@ -254,40 +137,17 @@ def _projection_object(
     conditional_points: Optional[float] = None,
     source: Optional[str] = None,
 ) -> dict[str, Any]:
-    """The public projection shape.
-
-    `points` is the EXPECTED value -- P(play) x points-if-he-plays -- which is
-    the quantity a start/sit comparison should be made on. `conditionalPoints`
-    keeps the if-he-plays number visible next to it, because the two answer
-    different questions and a reader deserves both: "he is a 14-point player
-    but only 60% likely to suit up" is a different call from "he is an
-    8.4-point player".
-
-    `floor`/`ceiling` are the 10th/90th empirical residual percentiles, not a
-    normal interval -- the outcome distribution is strongly right-skewed and a
-    symmetric interval over-covers (0.86 at a nominal 0.80). Optional
-    throughout: a tier or a run without a fitted interval model simply omits
-    them, and the frontend renders the point estimate alone as before.
-    """
+    """The public projection shape (`points` is the expected value)."""
     meta = TIER_METADATA[tier]
     projection: dict[str, Any] = {
         "tier": tier,
         "points": points,
         "tierLabel": meta["tierLabel"],
-        # `source` overrides the tier default per player. The consensus tier
-        # blends two feeds whose coverage only partly overlaps, so the tier
-        # label names what the tier CAN use while this names what actually fed
-        # this player -- claiming two sources agreed where one had no data
-        # would misrepresent the number's provenance.
         "source": source or meta["source"],
     }
     if floor is not None and ceiling is not None:
         projection["floor"] = floor
         projection["ceiling"] = ceiling
-    # Both only appear when availability was actually modelled. Without it
-    # conditionalPoints is identical to points by construction, and emitting
-    # the pair would invite a reader to believe a distinction is being drawn
-    # that this run did not draw.
     if play_probability is not None:
         projection["playProbability"] = play_probability
         if conditional_points is not None:
@@ -296,10 +156,7 @@ def _projection_object(
 
 
 def build_projection_entry(candidate: dict[str, Any], tier: str = "in_house_estimate") -> dict[str, Any]:
-    """`candidate` is the internal per-player shape assembled in
-    build_weekly_report_and_pool below (playerId/name/position/team/
-    opponent/points/news_flag/...) -- this reshapes it into the public
-    WeeklyReport `projections[]` entry shape api.js's callers expect."""
+    """Reshape an internal candidate into a public `projections[]` entry."""
     return {
         "playerId": candidate["playerId"],
         "name": candidate["name"],
@@ -335,17 +192,7 @@ def assemble_weekly_report(
     league_id: str = "league-1",
     league_format: str = "ppr",
 ) -> dict[str, Any]:
-    """Assemble the weekly-report JSON dict.
-
-    Args:
-        league_id: stable string identifier for the league (keys output
-            directories and localStorage). Defaults to "league-1" so callers
-            that don't pass the kwarg get the same behavior as before.
-        league_format: one of "ppr", "half_ppr", "standard". Passed through
-            from the manifest's leagueFormat in the multi-league path so
-            the report's leagueFormatAssumption field reflects the real
-            per-league setting rather than the module-level constant.
-    """
+    """Assemble the weekly-report JSON dict."""
     return {
         "week": week,
         "leagueId": league_id,
@@ -386,109 +233,14 @@ def build_weekly_report_and_pool(
     game_context: Optional[dict[str, dict[str, Any]]] = None,
     decay: float = DEFAULT_DECAY,
 ) -> tuple[dict[str, Any], dict[str, Any]]:
-    """The main assembly entry point, fully pure/injectable (all data
-    already loaded by the caller) -- see the `load_*` adapters below for
-    where `pool`/`schedule_games`/`game_logs_by_player`/
-    `news_flags_by_player`/`consensus_projections` come from in a real run.
-
-    Args:
-        pool: [{"playerId", "name", "position", "team"}, ...] -- the
-            season-wide player identity list (player-pool.json's source).
-        schedule_games: [{"season", "week", "home_team", "away_team"}, ...].
-        game_logs_by_player: {playerId: [{"season", "week", **stat_line}]}
-            -- projections.py's game_log shape, per player.
-        news_flags_by_player: {playerId: newsFlag}. A player missing here
-            gets DEFAULT_NEWS_FLAG, not an error -- "no news layer ran for
-            this player" degrades the same way news.py itself degrades on
-            a failed fetch.
-        consensus_projections: {playerId: {"projected_points", ...}} --
-            fantasypros.build_consensus_tier's output. A player present
-            here gets the FantasyPros consensus tier instead of the
-            in-house estimate; a player absent (the common case -- this
-            is only ever FantasyPros' top 10 per position) falls back to
-            the in-house tier exactly as before this parameter existed.
-            None/omitted (the default) means nobody gets the consensus
-            tier -- same "off means arithmetically identical to before"
-            contract as project_player's own optional parameters.
-        league_id: stable string identifier passed through to
-            assemble_weekly_report; appears as "leagueId" in the report
-            JSON so the track-record layer and frontend can identify which
-            league a file belongs to without depending on its directory
-            path. Defaults to "league-1" for backward compatibility.
-        league_format: one of "ppr", "half_ppr", "standard"; passed
-            through to assemble_weekly_report as leagueFormatAssumption.
-            In the multi-league path this comes from the manifest's
-            leagueFormat field, not the module-level constant.
-        rostered_rank_cutoff: per-position dict passed to
-            select_waiver_targets to define the boundary between "rostered"
-            and "waiver-eligible" players. None (the default) falls back to
-            waiver_targets.py's DEFAULT_ROSTERED_RANK_CUTOFF (the 14-team
-            default). The multi-league caller derives this from teamCount.
-        rz_stats_by_player: optional {player_id: rz_stats_dict} from
-            rotowire.fetch_and_cache_pool_stats. When supplied, waiver target
-            rationale text is annotated with goal-line touch and tprr signals
-            for players where those metrics exceed the thresholds in rotowire.py.
-            None/omitted (the default) means no Rotowire annotation -- the
-            rationale falls back to the existing points-trend-only text.
-        week1_projections: {playerId: week1.Week1Model.predict_one output}.
-            Only meaningful when week == 1, where project_player has no
-            current-season games to average and every player lands in its
-            no_data tier. Slots in BELOW the FantasyPros consensus tier and
-            ABOVE the in-house rolling average, exactly mirroring
-            consensus_projections' precedence and its "None means
-            arithmetically identical to before" contract. See
-            docs/research/week1-cold-start-model.md for why week 1 needs its
-            own estimator rather than a flat positional baseline.
-        play_probabilities: {playerId: P(play)} from availability.py. When
-            supplied, every tier's `points` becomes an EXPECTED value
-            (P(play) x if-he-plays) and the if-he-plays number is kept
-            alongside as `conditionalPoints`. Worth +1.73 lineup pts/week on
-            top of the estimator improvements -- the single largest measured
-            lever in the backend. None (the default) reproduces the old
-            conditional-on-playing behaviour exactly.
-        entity_baselines: {playerId: float} -- a per-ENTITY baseline that wins
-            over the positional one for that player. Built by week1_kdst.py for
-            kickers and team defences in week 1, where a positional mean is the
-            entire projection (no current-season log exists, so shrinkage
-            weights the sample at zero and project_player returns the baseline
-            verbatim) and therefore gives every kicker and every defence the
-            same number. Empty or None restores exactly the old behaviour.
-        positional_baselines: {position: float} -- what empirical-Bayes
-            shrinkage pulls a thin sample toward. Keyed by POSITION, not by
-            player: unlike the legacy window mode (which only shrank thin
-            samples and needed a per-player thin/debut population), the
-            empirical-Bayes weight applies at every sample size, so one
-            baseline per position is the whole requirement. None disables
-            shrinkage entirely -- project_player has nothing to shrink toward.
-        shrinkage_ks: {playerId: k} for empirical-Bayes shrinkage, resolved
-            from position by the caller (calibration.DEFAULT_SHRINKAGE_K).
-        affines: {playerId: (a, b)} rank-preserving per-position recalibration
-            from calibration.fit_affine.
-        interval_model: a fitted calibration.IntervalModel, used to attach a
-            floor/ceiling to each projection. None omits the interval fields.
-        blend_model: a fitted blend.BlendModel. When supplied, the in-house
-            tier's point estimate is refined with rolling volume and the
-            week's game context (+volume/Vegas, audit recommendation 5).
-        game_context: {team: context} from context.load_game_context_nflreadpy,
-            needed by blend_model. Absent teams fall back to league-average
-            context rather than failing.
-        decay: recency-decay factor threaded to project_player and to the
-            rolling-volume window, so both sides of the blend see the same
-            weighting.
-
-    Returns:
-        (weekly_report, player_pool) -- weekly_report covers only players
-        whose team has a scheduled game this week (bye-week players are
-        skipped, not zero-projected); player_pool covers the full
-        season-wide pool regardless of this week's schedule.
-    """
+    """Main pure assembly: all data injected; returns (weekly_report, player_pool)."""
     consensus_projections = consensus_projections or {}
     candidates = []
     blend_rows: list[dict[str, Any]] = []
     for player in pool:
         opponent = opponent_for_team_week(schedule_games, player["team"], season, week)
         if opponent is None:
-            continue  # bye week (or a week outside the loaded schedule) -- not playable
+            continue
         news_flag = news_flags_by_player.get(player["playerId"]) or dict(DEFAULT_NEWS_FLAG)
         consensus = consensus_projections.get(player["playerId"])
         if consensus is not None:
@@ -503,55 +255,20 @@ def build_weekly_report_and_pool(
                     * ((play_probabilities or {}).get(player["playerId"], 1.0)),
                     2,
                 ),
-                # FantasyPros' consensus is a conditional-on-playing number too
-                # -- it is a projected stat line for a player who suits up -- so
-                # it needs the same availability multiplier, or the two tiers
-                # would not be comparable in the same lineup.
                 "conditional_points": consensus["projected_points"],
                 "play_probability": (
                     None
                     if (play_probabilities or {}).get(player["playerId"]) is None
                     else round(play_probabilities[player["playerId"]], 3)
                 ),
-                # Interval: attached from the in-season residual model, which
-                # buckets residuals by projection size and position. That model
-                # was fitted on the in-house estimator's errors, so this is an
-                # APPROXIMATION for a vendor projection -- but a defensible and
-                # conservative one. Most of the band's width is irreducible
-                # weekly outcome variance (audit 1 put the ICC ceiling on any
-                # player-identity model at R^2 0.25-0.47), which belongs to the
-                # player-week rather than to whoever produced the number. If the
-                # consensus is the better estimator, this band is slightly too
-                # WIDE, which is the safe direction to be wrong in. Showing no
-                # band at all on the top-10-per-position players -- the ones
-                # actually started -- was the worse option.
                 **_mixture_band(
                     interval_model,
                     player["position"],
                     consensus["projected_points"],
                     (play_probabilities or {}).get(player["playerId"]),
                 ),
-                # NOTE: the affine recalibration is deliberately NOT applied
-                # here, walking back part of the second audit's own
-                # recommendation. `affines` corrects the in-house rolling
-                # average's measured over-dispersion (fitted slope 0.826). A
-                # vendor consensus projection has its own, unmeasured,
-                # calibration -- and we have no held-out consensus history to
-                # fit one from, because neither free feed publishes past weeks.
-                # Applying our correction to their number would inject a bias
-                # we have never measured, which is exactly the "guess dressed as
-                # a measurement" week1.py refuses to make. Left uncorrected and
-                # documented instead.
                 "tier": "consensus",
                 "source": _consensus_source_label(consensus),
-                # Not meaningful for the consensus tier (FantasyPros doesn't
-                # expose a game-by-game history, only the projection) --
-                # harmless placeholders, not read by build_projection_entry.
-                # waiver_targets.py never sees these values in practice:
-                # its rostered-rank cutoff (>=14 per position) always
-                # exceeds FantasyPros' top-10-per-position depth, so a
-                # consensus-tier player is never in the waiver-eligible
-                # pool to begin with.
                 "games_used": 0,
                 "confidence": None,
                 "per_game_points": [],
@@ -571,8 +288,6 @@ def build_weekly_report_and_pool(
                     2,
                 ),
                 "conditional_points": week1_projection["projected_points"],
-                # Mixture band, not the conditional band scaled by P(play) --
-                # see IntervalModel.interval and the in-house tier below.
                 **_mixture_band(
                     week1_projection.get("_interval_model"),
                     player["position"],
@@ -586,9 +301,6 @@ def build_weekly_report_and_pool(
                     else round(play_probabilities[player["playerId"]], 3)
                 ),
                 "tier": "week1_model",
-                # This tier is cold-start by definition: there is no
-                # current-season game log to show behind the number, which is
-                # exactly what games_used=0 communicates to the report view.
                 "games_used": 0,
                 "confidence": week1_projection.get("confidence"),
                 "per_game_points": [],
@@ -606,11 +318,7 @@ def build_weekly_report_and_pool(
                     if (entity_baselines or {}).get(player_id) is not None
                     else (positional_baselines or {}).get(player["position"])
                 ),
-                # Fitted per player where calibration covered him; otherwise his
-                # position's k, as this function's docstring always promised.
-                # K and D/ST are never in the fitted map, and a kicker falling
-                # through to the skill-position fallback (~1.5 against a
-                # measured 30) is what dragged Dicker to 4.25 on two games.
+                # Fall back to the position's k, not the skill-position average (K needs 30).
                 shrinkage_k=(shrinkage_ks or {}).get(
                     player_id, DEFAULT_SHRINKAGE_K.get(player["position"])
                 ),
@@ -619,9 +327,6 @@ def build_weekly_report_and_pool(
             )
             points = projection["conditional_points"]
             if blend_model is not None:
-                # The blend refines the CONDITIONAL number; availability is
-                # re-applied below so the two stay composable and either can be
-                # switched off without touching the other.
                 volume = rolling_volume(game_log, season, week, window, decay)
                 context = (game_context or {}).get(player["team"])
                 blend_row = blend_build_feature_row(
@@ -636,14 +341,6 @@ def build_weekly_report_and_pool(
 
             floor = ceiling = None
             if interval_model is not None:
-                # `points` is the CONDITIONAL projection, which is what the
-                # residual quantiles were fitted against. The play probability
-                # goes INTO the interval rather than being multiplied onto it
-                # afterwards: the outcome is a mixture (zero if he does not
-                # play), and the mixture's percentiles are the conditional
-                # ones read at shifted levels. See IntervalModel.interval and
-                # docs/research/second-audit-2026-09-02.md section 2 -- the old
-                # `lo * p, hi * p` covered 26.5% at p=0.50 against a nominal 80%.
                 band = interval_model.interval(
                     player["position"], points, play_probability=probability
                 )
@@ -675,9 +372,6 @@ def build_weekly_report_and_pool(
 
     projection_entries = [build_projection_entry(c, c["tier"]) for c in candidates]
 
-    # Pass rostered_rank_cutoff through only when explicitly provided; None
-    # means "use waiver_targets.py's own DEFAULT_ROSTERED_RANK_CUTOFF" so
-    # the single-league code path is arithmetically identical to before.
     if rostered_rank_cutoff is not None:
         waiver_candidates = select_waiver_targets(candidates, rostered_rank_cutoff=rostered_rank_cutoff)
     else:
@@ -716,29 +410,7 @@ def _update_manifest(
     current_week: Optional[int] = None,
     team_count: Optional[int] = None,
 ) -> None:
-    """Write/update manifest.json for a league's fixture directory.
-
-    Tracks three different things that are easy to confuse:
-
-      weeks        every week with a fixture on disk.
-      latestWeek   the HIGHEST of those. This is a statement about files, not
-                   about the season -- regenerating the whole season makes it
-                   18 on the day before week 1.
-      currentWeek  the week the season is actually on, from the real schedule
-                   (season_week.py). This is what a UI should open on.
-      teamCount    how many teams are in the league. Published because
-                   replacement level is a per-league quantity: the Nth best
-                   player at a position is startable somewhere in an 8-team
-                   league and long since rostered in a 14-team one, and a
-                   frontend comparing players across positions cannot compute
-                   that without it.
-
-    The frontend used to default to latestWeek and so opened on week 18 all
-    preseason. Written as its own field rather than by redefining latestWeek,
-    because "newest fixture" is still what the Explore view's week list needs.
-    Omitted (not guessed) when the schedule cannot be read, so a consumer can
-    tell "unknown" from "week 1".
-    """
+    """Write/update a league's manifest.json (weeks, latestWeek, currentWeek, teamCount)."""
     existing: dict[str, Any] = {}
     if manifest_path.exists():
         try:
@@ -759,36 +431,13 @@ def _update_manifest(
     manifest_path.write_text(json.dumps(manifest, indent=2, allow_nan=False) + "\n")
 
 
-# ---------------------------------------------------------------------------
-# Real data adapters -- NOT exercised by the test suite (network + nflreadpy
-# required, same caveat as projections.load_recent_games_nflreadpy and
-# news.fetch_espn_news). Run generate_report.py directly to exercise these.
-# ---------------------------------------------------------------------------
-
-
 def load_player_pool_nflreadpy(season: int) -> list[dict[str, Any]]:
-    """Interim player-pool source per the integration plan's orchestration
-    section: real ESPN league roster access doesn't exist yet, so this
-    uses nflreadpy's full active-roster snapshot as a stand-in -- covers
-    the general player pool, not this specific league's rostered players.
-
-    Covers ROSTER_POSITIONS (QB/RB/WR/TE/K), not just POOL_POSITIONS --
-    kickers resolve to a real gsis_id via this exact same roster snapshot
-    (confirmed hands-on 2026-08-12: 33 real active 2025 kickers, e.g.
-    Chris Boswell -> 00-0031136), so there's no reason to give them a
-    separate pool-loading path the way DST needs (see
-    load_dst_pool_nflreadpy, which is NOT sourced from this function --
-    a DST is a team, not a roster entry)."""
+    """QB/RB/WR/TE/K pool from nflreadpy's current roster snapshot."""
     import nflreadpy as nfl
 
     try:
         rosters = nfl.load_rosters(seasons=[season])
         df = rosters.to_pandas() if hasattr(rosters, "to_pandas") else rosters
-        # Include all 53-man rostered players, not just active — IR, inactive,
-        # PUP, etc. should still appear in the report with their injury status
-        # visible rather than silently vanishing from every list. Practice
-        # squad players (TRC) are excluded because they're not eligible to
-        # play or be rostered in most fantasy formats.
         PRACTICE_SQUAD_STATUSES = {"TRC", "PS"}
         df = df[~df["status"].isin(PRACTICE_SQUAD_STATUSES) & df["position"].isin(ROSTER_POSITIONS)]
 
@@ -796,15 +445,8 @@ def load_player_pool_nflreadpy(season: int) -> list[dict[str, Any]]:
         seen_ids = set()
         for _, row in df.iterrows():
             player_id = row.get("gsis_id")
-            # `not player_id` does NOT catch a missing id here: pandas hands
-            # back float("nan") for an empty gsis_id, and NaN is truthy, so a
-            # NaN sailed through into the fixture as "playerId": NaN and made
-            # the whole file fail json.dumps(allow_nan=False) at write time --
-            # every projection lost for one unidentifiable roster row (seen on
-            # the real 2025 roster feed). Test for a non-empty string instead.
+            # A missing gsis_id arrives as NaN (truthy); require a non-empty string.
             if not isinstance(player_id, str) or not player_id.strip() or player_id in seen_ids:
-                # A mid-season trade can leave a player with more than one
-                # row in a season-level roster snapshot -- keep the first.
                 continue
             seen_ids.add(player_id)
             pool.append(
@@ -851,23 +493,7 @@ def load_schedule_nflreadpy(season: int) -> list[dict[str, Any]]:
 
 
 def load_all_game_logs_nflreadpy(season: int) -> dict[str, list[dict[str, Any]]]:
-    """Bulk equivalent of projections.load_recent_games_nflreadpy: one
-    load_player_stats() call for the whole season instead of one per
-    player, then grouped by player_id -- generating a full weekly report
-    means every player in the pool needs a game log, so a per-player
-    network call each would be needlessly slow.
-
-    Merges scoring.nflreadpy_row_to_stat_line (offense) with
-    kicker.nflreadpy_kicker_row_to_stat_line (K) on every row rather than
-    branching on position: a QB/RB/WR/TE row has none of the kicker
-    columns and a K row has none of the offense columns, and the two
-    modules' output category names are confirmed disjoint (see
-    tests/test_kicker.py), so the union is always exactly the row's real
-    stat line either way -- no position check needed. This function
-    already iterates every position in load_player_stats(), not just
-    ROSTER_POSITIONS, so K rows were already reaching this loop before
-    today; they just produced an empty stat_line (silently unused, since
-    K wasn't in the pool) until this merge."""
+    """Every player's regular-season game log from one load_player_stats() call."""
     import nflreadpy as nfl
 
     from kicker import nflreadpy_kicker_row_to_stat_line
@@ -876,23 +502,12 @@ def load_all_game_logs_nflreadpy(season: int) -> dict[str, list[dict[str, Any]]]
     try:
         stats = nfl.load_player_stats(seasons=[season])
     except ConnectionError:
-        # nflverse hasn't published a stats file for this season yet --
-        # confirmed for real against season=2026 before Week 1: the
-        # current season's parquet 404s until games have actually been
-        # played. Not a bug -- every player is a legitimate week-1
-        # cold-start per projections.py's own as-of discipline ("a week 1
-        # projection with no current-season games yet correctly returns
-        # zero eligible games"), so degrade to "no game logs" rather than
-        # crashing the whole report.
         print(f"  no nflreadpy player-stats file for season {season} yet -- treating as a full cold start.")
         return {}
 
     try:
         df = stats.to_pandas() if hasattr(stats, "to_pandas") else stats
         if "season_type" in df.columns:
-            # Postseason weeks restart at 1 -- mixing them into a REG-season
-            # game log would corrupt the as-of week ordering project_player
-            # relies on.
             df = df[df["season_type"] == "REG"]
 
         game_logs: dict[str, list[dict[str, Any]]] = {}
@@ -905,9 +520,7 @@ def load_all_game_logs_nflreadpy(season: int) -> dict[str, list[dict[str, Any]]]
             stat_line["season"] = season
             stat_line["week"] = int(row["week"])
             stat_line["opponent_team"] = normalize_team(row.get("opponent_team"))
-            # The blend was fitted on these columns (calibration_fit.load_game_logs
-            # copies them); without them every volume feature is imputed at
-            # prediction time and the blend collapses toward a positional mean.
+            # Required: the blend trains on these columns and imputes them all if absent.
             for column in VOLUME_COLUMNS:
                 if column in row_dict:
                     stat_line[column] = row_dict[column]
@@ -923,21 +536,7 @@ def load_all_game_logs_nflreadpy(season: int) -> dict[str, list[dict[str, Any]]]
 
 
 def load_dst_pool_and_game_logs_nflreadpy(season: int) -> tuple[list[dict[str, Any]], dict[str, list[dict[str, Any]]]]:
-    """DST equivalent of load_player_pool_nflreadpy + load_all_game_logs_nflreadpy
-    combined into one adapter, since dst.py's pool and game-log sources
-    (load_schedules(), load_teams(), load_team_stats()) are distinct calls
-    from the player-roster/player-stats ones those two functions use, and
-    a DST's game log needs the pool's own team list anyway to know which
-    teams to build for.
-
-    Same season-not-published-yet degrade-gracefully contract as
-    load_all_game_logs_nflreadpy: nflverse's team-stats file 404s
-    (ConnectionError) exactly when its player-stats file does, for the
-    same reason (no games played yet this season) -- the DST pool itself
-    still loads fine (it only needs the schedule + team list, both
-    published pre-season), it's only the game logs that go empty, giving
-    every DST the same week-1 cold start every offensive player already
-    gets in that scenario."""
+    """The D/ST pool and game logs, from schedules and team stats."""
     from dst import build_dst_game_logs, load_dst_pool_nflreadpy, load_schedule_with_scores_nflreadpy, load_team_stats_nflreadpy
 
     pool = load_dst_pool_nflreadpy(season)
@@ -953,18 +552,7 @@ def load_dst_pool_and_game_logs_nflreadpy(season: int) -> tuple[list[dict[str, A
 
 
 def validate_scoring_config(scoring_config: dict[str, Any], league_id: str) -> None:
-    """Run every config-shape validator before a single point is computed.
-
-    kicker.validate_fg_band_family / validate_fg_miss_band_family and
-    dst.validate_dst_td_categories were added by the v18 and v20 work precisely
-    because a config that defines two overlapping category families
-    double-counts silently -- "a silent miss is worse than a crash", so they
-    raise. Until 2026-09-09 (third audit) nothing in the PIPELINE called them:
-    they ran only from tests, and validate_dst_td_categories was never applied
-    to the shipped configs at all. A guard that does not run on the path it
-    guards is not a guard. Both shipped configs pass, so this is defence in
-    depth for the next config edit, not a fix to a live miscalculation.
-    """
+    """Run every config-shape validator before a single point is computed."""
     from dst import validate_dst_td_categories
     from kicker import validate_fg_band_family, validate_fg_miss_band_family
 
@@ -978,14 +566,7 @@ def validate_scoring_config(scoring_config: dict[str, Any], league_id: str) -> N
 
 
 def build_consensus_tier_or_empty(season: int, week: int, scoring_config: dict[str, Any]) -> dict[str, dict[str, Any]]:
-    """FANTASYPROS_API_KEY missing, or any part of the fetch/crosswalk
-    pipeline failing, degrades to an empty consensus tier -- every player
-    falls back to the in-house estimate. Same "skip cleanly" contract
-    build_news_client_or_none already establishes for the news layer,
-    extended to cover network/API failures too, not just a missing key --
-    a real, if unlikely, way for this to fail on the day of an actual
-    weekly-report run, since the whole point of running this script is
-    getting *a* report out, not blocking on one vendor's tier."""
+    """The consensus tier, or {} when the key is missing or anything fails."""
     import os
 
     from fantasypros import build_consensus_tier, fetch_consensus_tier, load_fantasypros_id_crosswalk_nflreadpy
@@ -997,22 +578,13 @@ def build_consensus_tier_or_empty(season: int, week: int, scoring_config: dict[s
         raw_players_by_position = fetch_consensus_tier(season, week, api_key)
         crosswalk = load_fantasypros_id_crosswalk_nflreadpy()
         return build_consensus_tier(raw_players_by_position, scoring_config, crosswalk)
-    except Exception as exc:  # noqa: BLE001 -- degrade gracefully, don't block the report
+    except Exception as exc:  # noqa: BLE001
         print(f"  FantasyPros consensus tier fetch failed ({exc}) -- falling back to in-house estimate for everyone.")
         return {}
 
 
 def build_news_client_or_none() -> tuple[Any, Optional[str]]:
-    """(client, reason) -- client is None when summarization can't run, and
-    `reason` says WHY so the caller can print something actionable.
-
-    Both failure modes used to collapse into one "ANTHROPIC_API_KEY not set"
-    message, which is actively misleading: a missing `anthropic` package
-    reported as a missing key and sent you looking at the wrong thing. That
-    exact confusion cost a full pipeline run on 2026-09-01.
-
-    Callers still treat a None client as "skip summarization, default newsFlag
-    for everyone," per news.py's own degrade-gracefully contract."""
+    """(client, reason); client is None when summarization can't run."""
     import os
 
     if not os.environ.get("ANTHROPIC_API_KEY"):
@@ -1031,11 +603,7 @@ def load_news_flags_nflreadpy(
     espn_injury_rows: Optional[list[dict[str, Any]]] = None,
     store: Any = None,
 ) -> dict[str, dict[str, Any]]:
-    """One fetch_espn_news() call for the whole pool, then per-player
-    matching + summarization. Sleeper injury designations are fetched once
-    and overlaid as the authoritative designation/riskLevel (Sleeper's
-    injury report is more reliable than the LLM's read of a general news
-    feed). LLM summary text is still used for the narrative where available."""
+    """News flags for the pool: ESPN injuries + news, Sleeper designations, LLM summary."""
     from news import (
         apply_sleeper_designation,
         articles_for_player,
@@ -1047,12 +615,6 @@ def load_news_flags_nflreadpy(
     articles = fetch_espn_news()
     sleeper_data = fetch_sleeper_injury_status()
 
-    # ESPN's injury report is a far better LLM input than the general news
-    # feed: it is per-player and already about availability, where the news
-    # endpoint returns 50 league-wide articles that name-match only ~83 of a
-    # 904-player pool. Both are used -- injury commentary first, general
-    # articles appended -- so a player in the news for a non-injury reason
-    # (a trade, a suspension, a depth-chart change) is still covered.
     espn_injury_by_player: dict[str, dict[str, Any]] = {}
     if espn_injury_rows:
         try:
@@ -1086,10 +648,6 @@ def load_news_flags_nflreadpy(
         from news import SUMMARY_FAILURES
 
         summarized = sum(1 for f in flags.values() if f.get("summary"))
-        # Report the failure count out loud. A per-player degrade that nobody
-        # counts is how every LLM summarization in this pipeline failed
-        # silently -- a markdown code fence around the JSON, swallowed by a
-        # bare except, for every player in every run.
         print(
             f"  news: {len(articles)} ESPN articles, {summarized} players flagged"
             + (f", {len(SUMMARY_FAILURES)} summarization failures" if SUMMARY_FAILURES else "")
@@ -1103,12 +661,7 @@ def load_rotowire_stats_or_empty(
     pool: list[dict[str, Any]],
     season: int,
 ) -> dict[str, dict[str, Any]]:
-    """Fetch Rotowire red zone / route-efficiency stats for the player pool,
-    with a disk cache so repeated runs within 24 hours make zero network calls.
-
-    Degrades to {} on any failure (missing package, network error, crosswalk
-    load failure) -- callers treat an empty dict as "no Rotowire data this run."
-    """
+    """Rotowire red-zone/route stats for the pool (24h disk cache), or {}."""
     try:
         from rotowire import fetch_and_cache_pool_stats, load_id_crosswalk
 
@@ -1124,36 +677,7 @@ def load_rotowire_stats_or_empty(
 
 
 def load_env_file(env_path: Optional[Path] = None) -> None:
-    """Load the repo-root .env into os.environ before anything reads a key.
-
-    Every key in this script is read straight off os.environ. The GitHub
-    Actions workflows inject them as real environment variables, so CI was
-    always fine -- but a local run saw an empty environment even with a
-    fully-populated .env sitting one directory up, and nothing failed. The
-    run just quietly produced a different report: no ANTHROPIC_API_KEY skips
-    the news layer, no FANTASYPROS_API_KEY skips the consensus tier.
-
-    That is not cosmetic. On 2026-09-20 a keyless local run put Dallas
-    Goedert in the in-house tier at 3.52 points; with the key loaded he
-    resolves to the consensus tier at 13.53 -- the difference between
-    benching and starting him. Two easily-missed lines in a hundred lines of
-    log output were the only evidence.
-
-    `override=False` is python-dotenv's default and is deliberate here: the
-    workflows' injected secrets must beat whatever a stale local .env
-    carries.
-
-    python-dotenv is in requirements.txt but deliberately NOT in
-    requirements-dev.txt -- the test suite runs on pytest + requests alone
-    (see that file's own note) and never calls main(). So a missing
-    dependency warns and continues rather than raising: the script degrades
-    to exactly the pre-2026-09-20 behaviour, and says so, because the whole
-    point of this function is that the silent version cost a lineup call.
-
-    `env_path` defaults to the repo-root .env and is a parameter so the tests
-    can point at a temporary file -- the real .env is gitignored, so a test
-    that depended on it would pass locally and prove nothing in CI.
-    """
+    """Load the repo-root .env into os.environ before anything reads a key."""
     import os
 
     try:
@@ -1172,9 +696,6 @@ def load_env_file(env_path: Optional[Path] = None) -> None:
         return
     load_dotenv(env_path)
 
-    # Say which keys are live. The failure this function exists to prevent was
-    # invisible precisely because absence was only ever reported downstream,
-    # one line per consumer, long after the run had committed to it.
     present = [
         name
         for name in ("ANTHROPIC_API_KEY", "FANTASYPROS_API_KEY")
@@ -1197,32 +718,7 @@ def should_skip_red_zone_fetch(
     game_logs: dict[str, Any],
     skip_flag: bool,
 ) -> tuple[bool, Optional[str]]:
-    """Whether to skip the Rotowire red-zone fetch, and why.
-
-    The fetch reads CURRENT-SEASON per-game logs, so it has nothing to return
-    until a game has been played -- and it costs one request per player at a
-    0.5s delay, about 25 minutes of no-op.
-
-    This used to be `week == 1`, which reads the season's state off the week
-    NUMBER. That is only the same thing during a season already under way.
-    Regenerating weeks 2-18 of 2026 before kickoff paid the full no-op on all
-    fifteen weeks and had to be worked around by hand.
-
-    An empty `game_logs` is the direct signal: load_all_game_logs_nflreadpy and
-    its DST counterpart both return nothing (and say so) for a season that has
-    not started.
-
-    Week 1 stays its own branch rather than folding into the emptiness test.
-    It holds even when the logs are NOT empty, and that case matters:
-    regenerating week 1 from mid-season would otherwise annotate it with
-    season-to-date aggregates that postdate the week being projected --
-    lookahead bias in a fixture that is supposed to record what was knowable
-    at the time. (Credit where due: that reasoning came from a parallel
-    implementation of this same guard, branch claude/silly-herschel-45ea9d,
-    which is otherwise equivalent to this one and was dropped in favour of it.)
-
-    Returns (skip, reason); reason is None when the fetch should run.
-    """
+    """Whether to skip the Rotowire red-zone fetch, and why."""
     if skip_flag:
         return True, "--skip-rotowire set"
     if week == 1:
@@ -1238,17 +734,6 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     load_env_file()
 
-    # nflreadpy caches in MEMORY by default, so every run re-downloads every
-    # file -- and a full report touches a dozen of them across several seasons.
-    # That is slow, and it is what eventually got this project rate-limited:
-    # nflverse's GitHub release assets start answering 404 (not 429) under
-    # repeated traffic, which killed a run mid-way after ten minutes of work.
-    # A filesystem cache with nflreadpy's own 24h duration makes repeat runs
-    # nearly free and drops the request count to almost nothing.
-    #
-    # Set as a DEFAULT, not an override: an explicit NFLREADPY_CACHE in the
-    # environment still wins, so CI or a debugging session can force a cold
-    # fetch.
     os.environ.setdefault("NFLREADPY_CACHE", "filesystem")
 
     parser = argparse.ArgumentParser(
@@ -1306,10 +791,6 @@ def main(argv: Optional[list[str]] = None) -> None:
         action="store_true",
         help="skip the Rotowire red zone / route-efficiency fetch; waiver rationale omits those annotations",
     )
-    # --leagues-config and --scoring-config are mutually exclusive: passing
-    # both is an argparse error. When neither is provided, --scoring-config
-    # defaults to DEFAULT_SCORING_CONFIG_PATH (single-league path, same
-    # behavior as before this argument existed).
     config_group = parser.add_mutually_exclusive_group()
     config_group.add_argument(
         "--leagues-config",
@@ -1331,11 +812,6 @@ def main(argv: Optional[list[str]] = None) -> None:
     )
     args = parser.parse_args(argv)
 
-    # ---------------------------------------------------------------------------
-    # Shared data loading -- happens once regardless of single vs multi-league.
-    # Scoring-config-dependent steps (consensus-tier scoring) happen per-league.
-    # ---------------------------------------------------------------------------
-
     print(f"Loading {args.season} player pool (nflreadpy rosters)...")
     pool = load_player_pool_nflreadpy(args.season)
     print(f"  {len(pool)} active {'/'.join(ROSTER_POSITIONS)} players")
@@ -1346,10 +822,6 @@ def main(argv: Optional[list[str]] = None) -> None:
     pool = pool + dst_pool
 
     print(f"Loading {args.season} schedule...")
-    # The shared store (backend/store.py). Optional by construction: with no
-    # DATABASE_URL and no FANTASY_STORE_DIR this is a NullStore and every call
-    # below is a no-op, so the pipeline behaves exactly as it did before it
-    # existed. See docs/design/shared-data-store.md.
     from store import config_hash as _config_hash
     from store import open_store, pack_bundle, unpack_bundle
 
@@ -1370,11 +842,6 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     schedule_games = load_schedule_nflreadpy(args.season)
 
-    # The week the SEASON is on, which is not the week being generated and not
-    # the newest fixture on disk. Recorded in each league's manifest so the
-    # frontend opens on it -- see _update_manifest. Never fatal: a failure here
-    # leaves currentWeek off the manifest and the UI falls back, rather than
-    # losing the whole report over a nice-to-have field.
     current_week: Optional[int] = None
     try:
         from season_week import load_current_week_nflreadpy
@@ -1386,10 +853,8 @@ def main(argv: Optional[list[str]] = None) -> None:
 
     print(f"Loading {args.season} game logs (nflreadpy player stats)...")
     game_logs = load_all_game_logs_nflreadpy(args.season)
-    game_logs.update(dst_game_logs)  # DST keyed by team abbreviation, players by gsis_id -- no collision
+    game_logs.update(dst_game_logs)
 
-    # Fetched once (~9 MB) and shared by the news layer and the availability
-    # model, which both want it for different reasons.
     espn_injury_rows: list[dict[str, Any]] = []
     try:
         from espn_injuries import fetch_injury_rows
@@ -1419,11 +884,6 @@ def main(argv: Optional[list[str]] = None) -> None:
             print("Fetching + summarizing ESPN news...")
         news_flags = load_news_flags_nflreadpy(pool, client, espn_injury_rows, store=store)
 
-    # Fetch raw FantasyPros + Rotowire data once (network calls); scoring is
-    # applied per-league below so each league's projected_points reflect its
-    # own config. Both sources cover the same 10-per-position cap; blending
-    # them averages the stat lines for overlapping players, giving a more
-    # accurate consensus estimate than either alone.
     raw_fp_players_by_position: Optional[dict[str, Any]] = None
     fp_crosswalk: Optional[dict[str, Any]] = None
     if args.skip_fantasypros:
@@ -1459,9 +919,7 @@ def main(argv: Optional[list[str]] = None) -> None:
         scoring_config: dict[str, Any],
         pool_for_crosswalk: list[dict[str, Any]] | None = None,
     ) -> dict[str, dict[str, Any]]:
-        """Apply scoring config to already-fetched FantasyPros + Rotowire data,
-        blend the two by averaging stat lines for overlapping players.
-        Returns {} (all in-house) if both fetches failed/skipped."""
+        """Score and blend the already-fetched consensus feeds for one config."""
         from rotowire_projections import (
             blend_consensus_projections,
             build_name_team_crosswalk,
@@ -1498,15 +956,6 @@ def main(argv: Optional[list[str]] = None) -> None:
         )
         return result
 
-
-    # ------------------------------------------------------------------
-    # Week-1 cold-start tier. Only ever built when --week 1: from week 2 on,
-    # project_player has real current-season games and this model's inputs
-    # (last season + draft capital + the opening line) are strictly worse
-    # than what actually happened this year. Fitted per run rather than
-    # persisted -- the fit is a few hundred rows per position and takes well
-    # under a second, so there is no artefact to version or go stale.
-    # ------------------------------------------------------------------
     def _build_week1_for_config(scoring_config: dict[str, Any]) -> dict[str, dict[str, Any]]:
         if args.week != 1 or args.skip_week1_model:
             return {}
@@ -1532,10 +981,6 @@ def main(argv: Optional[list[str]] = None) -> None:
                 dvp.get(args.season),
             )
             result = model.predict(target_rows)
-            # Intervals for this tier come from the week-1 model's OWN held-out
-            # residuals, not the in-season band -- different estimator, different
-            # error profile. Attached here so the caller does not have to know
-            # which tier a player landed in.
             interval_model = week1_module.fit_interval_model(training_rows)
             if interval_model is not None:
                 for row in target_rows:
@@ -1545,35 +990,15 @@ def main(argv: Optional[list[str]] = None) -> None:
                     band = interval_model.interval(row["position"], projection["projected_points"])
                     if band is not None:
                         projection["floor"], projection["ceiling"] = band
-                    # The band above is CONDITIONAL on playing. Carry the fitted
-                    # model forward so assemble_weekly_report can re-derive the
-                    # mixture band once P(play) is known -- multiplying the
-                    # conditional endpoints by p is not the same thing, and was
-                    # the defect this fixes.
                     projection["_interval_model"] = interval_model
             print(f"  {len(result)} players projected by the week-1 cold-start model "
                   f"(trained on {len(training_rows)} rows from {train_seasons[0]}-{train_seasons[-1]}"
                   f"{'; interval from held-out residuals' if interval_model else '; no interval'})")
             return result
         except Exception as exc:  # noqa: BLE001
-            # Same degrade-gracefully contract as the consensus tier: a failure
-            # here drops every player back to project_player's no_data
-            # baseline, which is what week 1 did before this model existed.
             print(f"  Week-1 model failed ({exc}) -- falling back to the in-house no_data baseline.")
             return {}
 
-
-    # ------------------------------------------------------------------
-    # Availability, calibration and the volume/context blend -- the three
-    # pieces of docs/research/scoring-engine-and-model-audit.md section 8 that
-    # need real history to fit. Built once per run and shared across leagues:
-    # none of them depends on league scoring except the blend, which is
-    # refitted per config below because its target is league points.
-    #
-    # Measured together on held-out 2024-25, scoring missed games as the zeros
-    # they are: +3.70 lineup pts/week over the previous estimator, of which
-    # +1.73 is availability alone (p < 1e-240).
-    # ------------------------------------------------------------------
     availability_model = None
     play_probabilities: dict[str, float] = {}
     if args.skip_availability:
@@ -1586,19 +1011,9 @@ def main(argv: Optional[list[str]] = None) -> None:
             rows = availability_module.build_training_rows_nflreadpy(train_seasons)
             availability_model = availability_module.AvailabilityModel().fit(rows)
 
-            # nflreadpy's injury feed stops at the most recent COMPLETED season,
-            # so a pre-season or week-1 report for the upcoming season finds
-            # nothing there and falls back to Sleeper's live designations --
-            # the only source that knows who is hurt right now. The source is
-            # printed because the two are not equivalent: Sleeper has no
-            # practice participation, which is what separates a Questionable
-            # who practised fully (0.79) from one who did not practise (0.51).
             report_by_player, report_source = availability_module.load_current_injury_report(
                 args.season, args.week, pool, espn_rows=espn_injury_rows
             )
-            # Play-rate history for the CURRENT season, as-of this week. Uses
-            # each player's own team's weeks as the denominator so a bye is not
-            # counted as a missed game.
             weeks_by_player: dict[str, set] = {}
             team_of_player: dict[str, Optional[str]] = {}
             for player_id, log in game_logs.items():
@@ -1616,11 +1031,6 @@ def main(argv: Optional[list[str]] = None) -> None:
                     if sched.get(side):
                         team_weeks.setdefault(sched[side], set()).add(sched["week"])
 
-            # Depth-chart rank for the week being projected. This is what
-            # keeps an undesignated week-1 starter from being handed the same
-            # flat positional base rate as a third-stringer -- worth AUC
-            # 0.823 -> 0.854 held out, and it moves a QB1 from 0.88 to 0.96
-            # against an actual 0.98.
             depth_ranks: dict = {}
             try:
                 from depth_charts import load_depth_ranks
@@ -1660,15 +1070,9 @@ def main(argv: Optional[list[str]] = None) -> None:
                 f"{report_source}, {len(report_by_player)} designations)"
             )
         except Exception as exc:  # noqa: BLE001
-            # Same degrade-gracefully contract as every other optional layer:
-            # no availability means projections revert to conditional-on-playing,
-            # which is what they were before this existed.
             print(f"  Availability model failed ({exc}) -- projections stay conditional-on-playing.")
             play_probabilities = {}
 
-    # Opportunity-based expected touchdowns and snap share. Loaded once and
-    # shared: the TD/non-TD split is denominated in points and therefore has to
-    # be applied per league, but the raw feeds do not depend on scoring.
     expected_td_rows: dict[tuple[int, int, str], dict[str, Any]] = {}
     snap_shares: dict[tuple[int, int, str], float] = {}
     if not args.skip_blend:
@@ -1683,23 +1087,10 @@ def main(argv: Optional[list[str]] = None) -> None:
                 f"{len(snap_shares)} snap-share rows loaded."
             )
         except Exception as exc:  # noqa: BLE001
-            # Same degrade-gracefully contract as every other optional layer --
-            # without these the blend simply falls back to the feature set it
-            # had before, which is the pre-2026-09-02 behaviour.
             print(f"  Expected-TD / snap-share feeds unavailable ({exc}) -- blend uses volume only.")
 
     def _game_logs_for_config(scoring_config: dict[str, Any]) -> dict[str, list[dict[str, Any]]]:
-        """game_logs with offense_pct and the TD/non-TD split attached.
-
-        The TD/non-TD split is in points, so it is refitted per league -- a
-        passing touchdown is worth 6 in league-1 and 4 in league-2, and a shared
-        split would be wrong for one of them.
-
-        Both the multi-league and the single-league path must go through here.
-        The single-league path used to pass the raw logs straight through, so
-        offense_pct -- a blend feature calibration_fit trains on -- was missing
-        for every player it predicted, and check_coverage raised on it.
-        """
+        """Game logs with offense_pct and the per-league TD/non-TD split attached."""
         if not (expected_td_rows or snap_shares):
             return game_logs
         from expected_td import enrich_game_logs
@@ -1715,17 +1106,8 @@ def main(argv: Optional[list[str]] = None) -> None:
         except Exception as exc:  # noqa: BLE001
             print(f"  Game context (Vegas lines) unavailable ({exc}) -- blend uses league averages.")
 
-
     def _build_calibration_for_config(scoring_config: dict[str, Any]) -> dict[str, Any]:
-        """Fit the pieces whose target is league points, so they have to be
-        refitted per league config: the per-position empirical-Bayes k, the
-        rank-preserving affine correction, the residual-quantile interval
-        model, and the volume/context blend.
-
-        Everything is fitted on completed prior seasons only -- the same
-        walk-forward discipline the projections themselves follow, so nothing
-        here can see the week being projected.
-        """
+        """Fit k, affine, intervals and blend for one scoring config (cached)."""
         out: dict[str, Any] = {
             "positional_baselines": {}, "shrinkage_ks": {}, "affines": {},
             "interval_model": None, "blend_model": None,
@@ -1736,9 +1118,6 @@ def main(argv: Optional[list[str]] = None) -> None:
             import calibration as calibration_module
             from calibration_fit import fit_from_history
 
-            # Keyed on the SCORING CONFIG, not the league. Two leagues sharing
-            # a config hit the same cached bundle, which is what removes the
-            # per-league double-fit this loop otherwise pays for.
             cfg_hash = _config_hash(
                 scoring_config,
                 window=args.window,
@@ -1767,21 +1146,11 @@ def main(argv: Optional[list[str]] = None) -> None:
             print(f"  Calibration/blend fit failed ({exc}) -- using uncalibrated projections.")
             return out
 
-    # ------------------------------------------------------------------
-    # Week-1 per-entity baselines for K and D/ST. Without these both
-    # positions collapse to a single positional mean in week 1 -- every
-    # kicker projecting the same number, every defence projecting the same
-    # number -- which leaves two of the eight starting slots unrankable.
-    # See backend/week1_kdst.py for the measurement behind it.
-    # ------------------------------------------------------------------
     _kdst_cache: dict[str, dict[str, float]] = {}
 
     def _build_kdst_baselines_for_config(scoring_config: dict[str, Any]) -> dict[str, float]:
         if args.week != 1 or args.skip_week1_model:
             return {}
-        # Keyed on the scoring config, not the league: the estimate is a
-        # prior-season average scored through that config, so two leagues
-        # sharing one config share the answer.
         cache_key = _config_hash(scoring_config, seasons=KDST_HISTORY_SEASONS)
         if cache_key in _kdst_cache:
             return _kdst_cache[cache_key]
@@ -1791,8 +1160,6 @@ def main(argv: Optional[list[str]] = None) -> None:
 
             history_seasons = [
                 s for s in range(args.season - KDST_HISTORY_SEASONS, args.season)
-                # 2020 is excluded everywhere in this project's week-1 work:
-                # empty stadiums and distorted lines make it a poor prior.
                 if s != 2020
             ]
             fits = week1_kdst.fit_from_history(args.season, scoring_config, history_seasons)
@@ -1804,21 +1171,11 @@ def main(argv: Optional[list[str]] = None) -> None:
                     f"positional mean {fit['positional_mean']})"
                 )
         except Exception as exc:  # noqa: BLE001
-            # Never fatal: falling back to the flat positional baseline is the
-            # previous behaviour, which was usable if uninformative.
             print(f"  week-1 K/DST per-entity baselines failed ({exc}) -- using flat baselines.")
             merged = {}
         _kdst_cache[cache_key] = merged
         return merged
 
-    # ------------------------------------------------------------------
-    # Weeks 2+: per-player prior-season shrinkage targets for QB/RB/WR/TE.
-    # Without these the in-house tier collapses toward one number per
-    # position in the early weeks -- in the real 2026 week-2 report, every
-    # non-consensus tight end landed in a 2.33-4.91 band (sd 0.56) and a
-    # 95%-snap starter ranked 126th of 209. See backend/entity_prior.py for
-    # the measurement, including what survives the blend and what does not.
-    # ------------------------------------------------------------------
     _entity_prior_cache: dict[str, dict[str, float]] = {}
 
     def _build_entity_priors_for_config(
@@ -1827,8 +1184,6 @@ def main(argv: Optional[list[str]] = None) -> None:
         if args.week < entity_prior.FIRST_COVERED_WEEK:
             return {}
         if not positional_baselines:
-            # Nothing to shrink toward means nothing to build a target from --
-            # the same degrade project_player already makes.
             return {}
         cache_key = _config_hash(scoring_config, seasons=1)
         if cache_key in _entity_prior_cache:
@@ -1843,22 +1198,16 @@ def main(argv: Optional[list[str]] = None) -> None:
                 f"(QB/RB/WR/TE, from {args.season - 1}, k={entity_prior.DEFAULT_PRIOR_K})"
             )
         except Exception as exc:  # noqa: BLE001
-            # Never fatal: the flat positional baseline is the previous
-            # behaviour -- collapsed, but not broken.
             print(f"  prior-season shrinkage targets failed ({exc}) -- using flat baselines.")
             built = {}
         _entity_prior_cache[cache_key] = built
         return built
 
-    # Rotowire red zone / route-efficiency stats -- fetched once per run (cached
-    # to disk, so repeated same-day runs are free). The result is shared across
-    # leagues since it's player-level, not league-scoring-dependent.
     rz_stats: dict[str, dict[str, Any]] = {}
     skip_rz, skip_rz_reason = should_skip_red_zone_fetch(
         args.week, game_logs, args.skip_rotowire
     )
     if skip_rz:
-        # Reasoning lives in should_skip_red_zone_fetch's docstring.
         print(
             f"Skipping the Rotowire red-zone fetch ({skip_rz_reason}) -- "
             "waiver rationale will omit red zone / tprr annotations."
@@ -1868,10 +1217,6 @@ def main(argv: Optional[list[str]] = None) -> None:
         rz_stats = load_rotowire_stats_or_empty(pool, args.season)
         if rz_stats:
             print(f"  {len(rz_stats)} players with Rotowire data.")
-
-    # ---------------------------------------------------------------------------
-    # Multi-league path: load manifest, loop over leagues.
-    # ---------------------------------------------------------------------------
 
     if args.leagues_config:
         leagues_manifest = json.loads(args.leagues_config.read_text())
@@ -1892,13 +1237,8 @@ def main(argv: Optional[list[str]] = None) -> None:
                     "projections will be inaccurate until real values are entered"
                 )
             for unconfirmed in scoring_config.get("_unconfirmed", []):
-                # Named, measured caveats rather than a blanket flag. A warning
-                # that fires on every run is a warning nobody reads -- and
-                # league-1's did, for two versions after its values became real.
                 print(f"  NOTE ({league_id}): {unconfirmed.split(' -- ')[0]} is unconfirmed.")
 
-            # Per-position waiver cutoff derived from team count -- reproduces
-            # DEFAULT_ROSTERED_RANK_CUTOFF's formula (see waiver_targets.py).
             rostered_rank_cutoff = {
                 "QB": team_count,
                 "RB": team_count * 2,
@@ -1916,8 +1256,6 @@ def main(argv: Optional[list[str]] = None) -> None:
             out_dir = backend_dir / league["outDir"]
             out_dir.mkdir(parents=True, exist_ok=True)
 
-            # Resolved once rather than splatted inline: the prior-season
-            # targets need this bundle's positional_baselines to shrink toward.
             calibration_bundle = _build_calibration_for_config(scoring_config)
 
             weekly_report, player_pool = build_weekly_report_and_pool(
@@ -1932,8 +1270,6 @@ def main(argv: Optional[list[str]] = None) -> None:
                 consensus_projections=consensus_projections,
                 week1_projections=_build_week1_for_config(scoring_config),
                 entity_baselines={
-                    # Disjoint by construction -- K/D/ST in week 1, QB/RB/WR/TE
-                    # from week 2 -- so the merge order cannot matter.
                     **_build_kdst_baselines_for_config(scoring_config),
                     **_build_entity_priors_for_config(
                         scoring_config, calibration_bundle.get("positional_baselines") or {}
@@ -1961,20 +1297,12 @@ def main(argv: Optional[list[str]] = None) -> None:
             )
             print(f"Wrote {pool_path} ({len(player_pool['players'])} players)")
 
-            # Alongside the fixture, never instead of it. The fixture stays the
-            # only thing the frontend reads (design doc, "explicitly out of
-            # scope"); this is the append-only record the eval layer will move
-            # onto in phase 2.
             written = store.write_projections(
                 run_id, league_id, args.season, args.week,
                 _store_projection_rows(weekly_report),
             )
             if written:
                 print(f"  store: logged {written} projections for {league_id}")
-
-    # ---------------------------------------------------------------------------
-    # Single-league path: backward-compatible behavior, unchanged.
-    # ---------------------------------------------------------------------------
 
     else:
         scoring_config = json.loads(args.scoring_config.read_text())
@@ -2028,9 +1356,7 @@ def main(argv: Optional[list[str]] = None) -> None:
         if written:
             print(f"  store: logged {written} projections")
 
-    # Close the run last, whatever path ran. A run left 'running' is a run that
-    # crashed, which is exactly what the status column is for -- so this is
-    # deliberately not in a finally that would mark a crash as 'ok'.
+    # Deliberately not in a finally: a crashed run must stay 'running'.
     store.finish_run(run_id, "ok")
     store.close()
 

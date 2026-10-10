@@ -1,55 +1,10 @@
-"""
-DST (team defense) stat-line assembly -- closes CLAUDE.md Next Steps item 3's
-DST half ("Wire in DST/K"). scoring.py's tier/linear scoring mechanism
-already knows how to score a DST stat line (def_sack/def_int/def_fumble_rec/
-def_safety/def_blocked_kick/def_st_td/def_return_yd/fumble_forced as
-linear categories, def_points_allowed/def_yards_allowed as banded tiers,
-per scoring_config.placeholder.json) -- the only missing piece was
-assembly: turning nflreadpy's raw team_stats + schedule rows into that
-exact stat_line shape.
-
-Per docs/research/dst-scoring-fields.md (the research this module
-implements, done 2026-08-04): three categories are direct per-team fields
-on nflreadpy's load_team_stats() row (forced fumbles, recovered-opponent-
-fumble count, return yards); two need a self-join of team_stats against
-itself on game_id, reading the *opponent's* row (blocked-kick credit,
-yards allowed -- confirmed against 64 real 2024-2025 blocked-kick rows and
-a real ARI/NO 2025 game respectively); points allowed needs a join against
-load_schedules()'s home_score/away_score (confirmed: 100% game_id overlap
-between load_team_stats() and load_schedules() for the full 2025 season).
-
-def_st_td resolution (2026-08-31, CLAUDE.md Next Steps item 1):
-The real ESPN settings show only one explicit TD-credit line: "Fumble
-Recovered for TD (FTD) = 6." No separate INT-return-TD or
-punt/kickoff-return-TD bonus line exists. nflreadpy's load_team_stats()
-carries a direct `fumble_recovery_tds` column (18 nonzero games in 2025,
-confirmed against real data -- see docs/research/dst-td-decomposition.md)
-that is precisely this category. The previous mapping summed `def_tds`
-(which bundles INT-return TDs + fumble-return TDs, 28 nonzero games) plus
-`special_teams_tds` (punt/kickoff return TDs, 26 nonzero games) -- both
-broader than the real rule and confirmed impossible to narrow further from
-weekly-aggregate data alone (def_tds has no per-return-type breakdown at
-this granularity). `fumble_recovery_tds` replaces both; `def_tds` and
-`special_teams_tds` are no longer read. See docs/research/dst-td-
-decomposition.md for the full probe results.
-
-Split, like every other module here, into pure assembly (top half --
-exercised by tests/test_dst.py with synthetic team_stats/schedule rows, no
-network) and a real network adapter (bottom half, `load_*`), NOT exercised
-by the test suite.
-"""
+"""D/ST stat-line assembly from team stats and schedules. See ARCHITECTURE.md §3."""
 
 from __future__ import annotations
 
 from typing import Any, Optional
 
-# nflreadpy uses "LA" for the Rams (confirmed hands-on); the frontend's
-# mock fixtures, the rest of this project's docs, and generate_report.py's
-# own TEAM_ABBR_DISPLAY_MAP all use "LAR". Duplicated here (rather than
-# imported from generate_report.py) to avoid a circular import --
-# generate_report.py imports from this module, not the other way around --
-# same one-entry-map-is-fine reasoning generate_report.py's own copy
-# documents for itself.
+# Duplicated from generate_report.py to avoid a circular import.
 TEAM_ABBR_DISPLAY_MAP = {"LA": "LAR"}
 
 
@@ -59,61 +14,24 @@ def normalize_team(team: Optional[str]) -> Optional[str]:
     return TEAM_ABBR_DISPLAY_MAP.get(team, team)
 
 
-# Direct per-team fields (docs/research/dst-scoring-fields.md) -> this
-# project's linear stat_line category names. All read off the DST's own
-# team_stats row -- no join needed for these.
 DST_DIRECT_COLUMN_MAP = {
     "def_sacks": "def_sack",
     "def_interceptions": "def_int",
     "fumble_recovery_opp": "def_fumble_rec",
     "def_safeties": "def_safety",
     "def_fumbles_forced": "fumble_forced",
-    # Touchdown concepts, emitted under distinct names so each league's config
-    # scores exactly the rule it has:
-    #
-    #   def_td             any defensive touchdown -- INT return, fumble return
-    #   def_st_td          kick/punt/blocked-kick return TD by the ST unit
-    #   def_fumble_rec_td  fumble recovered and returned for a score
-    #
-    # As of 2026-09-06 NEITHER shipped league defines def_fumble_rec_td: both
-    # credit every defensive and special-teams touchdown at 6, so both use the
-    # def_td + def_st_td pair. league-1 used def_fumble_rec_td between v15 and
-    # 2026-09-06 because the August settings capture showed only a
-    # "Fumble Recovered for TD" line; the final capture shows all five TD lines
-    # (Kickoff Return, Punt Return, Interception Return, Fumble Return, Blocked
-    # Punt/FG Return) explicitly, so that narrowing is retired.
-    #
-    # WARNING on fumble_recovery_tds, established 2026-09-06: it is NOT a
-    # defensive column. It sits beside fumble_recovery_own / fumble_recovery_opp
-    # in nflreadpy's team table and counts a team's fumble recoveries returned
-    # for a score from ANY phase, including its own offence recovering in the
-    # end zone. Over 2024-25 it EXCEEDS def_tds on 35 team-games, so it was
-    # never the subset of def_tds that v15 assumed. It is left mapped because
-    # the category is real and correctly named, but do not point a D/ST rule at
-    # it without decomposing the offensive share first.
-    #
-    # NOTE def_td and def_fumble_rec_td overlap by construction -- a fumble
-    # returned for a score is also a defensive touchdown -- so a config must
-    # not define both. validate_dst_td_categories() enforces that.
+    # fumble_recovery_tds is NOT defensive-only (it includes offensive recoveries).
     "fumble_recovery_tds": "def_fumble_rec_td",
     "def_tds": "def_td",
     "special_teams_tds": "def_st_td",
-    # ESPN's "2pt Return (2PTRET)" -- the defence returning a failed conversion.
-    # Rare (4 across 2024-25) but a real, mapped line in both leagues' settings.
     "def_2pt_made": "def_2pt_return",
 }
 
-# def_td already includes every fumble-return score, so pairing it with
-# def_fumble_rec_td would score those twice.
 _OVERLAPPING_TD_CATEGORIES = ("def_td", "def_fumble_rec_td")
 
 
 def validate_dst_td_categories(linear_config: dict) -> None:
-    """Raise if a scoring config defines both def_td and def_fumble_rec_td.
-
-    Same reasoning as kicker.validate_fg_band_family: the stat line carries
-    both, they overlap, and a config defining both would silently double-count
-    fumble-return touchdowns."""
+    """Raise if a scoring config defines both def_td and def_fumble_rec_td."""
     present = [k for k in _OVERLAPPING_TD_CATEGORIES if k in linear_config]
     if len(present) > 1:
         raise ValueError(
@@ -123,17 +41,10 @@ def validate_dst_td_categories(linear_config: dict) -> None:
             "only), not both."
         )
 
-# Return yardage: punt + kickoff return yards, both direct per-team fields.
 DST_RETURN_YARD_COLUMNS = ("punt_return_yards", "kickoff_return_yards")
 
-# Blocked-kick credit: docs/research/dst-scoring-fields.md confirmed these
-# are recorded on the row of the team whose kick got blocked, not the
-# blocking team -- so crediting a DST means reading its *opponent's* row
-# for the same game_id, not its own.
 BLOCKED_KICK_COLUMNS = ("fg_blocked", "pt_blocked")
 
-# Yards allowed: no direct field: compute from the opponent's own passing +
-# rushing yards on their row for the same game_id.
 YARDS_ALLOWED_COLUMNS = ("passing_yards", "rushing_yards")
 
 
@@ -146,20 +57,7 @@ def assemble_dst_stat_line(
     opponent_row: dict[str, Any],
     points_allowed: float,
 ) -> dict[str, float]:
-    """One team-game's DST stat_line, ready to feed straight into
-    scoring.compute_league_points.
-
-    Args:
-        own_row: this team's nflreadpy load_team_stats() row (as a dict)
-            for one (season, week) -- the DST's own defensive production.
-        opponent_row: the opponent's row for the *same game_id* -- used
-            only for the two categories that need the opponent's numbers
-            (blocked-kick credit, yards allowed). Caller's job to find
-            this via the game_id self-join; see build_dst_game_logs below.
-        points_allowed: the opponent's score in this game, from
-            load_schedules()'s home_score/away_score (team_stats has no
-            score field at all).
-    """
+    """One team-game's D/ST stat line, ready for scoring.compute_league_points."""
     stat_line: dict[str, float] = {}
     for nfl_col, our_col in DST_DIRECT_COLUMN_MAP.items():
         val = own_row.get(nfl_col)
@@ -171,36 +69,19 @@ def assemble_dst_stat_line(
     blocked = _sum_columns(opponent_row, BLOCKED_KICK_COLUMNS)
     if blocked:
         stat_line["def_blocked_kick"] = blocked
-    # Unlike the categories above, def_points_allowed/def_yards_allowed are
-    # banded tiers (scoring_config.placeholder.json's "tiers" section) --
-    # compute_league_points' _tier_points reads these even when 0 (a
-    # shutout is real, valuable information, not "nothing happened"), so
-    # these two are always set, never skipped on a falsy value.
+    # Always set, even at 0: a shutout is information.
     stat_line["def_yards_allowed"] = _sum_columns(opponent_row, YARDS_ALLOWED_COLUMNS)
     stat_line["def_points_allowed"] = points_allowed
     return stat_line
 
 
 def _has_final_score(value: Any) -> bool:
-    """Whether a schedule score cell is a real, played-game score.
-
-    load_schedules() spells an unplayed game's score as float("nan"), NOT as
-    None -- confirmed against all 272 of 2026's REG rows. NaN is truthy and is
-    not None, so `value is None` reads every unplayed game as played. That is
-    the exact defect season_week.py shipped in v19; the same shape existed here
-    until 2026-09-09 (third audit), latent only because load_team_stats() has
-    no row for an unplayed game and the game_id join drops it first. Written as
-    a named helper, mirroring season_week._has_final_score, so the next reader
-    does not have to rediscover why `is None` is not enough."""
+    """Whether a score cell is a real played-game score (unplayed is NaN, not None)."""
     return value is not None and value == value
 
 
 def _points_allowed_for_team_game(schedule_game: dict[str, Any], team: str) -> Optional[float]:
-    """The opponent's score in `schedule_game`, from this `team`'s
-    perspective -- None if `team` isn't actually in this game (a caller
-    bug, not an expected runtime case, but returning None rather than
-    guessing keeps this function honest about it), and None for a game that
-    has not been played (see _has_final_score)."""
+    """The opponent's score from `team`'s side, or None if not in or not played."""
     if team == schedule_game.get("home_team"):
         score = schedule_game.get("away_score")
     elif team == schedule_game.get("away_team"):
@@ -214,28 +95,7 @@ def build_dst_game_logs(
     team_stats_rows: list[dict[str, Any]],
     schedule_games: list[dict[str, Any]],
 ) -> dict[str, list[dict[str, Any]]]:
-    """The full pure assembly step: nflreadpy's raw load_team_stats() rows
-    (one per team-game) + load_schedules() rows -> {team: [{"season",
-    "week", "opponent_team", **dst_stat_line}, ...]}, in the exact
-    game_log shape projections.project_player already expects (this
-    project's playerId for a DST *is* the team abbreviation -- see
-    generate_report.py -- so this dict is keyed the same way
-    game_logs_by_player already is, just with team abbreviations instead
-    of gsis_ids as the key).
-
-    Self-join key is game_id (docs/research/dst-scoring-fields.md;
-    confirmed 100% game_id overlap between load_team_stats() and
-    load_schedules() for the full real 2025 season). A team_stats row
-    whose game_id has no matching opponent row, or no matching schedule
-    row, is skipped rather than guessed at -- an incomplete/mid-scrape
-    data pull should produce fewer game-log entries, not fabricated ones.
-
-    schedule_games is expected in generate_report.load_schedule_nflreadpy's
-    shape (season/week/home_team/away_team) PLUS game_id/home_score/
-    away_score, which that adapter doesn't currently load -- see this
-    module's own load_team_stats_nflreadpy/load_schedule_with_scores_nflreadpy
-    adapters below for where those extra fields come from in a real run.
-    """
+    """Team-stats + schedule rows -> {team: [game-log entry with D/ST stat line]}."""
     rows_by_game_team = {(r.get("game_id"), r.get("team")): r for r in team_stats_rows}
     schedule_by_game_id = {g.get("game_id"): g for g in schedule_games if g.get("game_id")}
 
@@ -261,14 +121,6 @@ def build_dst_game_logs(
     return game_logs
 
 
-# ---------------------------------------------------------------------------
-# Real data adapters -- NOT exercised by the test suite (network + nflreadpy
-# required, same caveat as every other load_* function in this backend).
-# Confirmed working end-to-end against real 2025 data (see this module's
-# probe notes / backend/README.md) before merge.
-# ---------------------------------------------------------------------------
-
-
 def load_team_stats_nflreadpy(season: int) -> list[dict[str, Any]]:
     import nflreadpy as nfl
 
@@ -292,13 +144,7 @@ def load_team_stats_nflreadpy(season: int) -> list[dict[str, Any]]:
 
 
 def load_schedule_with_scores_nflreadpy(season: int) -> list[dict[str, Any]]:
-    """Separate from generate_report.load_schedule_nflreadpy: that adapter
-    intentionally only carries season/week/home_team/away_team (everything
-    the existing QB/RB/WR/TE opponent lookup needs). DST's points-allowed
-    join additionally needs game_id and the final score, so this pulls a
-    superset of columns from the same load_schedules() call rather than
-    changing that adapter's existing (smaller, already-tested-against)
-    output shape for every other caller."""
+    """Schedule rows with game_id and final scores, for the points-allowed join."""
     import nflreadpy as nfl
 
     try:
@@ -327,15 +173,7 @@ def load_schedule_with_scores_nflreadpy(season: int) -> list[dict[str, Any]]:
 
 
 def load_dst_pool_nflreadpy(season: int) -> list[dict[str, Any]]:
-    """The DST equivalent of generate_report.load_player_pool_nflreadpy: one
-    entry per team that actually appears in this season's schedule (not
-    nflreadpy's full load_teams() table, which also carries relocated/
-    defunct franchise rows not relevant to a live season), keyed by team
-    abbreviation as playerId -- a DST isn't a per-player entity, so there's
-    no gsis_id to use, and this project's established preference is a
-    real, stable ID over an invented p_00501-style scheme (see
-    generate_report.py's own docstring on this) -- team abbreviations are
-    exactly that."""
+    """One pool entry per team in this season's schedule, keyed by team abbreviation."""
     import nflreadpy as nfl
 
     try:

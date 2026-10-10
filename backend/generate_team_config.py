@@ -1,33 +1,4 @@
-"""
-CLI: builds each league's frontend/public/mock/<league>/default-team-config.json
-from backend/leagues/<league>/roster.json.
-
-Why this exists. `default-team-config.json` seeds the "My Team" tab on a
-browser's first visit, and it is a list of player ids indexed BY POSITION
-into that league's roster-slots.json. Until 2026-09-20 it was maintained by
-hand -- its own note said "regenerate rather than hand-edit" while nothing
-existed to regenerate it -- so a waiver move meant remembering to edit two
-files that share no format, no key and no player identifier. One was missed:
-league-2 kept seeding Quentin Johnston and Harold Fannin Jr. for seventeen
-days after they were dropped.
-
-The join this does is exactly the one the frontend had three separate bugs in
-(see CLAUDE.md v21): a slot index is meaningless without the slot array it
-counts against. roster.json and roster-slots.json spell the same roster two
-different ways -- league-2's roster.json says `["QB","RB","RB","WR","WR",
-"TE","FLEX","FLEX","K","DEF"]` where roster-slots.json says `[... "DST","K"
-...]`, a different order AND a different name for the same slot -- so the
-starters are placed by SLOT NAME, never by zipping the two arrays.
-
-Everything here raises rather than warns. A generator that half-works writes
-a plausible wrong fixture, which is the failure mode this repo keeps paying
-for; a generator that stops names the problem while someone is looking.
-
-Usage:
-    python3 backend/generate_team_config.py                  # every league
-    python3 backend/generate_team_config.py --league league-2
-    python3 backend/generate_team_config.py --check          # CI: diff only
-"""
+"""Builds each league's default-team-config.json from backend/leagues/<league>/roster.json."""
 
 from __future__ import annotations
 
@@ -41,11 +12,6 @@ REPO_ROOT = Path(__file__).resolve().parent.parent
 LEAGUES_DIR = Path(__file__).resolve().parent / "leagues"
 MOCK_DIR = REPO_ROOT / "frontend" / "public" / "mock"
 
-# Mirrors SLOT_ELIGIBILITY in frontend/src/lib/teamConfig.js. Duplicated
-# rather than shared because the two live in different languages, and kept
-# deliberately small so the duplication is obvious if either side moves --
-# a slot name missing here would silently accept anything, which is the
-# behaviour the frontend was just fixed out of.
 SLOT_ELIGIBILITY: dict[str, tuple[str, ...]] = {
     "QB": ("QB",),
     "RB": ("RB",),
@@ -56,21 +22,15 @@ SLOT_ELIGIBILITY: dict[str, tuple[str, ...]] = {
     "FLEX": ("RB", "WR", "TE"),
 }
 
-# Slots that hold a player without starting him; any position is legal.
 BENCH_SLOT = "BENCH"
 IR_SLOT = "IR"
 NON_STARTING_SLOTS = (BENCH_SLOT, IR_SLOT)
 
-# roster.json is captured from the platform's own wording, so it carries
-# whatever that platform calls a team defence. roster-slots.json is the
-# frontend's vocabulary and always says DST.
 SLOT_ALIASES = {"DEF": "DST", "D/ST": "DST", "PK": "K"}
 
 
 class TeamConfigError(Exception):
-    """A roster and its slot array or player pool do not agree. Always fatal:
-    the alternative is emitting a fixture that looks fine and seats the wrong
-    players."""
+    """A roster disagrees with its slot array or player pool; always fatal."""
 
 
 def canonical_slot(slot_name: str) -> str:
@@ -78,17 +38,13 @@ def canonical_slot(slot_name: str) -> str:
 
 
 def is_position_eligible(slot_name: str, position: str) -> bool:
-    """True when `position` may occupy `slot_name`. An unrecognised slot name
-    is treated as bench-like (any position), matching the frontend's
-    documented fallback rule."""
+    """True when `position` may occupy `slot_name` (unknown slots act like bench)."""
     eligible = SLOT_ELIGIBILITY.get(canonical_slot(slot_name))
     return eligible is None or position in eligible
 
 
 def index_pool(pool_players: list[dict[str, Any]]) -> dict[str, list[dict[str, Any]]]:
-    """{lowercased name: [pool entries]}. A list, not a single entry: real
-    name collisions exist, and resolve_player_id disambiguates on
-    position+team rather than taking the first hit."""
+    """{lowercased name: [pool entries]}; a list because names collide."""
     by_name: dict[str, list[dict[str, Any]]] = {}
     for entry in pool_players:
         by_name.setdefault(str(entry.get("name", "")).strip().lower(), []).append(entry)
@@ -98,13 +54,7 @@ def index_pool(pool_players: list[dict[str, Any]]) -> dict[str, list[dict[str, A
 def resolve_player_id(
     player: dict[str, Any], by_name: dict[str, list[dict[str, Any]]], where: str
 ) -> str:
-    """The pool's player id for one roster entry.
-
-    A roster entry may carry `playerId` already (league-1 does, league-2 does
-    not). Either way the pool is consulted: an id that resolves to nobody
-    renders in the app as "Assigned player not found in pool", and it is far
-    cheaper to fail here than to ship that.
-    """
+    """The pool's player id for one roster entry."""
     name = str(player.get("name", "")).strip()
     position = player.get("position")
     team = player.get("team")
@@ -119,8 +69,6 @@ def resolve_player_id(
             f"-- regenerate it with generate_report.py before regenerating this."
         )
 
-    # Narrow on what the roster claims, so a name collision cannot silently
-    # pick the wrong player.
     matches = [
         c for c in candidates if c.get("position") == position and c.get("team") == team
     ]
@@ -151,8 +99,7 @@ def resolve_player_id(
 
 
 def expected_slots(roster: dict[str, Any]) -> list[str]:
-    """The slot array `roster.json` describes, in its own order and canonical
-    spelling: starters, then bench, then IR."""
+    """The slot array roster.json describes: starters, then bench, then IR."""
     starting = [canonical_slot(s) for s in roster.get("slots", [])]
     bench = [BENCH_SLOT] * int(roster.get("benchSlots", 0))
     ir = [IR_SLOT] * int(roster.get("irSlots", 0))
@@ -160,12 +107,7 @@ def expected_slots(roster: dict[str, Any]) -> list[str]:
 
 
 def check_slot_agreement(roster: dict[str, Any], slots: list[str], league_id: str) -> None:
-    """roster.json and roster-slots.json must describe the same multiset of
-    slots. Compared as a multiset, not a sequence, because the two orders
-    legitimately differ (league-2 lists K before DEF; the frontend lists DST
-    before K) -- but a different COUNT means one of them is stale, which is
-    precisely what made league-1's roster-slots.json carry league-2's shape
-    for a month."""
+    """roster.json and roster-slots.json must describe the same multiset of slots."""
     want = sorted(expected_slots(roster))
     have = sorted(canonical_slot(s) for s in slots)
     if want != have:
@@ -178,14 +120,7 @@ def check_slot_agreement(roster: dict[str, Any], slots: list[str], league_id: st
 def build_slot_assignments(
     roster: dict[str, Any], slots: list[str], pool_players: list[dict[str, Any]], league_id: str
 ) -> list[str | None]:
-    """The `slotAssignments` array, index-aligned to `slots`.
-
-    Starters go to a free slot of their OWN slot name; bench and IR fill their
-    sections in roster order. Every placement is checked for position
-    eligibility even though correct input cannot violate it -- the check costs
-    nothing and this is the one place the invariant can be enforced before a
-    browser ever sees the file.
-    """
+    """The `slotAssignments` array, index-aligned to `slots`."""
     check_slot_agreement(roster, slots, league_id)
     by_name = index_pool(pool_players)
 
@@ -263,8 +198,7 @@ def build_default_team_config(
 
 
 def render(config: dict[str, Any]) -> str:
-    """The exact bytes written, so --check can compare text rather than
-    re-parsing and guessing at formatting."""
+    """The exact bytes written, so --check can compare text."""
     return json.dumps(config, indent=2) + "\n"
 
 

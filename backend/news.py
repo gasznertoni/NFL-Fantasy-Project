@@ -1,25 +1,4 @@
-"""
-News & injury layer (CLAUDE.md v1 scope item 2): pull player news/injury
-text and use an LLM to summarize it and flag a risk level, producing the
-exact `newsFlag` shape the frontend already expects (see
-docs/specs/team-config-and-roster-status.md section 3.1) --
-`{"designation": ..., "riskLevel": ..., "summary": ...}` -- so this can be
-wired into the existing components with no frontend changes.
-
-Source: ESPN's unofficial news endpoint
-(`/apis/site/v2/sports/football/nfl/news`), per
-docs/research/free-data-sources.md -- the only free source found with
-narrative news text. Unofficial and unstable by nature (no ToS, no SLA),
-so every network call here degrades gracefully to an empty result rather
-than raising, per that doc's explicit recommendation.
-
-Confirmed unreachable from the Cowork cloud sandbox during this build
-(HTTP 000 / connection blocked -- same class of restriction the probe
-script's header note already flagged for nflreadpy's data host). fetch_*
-functions are therefore untested against the live endpoint here; run
-scripts/ manually on your own machine to verify the endpoint shape still
-matches ESPN_NEWS_URL's assumed response structure before relying on it.
-"""
+"""News and injury flags summarised by an LLM. See ARCHITECTURE.md §9."""
 
 from __future__ import annotations
 
@@ -36,12 +15,8 @@ RISK_LEVELS = ("none", "low", "medium", "high")
 
 DEFAULT_NEWS_FLAG = {"designation": "Healthy", "riskLevel": "none", "summary": None}
 
-# Hoisted so the news cache can key on it: swapping the summarisation model
-# must invalidate cached summaries by construction, not by remembering to
-# flush them. See news_summaries.model in the store schema.
 SUMMARY_MODEL = "claude-haiku-4-5-20251001"
 
-# Sleeper injury_status strings → our designation/riskLevel enums
 _SLEEPER_DESIGNATION_MAP = {
     "Questionable": ("Questionable", "low"),
     "Doubtful": ("Doubtful", "medium"),
@@ -53,15 +28,7 @@ _SLEEPER_DESIGNATION_MAP = {
 
 
 def fetch_sleeper_injury_status(timeout: int = 20) -> dict[str, dict[str, Any]]:
-    """Fetch current injury designations from Sleeper (free, no auth).
-
-    Returns two lookup dicts merged into one result keyed by ESPN id (str)
-    and by lowercase full name — callers try ESPN id first, then name.
-    Value shape: {"designation": ..., "riskLevel": ..., "body_part": str|None}.
-    Only players with a non-None injury_status are included; healthy players
-    are absent so callers can fall back to DEFAULT_NEWS_FLAG cleanly.
-    Degrades to {} on any network/parse failure.
-    """
+    """Current Sleeper designations keyed by ESPN id and lowercase name; {} on failure."""
     try:
         resp = requests.get(SLEEPER_PLAYERS_URL, timeout=timeout)
         resp.raise_for_status()
@@ -92,7 +59,7 @@ def fetch_sleeper_injury_status(timeout: int = 20) -> dict[str, dict[str, Any]]:
         if full_name:
             by_name[full_name] = entry
 
-    return {**by_name, **by_espn_id}  # espn_id keys win on collision
+    return {**by_name, **by_espn_id}
 
 
 def apply_sleeper_designation(
@@ -101,10 +68,7 @@ def apply_sleeper_designation(
     espn_id: Optional[str],
     sleeper_data: dict[str, dict[str, Any]],
 ) -> dict[str, Any]:
-    """Override the designation/riskLevel in news_flag with Sleeper's value,
-    keeping the existing summary text. If Sleeper has no entry for this player
-    the flag is returned unchanged. If Sleeper has a body_part and the flag
-    has no summary, uses body_part as a minimal summary."""
+    """Override a flag's designation/riskLevel with Sleeper's, keeping the summary."""
     entry = sleeper_data.get(str(espn_id) if espn_id else "") or sleeper_data.get(
         (player_name or "").lower().strip()
     )
@@ -118,12 +82,7 @@ def apply_sleeper_designation(
 
 
 def fetch_espn_news(limit: int = 50, timeout: int = 15) -> list[dict[str, Any]]:
-    """Fetch raw articles from ESPN's unofficial news endpoint. Returns []
-    on any failure (network error, non-200, non-JSON, unexpected shape) --
-    per the source doc's "degrade gracefully" instruction, a broken/changed
-    endpoint should never take down the report pipeline; it should just
-    mean no news layer for this run.
-    """
+    """Raw articles from ESPN's unofficial news endpoint; [] on any failure."""
     try:
         resp = requests.get(ESPN_NEWS_URL, params={"limit": limit}, timeout=timeout)
         resp.raise_for_status()
@@ -136,37 +95,13 @@ def fetch_espn_news(limit: int = 50, timeout: int = 15) -> list[dict[str, Any]]:
 
 
 def articles_for_player(articles: list[dict[str, Any]], player_name: str, player_espn_id: Optional[str] = None) -> list[dict[str, Any]]:
-    """Filter raw articles down to ones relevant to a given player.
-
-    Primary match: ESPN's response tags each article with a `categories`
-    list, and entries of type "athlete" carry that athlete's ESPN id
-    directly -- an exact match, no NLP needed, when player_espn_id is
-    available and present in the response.
-
-    Fallback: plain case-insensitive substring match on the player's name
-    against the headline/description, for when the id isn't available (not
-    every player has a resolved ESPN id in the crosswalk yet -- see
-    CLAUDE.md's player-ID crosswalk gap for rookies) or the categories
-    field is absent/differently shaped than expected. Substring matching on
-    a name is intentionally crude and will over-match common surnames --
-    acceptable here because the output still goes through per-player LLM
-    summarization, which will correctly report "no relevant news" for a
-    false-positive match rather than fabricate injury content.
-    """
+    """Articles relevant to a player: ESPN athlete id first, then full name."""
     if not player_name.strip() and player_espn_id is None:
-        # An empty/blank name with no id to fall back on would make every
-        # article match (empty string is a substring of everything) --
-        # treat this as "can't identify the player" rather than "matches
-        # all news."
+        # An empty name would match every article.
         return []
 
     matched = []
     name_lower = player_name.lower()
-    # News text commonly refers to a player by last name alone after a
-    # first mention (e.g. "McCaffrey limited in practice") -- matching
-    # only the full name would miss most real headlines. Last-name-only
-    # matching is deliberately crude (over-matches common surnames); see
-    # the docstring above for why that's an acceptable tradeoff here.
     for article in articles:
         categories = article.get("categories") or []
         id_hit = player_espn_id is not None and any(
@@ -180,26 +115,13 @@ def articles_for_player(articles: list[dict[str, Any]], player_name: str, player
         if not player_name.strip():
             continue
         text = f"{article.get('headline', '')} {article.get('description', '')}".lower()
-        # Full-name match only (not last-name-alone): last-name-only matching
-        # triggered LLM calls for every player sharing a common surname (Brown,
-        # Williams, Hill, etc.) against unrelated articles -- expensive with no
-        # quality benefit since the ESPN-ID primary match already covers exact
-        # hits. Full-name match misses "McCaffrey runs for 80" headlines but
-        # those are not injury/availability news we need to summarize anyway.
         if name_lower in text:
             matched.append(article)
     return matched
 
 
 def _validate_news_flag(candidate: dict[str, Any]) -> dict[str, Any]:
-    """Defensively coerce an LLM's JSON reply into a valid newsFlag, per the
-    closed enums in docs/specs/team-config-and-roster-status.md section
-    3.1. An LLM occasionally drifts from a requested enum (e.g. returns
-    "healthy" lowercase, or an explanatory sentence instead of one of the 5
-    values) -- falling back to the safe default here means a malformed
-    reply degrades to "no flag shown," never a broken/mismatched UI state
-    or a silently-wrong medical-sounding claim.
-    """
+    """Coerce an LLM reply into a valid newsFlag, defaulting on anything malformed."""
     designation = candidate.get("designation")
     risk_level = candidate.get("riskLevel")
     summary = candidate.get("summary")
@@ -214,8 +136,7 @@ def _validate_news_flag(candidate: dict[str, Any]) -> dict[str, Any]:
 
 
 def build_summary_prompt(player_name: str, articles: list[dict[str, Any]]) -> str:
-    """Pure prompt-building function, separated from the network/LLM call
-    so it's directly unit-testable without a live API key."""
+    """Build the summarization prompt (pure, so it is testable without a key)."""
     snippets = "\n\n".join(
         f"Headline: {a.get('headline', '')}\nText: {a.get('description', '')}"
         for a in articles
@@ -239,20 +160,9 @@ def build_summary_prompt(player_name: str, articles: list[dict[str, Any]]) -> st
 
 
 def _parse_json_object(raw_text: str) -> dict[str, Any]:
-    """Parse the model's reply into a dict, tolerating a markdown fence.
-
-    Models routinely wrap JSON in ```json ... ``` even when told not to, and
-    a bare json.loads() on that raises. That failure used to be swallowed by
-    summarize_player_news' except-block and degrade to DEFAULT_NEWS_FLAG, so a
-    100% failure rate looked exactly like "no newsworthy players" -- every LLM
-    summary in every report was silently empty until 2026-09-01.
-
-    Strips an optional fence, then falls back to the outermost {...} span, so a
-    stray sentence around the object does not lose the whole response.
-    """
+    """Parse the model's reply into a dict, tolerating a markdown fence."""
     text = raw_text.strip()
     if text.startswith("```"):
-        # ```json\n{...}\n```  ->  {...}
         text = text.split("\n", 1)[1] if "\n" in text else text[3:]
         if text.rstrip().endswith("```"):
             text = text.rstrip()[:-3]
@@ -266,9 +176,6 @@ def _parse_json_object(raw_text: str) -> dict[str, Any]:
         return json.loads(text[start : end + 1])
 
 
-# Reasons summarization degraded, appended to as it happens. A caller that
-# runs a whole pool should report len(SUMMARY_FAILURES) -- see the note in
-# summarize_player_news about why this exists.
 SUMMARY_FAILURES: list[str] = []
 
 
@@ -279,27 +186,7 @@ def summarize_player_news(
     store: Any = None,
     player_id: Optional[str] = None,
 ) -> dict[str, Any]:
-    """Summarize a player's relevant articles into a validated newsFlag.
-
-    Args:
-        client: any object exposing `.messages.create(...)` matching the
-            Anthropic SDK's shape (duck-typed deliberately, so tests can
-            pass a fake without the `anthropic` package installed).
-        store: optional backend.store.Store. When supplied together with
-            `player_id`, the summary is looked up by
-            `(player_id, sha256(prompt))` before the API call and written
-            after it. 167 of the 936 players in a week-1 fixture carry a
-            summary, so an unchanged article being free is most of a run's
-            LLM cost. Content-addressed on the PROMPT, not the article list,
-            because the prompt is what the model actually saw -- a change to
-            build_summary_prompt must invalidate the cache too.
-        player_id: the cache key's other half. Without it there is nothing
-            stable to key on, so the cache is skipped rather than guessed at.
-    Returns:
-        DEFAULT_NEWS_FLAG immediately if there are no relevant articles at
-        all -- an explicit "no news" case, not something to spend an LLM
-        call determining.
-    """
+    """Summarize a player's relevant articles into a validated newsFlag."""
     if not articles:
         return dict(DEFAULT_NEWS_FLAG)
 
@@ -312,9 +199,6 @@ def summarize_player_news(
 
             cache_key = content_hash(prompt, SUMMARY_MODEL)
             hit = store.get_news_summary(player_id, cache_key)
-            # The model check is belt-and-braces: SUMMARY_MODEL is already in
-            # the hash, so a model swap changes the key. Keeping it means a
-            # hand-written or migrated row cannot smuggle in a stale model.
             if hit and hit.get("model") == SUMMARY_MODEL:
                 return _validate_news_flag(
                     {
@@ -324,8 +208,6 @@ def summarize_player_news(
                     }
                 )
         except Exception:  # noqa: BLE001
-            # Same contract as everything else here: a store problem must not
-            # take down the report. Fall through to the live API call.
             cache_key = None
 
     try:
@@ -337,23 +219,12 @@ def summarize_player_news(
         raw_text = response.content[0].text
         candidate = _parse_json_object(raw_text)
     except Exception as exc:  # noqa: BLE001
-        # Covers API/network errors from the call itself (rate limit,
-        # timeout, auth) as well as a malformed/empty response shape --
-        # per this module's "never take down the report pipeline" contract,
-        # any failure here degrades to "no flag shown" for this player.
-        #
-        # But it is NOT silent any more. Swallowing this without a trace is
-        # what let every summarization fail for months while the pipeline
-        # reported success: a per-player degrade is only safe if someone can
-        # see how often it fires.
         SUMMARY_FAILURES.append(f"{player_name}: {type(exc).__name__}: {exc}")
         return dict(DEFAULT_NEWS_FLAG)
 
     flag = _validate_news_flag(candidate)
 
-    # Write back only on a real, validated summary. A degraded result is never
-    # cached: caching a failure would make one bad API call permanent, which is
-    # the opposite of the never-take-down-the-pipeline contract.
+    # Only cache a validated summary; a cached failure would be permanent.
     if cache_key and flag.get("summary"):
         try:
             store.put_news_summary(
@@ -367,9 +238,7 @@ def summarize_player_news(
 
 
 def build_anthropic_client():
-    """Real client factory -- separate function so tests never need to hit
-    this path. Requires ANTHROPIC_API_KEY in the environment and the
-    `anthropic` package (add to backend/requirements.txt, run locally)."""
-    import anthropic  # local import: optional dependency, only needed for real runs
+    """Real Anthropic client factory; needs ANTHROPIC_API_KEY."""
+    import anthropic
 
     return anthropic.Anthropic()

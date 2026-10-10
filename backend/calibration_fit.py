@@ -1,17 +1,4 @@
-"""
-Fits the calibration layer from real history, in one call.
-
-calibration.py holds the estimators and blend.py holds the model; this module
-is the adapter that gets real nflreadpy game logs into them and hands
-generate_report.py a ready-to-use bundle. Split out for the same reason every
-other `load_*` in this backend is: it needs the network, so it stays out of the
-pure, unit-tested modules.
-
-Everything here is fitted on COMPLETED PRIOR SEASONS only. That is the same
-walk-forward discipline projections.py follows, and it is what makes the
-resulting numbers honest -- a calibration fitted on the season being projected
-would flatter every metric the eval layer later reports.
-"""
+"""Fits the calibration layer from real history. See ARCHITECTURE.md §4."""
 
 from __future__ import annotations
 
@@ -25,10 +12,6 @@ from expected_td import (
     SNAP_SHARE_KEY,
 )
 
-# Blend features that come from expected_td.py rather than straight off an
-# nflreadpy row. NON_TD_POINTS_KEY / EXPECTED_TD_POINTS_KEY are not blend
-# features at all -- they feed projections._estimator_series -- but they are
-# listed here so the enrichment pass is understood to own all three.
 OPPORTUNITY_COLUMNS = (NON_TD_POINTS_KEY, EXPECTED_TD_POINTS_KEY, SNAP_SHARE_KEY)
 import calibration as calibration_module
 from projections import DEFAULT_DECAY, DEFAULT_WINDOW, project_player
@@ -42,21 +25,7 @@ def load_game_logs(
     positions: tuple[str, ...] = POSITIONS,
     scoring_config: Optional[dict[str, Any]] = None,
 ):
-    """{player_id: [game, ...]} with league points already computed and the
-    volume columns carried through for blend.rolling_volume.
-
-    `scoring_config` enables the opportunity features (expected_td.py): the
-    TD/non-TD split is denominated in league points, so it cannot be built
-    without knowing what a touchdown is worth. Passing None leaves those
-    columns absent, which blend.py treats as its own state -- that is the
-    pre-2026-09-02 behaviour and is what --skip-blend effectively gets.
-
-    These three columns are NOT nflreadpy columns, so the generic
-    `record.get(column)` loop below cannot fill them; they need the explicit
-    enrichment pass at the end. Forgetting it would silently fit the blend with
-    all three permanently missing, which is a plausible-looking no-op rather
-    than an error -- the exact failure shape the v16 audit found three of.
-    """
+    """{player_id: [game]} with league points and the blend's volume columns."""
     import nflreadpy as nfl
 
     frame = nfl.load_player_stats(seasons=seasons)
@@ -75,7 +44,7 @@ def load_game_logs(
         )
         for column in blend_module.VOLUME_COLUMNS:
             if column in OPPORTUNITY_COLUMNS:
-                continue  # filled by the enrichment pass below, not a raw column
+                continue  # filled by the enrichment pass below
             line[column] = record.get(column)
         logs.setdefault(record["player_id"], []).append(line)
 
@@ -90,9 +59,6 @@ def load_game_logs(
                 scoring_config,
             )
         except Exception:
-            # Degrade to the volume-only feature set rather than failing the
-            # whole calibration fit -- same contract as every other optional
-            # layer in this pipeline.
             pass
     return logs
 
@@ -100,27 +66,7 @@ def load_game_logs(
 def dst_kicker_baselines(
     seasons: list[int], scoring_config: dict[str, Any]
 ) -> dict[str, float]:
-    """{"DST": mean, "K": mean} from completed prior seasons, under this
-    league's own scoring.
-
-    Why this exists: POSITIONS above covers QB/RB/WR/TE only, so D/ST and K
-    never received a positional baseline. That is invisible in mid-season --
-    they have game logs and the rolling average carries them -- but in week 1 of
-    a NEW season there are no logs at all, empirical-Bayes shrinkage weights the
-    (absent) sample at zero, and the projection collapses to the baseline. With
-    no baseline that is exactly 0.00, which is what every D/ST and every kicker
-    scored in the first 2026 week-1 run. Both leagues start one of each, so two
-    roster slots were unusable.
-
-    week1.py cannot cover this: it is a per-position ridge over prior-season
-    PLAYER production and has no D/ST or K features. A prior-season positional
-    mean is the honest fallback -- it is what "no information about this player
-    yet" actually implies, and it is what the other four positions already get.
-
-    Kickers come from load_player_stats() like any skill player. D/ST needs the
-    team-stats self-join in dst.py, which is why the two are computed here
-    together rather than folded into load_game_logs.
-    """
+    """{"DST": mean, "K": mean} from completed prior seasons, under this league's scoring."""
     import nflreadpy as nfl
 
     from dst import build_dst_game_logs
@@ -178,18 +124,13 @@ def _walk_forward_rows(
     game_context_by_week: Optional[dict[int, dict[str, dict[str, Any]]]] = None,
     weeks: range = range(1, 19),
 ) -> list[dict[str, Any]]:
-    """One row per player-week of `season`, each carrying the projection that
-    would have been made at the time plus the result that followed."""
+    """One row per player-week: the projection made at the time and the actual result."""
     week_list = list(weeks)
     season_logs = {
         p: [g for g in log if g["season"] in (season, season - 1)] for p, log in logs.items()
     }
     season_logs = {p: log for p, log in season_logs.items() if log}
 
-    # One baseline per position per week, over the whole population -- what
-    # empirical-Bayes shrinkage pulls toward at every sample size (the legacy
-    # thin/debut split existed only because the old rule shrank thin samples
-    # alone).
     baselines = baseline.positional_baselines_by_week(
         season_logs, scoring_config, season, week_list, window=window, population="all"
     )
@@ -235,17 +176,9 @@ def fit_from_history(
     decay: float = DEFAULT_DECAY,
     fit_blend: bool = True,
 ) -> dict[str, Any]:
-    """Fit every calibration piece on `seasons` and return the bundle
-    build_weekly_report_and_pool takes as keyword arguments.
-
-    Returns:
-        {"positional_baselines", "shrinkage_ks", "affines", "interval_model",
-         "blend_model"} -- each independently None/empty-safe, so a partial
-        failure degrades one piece rather than the whole layer.
-    """
+    """Fit every calibration piece on `seasons`; returns build_weekly_report_and_pool kwargs."""
     logs = load_game_logs(list(range(min(seasons) - 1, season)), scoring_config=scoring_config)
 
-    # Per-position k from the variance components, on the training seasons.
     points_by_position: dict[str, dict[str, list[float]]] = {}
     for player_id, log in logs.items():
         for game in log:
@@ -288,10 +221,6 @@ def fit_from_history(
     if fit_blend:
         blend_model = blend_module.BlendModel().fit(rows)
 
-    # Baselines for the CURRENT season are computed by the caller's own week
-    # loop; what this returns is the prior-seasons positional mean, used as the
-    # shrinkage target before the season has enough of its own data. Keyed by
-    # position, matching build_weekly_report_and_pool's parameter.
     positional_baselines: dict[str, float] = {}
     for position in {r.get("position") for r in rows if r.get("position")}:
         values = [r["actual_points"] for r in rows if r.get("position") == position]
@@ -307,15 +236,10 @@ def fit_from_history(
     )
 
     return {
-        # D/ST and K are not in POSITIONS, so they get their baseline from
-        # prior-season means instead -- without one they project 0.00 in a
-        # cold-start week 1. See dst_kicker_baselines.
         "positional_baselines": {
             **positional_baselines,
             **dst_kicker_baselines(seasons, scoring_config),
         },
-        # Resolved per PLAYER by the caller's loop, but k is a per-position
-        # quantity -- expose the position map and let the caller key it.
         "shrinkage_ks": _by_player(logs, k_by_position),
         "affines": _by_player(logs, affines),
         "interval_model": interval_model,
@@ -324,8 +248,7 @@ def fit_from_history(
 
 
 def _by_player(logs: dict[str, list[dict[str, Any]]], by_position: dict[str, Any]) -> dict[str, Any]:
-    """Fan a {position: value} map out to {player_id: value}, which is the
-    shape project_player's batch parameters take."""
+    """Fan a {position: value} map out to {player_id: value}."""
     out: dict[str, Any] = {}
     for player_id, log in logs.items():
         position = next((g.get("position") for g in log if g.get("position")), None)
@@ -335,9 +258,7 @@ def _by_player(logs: dict[str, list[dict[str, Any]]], by_position: dict[str, Any
 
 
 def _load_context(seasons: list[int]) -> dict[int, dict[int, dict[str, dict[str, Any]]]]:
-    """{season: {week: {team: context}}} for the training seasons. Returns an
-    empty map on any failure -- the blend then trains without game context,
-    which is a weaker model but not a broken one."""
+    """{season: {week: {team: context}}} for the training seasons, or {} on failure."""
     try:
         import nflreadpy as nfl
 

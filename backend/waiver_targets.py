@@ -1,56 +1,13 @@
-"""
-Waiver-target selection + rationale generation.
-
-Closes gap #3 in docs/design/backend-frontend-integration-plan.md's data
-contract mapping: `getWeeklyReport()`'s `waiverTargets[]` needs both a
-selection rule (which players get surfaced) and a free-text `rationale`
-per player. The plan's suggested build order explicitly allows shipping a
-"simple templated rationale" ahead of any LLM-generated version -- that's
-what this module does: fully deterministic, no LLM call, no network.
-
-No real roster-ownership-% data source exists anywhere in this project
-(see CLAUDE.md's Data Sources table -- nothing there covers who-owns-whom
-in the builder's actual league), so "waiver-eligible" here is a simple
-in-house proxy, not a real ownership check: assume the top
-DEFAULT_ROSTERED_RANK_CUTOFF[position] players at each position (by this
-week's projected points) are already rostered somewhere across a 14-team
-league, and only surface players ranked below that cutoff. This is a
-stated v1 simplification, not a claim of real ownership data.
-
-Operates on plain "candidate" dicts (playerId/name/position/team/opponent/
-points/games_used/confidence/per_game_points/news_flag) -- the internal
-per-player projection shape, not the frontend's nested `projection`
-object. generate_report.py assembles the final WeeklyReport waiverTargets[]
-entries (nesting `points` etc. under `projection`, per api.js's contract)
-from what this module selects and writes as `rationale`.
-"""
+"""Waiver-target selection and templated rationale. See ARCHITECTURE.md §10."""
 
 from __future__ import annotations
 
 from typing import Any, Optional
 
-# A 14-team league (CLAUDE.md's league size) with standard-ish depth: assume
-# roughly this many players per position are rostered somewhere already.
-# Deliberately generous (skips more than a literal 14-team QB1 count would)
-# since flex/bench/handcuff rostering pushes real depth further down the
-# position list than starters alone would suggest.
-#
-# DST/K added 2026-08-12 when wiring those two positions into the pool for
-# the first time (CLAUDE.md Next Steps item 3) surfaced the same failure
-# mode raw-points ranking already caused for QB (module docstring above):
-# with no cutoff entry, every one of the league's 32 DSTs (or ~30 rostered
-# kickers) is "waiver eligible," and DST/K's placeholder-config point
-# totals are competitive enough with thin skill-position totals that a
-# real 2025-week-10 run produced a waiver list of DST/K/DST -- not a
-# useful "waiver wire" recommendation for two single-start positions.
-# 14 mirrors QB/TE's cutoff (this league also starts exactly one DST and
-# one K per roster, same as QB/TE -- see frontend/public/mock/roster-slots.json).
 DEFAULT_ROSTERED_RANK_CUTOFF: dict[str, int] = {"QB": 14, "RB": 30, "WR": 30, "TE": 14, "DST": 14, "K": 14}
 
 DEFAULT_TOP_N = 3
 
-# Designations a waiver suggestion shouldn't surface -- adding a player who
-# is confirmed not playing this week isn't an actionable recommendation.
 EXCLUDED_DESIGNATIONS = {"Out", "IR", "Doubtful"}
 
 
@@ -58,22 +15,7 @@ def waiver_eligible_candidates(
     candidates: list[dict[str, Any]],
     rostered_rank_cutoff: dict[str, int] = DEFAULT_ROSTERED_RANK_CUTOFF,
 ) -> list[dict[str, Any]]:
-    """Filter a full candidate pool down to plausibly-available players:
-    drop anyone ruled out/doubtful/on IR this week, then drop the top
-    `rostered_rank_cutoff[position]` remaining players at each position by
-    projected points (assumed already rostered). Positions with no cutoff
-    entry use every candidate (nothing dropped for "assumed rostered").
-
-    Each surviving candidate gets an added `replacement_surplus` key:
-    its points minus the last *rostered* (cutoff-th ranked) player's
-    points at the same position. This league's 6-point passing TDs put
-    QB's raw point scale well above every other position -- ranking
-    waiver targets on raw points alone surfaced nothing but backup QBs in
-    testing against real 2025 data, which isn't a useful "waiver wire"
-    recommendation. Surplus-over-replacement is comparable across
-    positions the way raw points aren't. `select_waiver_targets` ranks on
-    this field, not `points`.
-    """
+    """Drop unavailable and assumed-rostered players; add replacement_surplus."""
     available = [
         c
         for c in candidates
@@ -97,10 +39,7 @@ def waiver_eligible_candidates(
 
 
 def describe_trend(per_game_points: list[float]) -> Optional[str]:
-    """Compare the most recent game to the average of the games before it.
-    Needs at least 2 games to say anything -- with 0 or 1 games played
-    there's no "before" to compare against, so trend is unknown (None),
-    not "flat" (flat is a real signal: production held steady)."""
+    """Last game vs the average before it; None with fewer than two games."""
     if len(per_game_points) < 2:
         return None
     latest = per_game_points[-1]
@@ -119,17 +58,9 @@ def select_waiver_targets(
     top_n: int = DEFAULT_TOP_N,
     rostered_rank_cutoff: dict[str, int] = DEFAULT_ROSTERED_RANK_CUTOFF,
 ) -> list[dict[str, Any]]:
-    """The main entry point: eligible candidates, ranked by
-    points-above-replacement across all positions (see
-    waiver_eligible_candidates' docstring for why raw points isn't
-    cross-position comparable), top `top_n` overall -- not per-position,
-    since a report only has room to surface a handful of waiver ideas and
-    the strongest overall plays are more useful there than a forced
-    one-per-position spread."""
+    """Top `top_n` eligible candidates by surplus over replacement, all positions."""
     eligible = waiver_eligible_candidates(candidates, rostered_rank_cutoff)
     ranked = sorted(eligible, key=lambda c: c["replacement_surplus"], reverse=True)
-    # Strip the internal ranking key before returning -- callers get back
-    # candidates in the same shape they were passed in.
     return [{k: v for k, v in c.items() if k != "replacement_surplus"} for c in ranked[:top_n]]
 
 
@@ -137,17 +68,7 @@ def generate_rationale(
     candidate: dict[str, Any],
     rz_stats: Optional[dict[str, Any]] = None,
 ) -> str:
-    """Deterministic, templated one-sentence rationale -- no LLM call (see
-    module docstring). Branches on confidence/trend rather than being a
-    single fill-in-the-blank template, so the handful of surfaced targets
-    don't all read identically.
-
-    rz_stats: optional dict from rotowire.compute_player_rz_stats with keys
-        "rz_touches_per_game" and "tprr_recent". When present and above the
-        signal thresholds defined in rotowire.py, a second sentence is appended
-        flagging the red zone or target-rate signal so the reader knows *why*
-        this player has TD upside beyond what the points projection captures.
-    """
+    """Deterministic one-sentence rationale, with an optional Rotowire note."""
     from rotowire import MIN_RZ_TOUCHES_FOR_NOTE, MIN_TPRR_FOR_NOTE
 
     name = candidate["name"]
@@ -180,10 +101,6 @@ def generate_rationale(
             f"a solid depth add off the wire."
         )
 
-    # Rotowire red zone / route-efficiency annotation (appended after the
-    # points-trend sentence so it reads as a supporting data point, not the
-    # lead). Only one note is appended even when both signals are present --
-    # goal-line touches take priority since they're more directly tied to TDs.
     if rz_stats:
         rz = rz_stats.get("rz_touches_per_game")
         tprr = rz_stats.get("tprr_recent")
