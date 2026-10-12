@@ -1,0 +1,189 @@
+{
+  "slug": "2026-10-12-mon",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 5,
+  "kind": "monday",
+  "generatedAt": "2026-10-12T06:30:00Z",
+  "runUrl": "https://claude.ai/code/session_01WTPWM8cFJijmTfXeJ9kTdb",
+  "source": {
+    "label": "Committed fixture weekly-report-week-5.json (FantasyPros consensus + ESPN injuries, generated 2026-10-06), carried through Saturday's live-overlay briefing, + live nflreadpy.load_injuries(2026) Week 5 (now complete, 361 rows, all 32 teams) + load_player_stats/load_team_stats(2026) actual box scores for the 14 of 15 Week 5 games already final",
+    "asOf": "2026-10-06T16:07:10Z",
+    "isLive": true,
+    "note": "season_week.load_current_week_nflreadpy(2026) returns Week 5, cross-checked against load_schedules(2026): 14 of 15 Week 5 games are final; only LA@BUF (tonight, Mon 10/12 8:15pm ET) remains, and it is this roster's own starting QB -- Matthew Stafford plays for the Rams. No live source in this sandbox can re-project an already-played game, so the lineup table below carries Saturday's final-call numbers (which already carried the live Friday-practice overlay) unchanged for the nine decided slots; actual results are added in the reason field and the Results-so-far section as confirmation, not as a basis for projecting anything further. Stafford's own row is unchanged from Saturday (Healthy, no LAR injury-report entry) -- checked fresh against today's load_injuries(2026), still no row for him."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "position": "QB",
+      "opponent": "vs BUF (Mon 10/12, 8:15pm ET -- not yet played)",
+      "expectedPoints": 17.95,
+      "conditionalPoints": 18.59,
+      "playProbability": 0.9655,
+      "designation": "Healthy",
+      "reason": "The only slot left to decide. Still no LAR injury-report row at all, checked fresh this morning. BUF's Ed Oliver (DE) is Out -- see opponent notes. Automatic start over bench Shough (1.84 actual last night, 2 INT); nothing changes the 10/8 call."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "@PIT -- FINAL, PIT 34-22",
+      "expectedPoints": 17.88,
+      "conditionalPoints": 18.41,
+      "playProbability": 0.9712,
+      "designation": "Healthy",
+      "reason": "Already played: 15 carries for 45 yards, 3 catches for 37, no TD -- a quiet game relative to projection in a loss. Locked in, nothing to decide."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "@DAL -- FINAL, TB 24-16",
+      "expectedPoints": 13.73,
+      "conditionalPoints": 14.54,
+      "playProbability": 0.945,
+      "designation": "Healthy",
+      "reason": "Already played (Thursday): 165 rush yards, a rushing TD and a receiving TD, 31.5 actual points -- more than double the projection. The single best performance on the roster this week."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "vs SF -- FINAL, SF 32-29",
+      "expectedPoints": 23.31,
+      "conditionalPoints": 23.76,
+      "playProbability": 0.981,
+      "designation": "Healthy",
+      "reason": "Already played: 5 catches for 102 yards and a TD, plus a 16-yard rush -- 22.8 actual, right on the projection. Highest single pregame number on the roster, delivered."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "vs BAL -- FINAL, BAL 30-23",
+      "expectedPoints": 16.40,
+      "conditionalPoints": 17.02,
+      "playProbability": 0.9635,
+      "designation": "Healthy",
+      "reason": "Already played: 7 catches for 118 yards, 18.8 actual -- over projection in a loss. Clear No. 2 WR, no decision."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "position": "TE",
+      "opponent": "@ARI -- FINAL, DET 45-21",
+      "expectedPoints": 12.60,
+      "conditionalPoints": 13.39,
+      "playProbability": 0.9413,
+      "designation": "Healthy",
+      "reason": "Already played: 5 catches for 88 yards and a TD, 19.8 actual -- over projection in a blowout win. First week at TE since the 10/8 trade for him; held comfortably."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "@ARI -- FINAL, DET 45-21",
+      "expectedPoints": 11.31,
+      "conditionalPoints": 11.74,
+      "playProbability": 0.9635,
+      "designation": "Healthy",
+      "reason": "Already played: 2 catches for 47 yards and 2 TD, 18.7 actual -- well over the thin edge that held him in this slot over bench Likely/Skattebo. Vindicated this week."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "@MIA -- FINAL, CIN 31-24 win",
+      "expectedPoints": 14.43,
+      "conditionalPoints": 15.45,
+      "playProbability": 0.9336,
+      "designation": "Questionable",
+      "reason": "Already played: Full Participation Friday cleared him to start, but the game itself was quiet -- 2 catches for 22 yards, 4.2 actual, well under projection in a win. Groin held up; production didn't. See Results so far."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0041145",
+      "name": "Dominic Zvada",
+      "position": "K",
+      "opponent": "@WAS -- FINAL, 27-27 tie",
+      "expectedPoints": 8.10,
+      "conditionalPoints": 8.22,
+      "playProbability": 0.9844,
+      "designation": "Healthy",
+      "reason": "Already played: 2 made field goals from 50+, 3 PATs, but also 3 misses (incl. two from 50-59) -- 10.0 actual, close to projection, in a wild 27-27 tie. No decision."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "JAX",
+      "name": "Jaguars D/ST",
+      "position": "DST",
+      "opponent": "vs PHI -- FINAL, JAX 19-17 win",
+      "expectedPoints": 9.47,
+      "conditionalPoints": 9.47,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Already played: 1 sack, 0 takeaways, allowed 17 -- 2.0 actual, far under the 9.47 projected on paper's best matchup (PHI missing Barkley and D. Smith). The takeaways just didn't come; still the only rostered DEF, no decision."
+    }
+  ],
+  "lineupTotal": 145.18,
+  "changes": [],
+  "watchList": [
+    {
+      "playerId": null,
+      "name": "Week 6 bye collision",
+      "why": "Tee Higgins (CIN), Sam LaPorta and Jameson Williams (both DET) all bye Week 6 -- the starting TE and both current FLEX bodies out the same week, with only Jalen Coker (WR) and Isaiah Likely (TE) left on the bench to cover three vacated starting spots. That leaves zero bench depth once Likely slides into TE. This is the last Monday before the Week 6 waiver deadline -- get a claim in before Wednesday 10/14.",
+      "newsDue": "by 2026-10-14 (Wed waiver deadline)"
+    },
+    {
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "why": "Bench TE: 11 catches on an uncounted target total, 94 yards, 2 TD -- 32.4 actual, more than double LaPorta's own 19.8 in the same high-scoring NYG-WAS tie. One week is noise and he still sits behind LaPorta on this roster, but he's the Week 6 bye-week answer at TE already on the bench -- don't let a waiver claim overlook that he solves his own hole.",
+      "newsDue": null
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0026498",
+      "text": "Tonight's BUF defense is missing Ed Oliver (DE, Out) and Josh Palmer (WR, Out, doesn't affect Stafford directly) from their own injury report -- one fewer interior pass rusher is a mild tailwind for the Rams' protection and Stafford's clean-pocket time."
+    },
+    {
+      "playerId": "JAX",
+      "text": "The Jaguars D/ST matchup (PHI missing Barkley and D. Smith) looked like the best on the roster and still produced the roster's lowest score -- a reminder that a strong matchup raises the expected outcome, not the floor; no single takeaway-less week should change how this matchup gets read going forward."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 6,
+      "players": [
+        "Tee Higgins",
+        "Sam LaPorta",
+        "Jameson Williams"
+      ]
+    },
+    {
+      "week": 7,
+      "players": [
+        "Jaguars D/ST"
+      ]
+    }
+  ],
+  "caveats": [
+    "Ten starters total 145.18 expected (pregame) points -- at the high end of the 100-140 sanity band, same total as Saturday's briefing since nothing in the lineup changed and no live source can re-project an already-played game. The actual results mostly confirmed or exceeded it (Irving 31.5, JSN 22.8, London 18.8, LaPorta 19.8, Jameson Williams 18.7), with Higgins (4.2) and the Jaguars D/ST (2.0) the two real misses -- not a pipeline problem, ordinary week-to-week variance on both sides.",
+    "Every pregame number in the table is carried unchanged from Saturday's briefing (2026-10-10-sat), which already matched the committed fixture's conditionalPoints with no >30% discrepancy flagged; nothing new to recompute today since nine of ten games are final and the tenth (Stafford, tonight) has no injury-report change.",
+    "No lineup changes since Saturday -- the owner made no moves, so `changes` is empty by design, not an oversight.",
+    "Bucky Irving's and the Jaguars D/ST's games were decided days ago (Thursday and Sunday morning London kickoff respectively); shown here with pregame numbers for table consistency, with actual results in the reason field.",
+    "Jaxson Dart remains on IR (season-ending knee) and was not evaluated for the lineup.",
+    "Waiver-target names in the committed fixture for this week are kicker-only (Szmyt, Ryland, Loop, all ~8.0 pts) and don't address the Week 6 WR/TE bye collision -- this sandbox has no FantasyPros/Rotowire access and no visibility into the other 7 rosters in this league, so no ranked WR/TE waiver board can be produced here; check the actual league's free-agent pool directly before Wednesday.",
+    "Week 8 is a second, larger bye cluster worth planning for now even though it's outside this run's two-week window: Zvada, Skattebo, Likely and IR'd Dart are all NYG, and bench QB Shough (NO) byes the same week."
+  ],
+  "markdown": "# Week 5 Monday Briefing — league-2 (Intuitech Fantasy)\n\n**The week is effectively closed.** 14 of 15 Week 5 games are final. The only game left is tonight's LA @ BUF (Mon 10/12, 8:15pm ET) -- and it's this roster's own starting QB, Matthew Stafford, who plays for the Rams. Everything else below is confirmation, not a decision.\n\n## Source and freshness\n\nPrimary source: the committed `weekly-report-week-5.json` fixture (FantasyPros consensus + ESPN injuries, generated 2026-10-06T16:07:10Z), carried through Saturday's final-call briefing (2026-10-10-sat), which already applied a live Friday-practice overlay. Live `nflreadpy.load_injuries(2026)` for Week 5 is now complete (361 rows, all 32 teams). `load_player_stats`/`load_team_stats` give actual box scores for the 14 of 15 games already final. `season_week.load_current_week_nflreadpy(2026)` confirms Week 5. No live source in this sandbox can re-project an already-played game, so the lineup table carries Saturday's numbers unchanged; actual results are added as confirmation only. Stafford himself has no LAR injury-report row, checked fresh this morning -- unchanged from Saturday.\n\n## Start these ten (Week 5, effectively locked)\n\n| Slot | Player | Opp | Expected | P(play) | If he plays | Actual |\n|---|---|---|---|---|---|---|\n| QB | Matthew Stafford | vs BUF (tonight) | 17.95 | 96.6% | 18.59 | pending |\n| RB | Jonathan Taylor | @PIT -- FINAL (PIT 34-22) | 17.88 | 97.1% | 18.41 | 11.2 |\n| RB | Bucky Irving | @DAL -- FINAL (TB 24-16) | 13.73 | 94.5% | 14.54 | **31.5** |\n| WR | Jaxon Smith-Njigba | vs SF -- FINAL (SF 32-29) | 23.31 | 98.1% | 23.76 | 22.8 |\n| WR | Drake London | vs BAL -- FINAL (BAL 30-23) | 16.40 | 96.4% | 17.02 | 18.8 |\n| TE | Sam LaPorta | @ARI -- FINAL (DET 45-21) | 12.60 | 94.1% | 13.39 | 19.8 |\n| FLEX | Jameson Williams | @ARI -- FINAL (DET 45-21) | 11.31 | 96.4% | 11.74 | 18.7 |\n| FLEX | Tee Higgins (Q) | @MIA -- FINAL (CIN 31-24) | 14.43 | 93.4% | 15.45 | 4.2 |\n| K | Dominic Zvada | @WAS -- FINAL (27-27 tie) | 8.10 | 98.4% | 8.22 | 10.0 |\n| DEF | Jaguars D/ST | vs PHI -- FINAL (JAX 19-17) | 9.47 | 100% | 9.47 | 2.0 |\n| **Total (pregame)** | | | **145.18** | | | |\n\nBench: Tyler Shough (QB, played Sunday, 1.84 actual on 2 INTs), Isaiah Likely (TE, 32.4 actual -- see Watch list), Cam Skattebo (RB, 7.1 actual, fumble lost), TreVeyon Henderson (RB, 4.8 actual), Jalen Coker (WR, bye Week 5, did not play). IR: Jaxson Dart (season-ending knee).\n\n## Results so far (context, not a decision)\n\n- **Irving: 31.5 actual** -- 165 rush yards plus a rushing and a receiving TD, more than double his 14.54 if-he-plays number. The best performance on the roster this week.\n- **Smith-Njigba: 22.8** -- 5 catches for 102 and a TD plus a 16-yard rush, essentially on projection.\n- **London: 18.8** -- 7 catches for 118, over projection in a loss.\n- **LaPorta: 19.8** -- 5 catches for 88 and a TD in his first week at TE since the 10/8 trade; over projection.\n- **Jameson Williams: 18.7** -- only 2 catches, but both went for touchdowns (47 yards); the thin edge that kept him over Likely/Skattebo paid off.\n- **Higgins: 4.2** -- cleared Friday's practice report fine (groin held up), but just 2 catches for 22 yards; the week's clearest miss.\n- **Zvada: 10.0** -- 2 made 50+ yard field goals and 3 PATs, offset by 3 misses, in a wild 27-27 NYG-WAS tie.\n- **Jaguars D/ST: 2.0** -- 1 sack, no takeaways, allowed 17 to a PHI offense missing Barkley and D. Smith. The best matchup on the roster on paper produced the lowest score -- see Opponent notes.\n- **Taylor: 11.2** -- 45 rush yards, 37 receiving, no TD; quiet relative to projection in a loss.\n- **Bench Isaiah Likely: 32.4** -- 11 catches, 94 yards, 2 TD, more than double starter LaPorta's output in the same game. See Watch list.\n\n## Changes since Saturday\n\nNone. No trades or lineup moves since the 2026-10-10 briefing; the lineup above is identical to Saturday's.\n\n## Watch list\n\n- **Week 6 bye collision** -- Higgins (CIN), LaPorta and Jameson Williams (both DET) all bye the same week. That's the starting TE and both current FLEX bodies gone at once, with only Coker (WR) and Likely (TE) left on the bench to cover three vacated spots -- zero bench depth left over once Likely slides into TE. **This is the last Monday before the Wednesday 10/14 waiver deadline.**\n- **Isaiah Likely** -- his 32.4-point week (11 catches, 2 TD) more than doubled LaPorta's own good game at the same position. One week is noise, but he's already the bench answer for Week 6's TE bye -- worth remembering before spending a waiver claim on a TE the roster doesn't need.\n\n## Opponent notes\n\n- **Tonight's BUF defense is without Ed Oliver (DE, Out)** -- one fewer interior pass rusher, a mild tailwind for Stafford's protection.\n- **The Jaguars D/ST's matchup (PHI without Barkley and D. Smith) looked like the roster's best and still only returned 2.0 points** -- a reminder that a strong matchup raises the expected outcome, not the floor. No change to how future matchups like this should be read.\n\n## Byes ahead (next two weeks)\n\n- **Week 6:** Tee Higgins (CIN), Sam LaPorta (DET), Jameson Williams (DET) -- three starting-caliber bodies at once. Needs a waiver add before Wednesday.\n- **Week 7:** Jaguars D/ST (JAX) -- only rostered DEF, needs a one-week streaming add.\n- *(Outside the window, but coming right behind: Week 8 byes Zvada, Skattebo, Likely and IR'd Dart, all NYG, plus bench QB Shough's NO bye the same week.)*\n\n## Caveats\n\n- Lineup total (145.18, pregame) sits at the high end of the normal band, unchanged from Saturday since nothing moved and nine of ten games are already final -- actual results mostly confirmed it (several players well over projection), with Higgins and the Jaguars D/ST the two real misses. Ordinary variance, not a pipeline problem.\n- No live source in this sandbox can re-project an already-played game, so every pregame number above is carried from Saturday's briefing unchanged; that briefing already matched the fixture's own `conditionalPoints` with no >30% discrepancy.\n- Waiver names in the committed fixture are kicker-only this week and don't address the Week 6 WR/TE crunch -- no FantasyPros/Rotowire access and no view of the other 7 rosters in this sandbox, so check the league's actual free-agent pool directly before Wednesday.\n- Jaxson Dart remains on IR (season-ending knee), not evaluated for the lineup.\n"
+}

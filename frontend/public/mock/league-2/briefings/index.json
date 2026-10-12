@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-12-mon",
+      "kind": "monday",
+      "generatedAt": "2026-10-12T06:30:00Z",
+      "week": 5,
+      "lineupTotal": 145.18,
+      "changeSummary": "Week 5 is effectively closed -- 14 of 15 games final, only tonight's LA@BUF remains, featuring this roster's own Stafford at QB (no BUF injury-report row for him; BUF's Ed Oliver is Out). No lineup changes since Saturday. Actual results mostly confirmed or beat the projections -- Irving's Thursday game alone went 31.5 actual on 165 rush yards and two TDs -- with Tee Higgins (4.2 actual on a cleared groin) and the Jaguars D/ST (2.0 on paper's best matchup, PHI missing Barkley/D. Smith) the two real misses. Bench Isaiah Likely doubled starter LaPorta's TE output (32.4 vs 19.8) in the same game, worth remembering as the Week 6 TE-bye answer already on the roster. Restated the severe Week 6 bye collision (Higgins, LaPorta, Jameson Williams) with the Wednesday 10/14 waiver deadline now two days out.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-10-10-sat",
       "kind": "saturday",
       "generatedAt": "2026-10-10T06:23:15Z",
