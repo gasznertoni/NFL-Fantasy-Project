@@ -1,0 +1,227 @@
+{
+  "slug": "2026-10-14-wed",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 6,
+  "kind": "wednesday",
+  "generatedAt": "2026-10-14T20:12:07Z",
+  "runUrl": "https://claude.ai/code/session_01NTUFvq4o9ESqTyGjgawmko",
+  "source": {
+    "label": "Committed fixture weekly-report-week-6.json (FantasyPros consensus + ESPN injuries) + live nflreadpy.load_injuries(2026) Week 6 practice-report overlay",
+    "asOf": "2026-10-13T17:11:02Z",
+    "isLive": false,
+    "note": "The fixture is current -- generated 2026-10-13T17:11:02Z, after Week 5's Monday-night finale (LA@BUF, 10/12-13) and before Week 6's first kickoff (Thu 10/15) -- so no independent recompute was needed; season_week.load_current_week_nflreadpy(2026) independently confirms Week 6. Pulled live nflreadpy.load_injuries(2026) for Week 6 anyway, since this is the Wednesday practice-report run: only 15 rows filed, covering DEN and SEA (tonight's Thursday game) -- the only team on this roster that has filed is SEA (Jaxon Smith-Njigba). LAR, IND, TB, ATL, NYG, NE, CAR and JAX -- every other team carrying a rostered player -- have not filed yet."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "position": "QB",
+      "opponent": "vs ARI (Sun 10/18, 4:05pm ET)",
+      "expectedPoints": 21.42,
+      "conditionalPoints": 22.13,
+      "playProbability": 0.968,
+      "designation": "Healthy",
+      "reason": "Clear best QB on the roster (bench Shough 15.95); automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "vs TEN (Sun 10/18, 1:00pm ET)",
+      "expectedPoints": 20.19,
+      "conditionalPoints": 21.29,
+      "playProbability": 0.949,
+      "designation": "Healthy",
+      "reason": "Highest projection on the whole roster; automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "vs PIT (Sun 10/18, 1:00pm ET)",
+      "expectedPoints": 14.24,
+      "conditionalPoints": 15.02,
+      "playProbability": 0.949,
+      "designation": "Healthy",
+      "reason": "Clear RB2; automatic start."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "@DEN (Thu 10/15, 8:15pm ET)",
+      "expectedPoints": 18.65,
+      "conditionalPoints": 20.91,
+      "playProbability": 0.892,
+      "designation": "Questionable",
+      "practice": "Limited",
+      "reason": "Questionable (ankle), Limited practice Wednesday per live nflreadpy -- the fitted model's 0.892 is already above the generic Limited-bucket average (~0.702), consistent with a low-grade issue. Still clears every other option by a wide margin. First game of the week -- locks tonight with no further practice reports coming."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "vs CHI (Sun 10/18, 1:00pm ET)",
+      "expectedPoints": 17.4,
+      "conditionalPoints": 18.02,
+      "playProbability": 0.965,
+      "designation": "Healthy",
+      "reason": "Clear WR2; automatic start."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "vs NO (Sun 10/18, 1:00pm ET)",
+      "expectedPoints": 12.4,
+      "conditionalPoints": 13.14,
+      "playProbability": 0.944,
+      "designation": "Healthy",
+      "reason": "Forced in: starting TE Sam LaPorta is on DET's Week 6 bye. Likely is the only other rostered TE. Same Giants game as the FLEX1 start below -- see opponent notes."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "vs NO (Sun 10/18, 1:00pm ET)",
+      "expectedPoints": 11.71,
+      "conditionalPoints": 12.35,
+      "playProbability": 0.949,
+      "designation": "Healthy",
+      "reason": "Forced in: Jameson Williams is on DET's Week 6 bye. Skattebo is the only clean (non-Out) bench body available for either vacated FLEX slot."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0039491",
+      "name": "Jalen Coker",
+      "position": "WR",
+      "opponent": "@PHI (Sun 10/18, 1:00pm ET)",
+      "expectedPoints": 9.39,
+      "conditionalPoints": 11.52,
+      "playProbability": 0.815,
+      "designation": "Out",
+      "reason": "Last body standing, not a real start. Tee Higgins is on CIN's Week 6 bye and the only other bench option, TreVeyon Henderson, is Out at 3.3% P(play). Coker is also tagged Out (quadriceps) and Carolina has not filed a Week 6 report -- the fixture's own 0.815 P(play) next to that Out tag is internally inconsistent (compare Henderson's Out row at 0.033) and should not be trusted at face value; see caveats. He is on CAR's active roster, not injured reserve, as of this run. Start him over Henderson only because Henderson's number is unambiguous and worse. A waiver-wire replacement should supersede this pick before Sunday if one is added."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0041145",
+      "name": "Dominic Zvada",
+      "position": "K",
+      "opponent": "vs NO (Sun 10/18, 1:00pm ET)",
+      "expectedPoints": 8.14,
+      "conditionalPoints": 8.27,
+      "playProbability": 0.984,
+      "designation": "Healthy",
+      "reason": "Only rostered kicker; automatic start."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "JAX",
+      "name": "Jaguars D/ST",
+      "position": "DST",
+      "opponent": "vs HOU (Sun 10/18, 9:30am ET, London)",
+      "expectedPoints": 8.04,
+      "conditionalPoints": 8.04,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Only rostered D/ST; automatic start. Earliest lock of the weekend (London game)."
+    }
+  ],
+  "lineupTotal": 141.58,
+  "changes": [
+    {
+      "action": "start",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "replacing": "Sam LaPorta",
+      "reason": "LaPorta is on DET's Week 6 bye; Likely is the only other rostered TE."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "replacing": "Jameson Williams",
+      "reason": "Williams is on DET's Week 6 bye; Skattebo is the only clean bench replacement for either vacated FLEX."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0039491",
+      "name": "Jalen Coker",
+      "replacing": "Tee Higgins",
+      "deltaExpectedPoints": -4.27,
+      "reason": "Higgins is on CIN's Week 6 bye. Coker is the only remaining bench body for the second FLEX, despite his own Out/quadriceps tag -- a real downgrade from Higgins, not a like-for-like swap. See caveats."
+    },
+    {
+      "action": "bench",
+      "playerId": "00-0040734",
+      "name": "TreVeyon Henderson",
+      "reason": "Out, ankle, P(play) 3.3% -- not a viable play regardless of the FLEX vacancy it would otherwise fill."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0039491",
+      "name": "Jalen Coker",
+      "why": "Starting by default at FLEX2 with no healthy alternative on the roster. Tagged Out (quadriceps) with no Week 6 CAR practice report yet; fixture's 0.815 P(play) looks inconsistent with that tag. Confirmed via live nflreadpy.load_rosters(2026) that he is on Carolina's active roster, not IR, as of this run -- real chance he plays, real chance he doesn't.",
+      "newsDue": "CAR practice reports expected Thu-Fri 10/15-10/16; final designation Friday"
+    },
+    {
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "why": "Questionable (ankle), Limited practice Wednesday. Locks tonight (Thursday @DEN) -- no further practice data will arrive before kickoff. The fitted 0.892 P(play) is the number to trust; already baked into his 18.65 expected points above.",
+      "newsDue": "Pregame inactives, tonight"
+    },
+    {
+      "playerId": null,
+      "name": "Week 6 practice reports, league-wide",
+      "why": "Only DEN and SEA have filed so far (15 rows, tonight's Thursday game). LAR, IND, TB, ATL, NYG, NE, CAR and JAX -- every other team with a rostered player -- have not filed. Re-check Thursday night and again Friday for the Sunday-game players.",
+      "newsDue": "2026-10-15 / 2026-10-16"
+    },
+    {
+      "playerId": null,
+      "name": "Roster depth at WR/FLEX",
+      "why": "With Jameson Williams and Tee Higgins both on bye and Henderson/Coker both injured, this roster has zero clean bench bodies left at WR/RB/TE. Today, 2026-10-14, was already flagged in the 2026-10-07 and 2026-10-12 briefings as the waiver deadline to cover this exact Week 6 hole -- an add is still needed, this report cannot make one.",
+      "newsDue": "Before Sunday 10/18 kickoffs"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "text": "NYG @ home vs NO (Sun 1:00pm ET) is now a THREE-player stack on this roster: Isaiah Likely (starting TE), Cam Skattebo (starting FLEX) and Dominic Zvada (starting K) are all Giants. One bad NYG game script costs three of the ten starting slots simultaneously -- the stack risk flagged in prior weeks for Likely/Skattebo has grown by one with Zvada's add."
+    },
+    {
+      "text": "Jaguars D/ST plays the early London game vs HOU (Sun 9:30am ET) -- kicks off before every other game this week; nothing in HOU's current form flags a lineup-changing matchup."
+    },
+    {
+      "text": "Jalen Coker's Panthers host the Eagles (Sun 1:00pm ET) -- a tough matchup even if he plays, which compounds the injury risk rather than offsetting it."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 6,
+      "players": ["Sam LaPorta", "Jameson Williams", "Tee Higgins"]
+    },
+    {
+      "week": 7,
+      "players": ["Jaguars D/ST"]
+    },
+    {
+      "week": 8,
+      "players": ["Dominic Zvada", "Tyler Shough", "Cam Skattebo", "Isaiah Likely"]
+    }
+  ],
+  "caveats": [
+    "Ten starters total 141.58 expected points -- just above the 100-140 sanity band, not comfortably inside it. Rebuilt the lineup from the committed fixture rather than any independent recompute, and the next-best alternative (Henderson instead of Coker at FLEX2) totals 132.46, comfortably inside the band -- so this is Coker's one inflated number pulling the total up, not a sign of an upstream collapse. Flagged, not treated as a stop condition.",
+    "Jalen Coker: the fixture's 0.815 P(play) sits next to an 'Out' designation on the same row, which is internally inconsistent (compare TreVeyon Henderson, also 'Out', at 0.033). Did not trust the 0.815 at face value for the start/sit call -- started him anyway only because the alternative (Henderson) is unambiguously worse, and because live nflreadpy.load_rosters(2026) shows him active, not on injured reserve. His real expected points this week are probably closer to Henderson's than to the fixture's 9.39; treat the FLEX2 slot as a placeholder for a waiver add, not a real projection.",
+    "Checked every other starter's if-he-plays number directly against the fixture's own conditionalPoints -- used the fixture as-is, no independent recompute, no discrepancy over 30% to flag beyond Coker.",
+    "This week's bye collision (LaPorta, Jameson Williams, Tee Higgins all out via CIN/DET's Week 6 bye) was flagged as a 'needs a waiver add before Week 6' item in every briefing since 2026-09-28. The 2026-10-08 Golden-for-LaPorta trade removed the one healthy WR depth piece (Matthew Golden) that would have covered it, while adding a second Week-6-bye player (LaPorta) to the roster -- net effect, the hole got worse instead of being covered. Today, 2026-10-14, is the waiver deadline named in the prior two briefings; this report can flag it but cannot make the add."
+  ],
+  "markdown": "# Week 6 Start/Sit Briefing — Wednesday, 2026-10-14\n\n## Source and freshness\n\n**Fresh committed fixture, live overlay confirms one player and adds nothing else.** `weekly-report-week-6.json` was generated 2026-10-13T17:11:02Z — after Week 5's Monday-night finale (LA@BUF) and before Week 6's first kickoff (Thursday 10/15) — so it is current; `season_week.load_current_week_nflreadpy(2026)` independently confirms Week 6. Pulled live `nflreadpy.load_injuries(2026)` for Week 6 anyway, since this is the Wednesday practice-report run. Result: only **15 rows, covering DEN and SEA** (tonight's Thursday game). Of this roster's eight teams, only **SEA (Jaxon Smith-Njigba)** has filed. LAR, IND, TB, ATL, NYG, NE, CAR and JAX have not. Marked `isLive: false` because the fixture itself still carries last-pull injury/consensus data, even though the one live signal this run exists to check (JSN's practice bucket) did land and is consistent with it.\n\n## Practice report\n\n| Player | Designation | Wednesday practice | Model P(play) |\n|---|---|---|---|\n| Jaxon Smith-Njigba (WR, SEA) | Questionable (ankle) | **Limited Participation** (live, confirmed) | 89.2% |\n| Jalen Coker (WR, CAR) | Out (quadriceps) | Unknown — CAR has not filed | 81.5% (flagged, see caveats) |\n| TreVeyon Henderson (RB, NE) | Out (ankle) | Unknown — NE has not filed | 3.3% |\n| Jaxson Dart (QB, NYG, IR) | IR (season-ending knee) | n/a | 0.1% |\n\nJSN is the only flagged player with a live Wednesday signal this run, and it's a clean one: Limited practice on an ankle issue, and the fitted model's 89.2% is already above the generic Questionable/Limited-bucket average (~70.2%) — consistent with a low-grade issue rather than something structural. He locks tonight (Thursday @DEN) with no further practice reports coming before kickoff.\n\nJalen Coker and TreVeyon Henderson are both tagged Out, but their model numbers don't agree with each other at all (81.5% vs 3.3%) despite the same tag — see Still uncertain and the caveats. Jaxson Dart is out for the season and not in play either way.\n\n## Start these ten\n\n| Slot | Player | Opp | Expected | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Matthew Stafford | vs ARI | 21.42 | 96.8% | 22.13 |\n| RB | Jonathan Taylor | vs TEN | 20.19 | 94.9% | 21.29 |\n| RB | Bucky Irving | vs PIT | 14.24 | 94.9% | 15.02 |\n| WR | Jaxon Smith-Njigba (Q) | @DEN (Thu) | 18.65 | 89.2% | 20.91 |\n| WR | Drake London | vs CHI | 17.40 | 96.5% | 18.02 |\n| TE | Isaiah Likely | vs NO | 12.40 | 94.4% | 13.14 |\n| FLEX | Cam Skattebo | vs NO | 11.71 | 94.9% | 12.35 |\n| FLEX | Jalen Coker (Out) | @PHI | 9.39 | 81.5%* | 11.52 |\n| K | Dominic Zvada | vs NO | 8.14 | 98.4% | 8.27 |\n| DEF | Jaguars D/ST | vs HOU (London) | 8.04 | 100% | 8.04 |\n| **Total** | | | **141.58** | | |\n\n\\* Don't trust this number at face value — see caveats. Bench: Tyler Shough (15.95, QB), TreVeyon Henderson (0.27, RB, Out). On bye: Sam LaPorta (TE), Jameson Williams (WR), Tee Higgins (WR). IR: Jaxson Dart.\n\n## Changes since Monday\n\nThree forced changes, all bye-driven, none a tactical call:\n\n- **Isaiah Likely in for Sam LaPorta at TE** — LaPorta is on DET's Week 6 bye. Likely is the only other rostered TE.\n- **Cam Skattebo in for Jameson Williams at FLEX** — Williams is on DET's Week 6 bye. Skattebo is the only clean (non-Out) bench body left.\n- **Jalen Coker in for Tee Higgins at the second FLEX** — Higgins is on CIN's Week 6 bye. This is a real downgrade, not a like-for-like swap: Higgins projected 14.43 last week, Coker projects 9.39 this week and carries his own Out tag. The only other bench option, TreVeyon Henderson, is worse (0.27).\n\n## Still uncertain\n\n- **Jalen Coker's actual status.** Out (quadriceps) per the fixture, no Week 6 CAR practice report yet, and the fixture's own 81.5% P(play) doesn't square with that Out tag (Henderson's Out row sits at 3.3%). He's on Carolina's active roster, not IR, per a live check today — so there's a real chance he's available, and a real chance he isn't. Re-check Thursday/Friday once CAR files; if he's ruled out and nothing has been added, the second FLEX slot is effectively empty this week.\n- **The roster-depth hole itself.** This isn't a one-week problem that resolves with more data — it resolves with a waiver add. Today is the deadline flagged in the past two briefings for exactly this Week 6 bye collision, and the 10/8 trade that sent out Matthew Golden removed the one piece that would have covered it.\n- **Jaxon Smith-Njigba's final tag** settles with pregame inactives tonight; no more practice data is coming before then.\n\n## Opponent notes\n\n- **NYG @ home vs NO (Sun 1:00pm ET)** is now a three-player stack: Isaiah Likely (TE), Cam Skattebo (FLEX) and Dominic Zvada (K) are all Giants — one bad NYG game script costs three of the ten starting slots at once.\n- **Jaguars D/ST plays the early London game vs HOU (Sun 9:30am ET)** — kicks off before every other game this week; nothing about HOU's current form changes the start call.\n- **Jalen Coker's Panthers host the Eagles (Sun 1:00pm ET)** — a tough matchup on top of the injury uncertainty, not a reason for optimism if he does suit up.\n\n## Byes ahead\n\n- **Week 6 (this week):** Sam LaPorta, Jameson Williams, Tee Higgins (CIN/DET) — the entire reason tonight's lineup looks the way it does, and the roster has no clean body left to absorb a fourth injury this week.\n- **Week 7:** Jaguars D/ST (JAX) — streaming add will be needed that week.\n- **Week 8:** Dominic Zvada, Tyler Shough, Cam Skattebo, Isaiah Likely (NYG/NO) — four roster spots on bye the same week; start planning the Week 8 lineup early.\n"
+}

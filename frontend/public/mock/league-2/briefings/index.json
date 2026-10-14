@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-14-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-10-14T20:12:07Z",
+      "week": 6,
+      "lineupTotal": 141.58,
+      "changeSummary": "Three bye-forced changes (LaPorta/Williams/Higgins all out via CIN/DET's Week 6 bye): Likely in at TE, Skattebo in at FLEX -- both clean -- but the second FLEX has no healthy option left, so Jalen Coker starts despite his own Out/quadriceps tag (fixture's 0.815 P(play) looks inconsistent with that tag; treated with real skepticism, not trusted at face value). TreVeyon Henderson (Out, ankle, 3.3%) stays benched. Live nflreadpy overlay confirms Jaxon Smith-Njigba's Limited Wednesday practice (89.2% P(play)); no other roster team has filed yet. Today was the waiver deadline flagged in the past two briefings for exactly this hole -- still not filled as of this run. NYG now a three-player stack (Likely/Skattebo/Zvada) vs NO.",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-10-12-mon",
       "kind": "monday",
       "generatedAt": "2026-10-12T06:30:00Z",
