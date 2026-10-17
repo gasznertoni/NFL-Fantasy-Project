@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-17-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-10-17T06:20:56Z",
+      "week": 6,
+      "lineupTotal": 143.72,
+      "changeSummary": "No lineup slots moved from Wednesday. JSN's Thursday game is already final (25.4 actual vs 18.65 pre-game). Jalen Coker cleared -- Carolina pulled his 'Out' tag entirely (Full Participation, no designation), resolving Wednesday's flagged inconsistency; P(play) 81.5% -> 96.6%. Henderson Out -> Questionable/Limited but still trails Coker/Skattebo. Week 8's NYG bye cluster (Zvada/Skattebo/Likely + bench Shough) still unaddressed, now two weeks out.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-10-14-wed",
       "kind": "wednesday",
       "generatedAt": "2026-10-14T20:12:07Z",
