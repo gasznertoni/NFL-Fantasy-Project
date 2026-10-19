@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-19-mon",
+      "kind": "monday",
+      "generatedAt": "2026-10-19T06:30:00Z",
+      "week": 7,
+      "lineupTotal": 146.74,
+      "changeSummary": "Pivoted to Week 7 (Week 6 closed, only the irrelevant SF@WAS MNF game outstanding). Higgins in for Skattebo at FLEX (+3.33) on return from CIN's bye; LaPorta also back from DET's bye but stays benched -- Likely still outprojects him 15.44 to 12.13. Headline issue: Jaguars D/ST hits its own Week 7 bye with no bench D/ST, recommending a Minnesota waiver claim (11.67 exp @IND) before Wednesday -- without it the real total is 135.07, not 146.74. Also flagged a Week 8 NYG bye cluster (Zvada the only K, plus bench Shough/Skattebo/Likely) -- no backup kicker rostered, plan a streamer now.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-10-17-sat",
       "kind": "saturday",
       "generatedAt": "2026-10-17T06:20:56Z",
