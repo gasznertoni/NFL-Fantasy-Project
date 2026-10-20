@@ -59,7 +59,7 @@
       "playerId": "00-0027973",
       "name": "Andy Dalton",
       "position": "QB",
-      "team": "PHI",
+      "team": "ATL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -83,9 +83,9 @@
       "position": "QB",
       "team": "CHI",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -105,9 +105,9 @@
       "position": "RB",
       "team": "SF",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -226,9 +226,9 @@
       "position": "WR",
       "team": "LAR",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Knee"
       }
     },
     {
@@ -237,9 +237,9 @@
       "position": "WR",
       "team": "SF",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Achilles"
       }
     },
     {
@@ -281,9 +281,9 @@
       "position": "WR",
       "team": "WAS",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Hamstring"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -309,14 +309,25 @@
       }
     },
     {
+      "playerId": "00-0031763",
+      "name": "DeAndre Carter",
+      "position": "WR",
+      "team": "DET",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0032104",
       "name": "Ameer Abdullah",
       "position": "RB",
       "team": "JAX",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Concussion"
       }
     },
     {
@@ -721,9 +732,9 @@
       "position": "QB",
       "team": "ATL",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -831,9 +842,9 @@
       "position": "RB",
       "team": "NO",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -875,9 +886,9 @@
       "position": "RB",
       "team": "WAS",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Quadriceps"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -969,6 +980,17 @@
       }
     },
     {
+      "playerId": "00-0034386",
+      "name": "Justin Watson",
+      "position": "WR",
+      "team": "KC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0034407",
       "name": "Ray-Ray McCloud",
       "position": "WR",
@@ -1018,7 +1040,7 @@
       "position": "TE",
       "team": "CIN",
       "newsFlag": {
-        "designation": "Out",
+        "designation": "IR",
         "riskLevel": "high",
         "summary": "Pectoral"
       }
@@ -1288,14 +1310,25 @@
       }
     },
     {
-      "playerId": "00-0035125",
-      "name": "Alec Ingold",
-      "position": "RB",
+      "playerId": "00-0035100",
+      "name": "Jake Browning",
+      "position": "QB",
       "team": "LAC",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
         "summary": null
+      }
+    },
+    {
+      "playerId": "00-0035125",
+      "name": "Alec Ingold",
+      "position": "RB",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -1359,9 +1392,9 @@
       "position": "RB",
       "team": "NYG",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -1502,9 +1535,9 @@
       "position": "WR",
       "team": "IND",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -1524,7 +1557,7 @@
       "position": "WR",
       "team": "DET",
       "newsFlag": {
-        "designation": "Out",
+        "designation": "IR",
         "riskLevel": "high",
         "summary": "Knee - MCL"
       }
@@ -1634,9 +1667,9 @@
       "position": "WR",
       "team": "WAS",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Knee"
       }
     },
     {
@@ -1647,7 +1680,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Ankle"
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -1656,8 +1689,8 @@
       "position": "WR",
       "team": "NE",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
+        "designation": "Questionable",
+        "riskLevel": "low",
         "summary": "Ankle"
       }
     },
@@ -1700,9 +1733,9 @@
       "position": "QB",
       "team": "SEA",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Forearm"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -1799,9 +1832,9 @@
       "position": "RB",
       "team": "PIT",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Toe"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -1931,9 +1964,9 @@
       "position": "RB",
       "team": "CAR",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Ankle"
       }
     },
     {
@@ -1975,9 +2008,9 @@
       "position": "WR",
       "team": "NYG",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Neck"
       }
     },
     {
@@ -1986,9 +2019,9 @@
       "position": "WR",
       "team": "MIN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hip"
       }
     },
     {
@@ -2006,7 +2039,7 @@
       "playerId": "00-0036332",
       "name": "Josiah Deguara",
       "position": "TE",
-      "team": "PHI",
+      "team": "SEA",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2041,9 +2074,9 @@
       "position": "WR",
       "team": "DAL",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Quadriceps"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -2063,9 +2096,9 @@
       "position": "QB",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Calf"
       }
     },
     {
@@ -2228,9 +2261,9 @@
       "position": "WR",
       "team": "BAL",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Shoulder"
       }
     },
     {
@@ -2283,9 +2316,9 @@
       "position": "WR",
       "team": "DEN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Shoulder"
       }
     },
     {
@@ -2316,9 +2349,9 @@
       "position": "WR",
       "team": "CLE",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -2492,9 +2525,9 @@
       "position": "WR",
       "team": "LAR",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -2536,9 +2569,9 @@
       "position": "TE",
       "team": "TEN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -2624,9 +2657,9 @@
       "position": "WR",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Hamstring"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -2646,8 +2679,8 @@
       "position": "RB",
       "team": "TEN",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
+        "designation": "Out",
+        "riskLevel": "high",
         "summary": "Abdomen"
       }
     },
@@ -2877,9 +2910,9 @@
       "position": "RB",
       "team": "DEN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Thumb"
       }
     },
     {
@@ -2965,9 +2998,9 @@
       "position": "WR",
       "team": "SEA",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Undisclosed"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -3139,7 +3172,7 @@
       "playerId": "00-0037267",
       "name": "Jerome Ford",
       "position": "RB",
-      "team": "MIN",
+      "team": "ARI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3185,9 +3218,9 @@
       "position": "WR",
       "team": "LV",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Concussion"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -3614,9 +3647,9 @@
       "position": "WR",
       "team": "DAL",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Ribs"
       }
     },
     {
@@ -3647,9 +3680,9 @@
       "position": "WR",
       "team": "NE",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Shoulder"
       }
     },
     {
@@ -3746,7 +3779,7 @@
       "position": "WR",
       "team": "GB",
       "newsFlag": {
-        "designation": "Out",
+        "designation": "IR",
         "riskLevel": "high",
         "summary": "Ankle"
       }
@@ -3955,9 +3988,9 @@
       "position": "WR",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -3966,9 +3999,9 @@
       "position": "TE",
       "team": "IND",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Thumb"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -4175,9 +4208,9 @@
       "position": "WR",
       "team": "SEA",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Ankle"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -4186,9 +4219,9 @@
       "position": "WR",
       "team": "LAC",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Chest"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -4549,9 +4582,9 @@
       "position": "RB",
       "team": "DAL",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -4580,7 +4613,7 @@
       "playerId": "00-0038728",
       "name": "Jared Wayne",
       "position": "WR",
-      "team": "HOU",
+      "team": "MIA",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4690,7 +4723,7 @@
       "playerId": "00-0038824",
       "name": "Ryan Miller",
       "position": "WR",
-      "team": "MIA",
+      "team": "NE",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4734,7 +4767,7 @@
       "playerId": "00-0038891",
       "name": "Shedrick Jackson",
       "position": "WR",
-      "team": "BAL",
+      "team": "ARI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4756,11 +4789,11 @@
       "playerId": "00-0038905",
       "name": "Blake Grupe",
       "position": "K",
-      "team": "NYJ",
+      "team": "LAR",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee"
       }
     },
     {
@@ -4791,9 +4824,9 @@
       "position": "TE",
       "team": "BUF",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Ribs"
       }
     },
     {
@@ -4835,9 +4868,9 @@
       "position": "RB",
       "team": "TB",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Quadriceps"
       }
     },
     {
@@ -5055,8 +5088,8 @@
       "position": "WR",
       "team": "KC",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
+        "designation": "Out",
+        "riskLevel": "high",
         "summary": "Hamstring"
       }
     },
@@ -5297,9 +5330,9 @@
       "position": "RB",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Shoulder"
       }
     },
     {
@@ -5438,7 +5471,7 @@
       "playerId": "00-0039373",
       "name": "Audric Estim\u00e9",
       "position": "RB",
-      "team": "MIN",
+      "team": "CLE",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -5537,7 +5570,7 @@
       "playerId": "00-0039398",
       "name": "Joe Milton III",
       "position": "QB",
-      "team": "DAL",
+      "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -5669,7 +5702,7 @@
       "playerId": "00-0039466",
       "name": "Ian Wheeler",
       "position": "RB",
-      "team": "BUF",
+      "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -5726,9 +5759,9 @@
       "position": "WR",
       "team": "CAR",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Quadriceps"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -5880,9 +5913,9 @@
       "position": "TE",
       "team": "TEN",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Hamstring"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -6023,7 +6056,7 @@
       "position": "WR",
       "team": "PIT",
       "newsFlag": {
-        "designation": "Out",
+        "designation": "IR",
         "riskLevel": "high",
         "summary": "Finger"
       }
@@ -6034,7 +6067,7 @@
       "position": "RB",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Out",
+        "designation": "IR",
         "riskLevel": "high",
         "summary": "Foot"
       }
@@ -6054,7 +6087,7 @@
       "playerId": "00-0039754",
       "name": "Devin Culp",
       "position": "TE",
-      "team": "TB",
+      "team": "CLE",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -6144,9 +6177,9 @@
       "position": "WR",
       "team": "IND",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Concussion"
       }
     },
     {
@@ -6177,9 +6210,9 @@
       "position": "TE",
       "team": "NYG",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Neck"
       }
     },
     {
@@ -6353,9 +6386,9 @@
       "position": "WR",
       "team": "LAC",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Foot"
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Concussion"
       }
     },
     {
@@ -6386,9 +6419,9 @@
       "position": "QB",
       "team": "CHI",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Hamstring"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -6463,9 +6496,9 @@
       "position": "WR",
       "team": "GB",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Undisclosed"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -6540,9 +6573,9 @@
       "position": "TE",
       "team": "SEA",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -6683,9 +6716,9 @@
       "position": "TE",
       "team": "IND",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Groin"
       }
     },
     {
@@ -6837,9 +6870,9 @@
       "position": "WR",
       "team": "LAC",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Hamstring"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -6901,7 +6934,7 @@
       "playerId": "00-0040202",
       "name": "Devin Neal",
       "position": "RB",
-      "team": "MIN",
+      "team": "WAS",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -7090,9 +7123,9 @@
       "position": "RB",
       "team": "WAS",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Groin"
       }
     },
     {
@@ -7266,9 +7299,9 @@
       "position": "RB",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Undisclosed"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -7514,6 +7547,17 @@
       }
     },
     {
+      "playerId": "00-0040461",
+      "name": "Luke Grimm",
+      "position": "WR",
+      "team": "LAC",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
       "playerId": "00-0040464",
       "name": "DJ Uiagalelei",
       "position": "QB",
@@ -7530,8 +7574,8 @@
       "position": "RB",
       "team": "CLE",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
+        "designation": "IR",
+        "riskLevel": "high",
         "summary": "Hip"
       }
     },
@@ -8014,9 +8058,9 @@
       "position": "RB",
       "team": "CAR",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Ankle"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -8177,7 +8221,7 @@
       "playerId": "00-0040692",
       "name": "Jarquez Hunter",
       "position": "RB",
-      "team": "MIA",
+      "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -8300,9 +8344,9 @@
       "position": "RB",
       "team": "NE",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Ankle"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -8344,9 +8388,9 @@
       "position": "TE",
       "team": "SEA",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Shoulder"
       }
     },
     {
@@ -8399,9 +8443,9 @@
       "position": "RB",
       "team": "CLE",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Lower Leg"
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Foot"
       }
     },
     {
@@ -8443,9 +8487,9 @@
       "position": "WR",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -8454,9 +8498,9 @@
       "position": "WR",
       "team": "BAL",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Wrist"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -8894,9 +8938,9 @@
       "position": "RB",
       "team": "LV",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -8982,9 +9026,9 @@
       "position": "RB",
       "team": "ARI",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Ankle"
       }
     },
     {
@@ -9004,9 +9048,9 @@
       "position": "TE",
       "team": "NYJ",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Concussion"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -9345,9 +9389,9 @@
       "position": "TE",
       "team": "CLE",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Calf"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -9532,9 +9576,9 @@
       "position": "TE",
       "team": "WAS",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Undisclosed"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -9685,6 +9729,17 @@
       "name": "Michael Wortham",
       "position": "WR",
       "team": "JAX",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
+      }
+    },
+    {
+      "playerId": "00-0041221",
+      "name": "Jackson Acker",
+      "position": "RB",
+      "team": "SEA",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -9983,9 +10038,9 @@
       "position": "TE",
       "team": "NE",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -10192,9 +10247,9 @@
       "position": "TE",
       "team": "LAC",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -10346,9 +10401,9 @@
       "position": "WR",
       "team": "NO",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Suspension"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -10522,9 +10577,9 @@
       "position": "TE",
       "team": "LAR",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -10621,9 +10676,9 @@
       "position": "WR",
       "team": "CLE",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Concussion"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -10632,9 +10687,9 @@
       "position": "WR",
       "team": "LAC",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Quadriceps"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
