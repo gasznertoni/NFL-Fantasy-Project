@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-21-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-10-21T20:09:43Z",
+      "week": 7,
+      "lineupTotal": 132.79,
+      "changeSummary": "No lineup slot changes since Monday. Checked and held a thin TE reversal (LaPorta now edges Likely 12.28 to 11.84, inside model noise -- Likely stays). Headline, unresolved: the Vikings D/ST waiver claim Monday recommended for the Jaguars' Week 7 bye has not landed as of today's deadline -- DEF scores zero as started; real total is 132.79, not the ~144.46 it would be with Minnesota rostered. Live nflreadpy overlay: only CHI/NE have filed Week 7 reports; of this roster's 12 teams only NE has, clearing bench RB TreVeyon Henderson (Full Participation, no designation). No rostered player carries an injury designation this week.",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-10-19-mon",
       "kind": "monday",
       "generatedAt": "2026-10-19T06:30:00Z",

@@ -1,0 +1,207 @@
+{
+  "slug": "2026-10-21-wed",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 7,
+  "kind": "wednesday",
+  "generatedAt": "2026-10-21T20:09:43Z",
+  "runUrl": "https://claude.ai/code/session_013BeGfHXrSUUmWYHdhdyorK",
+  "source": {
+    "label": "Committed fixture weekly-report-week-7.json (FantasyPros consensus + ESPN injuries) + live nflreadpy.load_injuries(2026) Week 7 practice-report overlay",
+    "asOf": "2026-10-20T14:31:42Z",
+    "isLive": false,
+    "note": "Fixture generated 2026-10-20T14:31:42Z -- after Week 6's Monday-night finale and well before Week 7's first kickoff (Thu 10/22, NE@CHI) -- so it is current; season_week.load_current_week_nflreadpy(2026) independently confirms Week 7. Pulled live nflreadpy.load_injuries(2026) for Week 7 anyway, since this is the Wednesday practice-report run: only 23 rows filed league-wide so far, covering just CHI and NE (Thursday's game). Of this roster's 12 teams, only NE has filed -- TreVeyon Henderson (bench RB) came back Full Participation with no designation, matching the fixture's own 'Healthy' tag. LAR, IND, TB, SEA, ATL, DET, CIN, NYG and CAR have not filed; JAX is on its bye. No rostered player carries an Out/Doubtful/Questionable designation in the fixture right now."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "position": "QB",
+      "opponent": "@LV (Sun 10/25, 4:25pm ET)",
+      "expectedPoints": 18.69,
+      "conditionalPoints": 19.27,
+      "playProbability": 0.97,
+      "designation": "Healthy",
+      "reason": "Clear best QB on the roster (bench Shough 16.86); automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "@MIN (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 16.61,
+      "conditionalPoints": 17.45,
+      "playProbability": 0.952,
+      "designation": "Healthy",
+      "reason": "Highest projection on the whole roster; automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "@CAR (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 13.92,
+      "conditionalPoints": 14.63,
+      "playProbability": 0.952,
+      "designation": "Healthy",
+      "reason": "Clear RB2; automatic start."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "vs KC (Sun 10/25, 8:20pm ET)",
+      "expectedPoints": 21.43,
+      "conditionalPoints": 22.15,
+      "playProbability": 0.968,
+      "designation": "Healthy",
+      "reason": "Highest WR projection on the roster; automatic start."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "vs SF (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 16.07,
+      "conditionalPoints": 16.61,
+      "playProbability": 0.968,
+      "designation": "Healthy",
+      "reason": "Clear WR2; automatic start."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "@HOU (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 11.84,
+      "conditionalPoints": 12.5,
+      "playProbability": 0.947,
+      "designation": "Healthy",
+      "reason": "Held over Sam LaPorta (12.28 expected) -- LaPorta's fixture number now edges Likely by just 0.44, well inside model noise. See caveats; this is a reversal of Monday's 3.31-point gap the other way, not yet a real signal."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "@BAL (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 13.34,
+      "conditionalPoints": 13.82,
+      "playProbability": 0.965,
+      "designation": "Healthy",
+      "reason": "Best remaining bench/FLEX option; clears Coker, Likely, Jameson Williams and the bench RBs."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0039491",
+      "name": "Jalen Coker",
+      "position": "WR",
+      "opponent": "vs TB (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 12.76,
+      "conditionalPoints": 13.51,
+      "playProbability": 0.945,
+      "designation": "Healthy",
+      "reason": "Second-best remaining option, clear of Likely (11.84) and Jameson Williams (11.28) for the second FLEX. No injury tag this week -- Carolina cleared his quadriceps designation entirely two weeks ago."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0041145",
+      "name": "Dominic Zvada",
+      "position": "K",
+      "opponent": "@HOU (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 8.13,
+      "conditionalPoints": 8.25,
+      "playProbability": 0.985,
+      "designation": "Healthy",
+      "reason": "Only rostered K; automatic start. Byes Week 8 with no backup rostered -- see Byes Ahead."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "JAX",
+      "name": "Jaguars D/ST",
+      "position": "DST",
+      "opponent": "BYE (Week 7)",
+      "expectedPoints": 0.0,
+      "conditionalPoints": 0.0,
+      "playProbability": 0.0,
+      "designation": "Bye",
+      "reason": "Only rostered D/ST, and it is on its own Week 7 bye -- the slot scores zero as started. No bench D/ST exists to swap in. This was flagged Monday (2026-10-19) with a Vikings D/ST waiver recommendation (11.67 expected vs IND, still the week's best matchup); confirmed via a fresh read of roster.json that the claim has not landed."
+    }
+  ],
+  "lineupTotal": 132.79,
+  "changes": [
+    {
+      "action": "start",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "reason": "Holds the FLEX spot it reclaimed Monday coming off CIN's bye; no change."
+    },
+    {
+      "action": "bench",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "reason": "Checked a 0.44-point edge in LaPorta's favor (12.28 vs Likely's 11.84) -- down from Likely leading by 3.31 on Monday. Held Likely rather than flipping; the swing is smaller than the model's measured error, same convention this project has applied to prior thin QB/FLEX edges."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "MIN",
+      "name": "Vikings D/ST (waiver target)",
+      "why": "Still unresolved as of this run, the Wednesday deadline Monday's briefing named. The Jaguars D/ST (this roster's only DEF) is on its Week 7 bye with no bench replacement, so the DEF slot is scoring zero as started. Minnesota (11.67 expected @IND) is still the best Week 7 matchup league-wide.",
+      "newsDue": "Before Sunday 10/25 kickoffs -- the DEF slot stays empty otherwise"
+    },
+    {
+      "playerId": null,
+      "name": "Week 7 practice reports, league-wide",
+      "why": "Only 23 rows filed so far, covering CHI and NE (Thursday's game). Of this roster's 12 teams, only NE has filed -- TreVeyon Henderson (bench) came back clean. LAR, IND, TB, SEA, ATL, DET, CIN, NYG and CAR have not filed; re-check Thursday night and again Friday for the Sunday-game players.",
+      "newsDue": "2026-10-22 / 2026-10-23"
+    },
+    {
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "why": "Now projects a hair ahead of Isaiah Likely (12.28 vs 11.84) after trailing by over 3 points Monday. Held at bench for this report since the gap is inside model noise, but worth re-checking once Thursday/Friday projection updates land in case it widens into a real signal.",
+      "newsDue": "2026-10-23 (Friday fixture refresh)"
+    },
+    {
+      "playerId": "00-0041145",
+      "name": "Dominic Zvada",
+      "why": "NYG is on a Week 8 bye -- Zvada, bench Tyler Shough, bench Cam Skattebo and bench Isaiah Likely are all on the same team and all out Week 8. No backup K is rostered.",
+      "newsDue": "Plan a K streamer before Week 8's waiver deadline"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "text": "NYG @ HOU (Sun 1:00pm ET) is down to a single starting piece on this roster -- Dominic Zvada at K. Bench Isaiah Likely and bench Cam Skattebo are also Giants but neither is starting this week, so the three-player stack risk flagged in recent briefings is effectively gone for now."
+    },
+    {
+      "text": "Bucky Irving (TB, starting RB2) and Jalen Coker (CAR, starting FLEX2) face each other Sunday at 1:00pm ET -- both start regardless of the other's game, so no lineup implication, just a notable crossover on this roster."
+    },
+    {
+      "text": "Jaguars D/ST's bye is the whole story at DEF this week; nothing about an opponent to weigh since they aren't playing."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 7,
+      "players": ["Jaguars D/ST"]
+    },
+    {
+      "week": 8,
+      "players": ["Dominic Zvada", "Tyler Shough", "Cam Skattebo", "Isaiah Likely", "Jaxson Dart"]
+    }
+  ],
+  "caveats": [
+    "Ten starters total 132.79 expected points -- inside the 100-140 sanity band but toward the low end, entirely because the DEF slot scores zero (Jaguars on their Week 7 bye, no backup D/ST rostered). The same lineup with a Vikings D/ST added at DEF instead would total roughly 144.46. Not treated as a stop condition: the shortfall is fully explained by one known, already-flagged hole, not an upstream break.",
+    "Every non-zero row above is the committed fixture's own number, used as-is with no independent recompute -- so by construction no row's if-he-plays number can diverge from the fixture's own conditionalPoints, and none does.",
+    "Held Isaiah Likely at TE over Sam LaPorta despite LaPorta's fixture number now edging ahead (12.28 vs 11.84, a 0.44-point swing from Monday's 3.31-point gap the other way). Treated as noise, not signal, per this project's standing convention for sub-1-point edges (applied to QB and FLEX calls in the 2026-10-07 and 2026-10-19 briefings) -- flagged in watchList for a re-check once more of the week's projections land.",
+    "The DEF hole is the same one flagged in the 2026-10-19 briefing (and the Week 6 Jaguars-bye note before that); this report can only name the fix, it cannot make the roster move. Today, 2026-10-21, was explicitly named as the waiver-processing deadline for it.",
+    "Only 2 of 32 NFL teams (CHI, NE) have filed Week 7 injury/practice reports as of this run. Of this roster's 12 teams, only NE has filed, and it came back clean (TreVeyon Henderson, Full Participation, no designation). No Out/Doubtful/Questionable tag exists anywhere on this roster right now -- the normal Wednesday practice-report table is empty for exactly that reason."
+  ],
+  "markdown": "# Week 7 Start/Sit Briefing — Wednesday, 2026-10-21\n\n## Source and freshness\n\n**Fresh committed fixture; live overlay confirms the one team that has filed and changes nothing.** `weekly-report-week-7.json` was generated 2026-10-20T14:31:42Z — after Week 6's Monday-night finale and well before Week 7's first kickoff (Thursday 10/22, NE@CHI) — so it is current; `season_week.load_current_week_nflreadpy(2026)` independently confirms Week 7. Pulled live `nflreadpy.load_injuries(2026)` for Week 7 anyway, since this is the Wednesday practice-report run. Result: only **23 rows filed league-wide, covering just CHI and NE**. Of this roster's 12 teams, only **NE** has filed — TreVeyon Henderson (bench RB) came back **Full Participation, no designation**, matching the fixture's own \"Healthy\" tag exactly. LAR, IND, TB, SEA, ATL, DET, CIN, NYG and CAR have not filed; JAX is on its bye and won't file at all. Marked `isLive: false` because the fixture itself still carries last pull's consensus/injury data, even though the one live check this run exists to make did land and is consistent with it.\n\n## Practice report\n\n**Nothing to report — no rostered player carries an Out/Doubtful/Questionable designation this week.** That is unusual relative to recent weeks and worth stating plainly rather than leaving the section empty without comment. The only live signal available, TreVeyon Henderson (NE, bench), is clean:\n\n| Player | Designation | Wednesday practice | Model P(play) |\n|---|---|---|---|\n| TreVeyon Henderson (RB, NE, bench) | None (cleared) | **Full Participation** (live, confirmed) | 88.5% per fixture |\n| Jaxson Dart (QB, NYG, IR) | IR (season-ending knee) | n/a | 0.1% |\n\nEveryone else on this roster is tagged Healthy in the fixture, and none of their teams has filed a practice report yet — re-check Thursday night and Friday.\n\n## Start these ten\n\n| Slot | Player | Opp | Expected | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Matthew Stafford | @LV | 18.69 | 97.0% | 19.27 |\n| RB | Jonathan Taylor | @MIN | 16.61 | 95.2% | 17.45 |\n| RB | Bucky Irving | @CAR | 13.92 | 95.2% | 14.63 |\n| WR | Jaxon Smith-Njigba | vs KC | 21.43 | 96.8% | 22.15 |\n| WR | Drake London | vs SF | 16.07 | 96.8% | 16.61 |\n| TE | Isaiah Likely | @HOU | 11.84 | 94.7% | 12.50 |\n| FLEX | Tee Higgins | @BAL | 13.34 | 96.5% | 13.82 |\n| FLEX | Jalen Coker | vs TB | 12.76 | 94.5% | 13.51 |\n| K | Dominic Zvada | @HOU | 8.13 | 98.5% | 8.25 |\n| DEF | Jaguars D/ST | BYE | 0.00 | 0.0% | 0.00 |\n| **Total** | | | **132.79** | | |\n\nBench: Sam LaPorta (12.28 expected, TE, held out — see below), Tyler Shough (16.86, QB), Jameson Williams (11.28, WR), Cam Skattebo (10.40, RB), TreVeyon Henderson (6.05, RB). IR: Jaxson Dart.\n\n## Changes since Monday\n\n**Essentially none, and the one real swing was checked and held.** Tee Higgins stays in the FLEX spot it reclaimed Monday. The only thing that moved is Sam LaPorta's projection: he trailed Isaiah Likely by 3.31 points on Monday (12.13 vs 15.44) and now edges him by 0.44 (12.28 vs 11.84) in the Tuesday fixture refresh. That is a real reversal in direction but not in magnitude — 0.44 points is well inside this model's measured error, and this project's own convention (applied to a 0.14-point QB edge and a 0.66-point QB edge in the two prior Wednesday briefings) is to hold the incumbent through edges that small rather than flip on noise. Likely stays at TE.\n\nThe real story is what *didn't* change: the Jaguars D/ST is still on its Week 7 bye, the Vikings D/ST waiver claim Monday's briefing recommended has not landed (confirmed against a fresh read of `roster.json`), and today — 2026-10-21 — was the exact date that briefing named as the waiver-processing deadline. The DEF slot scores zero as started.\n\n## Still uncertain\n\n- **Nothing health-wise.** No rostered player carries an injury designation right now, and the one team that has filed (NE) came back clean.\n- **The TE call.** LaPorta-over-Likely is a 0.44-point edge, not a decision — re-check once Thursday/Friday projection updates land across the rest of the slate.\n- **The DEF slot**, which isn't an uncertainty so much as an open action item: claim the Vikings D/ST (11.67 expected @IND, still the week's best matchup) or another streamer before Sunday, or the slot plays at zero again.\n\n## Opponent notes\n\n- **NYG @ HOU (Sun 1:00pm ET)** is down to one starting piece on this roster — Dominic Zvada at K. Bench Isaiah Likely and bench Cam Skattebo are also Giants, but neither is in the lineup this week, so the three-player stack risk flagged in recent briefings has receded for now.\n- **Bucky Irving (TB) and Jalen Coker (CAR) face each other** Sunday at 1:00pm ET — both start regardless, no lineup implication, just a notable crossover.\n- Jaguars D/ST's bye is the whole story at DEF; there's no opponent to weigh since they aren't playing.\n\n## Byes ahead\n\n- **Week 7 (this week):** Jaguars D/ST (JAX) — the hole this entire report is built around.\n- **Week 8:** Dominic Zvada, Tyler Shough, Cam Skattebo, Isaiah Likely (NYG/NO) — four roster spots out the same week, including the only rostered kicker; start planning a K streamer now.\n"
+}
