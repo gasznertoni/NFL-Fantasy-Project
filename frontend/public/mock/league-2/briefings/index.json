@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-24-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-10-24T06:16:30Z",
+      "week": 7,
+      "lineupTotal": 141.52,
+      "changeSummary": "Final designations set, clean lock: 28/32 teams filed live Week 7 reports (all 12 of this roster's teams among them), zero Out/Doubtful/Questionable tags anywhere on the roster. Two changes since Wednesday fix the whole gap: DEF Jaguars (Week 7 bye, scored zero) swapped for Jets D/ST via a 10/22 waiver move (+8.29), and Sam LaPorta's held TE edge over Isaiah Likely finally started (+0.44) -- total moves 132.79 to 141.52, exactly the sum of those two. One judgment call: bench QB Bo Nix's fixture number (19.51) beats started Matthew Stafford (18.69) only because FantasyPros' consensus hasn't caught up with Nix's real 12.1 pts/game 2026 form -- Stafford stays started, matching the owner's own same-day reversal on 10/22. Restated the Week 8 bye cluster (Zvada the only K, plus bench Shough/Skattebo/Likely) with the waiver pool still thin (one speculative K, Drew Stevens).",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-10-21-wed",
       "kind": "wednesday",
       "generatedAt": "2026-10-21T20:09:43Z",

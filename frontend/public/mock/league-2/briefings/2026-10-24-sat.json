@@ -1,0 +1,179 @@
+{
+  "slug": "2026-10-24-sat",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 7,
+  "kind": "saturday",
+  "generatedAt": "2026-10-24T06:16:30Z",
+  "source": {
+    "label": "Committed fixture weekly-report-week-7.json (FantasyPros consensus + ESPN injuries) + live nflreadpy.load_injuries(2026) Week 7 practice-report overlay",
+    "asOf": "2026-10-20T14:31:42Z",
+    "isLive": false,
+    "note": "Fixture generated 2026-10-20T14:31:42Z -- after Week 6's Monday-night finale and before Week 7's first kickoff, so it is current; season_week.load_current_week_nflreadpy(2026) independently confirms Week 7, and load_schedules() confirms only 1 of 14 Week 7 games (Thu NE@CHI) has been played as of this run, none involving this roster. Live nflreadpy.load_injuries(2026) Week 7 overlay: 28 of 32 teams have now filed (up from 2 on Wednesday 10/21), including all 12 teams relevant to this roster (LA, IND, TB, SEA, ATL, DET, CIN, NYG, NYJ, NO, DEN). None of the 15 rostered players carries a report_status in the live feed -- Jonathan Taylor, Bucky Irving and Tyler Shough show Full Participation with no designation (tracked, not injured); everyone else has no row at all. This matches the fixture's 'Healthy' tag on all 15 exactly -- no overlay changes to any projection."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "position": "QB",
+      "opponent": "@LV (Sun 10/25, 4:25pm ET)",
+      "expectedPoints": 18.69,
+      "conditionalPoints": 19.27,
+      "playProbability": 0.97,
+      "designation": "Healthy",
+      "reason": "Highest trustworthy QB number -- Nix's 19.51 consensus figure is stale, see caveats."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "@MIN (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 16.61,
+      "conditionalPoints": 17.45,
+      "playProbability": 0.952,
+      "designation": "Healthy",
+      "reason": "Clear RB1, no competition at the position."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "@CAR (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 13.92,
+      "conditionalPoints": 14.63,
+      "playProbability": 0.952,
+      "designation": "Healthy",
+      "reason": "Outprojects bench RB Cam Skattebo by 3.5 points, healthy both ways."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "vs KC (Sun 10/25, 8:20pm ET)",
+      "expectedPoints": 21.43,
+      "conditionalPoints": 22.15,
+      "playProbability": 0.968,
+      "designation": "Healthy",
+      "reason": "Highest projection in the lineup; Sunday Night finale, last score to land."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "vs SF (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 16.07,
+      "conditionalPoints": 16.61,
+      "playProbability": 0.968,
+      "designation": "Healthy",
+      "reason": "Clear WR2, no competition at the position."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "position": "TE",
+      "opponent": "vs GB (Sun 10/25, 4:25pm ET)",
+      "expectedPoints": 12.28,
+      "conditionalPoints": 13.02,
+      "playProbability": 0.944,
+      "designation": "Healthy",
+      "reason": "Edges bench TE Isaiah Likely by 0.44 -- the thin edge Wednesday's briefing flagged for a re-check has now held two straight reports; started."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "@BAL (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 13.34,
+      "conditionalPoints": 13.82,
+      "playProbability": 0.965,
+      "designation": "Healthy",
+      "reason": "Fully healthy, no groin designation this week -- clears bench WR Jameson Williams by 2.06."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0039491",
+      "name": "Jalen Coker",
+      "position": "WR",
+      "opponent": "vs TB (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 12.76,
+      "conditionalPoints": 13.51,
+      "playProbability": 0.945,
+      "designation": "Healthy",
+      "reason": "Second FLEX slot, clears bench RB Cam Skattebo (10.4) and bench WR Jameson Williams (11.28)."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0041145",
+      "name": "Dominic Zvada",
+      "position": "K",
+      "opponent": "@HOU (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 8.13,
+      "conditionalPoints": 8.25,
+      "playProbability": 0.985,
+      "designation": "Healthy",
+      "reason": "Only rostered kicker. Last start before his Week 8 bye -- see byesAhead."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "NYJ",
+      "name": "Jets D/ST",
+      "position": "DST",
+      "opponent": "vs MIA (Sun 10/25, 1:00pm ET)",
+      "expectedPoints": 8.29,
+      "conditionalPoints": 8.29,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Replaced the Jaguars D/ST (Week 7 bye, scored zero in the 10/21 briefing) via a 10/22 waiver move -- fills the hole flagged in the last two reports."
+    }
+  ],
+  "lineupTotal": 141.52,
+  "changes": [
+    {
+      "action": "start",
+      "playerId": "NYJ",
+      "name": "Jets D/ST",
+      "replacing": "Jaguars D/ST",
+      "deltaExpectedPoints": 8.29,
+      "reason": "Jaguars were on their Week 7 bye (scored zero as started in the 10/21 briefing); dropped for the Jets on 10/22. Resolves the hole flagged in the 10/19 and 10/21 briefings."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "replacing": "Isaiah Likely",
+      "deltaExpectedPoints": 0.44,
+      "reason": "LaPorta's fixture number has now edged ahead of Likely's for two straight reports (12.28 vs 11.84); the 10/21 briefing held Likely as noise pending a re-check -- the edge held, so LaPorta starts."
+    }
+  ],
+  "watchList": [],
+  "opponentNotes": [
+    {
+      "playerId": "00-0039732",
+      "text": "Bench QB Bo Nix shows a higher fixture number than started QB Matthew Stafford (19.51 vs 18.69), but that is FantasyPros' top-10 consensus tier, which has not caught up to Nix's real 2026 form: 12.1 pts/game on the season, 8.7 over his last three starts, 4.0-5.1 yards per attempt. The roster owner reversed a same-day Nix-for-Stafford swap on 10/22 for exactly this reason. Stafford stays started; treat Nix's 19.51 as a stale number, not a signal, until the vendor projection updates."
+    },
+    {
+      "playerId": "00-0038543",
+      "text": "Jaxon Smith-Njigba's game (vs KC) is the Sunday Night finale -- the last score in the lineup to land, and the highest single projection (21.43)."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 8,
+      "players": ["Dominic Zvada", "Tyler Shough", "Cam Skattebo", "Isaiah Likely"]
+    }
+  ],
+  "caveats": [
+    "Ten starters total 141.52 expected points -- inside the sanity band, on the high side because this is a genuinely stacked roster (Jaxon Smith-Njigba alone projects 21.43). No upstream break.",
+    "Every non-zero row above is the committed fixture's own number, used as-is with no independent recompute -- checked all 10 rows, and by construction none diverges from the fixture's own conditionalPoints.",
+    "Week 8 bye cluster: Dominic Zvada is the ONLY rostered kicker and he is on bye Week 8, the same week as bench Shough, Skattebo and Likely. No backup K is rostered. The Week 8 fixture's waiver pool lists exactly one kicker option, Drew Stevens (WAS, 6.54 projected, 0.818 P(play)), itself flagged by the report as a thin, no-games-played speculative add. Plan this now, before Wednesday's waiver deadline -- the available pool is weak and may need a second look closer to Week 8.",
+    "Live nflreadpy overlay (28 of 32 teams filed, all 12 of this roster's teams among them) confirms every rostered player's 'Healthy' tag -- no Out/Doubtful/Questionable designation exists anywhere on this roster this week. This is a clean, low-drama Saturday lock."
+  ],
+  "markdown": "# Week 7 Start/Sit Briefing -- Saturday, 2026-10-24\n\n**Final designations are set. 28 of 32 teams have filed live injury reports, including all 12 teams relevant to this roster, and none of the 15 rostered players carries a designation. This is a clean lock.**\n\n## Source and freshness\n\n- Primary: committed fixture `weekly-report-week-7.json`, generated 2026-10-20T14:31:42Z (FantasyPros consensus + ESPN injuries + the fitted P(play) model). Confirmed current: generated after Week 6's finale and before Week 7's first kickoff; `season_week.load_current_week_nflreadpy(2026)` independently agrees it's Week 7.\n- Overlay: live `nflreadpy.load_injuries(2026)` for Week 7 -- 28/32 teams filed (up from 2 on Wednesday). All 12 of this roster's NFL teams have filed. Result: zero changes to any projection. Taylor, Irving and Shough show Full Participation with no designation (healthy, just tracked); everyone else has no row at all, which at this point in the week means healthy, not unreported.\n\n## Start these ten -- 141.52 expected points\n\n| Slot | Player | Opp | Expected | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Matthew Stafford | @LV, Sun 4:25pm | **18.69** | 97.0% | 19.27 |\n| RB | Jonathan Taylor | @MIN, Sun 1:00pm | **16.61** | 95.2% | 17.45 |\n| RB | Bucky Irving | @CAR, Sun 1:00pm | **13.92** | 95.2% | 14.63 |\n| WR | Jaxon Smith-Njigba | vs KC, Sun 8:20pm | **21.43** | 96.8% | 22.15 |\n| WR | Drake London | vs SF, Sun 1:00pm | **16.07** | 96.8% | 16.61 |\n| TE | Sam LaPorta | vs GB, Sun 4:25pm | **12.28** | 94.4% | 13.02 |\n| FLEX | Tee Higgins | @BAL, Sun 1:00pm | **13.34** | 96.5% | 13.82 |\n| FLEX | Jalen Coker | vs TB, Sun 1:00pm | **12.76** | 94.5% | 13.51 |\n| K | Dominic Zvada | @HOU, Sun 1:00pm | **8.13** | 98.5% | 8.25 |\n| DEF | Jets D/ST | vs MIA, Sun 1:00pm | **8.29** | 100% | 8.29 |\n\nBench, for reference: Tyler Shough (QB, 16.86 exp), Bo Nix (QB, 19.51 exp but see note below), Cam Skattebo (RB, 10.40 exp), Jameson Williams (WR, 11.28 exp), Isaiah Likely (TE, 11.84 exp). All healthy, none close enough to force a change except the QB question addressed below.\n\n## The one real judgment call: Stafford over Nix\n\nThe fixture's raw number says bench QB Bo Nix (19.51) outprojects started QB Matthew Stafford (18.69) by 0.82. That number is FantasyPros' top-10 consensus tier, and it has not caught up with Nix's actual 2026 form: 12.1 points/game on the season, 8.7 over his last three starts, 4.0-5.1 yards per attempt. You already found this and reversed a same-day Nix-for-Stafford swap on 10/22 for exactly this reason. **Recommendation: keep Stafford started.** The consensus gap is noise from a stale vendor number, not signal.\n\n## Changes since Wednesday's briefing (10/21)\n\n1. **DEF: Jaguars -> Jets D/ST (+8.29).** Jaguars were on their Week 7 bye and scored zero as started in the 10/21 report -- the hole flagged in both the 10/19 and 10/21 briefings. A 10/22 waiver move (Jaguars D/ST for Jets D/ST) fixes it outright.\n2. **TE: Isaiah Likely -> Sam LaPorta (+0.44).** The 10/21 briefing held Likely over a thin, 0.44-point LaPorta edge, calling it noise and flagging it for a re-check. The edge has now held across two straight reports, so LaPorta starts.\n\nNet: lineup total moves from 132.79 (Wednesday, with the DEF hole) to 141.52 -- an 8.73-point gain, which is exactly the sum of the two changes above (8.29 + 0.44), confirming nothing else moved.\n\n## Watch list\n\nNothing to watch. No rostered player carries an Out/Doubtful/Questionable designation, and this is the last injury-report cycle before Sunday's games -- any further movement this week would be a late scratch, not a practice-report change.\n\n## Opponent notes\n\n- Jaxon Smith-Njigba's game (vs KC) is the Sunday Night finale -- the last score in the lineup to land, and the highest single projection on the roster (21.43).\n- See the Stafford/Nix note above -- the one place a vendor number and real-world form disagree this week.\n\n## Byes ahead\n\n**Week 8 is a real problem, not a watch item: four rostered players bye the same week.** Dominic Zvada (K -- the *only* rostered kicker), Tyler Shough (QB), Cam Skattebo (RB) and Isaiah Likely (TE) are all out Week 8. With only 5 bench spots, this needs a waiver claim before Wednesday, especially at kicker: the Week 8 fixture's waiver pool currently lists exactly one K option, Drew Stevens (WAS, 6.54 projected), itself flagged as a thin, no-games-played speculative add. Start looking now rather than waiting for Monday -- the pool may still be weak then too.\n"
+}
