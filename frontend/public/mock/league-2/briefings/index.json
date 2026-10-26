@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-26-mon",
+      "kind": "monday",
+      "generatedAt": "2026-10-26T06:19:27Z",
+      "week": 8,
+      "lineupTotal": 130.52,
+      "changeSummary": "Pivoted to Week 8 (Week 7 closed for this roster; the one outstanding game, DAL@PHI, involves neither team). Headline problem: the only rostered kicker, Dominic Zvada, is on NYG's Week 8 bye with no bench K -- the lineup scores a placeholder zero there, which is the entire reason this week's 130.52 total reads low (fixing the kicker gap would put it at ~138.4). Claim a kicker before Wednesday -- Wil Lutz (DEN, 7.91 exp) is the top in-house option, with Jason Sanders (NYJ) and Drew Stevens (WAS) as alternatives. Secondary, thin: Jameson Williams edges bench Jalen Coker for the second FLEX spot by just 0.12, inside model noise -- recheck Wednesday. Source caveat: the committed Week 8 fixture is a stale pre-season placeholder, so this briefing is a self-generated live run with no FantasyPros tier and zero injury designations filed yet (normal five days out) -- treat as a bridge until Tuesday's CI rebuild. New byes flagged: Stafford (QB) Week 9, Irving (RB) and bench Nix (QB) Week 10.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-10-24-sat",
       "kind": "saturday",
       "generatedAt": "2026-10-24T06:16:30Z",
