@@ -1,0 +1,209 @@
+{
+  "slug": "2026-10-28-wed",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 8,
+  "kind": "wednesday",
+  "generatedAt": "2026-10-28T20:15:58Z",
+  "runUrl": "https://claude.ai/code/session_016tS6ERWSZPgdaQonsCXgZi",
+  "source": {
+    "label": "Committed fixture weekly-report-week-8.json (FantasyPros consensus + ESPN injuries) + live nflreadpy.load_injuries(2026) Week 8 practice-report overlay",
+    "asOf": "2026-10-27T15:36:33Z",
+    "isLive": false,
+    "note": "Fixture generated 2026-10-27T15:36:33Z, well before Week 8's first kickoff (Thu 10/29, CAR@GB); season_week.load_current_week_nflreadpy(2026) independently confirms Week 8. Live nflreadpy.load_injuries(2026) pulled for this Wednesday practice-report run: 16 rows filed league-wide, covering only CAR and GB (Thursday's game teams). Of this roster's teams only CAR (Jalen Coker) has filed; LAR, IND, TB, SEA, ATL, DET, CIN, NYJ, DEN and NYG have not. Refit AvailabilityModel on 2020-2025 nflreadpy data (47,719 rows) and used it rather than the raw practice-split numbers, per instructions -- it reproduces the fixture's own P(play) for Drake London exactly (90.4%), and raises Jalen Coker's P(play) 85.1% -> 91.7% on his Full Participation report. Does not change the lineup: Coker (bench) trails Jameson Williams by 1.5 points even at this better number."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "position": "QB",
+      "opponent": "vs LAC (Sun 11/1, 4:05pm ET)",
+      "expectedPoints": 17.1,
+      "conditionalPoints": 17.6,
+      "playProbability": 0.972,
+      "designation": "Healthy",
+      "reason": "Clear best QB on the roster (bench Bo Nix 15.46); automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "vs JAX (Sun 11/1, 1:00pm ET)",
+      "expectedPoints": 16.61,
+      "conditionalPoints": 17.4,
+      "playProbability": 0.954,
+      "designation": "Healthy",
+      "reason": "Highest projection on the whole roster; automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "vs ATL (Sun 11/1, 1:00pm ET)",
+      "expectedPoints": 15.33,
+      "conditionalPoints": 16.06,
+      "playProbability": 0.954,
+      "designation": "Healthy",
+      "reason": "Clear RB2; automatic start."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "@CHI (Mon 11/2, 8:15pm ET)",
+      "expectedPoints": 23.3,
+      "conditionalPoints": 24.03,
+      "playProbability": 0.969,
+      "designation": "Healthy",
+      "reason": "Highest WR projection on the roster; automatic start."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "@TB (Sun 11/1, 1:00pm ET)",
+      "expectedPoints": 15.2,
+      "conditionalPoints": 16.82,
+      "playProbability": 0.904,
+      "designation": "Questionable",
+      "practice": null,
+      "reason": "Clear WR2 even discounted for a head designation; Atlanta has not filed a practice report yet, so this P(play) rests on history alone -- re-check Thursday/Friday."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "position": "TE",
+      "opponent": "vs MIN (Sun 11/1, 1:00pm ET)",
+      "expectedPoints": 10.51,
+      "conditionalPoints": 11.1,
+      "playProbability": 0.947,
+      "designation": "Healthy",
+      "reason": "Only rostered TE option over Isaiah Likely (bye); automatic start."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "vs TEN (Sun 11/1, 1:00pm ET)",
+      "expectedPoints": 15.61,
+      "conditionalPoints": 16.13,
+      "playProbability": 0.968,
+      "designation": "Healthy",
+      "reason": "Best remaining FLEX option; clears Williams, Coker and bench QBs comfortably."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "vs MIN (Sun 11/1, 1:00pm ET)",
+      "expectedPoints": 12.04,
+      "conditionalPoints": 12.44,
+      "playProbability": 0.968,
+      "designation": "Healthy",
+      "reason": "Reclaims the second FLEX spot from Jalen Coker: 12.04 expected vs Coker's 10.52 even after today's live practice-report bump to Coker's P(play). A 0.12-point edge on Monday's sandbox numbers widens to 1.5 points on the real fixture."
+    },
+    {
+      "slot": "K",
+      "playerId": null,
+      "name": "(none rostered)",
+      "position": "K",
+      "opponent": "--",
+      "expectedPoints": 0.0,
+      "conditionalPoints": 0.0,
+      "playProbability": 0.0,
+      "designation": "Bye (Dominic Zvada, NYG)",
+      "reason": "Dominic Zvada, the only rostered K, is on NYG's Week 8 bye with no bench replacement. The slot scores zero as started. See Still Uncertain for waiver targets."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "NYJ",
+      "name": "Jets D/ST",
+      "position": "DST",
+      "opponent": "vs LV (Sun 11/1, 1:00pm ET)",
+      "expectedPoints": 7.12,
+      "conditionalPoints": 7.12,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Only rostered D/ST; automatic start, normal matchup, no bye."
+    }
+  ],
+  "lineupTotal": 132.82,
+  "changes": [
+    {
+      "action": "start",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "replacing": "Jalen Coker",
+      "deltaExpectedPoints": 1.52,
+      "reason": "The real committed fixture (FantasyPros consensus + ESPN injury) widens Monday's razor-thin 0.12-point sandbox edge into a clear 1.5-point gap, even after folding in today's live practice report raising Coker's P(play) from 85.1% to 91.7%."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "why": "Questionable (head), no ATL practice report filed yet as of this run. Current 90.4% P(play) is driven entirely by his clean 7-for-7 games-played history this season, not by any practice-participation signal -- that's still missing.",
+      "newsDue": "2026-10-29 / 2026-10-30 (Thu/Fri practice reports)"
+    },
+    {
+      "playerId": "00-0039172",
+      "name": "Jake Bates (K waiver target)",
+      "why": "Only rostered K (Dominic Zvada) is on NYG's bye this week with no bench replacement -- the K slot is scoring zero as started. Bates (DET, 8.19 expected vs MIN) is the fixture's own top-ranked in-house K target; Wil Lutz (DEN, 7.91) and Jason Sanders (NYJ, 7.84) are alternatives.",
+      "newsDue": "Before Sunday 11/1 kickoffs -- the K slot stays empty otherwise"
+    },
+    {
+      "playerId": null,
+      "name": "Week 8 practice reports, league-wide",
+      "why": "Only 16 rows filed so far, covering CAR and GB (Thursday's game). Of this roster's teams, only CAR has filed (Jalen Coker, bench, cleared to Full Participation). Re-check Thursday night and again Friday for the Sunday-game players, especially Drake London.",
+      "newsDue": "2026-10-29 / 2026-10-30"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "text": "Bucky Irving (TB, starting RB2) and Drake London (ATL, starting WR2) face each other Sunday at 1:00pm ET -- both start regardless of the other's game, no lineup implication, just a notable crossover on this roster."
+    },
+    {
+      "text": "Sam LaPorta and Jameson Williams are both Lions, both starting, both facing Minnesota Sunday at 1:00pm ET -- a correlated pair, not a conflict: the same game script moves both together."
+    },
+    {
+      "text": "Jalen Coker's game (CAR@GB) is Thursday night, the earliest lock of the week -- he's benched behind Williams regardless, so this doesn't change tonight's decision, but there's no Wednesday-to-Thursday window left to reconsider him."
+    },
+    {
+      "text": "Jets D/ST faces a normal Week 8 matchup (vs LV) -- no bye, nothing opponent-side to flag."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 8,
+      "players": [
+        "Dominic Zvada",
+        "Tyler Shough",
+        "Cam Skattebo",
+        "Isaiah Likely"
+      ]
+    },
+    {
+      "week": 10,
+      "players": [
+        "Bucky Irving",
+        "Bo Nix"
+      ]
+    }
+  ],
+  "caveats": [
+    "Ten starters total 132.82 expected points -- inside the 100-140 sanity band, but entirely without a kicker (Dominic Zvada on bye, no bench K). The same lineup with a replacement-level K (roughly 7-8 points) would total ~140, which is this roster's normal range -- the shortfall is fully explained by one known, already-flagged hole, not an upstream break.",
+    "Every non-zero row's expectedPoints and conditionalPoints match the committed fixture's own numbers exactly, except Jalen Coker's (bench, not in the lineup), whose playProbability -- and only playProbability -- was recomputed from live Wednesday practice data via the repo's AvailabilityModel (refit fresh on 2020-2025 data this run). No projection row was independently recomputed otherwise, so by construction no started player's if-he-plays number can diverge from the fixture's conditionalPoints, and none does.",
+    "Flipped FLEX2 from Jalen Coker (Monday's sandbox-only pick, a 0.12-point edge) to Jameson Williams once the real fixture landed Tuesday -- the gap is now 1.5 points even generously updating Coker's P(play) upward for today's clean practice report. Not treated as a close call.",
+    "Drake London's 90.4% P(play) carries no live practice signal -- Atlanta has not filed. It matches the fixture's own number exactly (confirmed via a fresh AvailabilityModel fit as a sanity check), but it is still a history-only estimate for a Questionable/head designation; Thursday/Friday practice data could move it either way.",
+    "The kicker hole is the same one flagged in Monday's briefing; this report can only name the fix (Jake Bates, DET), it cannot make the roster move."
+  ],
+  "markdown": "# Week 8 Start/Sit Briefing — Wednesday, 2026-10-28\n\n## Source and freshness\n\n**Fresh committed fixture, live practice-report overlay changes one P(play).** `weekly-report-week-8.json` was generated 2026-10-27T15:36:33Z (Tuesday) — after Monday's sandbox-degraded bridge briefing, with real FantasyPros consensus and ESPN injury data, and well before Week 8's first kickoff (Thursday 10/29, CAR@GB). `season_week.load_current_week_nflreadpy(2026)` independently confirms Week 8. Pulled live `nflreadpy.load_injuries(2026)` for this Wednesday practice-report run: only 16 rows filed league-wide, covering just CAR and GB — Thursday's game, as expected five days out. Of this roster's teams, only **CAR** (Jalen Coker's team) has filed. Fit the repo's `AvailabilityModel` fresh on 2020-2025 training data (47,719 labelled player-weeks) rather than trust the raw practice splits directly, per instructions; it reproduces the fixture's own P(play) for Drake London exactly (90.4%) as a sanity check, and moves Jalen Coker's P(play) from 85.1% (fixture, no practice data) to 91.7% once Carolina's Full Participation report is folded in.\n\n## Practice report\n\n**One team has filed: Carolina.** Jalen Coker, this roster's bench WR, came back clean.\n\n| Player | Designation | Wednesday practice | Model P(play) |\n|---|---|---|---|\n| Jalen Coker (WR, CAR, bench) | Questionable (shoulder) | **Full Participation** (live, confirmed) | 91.7% (was 85.1% pre-practice-report) |\n| Drake London (WR, ATL, starting WR2) | Questionable (head) | Not yet filed — ATL has not reported | 90.4% (fixture number; model reproduces it exactly from prior history alone) |\n\nEveryone else on this roster is tagged Healthy in the fixture, and none of their teams (LAR, IND, TB, SEA, DET, CIN, NYJ, DEN) has filed a practice report yet. Re-check Thursday night and again Friday — Friday's final designations are what actually settle London's status before Sunday.\n\n## Start these ten — 132.82 expected points\n\n| Slot | Player | Opp | Expected | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Matthew Stafford | vs LAC (Sun 4:05pm ET) | **17.10** | 97.2% | 17.60 |\n| RB | Jonathan Taylor | vs JAX (Sun 1:00pm ET) | **16.61** | 95.4% | 17.40 |\n| RB | Bucky Irving | vs ATL (Sun 1:00pm ET) | **15.33** | 95.4% | 16.06 |\n| WR | Jaxon Smith-Njigba | @CHI (Mon 8:15pm ET) | **23.30** | 96.9% | 24.03 |\n| WR | Drake London | @TB (Sun 1:00pm ET) | **15.20** | 90.4% | 16.82 |\n| TE | Sam LaPorta | vs MIN (Sun 1:00pm ET) | **10.51** | 94.7% | 11.10 |\n| FLEX | Tee Higgins | vs TEN (Sun 1:00pm ET) | **15.61** | 96.8% | 16.13 |\n| FLEX | Jameson Williams | vs MIN (Sun 1:00pm ET) | **12.04** | 96.8% | 12.44 |\n| K | *(none rostered — Dominic Zvada on bye)* | — | **0.00** | 0% | 0.00 |\n| DEF | Jets D/ST | vs LV (Sun 1:00pm ET) | **7.12** | 100% | 7.12 |\n| **Total** | | | **132.82** | | |\n\nBench: Jalen Coker (WR, 10.52 expected updated for live practice — see below), Bo Nix (QB, 15.46, clean hold behind Stafford). On bye this week (NYG/NO), not playable regardless of projection: Dominic Zvada (K), Tyler Shough (QB), Cam Skattebo (RB), Isaiah Likely (TE).\n\n## Changes since Monday\n\n**The real fixture flips FLEX2 back to Jameson Williams, and Coker's practice report doesn't change that.** Monday's bridge briefing (sandbox-only, no FantasyPros, no injuries) had Williams over Coker by a razor-thin 0.12 points — inside model noise. Tuesday's real committed fixture, with FantasyPros consensus and ESPN's injury designation on Coker, widens that gap sharply: Williams projects 12.04 expected points against Coker's fixture number of 9.75. Today's live Wednesday overlay raises Coker's P(play) from 85.1% to 91.7% (Full Participation on a Questionable shoulder), which lifts his expected points to 10.52 — still 1.5 points behind Williams. Williams starts; this is not a close call once the real fixture and real injury data are both in, even generously updated in Coker's favor.\n\nEverything else holds from Monday: Stafford/Taylor/Irving/JSN/London/LaPorta/Higgins are the same players in the same slots, now running on the real fixture's higher numbers (consensus + availability) rather than Monday's in-house-only sandbox estimates.\n\n**The kicker hole is unresolved, three Wednesdays running Zvada's bye has been visible.** Dominic Zvada remains the only rostered K and NYG's bye zeroes the slot exactly as flagged Monday. No waiver move has landed per a fresh read of `roster.json`.\n\n## Still uncertain\n\n- **Drake London's head designation.** Questionable, no ATL practice report yet. The model's 90.4% P(play) comes entirely from his clean 2026 history (played all 7 games so far) plus the bare Questionable tag — there is no practice-participation signal in it at all. Re-check Thursday/Friday once Atlanta reports; a DNP would be a materially different number than a Full/Limited.\n- **Jalen Coker, inversely.** His practice signal is in (Full Participation) and he's trending toward a normal snap share, but it doesn't matter for this week's lineup call — he trails Williams by 1.5 points even at his best-case number. Worth revisiting only if Williams' own health or role changes.\n- **The kicker slot**, which isn't an uncertainty so much as an open action item: claim a replacement before Sunday. Jake Bates (DET, 8.19 expected vs MIN, same game as LaPorta/Williams) is the fixture's own top-ranked K waiver target; Wil Lutz (DEN, 7.91 vs KC) and Jason Sanders (NYJ, 7.84 vs LV — his own teammate's game, this roster's DEF) are the alternatives. Without a fix the real total stays ~125 points below the ~140 this roster would otherwise post.\n\n## Opponent notes\n\n- **Bucky Irving (TB, starting RB2) and Drake London (ATL, starting WR2) face each other** Sunday at 1:00pm ET — both start regardless of the other's game, just a notable crossover on this roster, same pattern as last week's Irving/Coker matchup.\n- **Sam LaPorta and Jameson Williams are both Lions**, both starting, both facing Minnesota Sunday at 1:00pm ET — a correlated pair rather than a conflict: a good Detroit game script lifts both at once, a bad one (e.g., an early Lions deficit shifting to a run-heavy script) could cap both together.\n- **Jalen Coker's game is Thursday night** (CAR@GB, 8:15pm ET) — the earliest lock of the week, tomorrow. He's benched behind Williams regardless, so no action needed, but there's no Wednesday-to-Thursday window to reconsider him if something changes with Williams.\n- Jets D/ST's Week 8 matchup is a normal game (vs LV, 1:00pm ET) — no bye, no notable news.\n\n## Byes ahead\n\n- **Week 8 (this week):** Dominic Zvada (K), Tyler Shough (QB), Cam Skattebo (RB), Isaiah Likely (TE) — all NYG/NO, the kicker hole this entire report is built around.\n- **Week 10:** Bucky Irving (RB, TB) and bench Bo Nix (QB, DEN) — flagging now; Irving is a clear starter so this needs a waiver-level replacement plan, not a bench swap.\n"
+}

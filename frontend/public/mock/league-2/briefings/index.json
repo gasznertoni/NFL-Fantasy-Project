@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-28-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-10-28T20:15:58Z",
+      "week": 8,
+      "lineupTotal": 132.82,
+      "changeSummary": "Real committed fixture landed Tuesday (FantasyPros consensus + ESPN injuries), replacing Monday's sandbox-degraded bridge numbers. Headline flip: FLEX2 moves from Jalen Coker back to Jameson Williams -- Monday's sandbox had Williams ahead by a thin 0.12 points, the real fixture widens it to 1.5 points even after today's live Wednesday practice overlay raises Coker's P(play) 85.1% -> 91.7% on a Full Participation report. Drake London (Questionable, head) still has no ATL practice report filed -- his 90.4% P(play) is history-only; re-check Thursday/Friday. Kicker hole unresolved for a third straight briefing: Dominic Zvada on NYG's bye, no backup K, slot scores zero; Jake Bates (DET, 8.19 exp) is the top waiver target. Real total 132.82 vs ~140 with a kicker filled.",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-10-26-mon",
       "kind": "monday",
       "generatedAt": "2026-10-26T06:19:27Z",
