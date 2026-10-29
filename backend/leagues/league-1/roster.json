@@ -1,8 +1,8 @@
 {
-  "_note": "The builder's actual team in the AUT-HUN Football League (league-1), captured 2026-09-06 from the ESPN lineup screen the same day the league's final scoring settings were confirmed. 14-team league, snake draft, full roster of 12 (8 starters + 4 bench) plus 1 IR slot. Roster spec: 1 QB, 1 RB, 1 WR, 1 TE, 2 FLEX (W/R/T), 1 D/ST, 1 K, 4 BN, 1 IR. Note the shape this team was drafted into: five wide receivers and two tight ends against a single dedicated RB, which fits a league that pays a TE reception double an RB/WR one and 0.75 a first down. 2026-10-04 (week 4): Dart (season-ending knee) and Mayfield (thumb, Out) left no healthy QB; picked up Sam Darnold (SEA), Woody Marks (HOU), Jakobi Meyers (JAX) and J.J. McCarthy (NYG). Dropped Dart, Mayfield and KC Concepcion. Alec Pierce (heel) moved to IR. Goedert (knee, Out) benched for Josh Downs at FLEX. 2026-10-22 (week 7): dropped the Jaguars D/ST (week-7 bye) for the Jets D/ST (5.64 vs MIA). Tyler Warren (Out, P(play) 0.013) benched for Goedert at TE (11.02 expected). Woody Marks (12.63 vs NYG) to FLEX over Josh Downs (8.88). Cameron Dicker and Jakobi Meyers are also on the week-7 bye, so the K slot still holds a kicker who will score 0 until a waiver kicker replaces him. Same day: dropped Dicker for Jake Bates (K, DET, 8.25 vs GB), the best kicker available.",
+  "_note": "The builder's actual team in the AUT-HUN Football League (league-1), captured 2026-09-06 from the ESPN lineup screen the same day the league's final scoring settings were confirmed. 14-team league, snake draft, full roster of 12 (8 starters + 4 bench) plus 1 IR slot. Roster spec: 1 QB, 1 RB, 1 WR, 1 TE, 2 FLEX (W/R/T), 1 D/ST, 1 K, 4 BN, 1 IR. Note the shape this team was drafted into: five wide receivers and two tight ends against a single dedicated RB, which fits a league that pays a TE reception double an RB/WR one and 0.75 a first down. 2026-10-04 (week 4): Dart (season-ending knee) and Mayfield (thumb, Out) left no healthy QB; picked up Sam Darnold (SEA), Woody Marks (HOU), Jakobi Meyers (JAX) and J.J. McCarthy (NYG). Dropped Dart, Mayfield and KC Concepcion. Alec Pierce (heel) moved to IR. Goedert (knee, Out) benched for Josh Downs at FLEX. 2026-10-22 (week 7): dropped the Jaguars D/ST (week-7 bye) for the Jets D/ST (5.64 vs MIA). Tyler Warren (Out, P(play) 0.013) benched for Goedert at TE (11.02 expected). Woody Marks (12.63 vs NYG) to FLEX over Josh Downs (8.88). Cameron Dicker and Jakobi Meyers are also on the week-7 bye, so the K slot still holds a kicker who will score 0 until a waiver kicker replaces him. Same day: dropped Dicker for Jake Bates (K, DET, 8.25 vs GB), the best kicker available. 2026-10-29 (week 8): Jakobi Meyers (10.06 vs IND) to FLEX over Woody Marks (week-8 bye); Josh Downs (8.94) stays on the bench.",
   "leagueId": "league-1",
   "platform": "espn",
-  "capturedAt": "2026-10-22",
+  "capturedAt": "2026-10-29",
   "slots": [
     "QB",
     "RB",
@@ -58,11 +58,11 @@
     },
     {
       "slot": "FLEX",
-      "name": "Woody Marks",
-      "position": "RB",
-      "team": "HOU",
-      "playerId": "00-0040583",
-      "byeWeek": 8
+      "name": "Jakobi Meyers",
+      "position": "WR",
+      "team": "JAX",
+      "playerId": "00-0034960",
+      "byeWeek": 7
     },
     {
       "slot": "DST",
@@ -90,11 +90,11 @@
       "byeWeek": 13
     },
     {
-      "name": "Jakobi Meyers",
-      "position": "WR",
-      "team": "JAX",
-      "playerId": "00-0034960",
-      "byeWeek": 7
+      "name": "Woody Marks",
+      "position": "RB",
+      "team": "HOU",
+      "playerId": "00-0040583",
+      "byeWeek": 8
     },
     {
       "name": "J.J. McCarthy",
