@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-10-31-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-10-31T06:08:00Z",
+      "week": 8,
+      "lineupTotal": 138.57,
+      "changeSummary": "Confirm-the-lineup week, no changes recommended. Kicker hole from the last two briefings is closed -- Jake Bates (DET) rostered 2026-10-29 -- which lifts the total back to 138.57 from 130-133. The one FLEX call still open Wednesday (Coker vs Williams) was decided and played Thursday before this report ran: Coker started, final line 2/5/36/1 TD plus a lost fumble, 9.60 real points, recorded for the track record rather than as live advice. Drake London (fixture: Questionable, head) does not appear anywhere in Atlanta's now-complete 18-player injury report -- read as cleared; started regardless either way as the clear WR2.",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-10-28-wed",
       "kind": "wednesday",
       "generatedAt": "2026-10-28T20:15:58Z",
