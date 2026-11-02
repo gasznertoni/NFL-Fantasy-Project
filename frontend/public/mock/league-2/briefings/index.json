@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-11-02-mon",
+      "kind": "monday",
+      "generatedAt": "2026-11-02T06:21:10Z",
+      "week": 9,
+      "lineupTotal": 142.46,
+      "changeSummary": "Pivoted to Week 9 (Week 8 closed for this roster except tonight's CHI@SEA MNF, which starter Jaxon Smith-Njigba plays in -- not a real decision, he starts regardless). Three model-driven swaps off Saturday's Week 8 lineup: QB Tyler Shough in for Matthew Stafford (+1.68), TE Isaiah Likely in for Sam LaPorta (+3.23), FLEX Jameson Williams in for Jalen Coker (+2.47, and only 0.21 clear of bench RB Skattebo -- thin, recheck Wednesday). No Week 9 injury data exists anywhere yet (nflreadpy.load_injuries only covers through Week 8; ESPN/Sleeper unreachable) -- first filings expected Wednesday 11/4. Headline forward-looking item: Week 11 is a triple bye (QB Stafford plus both top WRs JSN and London), worth watching the Week 10 waiver wire for a streaming WR ahead of it. Self-generated live run again this week -- the committed Week 9 fixture is still the 2026-09-08 pre-season placeholder.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-10-31-sat",
       "kind": "saturday",
       "generatedAt": "2026-10-31T06:08:00Z",

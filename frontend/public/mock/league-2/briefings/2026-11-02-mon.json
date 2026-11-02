@@ -1,0 +1,211 @@
+{
+  "slug": "2026-11-02-mon",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 9,
+  "kind": "monday",
+  "generatedAt": "2026-11-02T06:21:10Z",
+  "source": {
+    "label": "Self-generated live run (generate_report.py --skip-rotowire --skip-news --skip-fantasypros), NOT the committed fixture",
+    "asOf": "2026-11-02T06:17:37Z",
+    "isLive": true,
+    "note": "The committed frontend/public/mock/league-2/weekly-report-week-9.json is a pre-season placeholder (generatedAt 2026-09-08, before the season started) and is unusable, so this briefing comes from a live in-sandbox run against real nflreadpy data. Degraded in four ways versus a normal CI-built week: (1) ESPN's injury API is proxy-blocked (403) and Sleeper returned 0 rows too on this run, so the availability model ran with ZERO live injury designations -- every player defaults to 'Healthy'. (2) nflreadpy.load_injuries(2026) itself only carries data through Week 8 -- Week 9 teams have not filed yet (first Week 9 game is Thursday 11/5; injury reports typically start the Wednesday before, 11/4), so there is literally no Week 9 injury signal anywhere yet, live or otherwise. I checked Week 8's final report for this roster's players as a lingering-issue check: no flags found for Higgins, Skattebo, Likely or anyone else -- 'Healthy' currently looks correct, not just a blank default. (3) No FANTASYPROS_API_KEY in this sandbox, so every player runs on the in-house model only, no vendor consensus blend. (4) Rotowire is proxy-blocked, so no red-zone/route annotations. season_week.load_current_week_nflreadpy(2026) returns Week 8, because Week 8's Monday night game (CHI@SEA, tonight, kickoff ~01:15 UTC Tue) hasn't been played -- and Jaxon Smith-Njigba (SEA) is a rostered starter in it. That game is not a real decision (JSN is this roster's clear WR1 regardless of opponent), so this briefing pivots ahead to Week 9 for every other slot, the same convention used on 10/26 and 10/19."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040743",
+      "name": "Tyler Shough",
+      "position": "QB",
+      "opponent": "vs CLE",
+      "expectedPoints": 17.34,
+      "conditionalPoints": 17.85,
+      "playProbability": 0.972,
+      "designation": "Healthy",
+      "reason": "Model-driven swap off the long-held Stafford start: Shough projects 1.68 ahead of Stafford (17.34 vs 15.66) and 2.41 ahead of bench Bo Nix. No injury or consensus distortion involved -- see watch list before locking, this roster has reversed a Shough/Stafford call before."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "vs DAL",
+      "expectedPoints": 16.06,
+      "conditionalPoints": 16.78,
+      "playProbability": 0.957,
+      "designation": "Healthy",
+      "reason": "Clear RB1, no competition."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "@ CHI",
+      "expectedPoints": 15.57,
+      "conditionalPoints": 16.27,
+      "playProbability": 0.957,
+      "designation": "Healthy",
+      "reason": "Clear RB2, clears bench Cam Skattebo by 3.71."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "vs ARI",
+      "expectedPoints": 22.19,
+      "conditionalPoints": 23.14,
+      "playProbability": 0.959,
+      "designation": "Healthy",
+      "reason": "Highest projection in the lineup by nearly 6 points. His Week 8 game (tonight, vs CHI) is still unplayed -- irrelevant to this call, he starts regardless of tonight's result."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "@ ATL",
+      "expectedPoints": 16.00,
+      "conditionalPoints": 16.50,
+      "playProbability": 0.969,
+      "designation": "Healthy",
+      "reason": "Second-best WR this week, clears London by 0.73."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "@ PHI",
+      "expectedPoints": 14.24,
+      "conditionalPoints": 14.99,
+      "playProbability": 0.950,
+      "designation": "Healthy",
+      "reason": "Swap recommended: projects 3.23 points ahead of currently-started Sam LaPorta (11.01). Both are healthy and active -- pure model signal, not an injury-driven change."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "vs CIN",
+      "expectedPoints": 15.27,
+      "conditionalPoints": 15.72,
+      "playProbability": 0.971,
+      "designation": "Healthy",
+      "reason": "Third-best WR, clear first FLEX."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "@ MIA",
+      "expectedPoints": 12.07,
+      "conditionalPoints": 12.45,
+      "playProbability": 0.969,
+      "designation": "Healthy",
+      "reason": "Edges bench RB Cam Skattebo (11.86) by just 0.21 -- inside model noise. See watch list."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0039172",
+      "name": "Jake Bates",
+      "position": "K",
+      "opponent": "@ MIA",
+      "expectedPoints": 8.09,
+      "conditionalPoints": 8.21,
+      "playProbability": 0.986,
+      "designation": "Healthy",
+      "reason": "Only rostered kicker, clean start."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "NYJ",
+      "name": "Jets D/ST",
+      "position": "DST",
+      "opponent": "@ KC",
+      "expectedPoints": 5.63,
+      "conditionalPoints": 5.63,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Only rostered D/ST. Tough road matchup caps the number, but it's the only option."
+    }
+  ],
+  "lineupTotal": 142.46,
+  "changes": [
+    {
+      "action": "start",
+      "playerId": "00-0040743",
+      "name": "Tyler Shough",
+      "replacing": "Matthew Stafford",
+      "deltaExpectedPoints": 1.68,
+      "reason": "Pivoted to Week 9: Shough now projects ahead of Stafford (17.34 vs 15.66) on recent form and matchup. This roster reversed a similar Nix-over-Stafford call in Week 7 on a stale-consensus gap -- this one has no FantasyPros tier active either way this run, so it's a cleaner comparison, but still recheck once Wednesday's practice/injury data lands."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "replacing": "Sam LaPorta",
+      "deltaExpectedPoints": 3.23,
+      "reason": "Likely projects well clear of LaPorta this week (14.24 vs 11.01), reversing LaPorta's hold from the last two briefings."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "replacing": "Jalen Coker",
+      "deltaExpectedPoints": 2.47,
+      "reason": "Pivoted to Week 9: Williams (12.07) clears both bench Coker (10.68, started last briefing at 9.60 for Week 8) and bench Skattebo (11.86) for the second FLEX spot."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "why": "Starts over bench RB Cam Skattebo by only 0.21 expected points -- inside the model's measured error, could flip on no new information at all.",
+      "newsDue": "Wednesday practice report"
+    },
+    {
+      "playerId": "00-0040743",
+      "name": "Tyler Shough",
+      "why": "Recommended over the long-held starter Matthew Stafford by 1.68 points. Worth a sanity check against Wednesday/Thursday beat reporting before locking, given this roster's history of reversing similar backup-QB calls.",
+      "newsDue": "Wednesday/Thursday reports"
+    },
+    {
+      "playerId": null,
+      "name": "Week 9 injury report (whole roster)",
+      "why": "No Week 9 injury designations exist anywhere yet -- nflreadpy.load_injuries(2026) only carries data through Week 8, and ESPN/Sleeper are unreachable from this sandbox. First Week 9 filings are expected Wednesday 11/4.",
+      "newsDue": "Wednesday 11/4"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0038543",
+      "text": "Jaxon Smith-Njigba vs ARI is this week's highest-upside play by nearly 6 points over the next-best player (22.19 expected, 23.14 if he plays) -- his Week 8 Monday-nighter @CHI is still unplayed as of this briefing but doesn't change this call either way."
+    },
+    {
+      "playerId": "00-0040743",
+      "text": "Shough's Week 9 matchup (vs CLE) grades out favorably in-house and is a real driver of the QB swap above, not just recent box scores."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 10,
+      "players": ["Bucky Irving", "Bo Nix"]
+    },
+    {
+      "week": 11,
+      "players": ["Matthew Stafford", "Jaxon Smith-Njigba", "Drake London"]
+    }
+  ],
+  "caveats": [
+    "Ten lineup rows total 142.46 expected points -- above the usual 100-140 band, but on the high side because of a genuinely strong roster (JSN, Taylor, Higgins are all elite this week), not an upstream break. No single row looks implausible.",
+    "The committed Week 9 fixture (weekly-report-week-9.json) is a pre-season placeholder dated 2026-09-08 and could not be used for the required cross-check against conditionalPoints -- it predates the season entirely. This briefing comes from one self-generated live run with no second source to reconcile against. Expect Tuesday's CI run to replace it with a real Week 9 fixture.",
+    "No FantasyPros consensus tier was reachable this run (no API key in this sandbox), so every player above runs on the in-house model only. Numbers may move once Tuesday's CI-built fixture (which has FantasyPros access) lands.",
+    "ACTION FLAG, not urgent this Wednesday: Week 11 is a triple bye for this roster -- QB Matthew Stafford AND both top-two WRs (Jaxon Smith-Njigba, Drake London) are all on bye the same week. Bench QB depth (Shough/Nix) covers the QB side, but WR would be down to Higgins, Williams and Coker that week. Two weeks out is early to claim a replacement, but start watching the Week 10 waiver wire for a streamable WR before Week 11 arrives. Week 10 also loses RB Bucky Irving and bench QB Bo Nix to bye.",
+    "Week 8 is not technically closed -- season_week.load_current_week_nflreadpy(2026) still returns Week 8 because tonight's CHI@SEA Monday-nighter (involving starter Jaxon Smith-Njigba) hasn't been played. That is not a real decision (JSN starts regardless of the matchup), so this briefing pivots to Week 9 for everything else, matching the convention from the 10/26 and 10/19 Monday briefings."
+  ],
+  "markdown": "# Week 9 Start/Sit Briefing -- Monday, 2026-11-02\n\n**Pivoting to Week 9.** `season_week.load_current_week_nflreadpy(2026)` still reports Week 8, because tonight's Monday-nighter (CHI@SEA) hasn't been played and Jaxon Smith-Njigba (SEA) is a rostered starter in it. That isn't a real decision -- JSN is this roster's clear WR1 regardless of tonight's result -- so, matching the 10/26 and 10/19 convention, this briefing moves ahead to Week 9 for every other slot.\n\n## Source and freshness -- READ THIS FIRST\n\nThe committed Week 9 fixture (`weekly-report-week-9.json`) is a **pre-season placeholder dated 2026-09-08** -- it predates the season and is unusable. This briefing instead comes from a live run of `generate_report.py` executed directly in this sandbox against real `nflreadpy` data, with four degradations versus a normal week:\n\n1. **Zero live injury designations.** ESPN's injury API is proxy-blocked (403) and Sleeper returned 0 rows on this run too.\n2. **No Week 9 injury data exists anywhere yet, live or otherwise.** `nflreadpy.load_injuries(2026)` only carries data through Week 8 -- teams haven't started filing for Week 9 (first game Thursday 11/5; reports typically start Wednesday 11/4). I checked Week 8's final report for this roster's players as a lingering-issue sanity check: no flags on Higgins, Skattebo, Likely, or anyone else, so \"Healthy\" currently looks right rather than just a blank default.\n3. **No FantasyPros consensus tier** -- no API key in this sandbox, every player runs on the in-house model alone.\n4. **No Rotowire data** (also proxy-blocked).\n\nTuesday's scheduled CI run has real access to all of the above and will supersede this with a proper fixture -- treat this as a bridge.\n\n## Start these ten -- 142.46 expected points\n\n| Slot | Player | Opp | Expected | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Tyler Shough | vs CLE | **17.34** | 97.2% | 17.85 |\n| RB | Jonathan Taylor | vs DAL | **16.06** | 95.7% | 16.78 |\n| RB | Bucky Irving | @ CHI | **15.57** | 95.7% | 16.27 |\n| WR | Jaxon Smith-Njigba | vs ARI | **22.19** | 95.9% | 23.14 |\n| WR | Tee Higgins | @ ATL | **16.00** | 96.9% | 16.50 |\n| TE | Isaiah Likely | @ PHI | **14.24** | 95.0% | 14.99 |\n| FLEX | Drake London | vs CIN | **15.27** | 97.1% | 15.72 |\n| FLEX | Jameson Williams | @ MIA | **12.07** | 96.9% | 12.45 |\n| K | Jake Bates | @ MIA | **8.09** | 98.6% | 8.21 |\n| DEF | Jets D/ST | @ KC | **5.63** | 100% | 5.63 |\n\n**Three swaps off the last briefing's actual lineup (Saturday 10/31, Week 8, 138.57):**\n\n1. **QB: Matthew Stafford -> Tyler Shough (+1.68).** Shough projects 17.34 to Stafford's 15.66 on recent form and a favorable Cleveland matchup. This roster reversed a similar Nix-over-Stafford call in Week 7, so recheck before locking -- but unlike that case, no FantasyPros tier is active either side this run, so it's a cleaner model comparison.\n2. **TE: Sam LaPorta -> Isaiah Likely (+3.23).** Likely projects 14.24 to LaPorta's 11.01, reversing LaPorta's hold from the last two briefings.\n3. **FLEX: Jalen Coker -> Jameson Williams (+2.47).** Williams (12.07) clears both Coker (10.68) and bench RB Cam Skattebo (11.86, only 0.21 back -- thin, watch).\n\nBench, all healthy and active this week: Matthew Stafford (QB, 15.66), Bo Nix (QB, 14.93), Cam Skattebo (RB, 11.86), Sam LaPorta (TE, 11.01), Jalen Coker (WR, 10.68).\n\n## Watch list\n\n- **Jameson Williams vs. bench Cam Skattebo at FLEX2** -- 0.21 points apart, inside model noise.\n- **Tyler Shough vs. Matthew Stafford at QB** -- a real swap recommendation (+1.68), worth a gut-check against Wednesday/Thursday beat reporting given this roster's track record of reversing similar calls.\n- **The entire Week 9 injury report** -- nothing has been filed yet for any player on any team. First filings land Wednesday 11/4; re-run before locking Sunday.\n\n## Opponent notes\n\n- Jaxon Smith-Njigba vs ARI is the clear top play (22.19 expected) regardless of how tonight's Week 8 Monday-nighter against Chicago goes.\n- Shough's Week 9 matchup vs Cleveland grades out favorably in-house and is a real driver of the QB call, not just recent box scores.\n\n## Byes ahead -- the headline item this week\n\n- **Week 10:** Bucky Irving (RB, Buccaneers' bye) and bench Bo Nix (Broncos' bye). Irving's bye reopens the RB2 spot for Skattebo, who already covers it on the bench -- no waiver action needed.\n- **Week 11: a triple bye.** Matthew Stafford (QB), Jaxon Smith-Njigba (WR) and Drake London (WR) are all on bye the same week -- Rams, Seahawks and Falcons all idle together. QB is covered by bench Shough/Nix either way. WR is the real exposure: with JSN and London both out, this roster is down to Higgins, Williams and Coker for two WR slots plus whatever FLEX needs. Two weeks out is early to claim a specific replacement, but start watching the Week 10 waiver wire for a streamable WR before Week 11 arrives rather than discovering the hole that week.\n\n## No waiver claim is urgent before this Wednesday\n\nThe in-house waiver scan surfaced only kicker options this run (Wil Lutz, Evan McPherson, Andre Szmyt, all ~7.9 expected) -- none better than the rostered Jake Bates (8.09), so no action there. The real planning item is the Week 11 WR bye crunch above, which has a full week of runway before it needs a decision.\n"
+}
