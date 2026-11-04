@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-11-04-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-11-04T21:00:00Z",
+      "week": 9,
+      "lineupTotal": 144.14,
+      "changeSummary": "Practice-report run: no live overlay was possible -- nflreadpy's Week 9 injury feed holds only BAL/JAX (Thursday's game teams) so far, and none of this roster's three Questionable players (Stafford/LAR-arm, London/ATL-head, Skattebo/NYG-hamstring, all Sunday games) have a practice report filed yet; their fixture designations stand unconfirmed. Using the fresh CI fixture (built 2026-11-03, real FantasyPros + ESPN data) in place of Monday's sandbox-degraded numbers moved the lineup to 144.14 (+1.68) with no player swaps: Taylor +1.71, JSN +1.15 up: on form; TE Likely's edge over bench LaPorta collapsed from 3.23 to a thin 0.60; and QB is now an exact 17.00/17.00 tie between started Shough and bench Stafford, pending LAR's first practice report. Recheck Thursday/Friday once LAR, ATL and NYG file.",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-11-02-mon",
       "kind": "monday",
       "generatedAt": "2026-11-02T06:21:10Z",
