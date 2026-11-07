@@ -1,0 +1,203 @@
+{
+  "slug": "2026-11-07-sat",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 9,
+  "kind": "saturday",
+  "generatedAt": "2026-11-07T07:00:00Z",
+  "source": {
+    "label": "Committed fixture weekly-report-week-9.json (FantasyPros consensus + ESPN injuries) + live nflreadpy.load_injuries(2026) Week 9 overlay",
+    "asOf": "2026-11-03T17:15:16Z",
+    "isLive": false,
+    "note": "season_week.load_current_week_nflreadpy(2026) independently confirms Week 9; load_schedules shows only Thursday's BAL@JAX (final, 33-10, neither team rostered here) has been played, with every other Week 9 game Sunday 11/8 (mostly 1:00pm ET) or Monday 11/9 (BUF@MIN, no roster tie). Live nflreadpy.load_injuries(2026) Week 9 holds 340 rows, but non-null game-status (report_status) exists only for BAL and JAX -- the two teams that already played. No other team, including LAR, ATL or NYG, has an official Friday game designation in this feed yet, so the fixture's Questionable tags for Stafford (Arm), London (Head) and Skattebo (Hamstring) stand as the operative read -- this is a known data-lag gap (see routine notes), not a new finding. Two reassuring live rows: Stafford logged Full Participation in practice (positive signal for an Arm tag, though not a formal clearance), and both Bucky Irving (DNP) and Jaxon Smith-Njigba (Limited) are coded 'Not injury related - resting player' -- routine veteran rest, not a readiness concern. LaPorta, Coker, Higgins, Shough, Nix, Williams and Likely have no live row at all -- their teams have not filed this week and the fixture's Healthy designations stand unchanged. No roster player's game has been played yet, so no conditionalPoints were overridden with real stat lines this run -- every number below is the fixture's own."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "position": "QB",
+      "opponent": "vs WAS (Sun 11/8, 1:00pm ET)",
+      "expectedPoints": 17.0,
+      "conditionalPoints": 18.59,
+      "playProbability": 0.914,
+      "designation": "Questionable (Arm)",
+      "reason": "Exact tie with bench Tyler Shough on expected points (17.00 both). Flipping to Stafford from Wednesday's call: LAR logged him at Full Participation in practice since then -- the strongest positive signal short of an outright clearance -- and his conditional ceiling (18.59) is higher if he plays. No official Friday game designation has posted in nflreadpy yet for either team; check Sunday morning inactives before the 1:00pm lock and start Shough instead if Stafford is downgraded."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "vs DAL (Sun 11/8, 1:00pm ET)",
+      "expectedPoints": 17.77,
+      "conditionalPoints": 18.57,
+      "playProbability": 0.957,
+      "designation": "Healthy",
+      "reason": "Highest projection on the roster; automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "@ CHI (Sun 11/8, 8:20pm ET)",
+      "expectedPoints": 15.9,
+      "conditionalPoints": 16.62,
+      "playProbability": 0.957,
+      "designation": "Healthy",
+      "reason": "Clear RB2 over bench Cam Skattebo (10.49) by 5.41. DNP at Friday practice, but nflreadpy codes it explicitly as 'Not injury related - resting player' -- a veteran rest day, not a readiness flag."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "vs ARI (Sun 11/8, 4:25pm ET)",
+      "expectedPoints": 23.34,
+      "conditionalPoints": 24.04,
+      "playProbability": 0.971,
+      "designation": "Healthy",
+      "reason": "Highest projection on the entire roster by 5.57 points over the next-best WR; automatic start. Limited practice participation is also coded 'resting player', not injury-related."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "@ ATL (Sun 11/8, 9:30am ET)",
+      "expectedPoints": 15.86,
+      "conditionalPoints": 16.36,
+      "playProbability": 0.969,
+      "designation": "Healthy",
+      "reason": "Clears bench Jalen Coker (10.55) and Jameson Williams (12.55) comfortably; easy hold. Earliest kickoff on the roster (9:30am ET London-set window)."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "@ PHI (Sun 11/8, 1:00pm ET)",
+      "expectedPoints": 12.55,
+      "conditionalPoints": 13.21,
+      "playProbability": 0.95,
+      "designation": "Healthy",
+      "reason": "Edges bench Sam LaPorta (11.95) by only 0.60 -- a thin margin unchanged since Wednesday. No new injury news on either Lion or Giant tight end this run."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "vs CIN (Sun 11/8, 9:30am ET)",
+      "expectedPoints": 15.45,
+      "conditionalPoints": 17.01,
+      "playProbability": 0.908,
+      "designation": "Questionable (Head)",
+      "reason": "Still clears every bench alternative (LaPorta 11.95, Williams 12.55, Coker 10.55, Skattebo 10.49) even discounted to 90.8% P(play) -- start regardless. ATL has not filed a Week 9 injury report at all in nflreadpy yet; this is the roster's earliest lock (9:30am ET) and the single most important inactives check tomorrow morning."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "@ MIA (Sun 11/8, 1:00pm ET)",
+      "expectedPoints": 12.55,
+      "conditionalPoints": 12.95,
+      "playProbability": 0.969,
+      "designation": "Healthy",
+      "reason": "Clears bench Coker (10.55) and Skattebo (10.49); holds the second FLEX spot."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0039172",
+      "name": "Jake Bates",
+      "position": "K",
+      "opponent": "@ MIA (Sun 11/8, 1:00pm ET)",
+      "expectedPoints": 8.09,
+      "conditionalPoints": 8.21,
+      "playProbability": 0.986,
+      "designation": "Healthy",
+      "reason": "Only rostered kicker; automatic start."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "NYJ",
+      "name": "Jets D/ST",
+      "position": "DST",
+      "opponent": "@ KC (Sun 11/8, 1:00pm ET)",
+      "expectedPoints": 5.63,
+      "conditionalPoints": 5.63,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Only rostered D/ST; always available, automatic start."
+    }
+  ],
+  "lineupTotal": 144.14,
+  "changes": [
+    {
+      "action": "start",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "replacing": "Tyler Shough (bench)",
+      "deltaExpectedPoints": 0.0,
+      "reason": "Pure tie-break flip, not a projection change -- both are 17.00 expected. Wednesday's briefing defaulted to Shough as the lower-variance option; since then Stafford logged Full Participation in Friday practice, which tips the call back to him given the identical expected value and higher upside (18.59 vs 17.49 conditional). Revert to Shough if Sunday's inactives list downgrades Stafford."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "why": "Questionable (Arm). Full Participation at practice is reassuring but nflreadpy has not posted LAR's official Friday game-status yet, so the Questionable tag is technically unconfirmed-but-unchanged. Started over Shough on today's call; flip back if downgraded.",
+      "newsDue": "Sunday 11/8, pregame inactives list, before the 1:00pm ET lock"
+    },
+    {
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "why": "Questionable (Head), started regardless at 90.8% P(play) since he clears every bench alternative either way. ATL has filed nothing in nflreadpy for Week 9 yet -- the biggest single data gap on this roster, and his 9:30am ET kickoff is the first lock of the weekend.",
+      "newsDue": "Sunday 11/8, pregame inactives list, before the 9:30am ET lock"
+    },
+    {
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "why": "Bench RB, Questionable (Hamstring), DNP at Friday practice. Doesn't change the lineup -- Taylor and Irving are the clear RB1/RB2 -- but is the direct backup if either gets a late scratch.",
+      "newsDue": "Sunday 11/8, pregame inactives list"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "text": "Jaxon Smith-Njigba's 23.34 is an outlier even for him -- Arizona brings a bottom-tier pass defense into Seattle, and the gap over the roster's next-best WR (Higgins, 15.86) is 7.5 points."
+    },
+    {
+      "text": "Drake London and Tee Higgins both play the 9:30am ET London-set window (ATL vs CIN) -- a correlated pair, not a conflict, since both start regardless of the other's game."
+    },
+    {
+      "text": "Sam LaPorta stays on the bench this week despite a plus matchup (vs MIA) because Likely's current form edges him by a thin 0.60 points -- worth a last check if either tight end's practice report changes before Sunday."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 10,
+      "players": [
+        "Bucky Irving",
+        "Bo Nix"
+      ]
+    },
+    {
+      "week": 11,
+      "players": [
+        "Matthew Stafford",
+        "Jaxon Smith-Njigba",
+        "Drake London"
+      ]
+    }
+  ],
+  "caveats": [
+    "Ten starters total 144.14 expected points -- above the 100-140 sanity band's midpoint but driven by one real outlier (Smith-Njigba at 23.34) rather than anything broken; the identical total appeared in Wednesday's briefing off the same fixture, so this is a strong week, not a bug.",
+    "Every expectedPoints/conditionalPoints pair matches the committed Week 9 fixture exactly -- no roster player's game has been played yet (all are Sunday or Monday), so there was nothing to recompute from real stat lines this run, unlike recent Saturday briefings that had a Thursday game to reconcile.",
+    "The only lineup change from Wednesday is the QB tie-break (Shough -> Stafford), based on new practice-participation information, not a projection change -- see Changes.",
+    "nflreadpy's Week 9 injury feed has not posted an official Friday game-status for any Questionable player on this roster (Stafford, London, Skattebo) as of this run -- their fixture designations are carried forward unconfirmed. This is a known data-lag limit of the sandbox (ESPN/Sleeper are proxy-blocked here), not evidence anything has changed; recheck Sunday morning inactives regardless.",
+    "Week 11 bye cluster (Stafford, Smith-Njigba, London -- three of this week's top five scorers) needs waiver/trade planning now, not in two weeks; see Byes ahead."
+  ],
+  "markdown": "# Week 9 Start/Sit Briefing -- Saturday, final call\n\n**Source:** Committed fixture `weekly-report-week-9.json` (FantasyPros consensus + ESPN injuries, generated 2026-11-03T17:15:16Z), overlaid with live `nflreadpy.load_injuries(2026)`. **Not live** -- see Source banner for exactly what the overlay could and couldn't confirm. Current week (9) cross-checked against `load_schedules()`: Thursday's BAL@JAX is final (33-10, not on this roster); every other Week 9 game is Sunday 11/8 or Monday 11/9.\n\n## Start these ten\n\n| Slot | Player | Opponent | Expected | If he plays | P(play) |\n|---|---|---|---|---|---|\n| QB | Matthew Stafford | vs WAS (Sun 1:00pm ET) | **17.00** | 18.59 | 91.4% |\n| RB | Jonathan Taylor | vs DAL (Sun 1:00pm ET) | **17.77** | 18.57 | 95.7% |\n| RB | Bucky Irving | @ CHI (Sun 8:20pm ET) | **15.90** | 16.62 | 95.7% |\n| WR | Jaxon Smith-Njigba | vs ARI (Sun 4:25pm ET) | **23.34** | 24.04 | 97.1% |\n| WR | Tee Higgins | @ ATL (Sun 9:30am ET) | **15.86** | 16.36 | 96.9% |\n| TE | Isaiah Likely | @ PHI (Sun 1:00pm ET) | **12.55** | 13.21 | 95.0% |\n| FLEX | Drake London | vs CIN (Sun 9:30am ET) | **15.45** | 17.01 | 90.8% |\n| FLEX | Jameson Williams | @ MIA (Sun 1:00pm ET) | **12.55** | 12.95 | 96.9% |\n| K | Jake Bates | @ MIA (Sun 1:00pm ET) | **8.09** | 8.21 | 98.6% |\n| DEF | Jets D/ST | @ KC (Sun 1:00pm ET) | **5.63** | 5.63 | 100% |\n\n**Lineup total: 144.14 expected points.**\n\nBench: Tyler Shough (QB, 17.00/0.972 -- tied with Stafford, see Changes), Bo Nix (QB, 15.60), Cam Skattebo (RB, 10.49, Questionable/hamstring), Sam LaPorta (TE, 11.95), Jalen Coker (WR, 10.55).\n\n## Changes since Wednesday\n\nOnly one: **QB flips from Shough to Stafford**, pure tie-break, not a projection change (both 17.00 expected). Wednesday defaulted to the lower-variance Shough with Stafford's Questionable (Arm) tag unconfirmed. Since then Stafford logged Full Participation at Friday practice -- the strongest positive signal available short of an outright clearance -- and his conditional ceiling (18.59) is the higher one if he plays. Revert to Shough if Sunday's inactives list downgrades him; nothing else in the lineup moved.\n\n## Watch list\n\n- **Matthew Stafford** (Questionable, Arm) -- Full practice participation, but no official LAR game-status has posted yet. Check before the 1:00pm ET lock.\n- **Drake London** (Questionable, Head) -- ATL has filed nothing in nflreadpy for Week 9 at all. Started regardless (clears every bench option even at 90.8%), but his 9:30am ET kickoff is the first lock of the weekend -- highest-priority check tomorrow morning.\n- **Cam Skattebo** (bench RB, Questionable, Hamstring, DNP Friday) -- doesn't change the lineup, but is the direct RB backup if Taylor or Irving gets a late scratch.\n\n## Opponent notes\n\n- Smith-Njigba's 23.34 is an outlier even for him -- Arizona's pass defense is bottom-tier, and the gap over the next-best WR (Higgins, 15.86) is 7.5 points.\n- London and Higgins share the 9:30am ET London-set window (ATL vs CIN) -- correlated, not a conflict; both start regardless.\n- LaPorta sits despite a plus matchup (vs MIA) -- Likely's edge is a thin 0.60 points, worth a last look if either TE's status changes.\n\n## Byes ahead -- plan now, not in two weeks\n\n- **Week 10:** Bucky Irving (starting RB2) and Bo Nix (bench QB) both out.\n- **Week 11:** Matthew Stafford, Jaxon Smith-Njigba, **and** Drake London all out together -- three of this week's top five scorers, including the single best player on the roster (JSN) and both of this week's QB options reduced to one (Nix, with Shough as the only other arm). Five bench spots cannot absorb a QB-plus-two-WR hole in one week on top of Irving's Week 10 absence. Start watching the waiver wire and trade market now.\n\n## Sanity checks\n\nLineup total 144.14 is above the 100-140 band's midpoint but matches Wednesday's total exactly off the same fixture, driven by Smith-Njigba's real outlier week rather than a pipeline problem. No roster player's game has been played yet, so no fixture number was overridden with a real stat line this run. nflreadpy's injury feed has not posted a final Friday game-status for any of this roster's three Questionable players -- that's a known sandbox data-lag limit (ESPN/Sleeper are proxy-blocked here), not a new finding; the fixture's designations stand and should be rechecked against Sunday's actual inactives list.\n"
+}

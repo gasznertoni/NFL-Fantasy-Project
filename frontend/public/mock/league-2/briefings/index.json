@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-11-07-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-11-07T07:00:00Z",
+      "week": 9,
+      "lineupTotal": 144.14,
+      "changeSummary": "Final-call Saturday, same fixture as Wednesday (still the freshest -- no team on this roster has posted an official Friday game-status in nflreadpy yet, only BAL/JAX, who already played Thursday). Lineup is unchanged except the QB tie flips from Shough to Stafford: both are an exact 17.00 expected-point tie, but Stafford logged Full Participation in Friday practice since Wednesday, the strongest positive signal available with no formal clearance posted. Bucky Irving and Jaxon Smith-Njigba's DNP/Limited practice notes are coded 'Not injury related - resting player' by nflreadpy -- routine rest, not a readiness flag. Drake London (Questionable, head) still has zero ATL rows filed and is the earliest lock of the weekend (9:30am ET) -- top inactives-list check tomorrow morning. Restated the severe Week 11 bye cluster (Stafford, Smith-Njigba and London together) on top of Irving's Week 10 bye.",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-11-04-wed",
       "kind": "wednesday",
       "generatedAt": "2026-11-04T21:00:00Z",
