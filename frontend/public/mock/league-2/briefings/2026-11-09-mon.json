@@ -1,0 +1,216 @@
+{
+  "slug": "2026-11-09-mon",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 10,
+  "kind": "monday",
+  "generatedAt": "2026-11-09T06:35:19Z",
+  "source": {
+    "label": "Self-generated run (generate_report.py; live nflreadpy schedules/player-stats/depth-charts/availability model; FantasyPros/ESPN/Sleeper/Rotowire/DynastyProcess all sandbox-blocked)",
+    "asOf": "2026-11-09T06:30:21Z",
+    "isLive": true,
+    "note": "No Week 10 injury filings exist anywhere yet (too early in the week); committed weekly-report-week-10.json fixture is still the 2026-09-08 pre-season placeholder, so this self-generated run supersedes it per the routine's fallback rule."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040743",
+      "name": "Tyler Shough",
+      "position": "QB",
+      "opponent": "CAR",
+      "expectedPoints": 18.46,
+      "conditionalPoints": 18.98,
+      "playProbability": 0.973,
+      "designation": "Healthy",
+      "reason": "Outscores bench Stafford by +2.48 expected; same swap recommended two Mondays ago."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "MIA",
+      "expectedPoints": 15.34,
+      "conditionalPoints": 16.0,
+      "playProbability": 0.959,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "WAS",
+      "expectedPoints": 11.89,
+      "conditionalPoints": 13.0,
+      "playProbability": 0.914,
+      "designation": "Healthy",
+      "reason": "Starts by necessity -- Irving is on bye and he is the only bench RB. Doubtful (hamstring) entering Week 9 and did not play; no live Week 10 designation exists yet. Recheck before Wednesday."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "LV",
+      "expectedPoints": 21.27,
+      "conditionalPoints": 21.87,
+      "playProbability": 0.972,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "PIT",
+      "expectedPoints": 15.62,
+      "conditionalPoints": 16.08,
+      "playProbability": 0.971,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "WAS",
+      "expectedPoints": 14.11,
+      "conditionalPoints": 14.81,
+      "playProbability": 0.952,
+      "designation": "Healthy",
+      "reason": "Out-produced bench LaPorta in 3 of the last 4 weeks (16.3 pts Week 9 vs LaPorta's 7.2)."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "KC",
+      "expectedPoints": 14.61,
+      "conditionalPoints": 15.03,
+      "playProbability": 0.972,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "NE",
+      "expectedPoints": 11.4,
+      "conditionalPoints": 11.74,
+      "playProbability": 0.971,
+      "designation": "Healthy",
+      "reason": "Edges bench Coker by +1.22 expected; thin margin, recheck practice reports."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0039172",
+      "name": "Jake Bates",
+      "position": "K",
+      "opponent": "NE",
+      "expectedPoints": 8.34,
+      "conditionalPoints": 8.45,
+      "playProbability": 0.987,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "DEF",
+      "playerId": "NYJ",
+      "name": "Jets D/ST",
+      "position": "DST",
+      "opponent": "BUF",
+      "expectedPoints": 5.28,
+      "conditionalPoints": 5.28,
+      "playProbability": 1.0,
+      "designation": "Healthy"
+    }
+  ],
+  "lineupTotal": 136.32,
+  "changes": [
+    {
+      "action": "bench",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "Bye week (TB)."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "replacing": "Bucky Irving",
+      "deltaExpectedPoints": null,
+      "reason": "Only bench RB; forced in by Irving's bye, not by model confidence (hamstring watch)."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0040743",
+      "name": "Tyler Shough",
+      "replacing": "Matthew Stafford",
+      "deltaExpectedPoints": 2.48,
+      "reason": "18.46 vs 15.98 expected."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "replacing": "Sam LaPorta",
+      "deltaExpectedPoints": 3.2,
+      "reason": "14.11 vs 10.91 expected."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "replacing": "Jalen Coker",
+      "deltaExpectedPoints": 1.22,
+      "reason": "11.40 vs 10.18 expected."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "why": "Hamstring, Doubtful entering Week 9, did not play that week (Singletary took the carries instead). No Week 10 designation filed yet. Our only bench RB, started by necessity with zero depth behind him -- consider a waiver RB add if he's still limited by Wednesday.",
+      "newsDue": "Wednesday practice report"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0038543",
+      "text": "JSN vs LV (Raiders) is the softest matchup on the roster and the week's top projection."
+    },
+    {
+      "playerId": "00-0040743",
+      "text": "Shough vs CAR's generous pass defense supports starting him over Stafford again."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 10,
+      "players": [
+        "Bucky Irving (RB, TB)",
+        "Bo Nix (QB, DEN, bench-only)"
+      ]
+    },
+    {
+      "week": 11,
+      "players": [
+        "Matthew Stafford (QB, LAR)",
+        "Jaxon Smith-Njigba (WR, SEA)",
+        "Drake London (WR, ATL)"
+      ]
+    }
+  ],
+  "caveats": [
+    "Sandbox network limits: no FantasyPros consensus tier, no ESPN/Sleeper injury overlay, no snap share (DynastyProcess crosswalk blocked), no Rotowire data, no LLM news summaries. In-house estimate tier only.",
+    "No live Week 10 injury designations exist anywhere yet -- every 'Healthy' tag above is an absence of information, not a confirmation. Recheck Wednesday.",
+    "The first generate_report.py attempt this run hit transient 504 gateway timeouts from nflverse's CDN (load_teams() and a historical stats file the availability model trains on) and would have silently produced conditional-on-playing numbers instead of true expected values if used. Resolved on retry within a few minutes; the numbers above are from the clean retry.",
+    "Cam Skattebo's start is a necessity pick (only bench RB, Irving on bye), not a model-confidence pick.",
+    "Week 11's triple bye (Stafford/JSN/London) does not create an empty-slot crisis -- Irving returns and both TEs are available to cover FLEX -- but it is a real point-production dip worth a speculative WR add if one surfaces."
+  ],
+  "markdown": "# Week 10 Start/Sit \u2014 Monday briefing (2026-11-09)\n\n**Week 9 is closed for this roster** (all nine of our players' games are done; only MIN@BUF Monday night remains league-wide, and nobody on this roster plays in it). This briefing looks ahead to **Week 10**.\n\n## Source and freshness\nSelf-generated run (`generate_report.py`, sandbox network limits \u2014 no FantasyPros, ESPN, Sleeper, Rotowire or DynastyProcess crosswalk). Live nflreadpy schedules, player stats (through Week 9), depth charts and the fitted availability model all ran successfully. No Week 10 injury filings exist anywhere yet (teams start filing Wednesday) \u2014 every \"Healthy\" tag below means \"nothing on record,\" not \"cleared.\" The committed `weekly-report-week-10.json` fixture is still the 2026-09-08 pre-season placeholder, so this run supersedes it per the routine's fallback rule.\n\n## Start these ten (Week 10, expected points = P(play) \u00d7 if-he-plays)\n\n| Slot | Player | Opp | Expected | If he plays | P(play) |\n|---|---|---|---|---|---|\n| QB | Tyler Shough (NO) | vs CAR | **18.46** | 18.98 | 97.3% |\n| RB | Jonathan Taylor (IND) | vs MIA | **15.34** | 16.00 | 95.9% |\n| RB | Cam Skattebo (NYG) | vs WAS | **11.89** | 13.00 | 91.4% |\n| WR | Jaxon Smith-Njigba (SEA) | vs LV | **21.27** | 21.87 | 97.2% |\n| WR | Tee Higgins (CIN) | vs PIT | **15.62** | 16.08 | 97.1% |\n| TE | Isaiah Likely (NYG) | vs WAS | **14.11** | 14.81 | 95.2% |\n| FLEX | Drake London (ATL) | vs KC | **14.61** | 15.03 | 97.2% |\n| FLEX | Jameson Williams (DET) | vs NE | **11.40** | 11.74 | 97.1% |\n| K | Jake Bates (DET) | vs NE | **8.34** | 8.45 | 98.7% |\n| DEF | Jets D/ST (NYJ) | vs BUF | **5.28** | 5.28 | 100% |\n\n**Lineup total: 136.32 expected points** (sanity range 100-140 \u2014 passes).\n\n**Bench:** Matthew Stafford (QB), Bucky Irving (RB, BYE), Bo Nix (QB, BYE), Sam LaPorta (TE), Jalen Coker (WR).\n\n## Changes since the last briefing (Sat, Week 9)\n- **Bucky Irving is on BYE.** His RB slot is forced open \u2014 Cam Skattebo is the only bench RB, so he starts by necessity, not confidence (see Watch list).\n- **QB: Tyler Shough in for Matthew Stafford (+2.48 exp).** Same swap this model recommended two Mondays ago; Shough has scored 22, 24, and 19.7-pace production over his last starts and clears Stafford again this week.\n- **TE: Isaiah Likely in for Sam LaPorta (+3.20 exp).** Likely has out-produced LaPorta in 3 of the last 4 weeks (16.3 pts in Week 9 on 5/6/53/1TD vs LaPorta's 7.2).\n- **FLEX: Jameson Williams in for Jalen Coker (+1.22 exp).** Thin margin \u2014 recheck Wednesday/Friday practice reports before locking.\n\n## Watch list\n- **Cam Skattebo (hamstring).** Listed Doubtful heading into Week 9 (Limited practice, hamstring) and **did not record a single snap** \u2014 Devin Singletary took the Giants' workload instead (21 carries, a season high). No Week 10 designation exists yet because teams haven't filed. He is our only bench RB and is being started purely because Irving is on bye \u2014 **there is zero RB depth behind him on this roster.** Recheck nflreadpy's injury feed and Sleeper/ESPN (outside this sandbox) Wednesday and Thursday. If he's limited again, **a free-agent RB add before Wednesday's waiver deadline is the right move** \u2014 this tool can't see other teams' rosters to name a specific available target, but prioritize a standalone/committee back with real touches over a pure handcuff.\n- Nobody else on this roster carries an open designation as of their last filed report (Stafford, Taylor, JSN all logged Full Participation in Week 9; Higgins' groin and London's limited-practice note both resolved weeks ago).\n\n## Opponent notes\n- **JSN vs LV** \u2014 Raiders are a soft matchup; JSN's 21.27 is the top projection on the roster this week.\n- **Skattebo vs WAS** \u2014 if he's active, Washington's run defense isn't a reason to sit him; the hamstring is the only question.\n- **Shough vs CAR** \u2014 Panthers' pass defense has been generous; supports the swap over Stafford.\n\n## Byes ahead\n- **Week 10 (this week):** Bucky Irving (RB, TB) \u2014 forced the RB swap above. Bo Nix (QB, DEN) \u2014 bench-only, no lineup impact.\n- **Week 11 \u2014 the triple bye flagged in prior briefings: Matthew Stafford (QB, LAR), Jaxon Smith-Njigba (WR, SEA), and Drake London (WR, ATL) are all out the same week.** Good news on slot-filling: Irving returns from bye and both TEs (Likely/LaPorta) are available, so FLEX can be covered by RB/TE depth without a WR add \u2014 the real cost is pure point production (JSN + London project for ~36 combined this week alone), not an empty slot. Still worth a speculative WR add if a good one surfaces on waivers this week, since Higgins + Williams alone is thin at the position for that week.\n- No roster player has a Week 12 bye. Jonathan Taylor (RB, IND) and the Jets D/ST are both on bye Week 13.\n\n## Caveats\n- Sandbox network limits apply: no FantasyPros consensus tier, no ESPN/Sleeper injury overlay, no snap share (DynastyProcess crosswalk blocked), no Rotowire red-zone data, no LLM news summaries. All numbers are the in-house estimate tier only.\n- No live Week 10 injury designations exist anywhere yet \u2014 every player above reads \"Healthy\" by absence of information, not by confirmation. Recheck Wednesday.\n- The first attempt at generating this week's numbers hit transient 504 gateway timeouts from nflverse's data CDN (on `load_teams()` and a historical stats file the availability model trains on). Both resolved on retry within a few minutes; had the first attempt been used, the report would have silently shipped conditional-on-playing numbers instead of true expected values. The run used here is the clean retry.\n- Cam Skattebo's start is a necessity pick (only bench RB, Irving on bye), not a model-confidence pick \u2014 see Watch list.\n"
+}

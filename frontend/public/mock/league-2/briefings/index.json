@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-11-09-mon",
+      "kind": "monday",
+      "generatedAt": "2026-11-09T06:35:19Z",
+      "week": 10,
+      "lineupTotal": 136.32,
+      "changeSummary": "Pivoted to Week 10 (Week 9 fully closed for this roster). Bucky Irving is on BYE, forcing Cam Skattebo (hamstring, Doubtful and DNP in Week 9) into the lineup as the only bench RB -- a necessity start, not a confidence one; recheck before Wednesday and consider a waiver RB add if he's still limited. Three model-driven swaps carried over from two Mondays ago: QB Tyler Shough over Matthew Stafford (+2.48), TE Isaiah Likely over Sam LaPorta (+3.20), FLEX Jameson Williams over Jalen Coker (+1.22). No live Week 10 injury data exists anywhere yet. Self-generated run (sandbox: no FantasyPros/ESPN/Sleeper/Rotowire/snap-share) after a first attempt hit transient nflverse CDN timeouts; the clean retry is what's reported. Restated the Week 11 triple bye (Stafford, Smith-Njigba, London) -- slot-fillable via Irving's return and TE depth, but a real point-production dip.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-11-07-sat",
       "kind": "saturday",
       "generatedAt": "2026-11-07T07:00:00Z",
