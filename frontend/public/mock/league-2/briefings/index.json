@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-11-11-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-11-11T20:17:16Z",
+      "week": 10,
+      "lineupTotal": 138.43,
+      "changeSummary": "Practice-report run. No new player swaps vs Monday -- the model already had Shough/Likely/Jameson Williams over Stafford/LaPorta/Coker in place. Switching from Monday's sandbox-degraded numbers to the real CI fixture (FantasyPros + ESPN) moved the total 136.32 -> 138.43 (+2.11). Headline: Cam Skattebo (NYG's only filed Thursday-team player) shows Full Participation in Wednesday practice with no Week 10 game-status posted, but the fixture ships him Out (hamstring) at a 0.759 play probability -- an internally inconsistent pairing. Re-running the fitted AvailabilityModel with Out standing gives ~0.02-0.07, not 0.759; genuinely unresolved until Friday. He starts anyway (Irving on bye, only bench RB, no alternative) -- consider a waiver RB hedge. Every other rostered player's team has not filed yet. Restated the Week 11 triple bye (Stafford/JSN/London) and flagged Week 13 (Taylor, Jets D/ST) early.",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-11-09-mon",
       "kind": "monday",
       "generatedAt": "2026-11-09T06:35:19Z",

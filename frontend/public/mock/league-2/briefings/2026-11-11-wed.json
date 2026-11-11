@@ -1,0 +1,196 @@
+{
+  "slug": "2026-11-11-wed",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 10,
+  "kind": "wednesday",
+  "generatedAt": "2026-11-11T20:17:16Z",
+  "source": {
+    "label": "Committed weekly-report-week-10.json fixture (FantasyPros consensus + ESPN injuries + LLM news, built by CI) overlaid with live nflreadpy load_injuries(2026) practice-participation data",
+    "asOf": "2026-11-10T17:16:28Z",
+    "isLive": false,
+    "note": "Fixture is current (built Tuesday, after week 10's own CI rebuild) so no self-generated run was needed. Only NYG and WAS have filed week-10 injury reports in nflreadpy as of 2026-11-11 20:10 UTC (the two Thursday-game teams) -- every other rostered player's team has not filed, so their fixture designations stand unconfirmed."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040743",
+      "name": "Tyler Shough",
+      "position": "QB",
+      "opponent": "CAR",
+      "expectedPoints": 18.48,
+      "conditionalPoints": 19.0,
+      "playProbability": 0.973,
+      "designation": "Healthy",
+      "reason": "Outscores bench Stafford by +2.76 expected (18.48 vs 15.72); NO has not filed, designation unconfirmed."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "MIA",
+      "expectedPoints": 16.6,
+      "conditionalPoints": 17.31,
+      "playProbability": 0.959,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "WAS",
+      "expectedPoints": 10.03,
+      "conditionalPoints": 13.21,
+      "playProbability": 0.759,
+      "designation": "Out",
+      "practice": "Full",
+      "reason": "Forced start -- Irving is on bye and he is the only bench RB. Fixture designation is Out (hamstring) but NYG's Wednesday practice report has him at Full Participation with no game-status posted yet for Week 10 -- see caveats, this is the headline uncertainty in the lineup."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "LV",
+      "expectedPoints": 23.01,
+      "conditionalPoints": 23.66,
+      "playProbability": 0.972,
+      "designation": "Healthy",
+      "reason": "Softest matchup on the roster and the week's top projection; SEA has not filed."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "KC",
+      "expectedPoints": 16.01,
+      "conditionalPoints": 16.46,
+      "playProbability": 0.972,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "WAS",
+      "expectedPoints": 12.17,
+      "conditionalPoints": 12.78,
+      "playProbability": 0.952,
+      "designation": "Healthy",
+      "practice": "Full",
+      "reason": "Edges bench LaPorta by +0.28 expected; NYG filed and Likely isn't even on their injury report -- the cleanest health read on the roster this week."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "PIT",
+      "expectedPoints": 16.58,
+      "conditionalPoints": 17.07,
+      "playProbability": 0.971,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "NE",
+      "expectedPoints": 11.93,
+      "conditionalPoints": 12.29,
+      "playProbability": 0.971,
+      "designation": "Healthy",
+      "reason": "Edges bench Coker by +1.66 expected (11.93 vs 10.27); DET has not filed."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0039172",
+      "name": "Jake Bates",
+      "position": "K",
+      "opponent": "NE",
+      "expectedPoints": 8.34,
+      "conditionalPoints": 8.45,
+      "playProbability": 0.987,
+      "designation": "Healthy"
+    },
+    {
+      "slot": "DEF",
+      "playerId": "NYJ",
+      "name": "Jets D/ST",
+      "position": "DST",
+      "opponent": "BUF",
+      "expectedPoints": 5.28,
+      "conditionalPoints": 5.28,
+      "playProbability": 1.0,
+      "designation": "Healthy"
+    }
+  ],
+  "lineupTotal": 138.43,
+  "changes": [
+    {
+      "action": "bench",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "Bye week (TB)."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "replacing": "Bucky Irving",
+      "deltaExpectedPoints": null,
+      "reason": "Only bench RB; forced in by Irving's bye, not by model confidence. Designation hardened from Monday's 'no live Week 10 status yet' to Out (hamstring) in the Tuesday CI fixture, but Wednesday's practice report (Full Participation, no game-status posted) cuts the other way -- see caveats."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "why": "Fixture says Out (hamstring), but NYG's Wednesday practice report lists him at Full Participation with no game-status filed for Week 10 -- a real conflict between sources, not confirmation either way. He missed 3 of his last 4 games (Weeks 6, 8, 9) with the same hamstring, playing once (Week 7) in between, so this is not a clean bill of health even if the Out tag lifts. No bench RB behind him: if he's a late scratch Sunday, that slot scores zero with no replacement on the roster.",
+      "newsDue": "Friday's final injury report"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0038543",
+      "text": "JSN vs LV (Raiders) is still the softest matchup on the roster and the week's top projection."
+    },
+    {
+      "playerId": "00-0040743",
+      "text": "Shough vs CAR's generous pass defense continues to support starting him over Stafford."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 10,
+      "players": [
+        "Bucky Irving (RB, TB)",
+        "Bo Nix (QB, DEN, bench-only)"
+      ]
+    },
+    {
+      "week": 11,
+      "players": [
+        "Matthew Stafford (QB, LAR)",
+        "Jaxon Smith-Njigba (WR, SEA)",
+        "Drake London (WR, ATL)"
+      ]
+    }
+  ],
+  "caveats": [
+    "Only NYG and WAS have filed Week 10 injury reports in nflreadpy as of this run (the two Thursday-game teams). Every other rostered player's designation is the fixture's Monday/Tuesday ESPN snapshot, unconfirmed by any live practice data -- recheck Thursday/Friday as LAR, IND, SEA, ATL, DET, CAR, CIN, NYJ and NO file.",
+    "Cam Skattebo is the headline uncertainty: the fixture's own numbers are internally inconsistent -- it ships an Out (hamstring) designation alongside a 0.759 play probability, which is much higher than an Out tag normally implies. Re-running the repo's fitted AvailabilityModel with the Out designation standing (nflreadpy's Week 10 row for him carries Full Participation practice but no game-status, so per the routine's merge rule the fixture's Out stands) gives P(play) of roughly 0.02-0.07, not 0.759. The truth is genuinely unresolved until Friday's final designation; the fixture's 0.759/13.21 numbers are used in the lineup table above per the routine's fallback rule (defer to the committed fixture over a sandbox recompute), but do not take that number at face value.",
+    "Skattebo starts anyway because there is no alternative: Irving is on bye and he is the only other rostered RB. Any positive play probability beats leaving the RB slot empty. Strongly consider a waiver RB add as a hedge against a Friday scratch.",
+    "Ten full-PPR starters total 138.43 expected points -- inside the normal 100-140 range, driven by a genuinely strong slate (JSN 23.0, Shough 18.5, Taylor 16.6, Higgins 16.6) rather than a pipeline error.",
+    "Lineup total moved from Monday's 136.32 to 138.43 (+2.11) purely from switching to the real CI-built fixture (FantasyPros consensus + ESPN injuries) in place of Monday's sandbox-degraded in-house-only numbers -- no player swaps were needed, the model landed on the same optimal lineup (Shough/Likely/Jameson Williams in over Stafford/LaPorta/Coker) both times.",
+    "Week 11 is a triple bye for Stafford, Smith-Njigba and London -- a real point-production dip, though not a slot-emptying one (Irving returns, TE depth covers FLEX). Week 13 adds Jonathan Taylor (IND) and the Jets D/ST on top of that -- worth watching the waiver wire two weeks out."
+  ],
+  "markdown": "# Week 10 Start/Sit -- Wednesday Practice Report\n\n**League-2 (Intuitech Fantasy), Week 10.** Current NFL week confirmed via `season_week.load_current_week_nflreadpy(2026)` = 10, cross-checked against `load_schedules()` (Thursday WAS@NYG 11/12, bulk of the slate Sunday 11/15, LAC@BAL Monday 11/16).\n\n## Source and freshness\n\nPrimary source is the committed `weekly-report-week-10.json` fixture, built by CI on 2026-11-10 at 17:16 UTC with real FantasyPros consensus, ESPN injuries and LLM news -- current for this run (no self-generation needed). Overlaid with live `nflreadpy.load_injuries(2026)` for Week 10, checked 2026-11-11 ~20:10 UTC: **only NYG and WAS have filed** (the two teams playing Thursday). Every other rostered player's team -- LAR, IND, SEA, ATL, DET, CAR, CIN, NYJ, NO -- has not filed yet, so their fixture designations (all Healthy) stand, unconfirmed.\n\n## Practice report\n\nThis is the Wednesday run, so this section is the point of it. Only two rostered players belong to teams that have filed:\n\n| Player | Team | Designation (fixture) | Wed. practice | Resulting read |\n|---|---|---|---|---|\n| Cam Skattebo (RB) | NYG | **Out** (hamstring) | Full Participation | Conflicting -- see below |\n| Isaiah Likely (TE) | NYG | Healthy | Not on NYG's injury report at all | Confirmed healthy |\n\nEveryone else on the roster: practice bucket unknown, team has not filed, fixture designation (Healthy for all) stands unconfirmed.\n\n**Skattebo is the real story.** The committed fixture ships him as Out (hamstring) with a play probability of 0.759 -- which is an internally strange pairing, since an Out tag normally implies a probability near zero, not 76%. Feeding NYG's actual Week 10 row into the repo's fitted `AvailabilityModel` (Out designation standing, since nflreadpy's row has Full Participation practice but no Week-10 game-status yet, so per the merge rule the fixture's Out stands) gives **P(play) of roughly 0.02-0.07**, not 0.759. His 2026 history supports real caution either way: he missed 3 of his last 4 games (Weeks 6, 8, 9) with this same hamstring, playing only Week 7 in between. This is genuinely unresolved -- Friday's final designation settles it, not this report.\n\n## Start these ten\n\n| Slot | Player | Opp | Exp. pts | P(play) | If-he-plays |\n|---|---|---|---|---|---|\n| QB | Tyler Shough | CAR | 18.48 | 0.973 | 19.00 |\n| RB | Jonathan Taylor | MIA | 16.60 | 0.959 | 17.31 |\n| RB | Cam Skattebo | WAS | 10.03 | 0.759* | 13.21 |\n| WR | Jaxon Smith-Njigba | LV | 23.01 | 0.972 | 23.66 |\n| WR | Drake London | KC | 16.01 | 0.972 | 16.46 |\n| TE | Isaiah Likely | WAS | 12.17 | 0.952 | 12.78 |\n| FLEX | Tee Higgins | PIT | 16.58 | 0.971 | 17.07 |\n| FLEX | Jameson Williams | NE | 11.93 | 0.971 | 12.29 |\n| K | Jake Bates | NE | 8.34 | 0.987 | 8.45 |\n| DEF | Jets D/ST | BUF | 5.28 | 1.000 | 5.28 |\n| **Total** | | | **138.43** | | |\n\n*Skattebo's P(play) is the fixture's number, not the fitted model's recompute -- see Practice report above and caveats.\n\nStart Shough over bench Stafford (+2.76 expected: 18.48 vs 15.72) and Jameson Williams over bench Coker at the second FLEX (+1.66: 11.93 vs 10.27) -- both swaps the model already had in place Monday and confirms again on the real fixture. Likely over LaPorta at TE is a thinner edge now (+0.28: 12.17 vs 11.89) but still favors Likely.\n\n## Changes since Monday\n\nNo new player swaps -- Monday's self-generated run (sandbox-degraded, in-house-only numbers) had already landed on the same optimal lineup (Shough/Likely/Jameson Williams over Stafford/LaPorta/Coker). What changed is the source: this run uses the real CI fixture (FantasyPros consensus + ESPN injuries), which moved the lineup total from 136.32 to **138.43** (+2.11) with no lineup changes. The one real update is Skattebo's designation hardening from \"no live Week 10 status yet\" (Monday) to an explicit **Out** (Tuesday's fixture) -- which Wednesday's practice data then complicates rather than confirms (see above).\n\n## Still uncertain\n\n- **Cam Skattebo (RB, NYG)** -- Out per the fixture, Full Participation per Wednesday's practice, no game-status posted for Week 10 yet. The single biggest swing factor in this lineup: he's the only rostered RB behind Taylor, so a Friday scratch leaves that slot scoring zero with no bench replacement. Consider a waiver RB add now as a hedge.\n- Every other rostered player not on NYG/WAS: no team has filed yet, so \"Healthy\" is an absence of information, not a clean bill of health. Recheck Thursday/Friday.\n\n## Opponent notes\n\n- JSN vs LV remains the softest matchup on the roster and the week's top projection.\n- Shough vs CAR's generous pass defense continues to support starting him over Stafford.\n\n## Byes ahead\n\n- **Week 10 (this week):** Bucky Irving (RB, TB) -- the reason Skattebo is forced into the lineup. Bo Nix (QB, DEN) is also on bye, bench-only, no impact.\n- **Week 11:** Triple bye -- Matthew Stafford (QB, LAR), Jaxon Smith-Njigba (WR, SEA), Drake London (WR, ATL). A real point-production dip, though Irving returns and TE depth (LaPorta/Likely) covers FLEX, so no slot goes empty.\n- **Week 13 (outside the two-week window, flagged early):** Jonathan Taylor (RB, IND) and the Jets D/ST both land on bye the same week -- worth watching the waiver wire."
+}
