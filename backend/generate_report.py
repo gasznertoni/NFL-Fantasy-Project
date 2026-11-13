@@ -1063,6 +1063,14 @@ def main(argv: Optional[list[str]] = None) -> None:
                         "depth_rank": depth_ranks.get((args.season, args.week, player_id)),
                     }
                 )
+            aligned_flags = availability_module.align_news_flags(news_flags, report_by_player)
+            changed = sum(
+                1 for pid, flag in aligned_flags.items()
+                if (news_flags.get(pid) or DEFAULT_NEWS_FLAG)["designation"] != flag["designation"]
+            )
+            news_flags = aligned_flags
+            if changed:
+                print(f"  {changed} news-flag designations aligned to the injury report the model used")
             out_count = sum(1 for v in play_probabilities.values() if v < 0.2)
             print(
                 f"  availability modelled for {len(play_probabilities)} players "

@@ -771,6 +771,27 @@ an overlap: it's dated), then an nflreadpy row overrides practice always and
 game status only when it has one (a mid-week `None` must not erase an ESPN
 "Out").
 
+**The card shows the designation the model used** (`align_news_flags`,
+2026-10-15). `news.py` builds `newsFlag.designation` with its own precedence
+(Sleeper overrides everything), and that disagreed with the merge above (ESPN
+beats Sleeper) whenever the two feeds disagreed. Week 6 of 2026 shipped four
+such rows, all Sleeper "Out" against ESPN "Questionable": Jalen Coker (Out,
+P(play) 0.815), Kenyon Sadiq (0.832), Skyy Moore and KC Concepcion (0.892). The
+probabilities are exactly the Questionable values of their peers (Rashee Rice Q
+0.815, JSN Q 0.892), so the model did get a designation; it was a different one.
+By Thursday Sleeper had caught up to Questionable for three of them, so ESPN was
+the fresher feed and the merge's precedence was the right one. After availability
+runs, `generate_report.py` passes every flag through `align_news_flags`: where the
+merged report has a game status, the flag's designation and risk level become
+that status (an IR flag stays IR against an "Out" report, which is the same
+level), and the summary is kept. A player the report lists but news never flagged
+gets the designation too, so `--skip-news` no longer shows "Healthy" at P(play)
+~0. Flags for players the report has no game status for are left alone; those
+come from the LLM's read of the news, which the model never consumes, so a
+card can still say Questionable from an article at an undesignated P(play).
+**Two code paths deciding the same fact will disagree; the display has to read
+what the model read.**
+
 ### `depth_charts.py` — depth rank as of a week, across both schemas
 
 | feed | shape |
@@ -935,7 +956,10 @@ by Claude.
   and Sleeper's designations, which override the LLM's designation/risk level
   (more reliable than reading a news feed). Sleeper lookups are keyed by ESPN id
   and lowercase name; ids win on collision. A Sleeper body part becomes a minimal
-  summary when there is none.
+  summary when there is none. When availability runs, the designation is then
+  overwritten with the one the model consumed (§6, `align_news_flags`), so
+  Sleeper's override here only stands where the merged report agrees or is
+  silent.
 - **Matching** (`articles_for_player`): ESPN athlete id from the article's
   `categories` first, then a **full-name** match. Last-name matching triggered an
   LLM call for every Brown/Williams/Hill against unrelated articles. An empty

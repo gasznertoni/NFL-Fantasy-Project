@@ -59,7 +59,7 @@ Per your call: you're getting these keys yourself. See `docs/research/api-key-se
 ## What to run on your machine
 
 ```bash
-cd ~/Desktop/NFL-Fantasy-Project
+cd ~/Desktop/projects/NFL-Fantasy-Project
 pip install nflreadpy python-dotenv requests pandas pyarrow
 python3 scripts/probe_sources.py
 ```

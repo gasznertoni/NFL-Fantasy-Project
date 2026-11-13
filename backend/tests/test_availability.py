@@ -340,3 +340,59 @@ class TestMergeInjuryReports(unittest.TestCase):
 
 if __name__ == "__main__":
     unittest.main()
+
+
+class TestAlignNewsFlags(unittest.TestCase):
+    """The card and the model must show the same designation. Week 6 of 2026
+    shipped Jalen Coker as "Out" with P(play) 0.815: the card took Sleeper's
+    stale "Out" (news.apply_sleeper_designation lets Sleeper win), while the
+    model took ESPN's "Questionable" (merge_injury_reports lets ESPN win)."""
+
+    def _coker(self):
+        from news import DEFAULT_NEWS_FLAG, apply_sleeper_designation
+
+        sleeper_data = {"jalen coker": {"designation": "Out", "riskLevel": "high", "body_part": "Quadriceps"}}
+        flag = apply_sleeper_designation(dict(DEFAULT_NEWS_FLAG), "Jalen Coker", None, sleeper_data)
+        sleeper = {"coker": {"report_status": "Out", "practice_status": None}}
+        espn = {"coker": {"report_status": "Questionable", "practice_status": None}}
+        report, _ = merge_injury_reports({}, espn, sleeper)
+        return {"coker": flag}, report
+
+    def test_card_shows_the_designation_the_model_consumed(self):
+        from availability import align_news_flags
+
+        flags, report = self._coker()
+        self.assertEqual(flags["coker"]["designation"], "Out")  # the shipped defect
+        aligned = align_news_flags(flags, report)
+        self.assertEqual(aligned["coker"]["designation"], report["coker"]["report_status"])
+        self.assertEqual(aligned["coker"]["riskLevel"], "low")
+        self.assertEqual(aligned["coker"]["summary"], "Quadriceps")
+
+    def test_ir_is_kept_when_the_report_says_out(self):
+        from availability import align_news_flags
+
+        flags = {"p": {"designation": "IR", "riskLevel": "high", "summary": "Knee"}}
+        aligned = align_news_flags(flags, {"p": {"report_status": "Out", "practice_status": None}})
+        self.assertEqual(aligned["p"]["designation"], "IR")
+
+    def test_a_player_with_no_flag_gets_the_reports_designation(self):
+        # --skip-news, or no Sleeper match: the card said Healthy at P(play) ~0.
+        from availability import align_news_flags
+
+        aligned = align_news_flags({}, {"p": {"report_status": "Out", "practice_status": None}})
+        self.assertEqual(aligned["p"], {"designation": "Out", "riskLevel": "high", "summary": None})
+
+    def test_practice_only_rows_and_unlisted_players_leave_the_flag_alone(self):
+        from availability import align_news_flags
+
+        flags = {"p": {"designation": "Questionable", "riskLevel": "low", "summary": "LLM read"}}
+        report = {"q": {"report_status": None, "practice_status": "Full Participation in Practice"}}
+        aligned = align_news_flags(flags, report)
+        self.assertEqual(aligned, flags)
+
+    def test_inputs_are_not_mutated(self):
+        from availability import align_news_flags
+
+        flags, report = self._coker()
+        align_news_flags(flags, report)
+        self.assertEqual(flags["coker"]["designation"], "Out")

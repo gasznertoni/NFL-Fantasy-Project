@@ -249,6 +249,29 @@ def merge_injury_reports(
     return merged, "+".join(parts) if parts else "none"
 
 
+_REPORT_STATUS_RISK = {"Out": "high", "Doubtful": "medium", "Questionable": "low"}
+
+# A news-flag designation at the level the model consumes; IR is "Out" there.
+_FLAG_TO_REPORT_STATUS = {"Out": "Out", "IR": "Out", "Doubtful": "Doubtful", "Questionable": "Questionable"}
+
+
+def align_news_flags(
+    news_flags: dict[str, dict[str, Any]],
+    report: dict[str, dict[str, Any]],
+) -> dict[str, dict[str, Any]]:
+    """News flags whose designation is the one the model consumed from `report`."""
+    aligned = dict(news_flags)
+    for player_id, entry in report.items():
+        status = entry.get("report_status")
+        if status not in _REPORT_STATUS_RISK:  # None, or a level the model has no feature for
+            continue
+        flag = news_flags.get(player_id) or {"designation": "Healthy", "riskLevel": "none", "summary": None}
+        if _FLAG_TO_REPORT_STATUS.get(flag.get("designation")) == status:
+            continue
+        aligned[player_id] = {**flag, "designation": status, "riskLevel": _REPORT_STATUS_RISK[status]}
+    return aligned
+
+
 def build_training_rows_nflreadpy(
     seasons: list[int], positions: tuple[str, ...] = ("QB", "RB", "WR", "TE", "K")
 ) -> list[dict[str, Any]]:
