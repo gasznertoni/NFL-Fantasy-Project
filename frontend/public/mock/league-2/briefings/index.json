@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-11-14-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-11-14T06:17:12Z",
+      "week": 10,
+      "lineupTotal": 128.12,
+      "changeSummary": "Final-call Saturday for the nine Sunday/Monday decisions still open. No lineup swaps vs Wednesday -- Shough over Stafford and Jameson Williams over Coker both hold. Live nflreadpy.load_injuries(2026) Week 10 overlay now has all 300 rows filed and confirms no new designation for anyone on this roster with a game left to play. Headline: RB2 is a genuine forced-empty slot, not a model error -- Bucky Irving is on BYE (TB) and Cam Skattebo, the only bench RB, already played Thursday for NYG; his game is over and cannot be moved into this slot now. Nine filled starters total 128.12, which is the correct number for a ten-slot lineup missing one real player, not an upstream break -- flagged explicitly per the sanity-check rule. Thursday's NYG@WAS game (Skattebo, Likely) is final either way and outside this report's control; this run cannot confirm from static roster files whether that game's lineup slots were actually set as Wednesday recommended. Restated the Week 11 triple bye (Stafford, Smith-Njigba, London).",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-11-11-wed",
       "kind": "wednesday",
       "generatedAt": "2026-11-11T20:17:16Z",

@@ -1,0 +1,196 @@
+{
+  "slug": "2026-11-14-sat",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 10,
+  "kind": "saturday",
+  "generatedAt": "2026-11-14T06:17:12Z",
+  "source": {
+    "label": "Committed fixture weekly-report-week-10.json (FantasyPros consensus + ESPN injuries) + live nflreadpy.load_injuries(2026) Week 10 overlay",
+    "asOf": "2026-11-10T17:16:28Z",
+    "isLive": false,
+    "note": "season_week.load_current_week_nflreadpy(2026) confirms Week 10; load_schedules shows only Thursday's NYG@WAS (11/12, final) has been played, with every other Week 10 game Sunday 11/15 or Monday 11/16 BAL@LAC. Live nflreadpy.load_injuries(2026) Week 10 holds 300 rows across every team, but none of this roster's active (non-bye) players carry a report_status at all -- no designation has been filed for Shough, Taylor, Smith-Njigba, London, Higgins, Jameson Williams, LaPorta or Bates, and the fixture's 'Healthy' tags stand unchanged. This is the Saturday final-call run: no Friday status has newly appeared for anyone on this roster since Wednesday's 11/11 briefing. Bucky Irving (TB) and Bo Nix (DEN) are confirmed on BYE this week via load_schedules (TB/DEN both absent from the Week 10 slate, alongside CHI/PHI). Thursday's NYG@WAS game is final -- Cam Skattebo and Isaiah Likely (both NYG) have already played; their Week 10 scores are locked regardless of anything in this report and cannot be changed now. This report cannot confirm from static roster files whether Wednesday's recommendation (start Skattebo/Likely for Thursday, the only way to fill RB2 and TE that night) was actually applied in the live Sleeper lineup before Thursday's kickoff -- check the app directly if that matters to you; nothing below can undo it either way. Everything from here on is about the nine Sunday/Monday decisions that are still open."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040743",
+      "name": "Tyler Shough",
+      "position": "QB",
+      "opponent": "at CAR (Sun 11/15)",
+      "expectedPoints": 18.48,
+      "conditionalPoints": 19.0,
+      "playProbability": 0.973,
+      "designation": "Healthy",
+      "reason": "Clear top expected-points QB on the roster (18.48 vs Stafford's 15.72); no live injury row for either team changes that this morning. Start Shough."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "vs MIA (Sun 11/15)",
+      "expectedPoints": 16.6,
+      "conditionalPoints": 17.31,
+      "playProbability": 0.959,
+      "designation": "Healthy",
+      "reason": "Only healthy, unplayed RB on the roster this week. Automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": null,
+      "name": "(no eligible player)",
+      "position": "RB",
+      "opponent": "-",
+      "expectedPoints": 0.0,
+      "conditionalPoints": 0.0,
+      "playProbability": 0.0,
+      "designation": "N/A",
+      "reason": "RB2 cannot be filled this week. Bucky Irving is on BYE (TB, confirmed via load_schedules), and Cam Skattebo -- the only other rostered RB -- already played Thursday night for NYG; his game is over and he cannot be moved into this slot now regardless of what he scored. This is a real zero, not a model error: see the sanity-check note below. Add a free-agent RB before Sunday's early window if your platform allows same-day adds -- a true waiver claim will not clear in time."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "position": "WR",
+      "opponent": "vs LV (Sun 11/15)",
+      "expectedPoints": 23.01,
+      "conditionalPoints": 23.66,
+      "playProbability": 0.972,
+      "designation": "Healthy",
+      "reason": "Highest projection on the entire roster. Automatic start."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "at PIT (Sun 11/15)",
+      "expectedPoints": 16.58,
+      "conditionalPoints": 17.07,
+      "playProbability": 0.971,
+      "designation": "Healthy",
+      "reason": "Second-ranked WR on the roster, well clear of the FLEX group. Start."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "position": "WR",
+      "opponent": "vs KC (Sun 11/15)",
+      "expectedPoints": 16.01,
+      "conditionalPoints": 16.46,
+      "playProbability": 0.972,
+      "designation": "Healthy",
+      "reason": "Clears both bench alternatives (Jalen Coker, Matthew Stafford is not FLEX-eligible) comfortably. Start."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "vs NE (Sun 11/15)",
+      "expectedPoints": 11.93,
+      "conditionalPoints": 12.29,
+      "playProbability": 0.971,
+      "designation": "Healthy",
+      "reason": "Edges Jalen Coker (10.27) for the second FLEX spot. Margin is thin (1.66 pts) -- recheck if Detroit's injury report changes before Sunday."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "position": "TE",
+      "opponent": "vs NE (Sun 11/15)",
+      "expectedPoints": 11.89,
+      "conditionalPoints": 12.48,
+      "playProbability": 0.952,
+      "designation": "Healthy",
+      "reason": "Only TE with a game left to play this week -- Isaiah Likely (NYG) already played Thursday. Start LaPorta."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0039172",
+      "name": "Jake Bates",
+      "position": "K",
+      "opponent": "vs NE (Sun 11/15)",
+      "expectedPoints": 8.34,
+      "conditionalPoints": 8.45,
+      "playProbability": 0.987,
+      "designation": "Healthy",
+      "reason": "Only kicker on the roster. Start."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "NYJ",
+      "name": "Jets D/ST",
+      "position": "DST",
+      "opponent": "vs BUF (Sun 11/15)",
+      "expectedPoints": 5.28,
+      "conditionalPoints": 5.28,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Only defense on the roster. Start -- tough matchup (Buffalo's offense) caps the ceiling, but there's no alternative."
+    }
+  ],
+  "lineupTotal": 128.12,
+  "changes": [
+    {
+      "action": "bench",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "No change from Wednesday -- Shough remains the expected-points leader at QB (18.48 vs 15.72). Stafford sits."
+    },
+    {
+      "action": "bench",
+      "playerId": "00-0039491",
+      "name": "Jalen Coker",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "No change from Wednesday -- Jameson Williams (11.93) still edges Coker (10.27) for the second FLEX spot."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "why": "His FLEX edge over Coker is only 1.66 expected points -- the thinnest margin in the lineup. No DET injury row has posted; recheck Sunday morning inactives.",
+      "newsDue": "Sunday 11/15, before 1:00pm ET lock"
+    },
+    {
+      "playerId": null,
+      "name": "RB2 (empty slot)",
+      "why": "No rostered player can fill this. Watch the waiver wire / free-agent pool for a streaming RB before Sunday's early games; this repeats most weeks Irving or Skattebo is unavailable since the bench carries only one true RB.",
+      "newsDue": "Before Sunday 11/15 early kickoffs"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "NYJ",
+      "text": "Jets D/ST draws Buffalo's offense (one of the league's best) -- the weakest matchup in this lineup, but there is no bench alternative at DEF."
+    },
+    {
+      "playerId": "00-0036410",
+      "text": "Tee Higgins draws Pittsburgh on the road; still projects as this roster's #2 WR despite the tougher matchup."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 11,
+      "players": [
+        "Matthew Stafford (QB, LAR)",
+        "Jaxon Smith-Njigba (WR, SEA)",
+        "Drake London (WR, ATL)"
+      ]
+    }
+  ],
+  "caveats": [
+    "RB2 is a forced empty slot this week, not a model artifact: Bucky Irving is on BYE and Cam Skattebo (the only bench RB) already played Thursday for NYG. Nine filled starters total 128.12 expected points -- within the normal 100-140 per-slot range once you account for the tenth slot being genuinely unfillable, not evidence of an upstream pipeline break.",
+    "Every rostered player's conditionalPoints above is taken directly from the committed fixture (weekly-report-week-10.json, generated 2026-11-10); none differ from that fixture's values since this run did not recompute projections.",
+    "This report cannot verify whether Wednesday's recommendation to start Skattebo and Likely for Thursday's NYG@WAS game was actually applied in the live Sleeper lineup before kickoff. That game is final either way and outside this report's control.",
+    "Week 11's triple bye (Stafford, Smith-Njigba, London) hits immediately after this week -- start planning FLEX/QB replacements now; no code change needed, this is a planning flag only."
+  ],
+  "markdown": "# League-2 Start/Sit Briefing -- Week 10, Saturday final call\n\n**Source and freshness:** Committed fixture `weekly-report-week-10.json` (FantasyPros consensus + ESPN injuries), generated 2026-11-10T17:16:28Z -- about 3.5 days old. Overlaid with a live `nflreadpy.load_injuries(2026)` Week 10 pull (300 rows, every team has filed) run this morning, 2026-11-14. **Not live** for projections or news; the injury overlay is live and confirms no new designations for anyone on this roster who still has a game to play. Thursday's NYG@WAS game is final; Cam Skattebo and Isaiah Likely (both NYG) already played and their scores are locked regardless of this report.\n\n## Start these ten\n\n| Slot | Player | Opp | Expected | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Tyler Shough | at CAR | **18.48** | 0.973 | 19.00 |\n| RB | Jonathan Taylor | vs MIA | **16.60** | 0.959 | 17.31 |\n| RB | *(no eligible player -- see below)* | -- | **0.00** | -- | -- |\n| WR | Jaxon Smith-Njigba | vs LV | **23.01** | 0.972 | 23.66 |\n| WR | Tee Higgins | at PIT | **16.58** | 0.971 | 17.07 |\n| FLEX | Drake London | vs KC | **16.01** | 0.972 | 16.46 |\n| FLEX | Jameson Williams | vs NE | **11.93** | 0.971 | 12.29 |\n| TE | Sam LaPorta | vs NE | **11.89** | 0.952 | 12.48 |\n| K | Jake Bates | vs NE | **8.34** | 0.987 | 8.45 |\n| DEF | Jets D/ST | vs BUF | **5.28** | 1.000 | 5.28 |\n| **Total** | | | **128.12** | | |\n\n**RB2 is empty, and that's real, not a bug.** Bucky Irving is on bye (TB, confirmed against the 2026 schedule). Cam Skattebo -- the only other rostered RB -- already played Thursday night for NYG; his game is over and nothing in this report can move him into this slot retroactively. If your platform allows a same-day free-agent add, do it before Sunday's early games; a standard waiver claim will not clear in time. Streaming names outside this roster's usual rostered tier (not confirmed as actually available in your 8-team league): Omarion Hampton, Rico Dowdle, Devin Singletary, Zach Charbonnet.\n\n**Bench, sit:** Matthew Stafford (QB, 15.72 -- below Shough), Jalen Coker (WR, 10.27 -- below both FLEX starters). Bo Nix (QB) is on bye. Skattebo and Likely (TE) already played Thursday and cannot be used again this week.\n\n## Changes since Wednesday (2026-11-11)\n\nNo lineup swaps for the nine open Sunday/Monday slots -- Shough over Stafford and Jameson Williams over Coker both carry forward unchanged. The only real change is informational: Thursday's NYG@WAS game is now final, closing out whatever RB2/TE assignment was actually locked in for that game (unverifiable from this session). Going forward, RB2 has no occupant and TE must be LaPorta, since Likely has no game left this week.\n\n## Watch list\n\n- **Jameson Williams vs. Jalen Coker (FLEX):** only a 1.66-point edge, the thinnest margin in the lineup. No DET injury row has posted. Recheck Sunday morning inactives before the 1:00pm ET lock.\n- **RB2:** empty. Check the waiver wire / free-agent pool before Sunday's early window.\n\n## Opponent notes\n\n- Jets D/ST draws Buffalo's offense, the toughest matchup in this lineup -- no bench alternative at DEF, so it starts anyway.\n- Tee Higgins is on the road at Pittsburgh; still the roster's clear #2 WR despite the tougher matchup.\n\n## Byes ahead\n\n- **Week 11:** Matthew Stafford (QB, LAR), Jaxon Smith-Njigba (WR, SEA), Drake London (WR, ATL) -- all three out simultaneously. Start planning FLEX/QB replacements now; this is the same triple bye flagged in every briefing since early November.\n\n## Caveats\n\n- RB2's empty slot is a genuine roster hole (Irving bye + Skattebo's game already played), not a pipeline failure -- see the sanity-check note above for why 128.12 across nine starters is the right number this week.\n- All conditionalPoints above come straight from the committed fixture; this run did not recompute projections.\n- Cannot verify whether Thursday's Skattebo/Likely start recommendation was actually applied in the live Sleeper lineup before kickoff -- check the app if it matters; it doesn't change anything in this report either way.\n"
+}
