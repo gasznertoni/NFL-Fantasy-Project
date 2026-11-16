@@ -1,0 +1,240 @@
+{
+  "slug": "2026-11-16-mon",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 11,
+  "kind": "monday",
+  "generatedAt": "2026-11-16T06:21:41Z",
+  "source": {
+    "label": "Self-generated run: generate_report.py against live nflreadpy (schedules, rosters, player stats, load_injuries). ESPN/Sleeper/Rotowire/FantasyPros are proxy-blocked in this sandbox, so no consensus tier, no red-zone/snap-share features, and no live injury overlay were available.",
+    "asOf": "2026-11-16T06:21:41Z",
+    "isLive": true,
+    "note": "The committed fixture at weekly-report-week-11.json predates this roster (generatedAt 2026-09-08, before the season's real data existed) and was not used. nflreadpy.load_injuries(2026) returns 0 rows for Week 11 as of this run -- no team has filed yet, which is normal for a Monday night; every playProbability below is historical play-rate + depth only, not this week's practice reports. Re-run Wednesday once filings start."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0040743",
+      "name": "Tyler Shough",
+      "position": "QB",
+      "opponent": "at CHI (Sun 11/22)",
+      "expectedPoints": 16.51,
+      "conditionalPoints": 16.94,
+      "playProbability": 0.974,
+      "designation": "Healthy",
+      "reason": "Moot this week either way -- Stafford is on bye. Edges Bo Nix by 0.30 pts (16.51 vs 16.21), a near-tie; revisit once practice data exists for either team."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "at DET (Sun 11/22)",
+      "expectedPoints": 16.36,
+      "conditionalPoints": 17.07,
+      "playProbability": 0.959,
+      "designation": "Healthy",
+      "reason": "Back from Week 10's bye. Highest expected points on the roster this week. Automatic start."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "at HOU (Thu 11/19)",
+      "expectedPoints": 13.85,
+      "conditionalPoints": 14.42,
+      "playProbability": 0.961,
+      "designation": "Healthy",
+      "reason": "Clear second RB. Note this game locks Thursday night, three days before the rest of the roster -- any news on Taylor has to land by then."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "at WAS (Mon 11/23)",
+      "expectedPoints": 15.17,
+      "conditionalPoints": 15.60,
+      "playProbability": 0.972,
+      "designation": "Healthy",
+      "reason": "Top WR on the roster. Best game environment of the week for this roster -- CIN's implied team total is 28.0, the highest of any of our players' games. Also the latest lock of the week (Monday night), so there's the most time to react to news."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "vs TB (Sun 11/22)",
+      "expectedPoints": 11.11,
+      "conditionalPoints": 11.43,
+      "playProbability": 0.972,
+      "designation": "Healthy",
+      "reason": "Moves from FLEX into a main WR slot now that Smith-Njigba and London are both on bye. Still clears Jalen Coker (9.38) for the roster spot."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "vs JAX (Sun 11/22)",
+      "expectedPoints": 14.58,
+      "conditionalPoints": 15.28,
+      "playProbability": 0.955,
+      "designation": "Healthy",
+      "reason": "Higher of the two rostered TEs. The triple bye opens enough FLEX room that both Likely and LaPorta start this week -- no TE sits."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "vs JAX (Sun 11/22)",
+      "expectedPoints": 12.62,
+      "conditionalPoints": 13.69,
+      "playProbability": 0.922,
+      "designation": "Healthy",
+      "reason": "The hamstring that forced last week's real empty RB slot cleared to Full Participation by the end of Week 10 (confirmed via load_injuries). Irving's return frees him from the RB slot into FLEX, where he clears Coker by 3.24 pts."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "position": "TE",
+      "opponent": "vs TB (Sun 11/22)",
+      "expectedPoints": 10.11,
+      "conditionalPoints": 10.60,
+      "playProbability": 0.955,
+      "designation": "Healthy",
+      "reason": "Second TE-eligible body, started here rather than benched -- see the TE note above. Clears Coker (9.38) for the slot."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0039172",
+      "name": "Jake Bates",
+      "position": "K",
+      "opponent": "vs TB (Sun 11/22)",
+      "expectedPoints": 8.20,
+      "conditionalPoints": 8.31,
+      "playProbability": 0.987,
+      "designation": "Healthy",
+      "reason": "Only rostered kicker. Automatic start."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "NYJ",
+      "name": "Jets D/ST",
+      "position": "DST",
+      "opponent": "at LAC (Sun 11/22)",
+      "expectedPoints": 4.96,
+      "conditionalPoints": 4.96,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Only rostered defense. Middling matchup -- LAC's implied total (21.75) isn't a great environment for a D/ST that already scores nothing for return yards or yards allowed in this league."
+    }
+  ],
+  "lineupTotal": 123.47,
+  "changes": [
+    {
+      "action": "bench",
+      "playerId": "00-0026498",
+      "name": "Matthew Stafford",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "Week 11 bye (LAR). Not a model call -- he has no game."
+    },
+    {
+      "action": "bench",
+      "playerId": "00-0038543",
+      "name": "Jaxon Smith-Njigba",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "Week 11 bye (SEA). Not a model call -- he has no game."
+    },
+    {
+      "action": "bench",
+      "playerId": "00-0037238",
+      "name": "Drake London",
+      "replacing": null,
+      "deltaExpectedPoints": null,
+      "reason": "Week 11 bye (ATL). Not a model call -- he has no game."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "replacing": null,
+      "deltaExpectedPoints": 16.36,
+      "reason": "Returns from Week 10's bye, which was a forced real-zero RB2 slot last week. Fills RB2 this week."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "replacing": "Jalen Coker",
+      "deltaExpectedPoints": 3.24,
+      "reason": "Hamstring cleared to Full Participation by the end of Week 10. Irving's return moves him from a forced RB start into a genuine FLEX win over Coker."
+    },
+    {
+      "action": "start",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "replacing": "Jalen Coker",
+      "deltaExpectedPoints": 0.73,
+      "reason": "The triple bye (Stafford/JSN/London) opens a second FLEX slot this week, which both rostered TEs now fill alongside each other -- LaPorta no longer has to sit for Likely."
+    }
+  ],
+  "watchList": [
+    {
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "why": "Hamstring issue flagged in Week 9-10 cleared to Full Participation by the end of Week 10, but it's the kind of soft-tissue issue that recurs. No Week 11 row exists yet anywhere.",
+      "newsDue": "Wednesday practice report"
+    },
+    {
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "why": "Groin issue from earlier in the season was clear by Week 10's end with no row filed. Worth a Wednesday re-check purely because his lock (Monday night) is the latest of the week, which cuts both ways.",
+      "newsDue": "Wednesday practice report"
+    },
+    {
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "why": "Thursday night game (11/19) locks three days before everyone else on this roster -- any news has to be acted on before the rest of the week's reports would normally catch it.",
+      "newsDue": "Thursday pregame inactives"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": "00-0036410",
+      "text": "Higgins (CIN at WAS): Vegas implied team total 28.0, the best offensive environment of any game on this roster's slate this week."
+    },
+    {
+      "playerId": "00-0036223",
+      "text": "Taylor (IND at HOU): HOU implied 27.25 vs IND's own 17.25 -- IND is a sizeable road underdog, which leans this game toward more passing volume for HOU and a tougher script for Taylor than his raw talent would suggest."
+    },
+    {
+      "playerId": "NYJ",
+      "text": "Jets D/ST (at LAC): LAC implied total 21.75, roughly average. No standout streaming matchup from this roster's defense this week."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 11,
+      "players": ["Matthew Stafford (QB, LAR)", "Jaxon Smith-Njigba (WR, SEA)", "Drake London (WR, ATL)"]
+    },
+    {
+      "week": 13,
+      "players": ["Jonathan Taylor (RB, IND)", "Jets D/ST (NYJ)"]
+    }
+  ],
+  "caveats": [
+    "No live Week 11 injury or practice-participation data exists anywhere yet (nflreadpy.load_injuries(2026) returns 0 rows for week 11 as of this run) -- every designation above defaults to Healthy and every playProbability reflects historical play-rate and depth only, not this week's reports. This is expected for a Monday-night run, not a data failure; re-run Wednesday once teams start filing.",
+    "ESPN, Sleeper, Rotowire and the FantasyPros consensus API are all proxy-blocked in this sandbox. This report comes from a self-generated run of generate_report.py against live nflreadpy data only (schedules, rosters, player stats) -- degraded relative to the CI-built fixture, which also carries FantasyPros consensus, ESPN injuries, and LLM news summaries.",
+    "The committed fixture frontend/public/mock/league-2/weekly-report-week-11.json was not used -- its generatedAt (2026-09-08) predates this roster and the season's real data. This briefing's numbers come entirely from the fresh self-generated run described above.",
+    "Sanity check passed: the ten starters total 123.47 expected points, inside the normal 100-140 range.",
+    "No week-13 waiver target is named for Jonathan Taylor's or the Jets D/ST's bye -- it's two weeks out and matchup-dependent on a slate not yet set. RJ Harvey (RB, DEN) surfaced on this run's generic waiver list (8.03 expected, 0.732 play probability, only 6 games of data) and is worth a speculative stash given the Week 13 RB hole, but hasn't been evaluated specifically against it.",
+    "Vegas implied team totals used nflreadpy's own load_schedules() spread/total convention (home_implied = (total_line + spread_line) / 2); not cross-checked against a second odds source since none is reachable here."
+  ],
+  "markdown": "# Week 11 Start/Sit Briefing -- Monday 2026-11-16\n\n## Source and freshness\nSelf-generated this morning via `generate_report.py` against **live nflreadpy data only** (schedules, rosters, player stats, `load_injuries`). ESPN, Sleeper, Rotowire and FantasyPros are all proxy-blocked in this sandbox, so there is no consensus tier, no red-zone/snap-share features and no LLM news layer this run -- degraded relative to the CI-built fixture. The committed `weekly-report-week-11.json` fixture predates this roster (generated 2026-09-08) and was not used.\n\n**No Week 11 injury data exists anywhere yet** -- `nflreadpy.load_injuries(2026)` returns zero rows for week 11 as of 06:21 UTC Monday. That's normal; teams start filing Wednesday. Every play probability below is historical play-rate and depth only. Treat this as a roster-planning briefing, not a final-call one -- come back Wednesday for the first real signal.\n\n## Start these ten (123.47 expected points -- sanity check passed)\n\n| Slot | Player | Opp | Exp pts | If he plays | P(play) |\n|---|---|---|---|---|---|\n| QB | Tyler Shough | at CHI (Sun) | 16.51 | 16.94 | 97.4% |\n| RB | Bucky Irving | at DET (Sun) | 16.36 | 17.07 | 95.9% |\n| RB | Jonathan Taylor | at HOU (Thu) | 13.85 | 14.42 | 96.1% |\n| WR | Tee Higgins | at WAS (Mon) | 15.17 | 15.60 | 97.2% |\n| WR | Jameson Williams | vs TB (Sun) | 11.11 | 11.43 | 97.2% |\n| TE | Isaiah Likely | vs JAX (Sun) | 14.58 | 15.28 | 95.5% |\n| FLEX | Cam Skattebo | vs JAX (Sun) | 12.62 | 13.69 | 92.2% |\n| FLEX | Sam LaPorta | vs TB (Sun) | 10.11 | 10.60 | 95.5% |\n| K | Jake Bates | vs TB (Sun) | 8.20 | 8.31 | 98.7% |\n| DEF | Jets D/ST | at LAC (Sun) | 4.96 | 4.96 | 100% |\n\n**Sit:** Jalen Coker (bench WR, 9.38), Bo Nix (backup QB, 16.21 -- lost the QB tie by 0.30), plus the three bye players below.\n\n## Changes since Saturday's briefing (Week 10, 128.12 pts)\n\nThe roster-level story this week is the **triple bye**: Matthew Stafford (LAR), Jaxon Smith-Njigba (SEA) and Drake London (ATL) are all out this week with no game -- not a model call, a schedule fact. That's three of last week's best players gone at once.\n\nWhat fills the gap:\n- **Bucky Irving is back from his own Week 10 bye** and walks straight into RB2, the slot that was a real, forced zero last week.\n- **Cam Skattebo's hamstring cleared to Full Participation** by the end of Week 10. Combined with Irving's return freeing him from the RB slot, he moves into FLEX, clearing Jalen Coker by 3.24 points.\n- **Sam LaPorta joins Isaiah Likely in the starting lineup** -- the triple bye opens enough FLEX room that both rostered TEs start together this week, something that hasn't been true recently.\n- Jameson Williams slides from FLEX into a main WR slot (same roster spot, different label) now that JSN and London are both out.\n\nQB stays Shough over Nix, but it's a near-tie (16.51 vs 16.21) and moot anyway since Stafford isn't an option this week.\n\n## Watch list\n\n- **Cam Skattebo** -- hamstring cleared Week 10, but soft-tissue issues recur. No Week 11 row yet. Check Wednesday.\n- **Tee Higgins** -- groin issue was clear by Week 10's end. His game is Monday night, the latest lock of the week, so there's time either way.\n- **Jonathan Taylor** -- plays Thursday 11/19, three days ahead of the rest of the roster. Any news on him has to be acted on before this week's Wednesday report would normally land.\n\n## Opponent notes\n\n- **Higgins (CIN at WAS):** implied team total 28.0 -- the best offensive environment on this roster's slate this week.\n- **Taylor (IND at HOU):** HOU implied 27.25 vs IND's 17.25 -- a sizeable road-underdog spot that leans the game script away from him.\n- **Jets D/ST (at LAC):** LAC implied 21.75, an average matchup -- nothing to stream for this week.\n\n## Byes ahead\n\n- **Week 11 (this week):** Matthew Stafford (QB), Jaxon Smith-Njigba (WR), Drake London (WR) -- already reflected in the lineup above.\n- **Week 13:** Jonathan Taylor (RB) and the Jets D/ST both sit. Two weeks out, so no specific waiver claim is being recommended yet, but start planning now with only five bench spots -- RJ Harvey (RB, DEN, 8.03 expected / 0.732 play probability / 6 games of data) surfaced on this week's generic waiver list and is a reasonable speculative stash against that RB hole, though he hasn't been evaluated specifically against Week 13's matchups yet.\n\n## Caveats\n\n- No live Week 11 injury/practice data exists anywhere yet -- re-check Wednesday.\n- ESPN/Sleeper/Rotowire/FantasyPros all proxy-blocked here; this is a degraded, self-generated run on live nflreadpy data only.\n- The committed Week 11 fixture is stale (2026-09-08) and was not used.\n- Lineup total (123.47) passes the 100-140 sanity check.\n- No week-13 waiver claim is being made yet -- it's early and matchup-dependent.\n- Vegas implied totals use nflreadpy's own spread/total convention, not independently cross-checked."
+}

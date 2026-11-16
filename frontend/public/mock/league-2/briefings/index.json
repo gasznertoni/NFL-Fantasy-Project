@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-11-16-mon",
+      "kind": "monday",
+      "generatedAt": "2026-11-16T06:21:41Z",
+      "week": 11,
+      "lineupTotal": 123.47,
+      "changeSummary": "Pivoted to Week 11 (Week 10 closed out for this roster -- LAC@BAL tonight involves none of our players). Triple bye hits: Stafford, Smith-Njigba and London (LAR/SEA/ATL) are all out this week, no game. Irving returns from his own bye to fill RB2, the slot that was a real forced zero last week. Cam Skattebo's hamstring cleared to Full Participation by Week 10's end and, with Irving back, he moves from a forced RB start into a genuine FLEX win over Coker (+3.24). The triple bye also opens enough room that both rostered TEs (Likely and LaPorta) start together. No live Week 11 injury data exists anywhere yet (nflreadpy.load_injuries returns 0 rows) -- self-generated run, sandbox-degraded (no FantasyPros/ESPN/Sleeper/Rotowire), sanity check passed at 123.47. Flagged the Week 13 bye for Taylor and the Jets D/ST early -- two weeks out, no waiver claim recommended yet, but RJ Harvey (RB, DEN) is a speculative stash worth watching.",
+      "sourceIsLive": true
+    },
+    {
       "slug": "2026-11-14-sat",
       "kind": "saturday",
       "generatedAt": "2026-11-14T06:17:12Z",
