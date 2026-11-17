@@ -37,7 +37,7 @@
       "playerId": "00-0026300",
       "name": "Josh Johnson",
       "position": "QB",
-      "team": "CIN",
+      "team": "ARI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -103,7 +103,7 @@
       "playerId": "00-0029604",
       "name": "Kirk Cousins",
       "position": "QB",
-      "team": "LV",
+      "team": "MIN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -158,7 +158,7 @@
       "playerId": "00-0030279",
       "name": "Keenan Allen",
       "position": "WR",
-      "team": "IND",
+      "team": "SF",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -171,9 +171,9 @@
       "position": "TE",
       "team": "KC",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Kelce suffered an ankle injury in the first quarter but returned to the game and finished with 2 receptions for 30 yards, with his status listed as Active."
       }
     },
     {
@@ -182,9 +182,9 @@
       "position": "QB",
       "team": "NYJ",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Geno Smith suffered a left ankle injury and concussion in Sunday's game but imaging tests showed no major damage; his status for Sunday's game against the Chargers will be determined after further evaluation during the week."
       }
     },
     {
@@ -226,9 +226,9 @@
       "position": "WR",
       "team": "SF",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Brandin Cooks is inactive for Sunday's game against the Cowboys due to coach's decision following the return of Deebo Samuel and acquisition of Keenan Allen, with unclear role prospects going forward."
       }
     },
     {
@@ -250,7 +250,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Hamstring"
+        "summary": "Davante Adams is on injured reserve with a hamstring injury and is targeting a return on November 25 against the Packers."
       }
     },
     {
@@ -259,9 +259,9 @@
       "position": "WR",
       "team": "SF",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Achilles"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Mike Evans missed three games with right Achilles tendinitis and has a chance to return in Week 11 if he practices well and his Achilles responds favorably."
       }
     },
     {
@@ -314,9 +314,9 @@
       "position": "RB",
       "team": "CLE",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Calf"
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Michael Burton was placed on injured reserve due to a calf injury sustained in Week 9 and will miss at least four games, with the earliest return date being Week 15."
       }
     },
     {
@@ -356,7 +356,7 @@
       "playerId": "00-0032208",
       "name": "Phillip Dorsett",
       "position": "WR",
-      "team": "LV",
+      "team": "ARI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -567,9 +567,9 @@
       "position": "TE",
       "team": "IND",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Groin"
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Mo Alie-Cox was placed on injured reserve due to a groin injury and must miss at least four games, with the earliest return date being Week 15."
       }
     },
     {
@@ -677,9 +677,9 @@
       "position": "TE",
       "team": "IND",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -699,9 +699,9 @@
       "position": "QB",
       "team": "CLE",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Concussion"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -712,7 +712,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Foot"
+        "summary": "James Conner remains on injured reserve with a right foot/ankle injury requiring surgery and no clear timeline for return, ruling him out for Week 11 against the Chiefs."
       }
     },
     {
@@ -722,8 +722,8 @@
       "team": "NE",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Hollins returned from a calf injury and led the Patriots in catches with five receptions, though his role may remain unclear until after the team's bye week."
       }
     },
     {
@@ -752,7 +752,7 @@
       "playerId": "00-0033662",
       "name": "Cooper Rush",
       "position": "QB",
-      "team": "ATL",
+      "team": "TB",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -766,8 +766,8 @@
       "team": "WAS",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Ekeler was active and logged a season-high 13 touches, but faces potential reduced role if Jacory Croskey-Merritt returns from IR in Week 11."
       }
     },
     {
@@ -799,8 +799,8 @@
       "team": "HOU",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Ogunbowale was reverted to the practice squad after being elevated for Sunday's game, but could be elevated again for Thursday's matchup if Montgomery or Marks remain unavailable."
       }
     },
     {
@@ -842,9 +842,9 @@
       "position": "QB",
       "team": "KC",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Elbow"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -864,9 +864,9 @@
       "position": "TE",
       "team": "LAC",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Lower Leg"
+        "designation": "Healthy",
+        "riskLevel": "low",
+        "summary": "Njoku was activated from injured reserve after a fibula injury and is expected to play Monday against the Ravens as a pass-catching tight end option."
       }
     },
     {
@@ -887,8 +887,8 @@
       "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "medium",
+        "summary": "Kamara is healthy and active but faces reduced offensive snaps and touches due to a three-man backfield committee approach with Etienne and Estime, limiting his fantasy upside."
       }
     },
     {
@@ -1141,7 +1141,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Thumb"
+        "summary": "Lamar Jackson suffered a broken and dislocated thumb requiring surgery and is expected to miss 6-10 weeks, with no return before Week 16."
       }
     },
     {
@@ -1184,8 +1184,8 @@
       "team": "TEN",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "medium",
+        "summary": "Ridley was active but played only four offensive snaps in Week 10 and is expected to see reduced offensive opportunities going forward with other receivers taking priority."
       }
     },
     {
@@ -1194,9 +1194,9 @@
       "position": "RB",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "high",
+        "summary": "Barkley is playing through hamstring and back injuries with poor performance metrics, and there is risk he could be shut down for rest as the Eagles fall out of contention."
       }
     },
     {
@@ -1216,9 +1216,9 @@
       "position": "QB",
       "team": "TB",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Baker Mayfield is questionable for Sunday's game against the Lions due to a foot sprain sustained in Week 9, with the Buccaneers signing backup quarterbacks and monitoring his progress throughout the week."
       }
     },
     {
@@ -1262,14 +1262,14 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Quadriceps"
+        "summary": "Darnold is recovering from quadriceps and rib injuries sustained in Week 8 and is trending toward a Week 12 return after the bye week, though he still needs to complete a full week of practice without setbacks."
       }
     },
     {
       "playerId": "00-0034955",
       "name": "Brett Rypien",
       "position": "QB",
-      "team": "TB",
+      "team": "LV",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -1403,9 +1403,9 @@
       "position": "WR",
       "team": "ATL",
       "newsFlag": {
-        "designation": "Questionable",
+        "designation": "Healthy",
         "riskLevel": "low",
-        "summary": "Concussion"
+        "summary": "Zaccheaus was evaluated for a concussion during Sunday's game but was cleared to return and is active moving forward."
       }
     },
     {
@@ -1416,7 +1416,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Hamstring"
+        "summary": "Kyler Murray is listed as Out according to the ESPN injury report."
       }
     },
     {
@@ -1425,9 +1425,9 @@
       "position": "TE",
       "team": "MIN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hockenson (wrist/chest) missed Week 10 against Green Bay but is expected to make progress and has a chance to return to practice ahead of Sunday's game against the 49ers."
       }
     },
     {
@@ -1448,8 +1448,8 @@
       "team": "NYG",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "medium",
+        "summary": "Singletary saw a dramatic decrease in workload (5 snaps, 1 carry) in Week 10 as backup Cam Skattebo returned from injury and dominated the backfield, suggesting a potential shift in the running back rotation going forward."
       }
     },
     {
@@ -1513,9 +1513,9 @@
       "position": "QB",
       "team": "ARI",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Elbow"
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Gardner Minshew suffered a torn UCL in his right throwing elbow and will undergo season-ending surgery, ending his 2024 campaign."
       }
     },
     {
@@ -1744,9 +1744,9 @@
       "position": "WR",
       "team": "NE",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "A.J. Brown suffered a hamstring injury during Sunday's game and his availability for the Nov. 29 matchup against the Chargers is uncertain pending further evaluation."
       }
     },
     {
@@ -1757,7 +1757,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Groin"
+        "summary": "Montgomery is practicing Tuesday after a groin injury and is expected to play Thursday against the Colts in Week 11, though he is still ramping up after missing time since Week 5."
       }
     },
     {
@@ -1779,7 +1779,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Finger"
+        "summary": "Josh Jacobs has a realistic chance to return Nov. 25 after undergoing surgery for a fractured right ring finger with a 2-to-3 week recovery timeline, though he missed the past two games."
       }
     },
     {
@@ -1788,9 +1788,9 @@
       "position": "QB",
       "team": "SEA",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Oblique"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -1810,9 +1810,9 @@
       "position": "WR",
       "team": "SF",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Hamstring"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -1942,9 +1942,9 @@
       "position": "RB",
       "team": "NE",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Ankle"
+        "designation": "Healthy",
+        "riskLevel": "low",
+        "summary": "Gilliam was activated from injured reserve and is active for Sunday's game against the Lions after missing time with a knee injury since Week 4."
       }
     },
     {
@@ -1962,6 +1962,17 @@
       "playerId": "00-0036223",
       "name": "Jonathan Taylor",
       "position": "RB",
+      "team": "IND",
+      "newsFlag": {
+        "designation": "Healthy",
+        "riskLevel": "low",
+        "summary": "Jonathan Taylor remains the Colts' primary running back but is splitting carries with rookie Seth McGowan, which may limit his overall volume going forward."
+      }
+    },
+    {
+      "playerId": "00-0036232",
+      "name": "Harrison Bryant",
+      "position": "TE",
       "team": "IND",
       "newsFlag": {
         "designation": "Healthy",
@@ -1988,7 +1999,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Foot"
+        "summary": "Michael Pittman is dealing with a foot injury and has missed time since Week 4, though the Steelers are hopeful to have him back this week."
       }
     },
     {
@@ -1997,9 +2008,9 @@
       "position": "WR",
       "team": "MIN",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Calf"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Jauan Jennings has been designated as questionable for upcoming game availability."
       }
     },
     {
@@ -2020,8 +2031,8 @@
       "team": "GB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Jordan Love was active and completed the game against Minnesota despite being sacked 8 times, with a Week 11 bye to recover before Week 12."
       }
     },
     {
@@ -2074,9 +2085,9 @@
       "position": "WR",
       "team": "NYG",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Chest"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -2129,9 +2140,9 @@
       "position": "QB",
       "team": "LAC",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Finger"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -2185,8 +2196,8 @@
       "team": "CIN",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Higgins was held out late in Sunday's win for workload management, with no injury indicated, though his status will be clarified after Wednesday's practice report."
       }
     },
     {
@@ -2360,9 +2371,9 @@
       "position": "TE",
       "team": "HOU",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Brevin Jordan is listed as questionable for the upcoming game according to the ESPN injury report."
       }
     },
     {
@@ -2372,8 +2383,8 @@
       "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Elijah Mitchell reverted to the Eagles' practice squad and will need to be signed to the 53-man roster to play in their next game, with his availability potentially dependent on the injury status of Tank Bigsby and Will Shipley."
       }
     },
     {
@@ -2393,9 +2404,9 @@
       "position": "WR",
       "team": "DEN",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Head"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Jaylen Waddle was ruled out for the remainder of Sunday's game against the Panthers due to a concussion evaluation and is targeting a return on November 22 against the Raiders after Denver's bye week."
       }
     },
     {
@@ -2437,9 +2448,9 @@
       "position": "WR",
       "team": "CAR",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -2449,8 +2460,8 @@
       "team": "KC",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Noah Gray is active and playing significant snaps (53) with Travis Kelce limited due to ankle injury, positioning Gray as a potential primary tight end if Kelce's status becomes unclear heading into Week 11."
       }
     },
     {
@@ -2492,9 +2503,9 @@
       "position": "QB",
       "team": "BUF",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -2556,7 +2567,7 @@
       "playerId": "00-0036816",
       "name": "Riley Patterson",
       "position": "K",
-      "team": "MIA",
+      "team": "BAL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -2603,8 +2614,8 @@
       "team": "LAR",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Atwell was active and played in Sunday's game but saw limited offensive snaps (16 of 76) and was benched behind other receivers on the depth chart."
       }
     },
     {
@@ -2624,9 +2635,9 @@
       "position": "WR",
       "team": "PIT",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Calf"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -2635,9 +2646,9 @@
       "position": "RB",
       "team": "NE",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Healthy",
+        "riskLevel": "low",
+        "summary": "Stevenson dealt with a knee issue during Week 10 practice but was active and will have a bye week to rest before Week 12."
       }
     },
     {
@@ -2646,9 +2657,9 @@
       "position": "TE",
       "team": "TEN",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -2691,8 +2702,8 @@
       "team": "PIT",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Freiermuth was questionable with an illness heading into Week 10 but played and scored a touchdown, though he remains a touchdown-dependent fantasy option with limited receiving yards."
       }
     },
     {
@@ -2734,9 +2745,9 @@
       "position": "WR",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Hamstring"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "DeVonta Smith has been designated as questionable for upcoming game availability."
       }
     },
     {
@@ -2845,8 +2856,8 @@
       "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Travis Etienne returned from a hamstring strain in Week 10 and led the Saints backfield with 11 touches, though his production was limited and he faces competition for touches from Alvin Kamara and Audric Estime."
       }
     },
     {
@@ -2856,8 +2867,8 @@
       "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Moore is active and played in Week 9 but faces reduced offensive role if DeVonta Smith or Dontayvion Wicks return from injury in Week 11."
       }
     },
     {
@@ -2899,9 +2910,9 @@
       "position": "TE",
       "team": "ARI",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Healthy",
+        "riskLevel": "low",
+        "summary": "Hunter Long was activated from injured reserve after a five-game knee injury absence and cleared to play Sunday against the Rams in a rotational tight end role."
       }
     },
     {
@@ -3022,7 +3033,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Head"
+        "summary": "Bo Melton was ruled out for the remainder of Sunday's game against the Vikings due to a thigh injury."
       }
     },
     {
@@ -3040,7 +3051,7 @@
       "playerId": "00-0037098",
       "name": "Samori Toure",
       "position": "WR",
-      "team": "PHI",
+      "team": "IND",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3064,9 +3075,9 @@
       "position": "RB",
       "team": "DAL",
       "newsFlag": {
-        "designation": "Out",
+        "designation": "IR",
         "riskLevel": "high",
-        "summary": "Knee"
+        "summary": "Tyler Goodson was placed on injured reserve due to ACL and MCL sprains suffered in Week 9 and is expected to miss multiple games, with earliest return in Week 15."
       }
     },
     {
@@ -3075,9 +3086,9 @@
       "position": "WR",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Britain Covey has been designated as questionable for upcoming game availability."
       }
     },
     {
@@ -3098,8 +3109,8 @@
       "team": "ARI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Bam Knight was cleared to play Sunday after missing time with a concussion but will split backfield work with Tyler Allgeier."
       }
     },
     {
@@ -3152,9 +3163,9 @@
       "position": "WR",
       "team": "ATL",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Head"
       }
     },
     {
@@ -3185,9 +3196,9 @@
       "position": "WR",
       "team": "DAL",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Hamstring"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -3219,8 +3230,8 @@
       "team": "WAS",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Rachaad White is active and healthy but faces reduced role risk if Jacory Croskey-Merritt returns from injury in Week 11."
       }
     },
     {
@@ -3403,7 +3414,7 @@
       "playerId": "00-0037340",
       "name": "Zaire Mitchell-Paden",
       "position": "TE",
-      "team": "HOU",
+      "team": "CLE",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -3471,9 +3482,9 @@
       "position": "TE",
       "team": "NO",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Undisclosed"
       }
     },
     {
@@ -3537,9 +3548,9 @@
       "position": "WR",
       "team": "SEA",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -3625,9 +3636,9 @@
       "position": "WR",
       "team": "MIA",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -3658,9 +3669,9 @@
       "position": "WR",
       "team": "NYJ",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Concussion"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -3680,9 +3691,9 @@
       "position": "WR",
       "team": "WAS",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Foot"
+        "designation": "Healthy",
+        "riskLevel": "low",
+        "summary": "Burks returned to action after missing Week 9 with a foot injury and logged 60% snap share in a win over the Giants."
       }
     },
     {
@@ -3724,9 +3735,9 @@
       "position": "TE",
       "team": "NYJ",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -3735,9 +3746,9 @@
       "position": "WR",
       "team": "DAL",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Ribs"
+        "designation": "Healthy",
+        "riskLevel": "low",
+        "summary": "KaVontae Turpin has cleared his rib injury and carries no designation into Sunday's game against the 49ers after missing three games."
       }
     },
     {
@@ -3759,7 +3770,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Hip"
+        "summary": "Okonkwo suffered a back injury in the second quarter but returned after halftime and finished the game with four catches on eight targets."
       }
     },
     {
@@ -3847,7 +3858,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Knee"
+        "summary": "Jake Ferguson is listed as Out according to the ESPN injury report."
       }
     },
     {
@@ -3867,9 +3878,9 @@
       "position": "WR",
       "team": "GB",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Ankle"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Skyy Moore was ruled out in Week 10 with an ankle injury that is not considered serious, with the Packers taking a precautionary approach after his recent return from injured reserve."
       }
     },
     {
@@ -3944,9 +3955,9 @@
       "position": "WR",
       "team": "TEN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Wan'Dale Robinson sustained an ankle injury late in the third quarter against the Jaguars and is questionable to return to Sunday's game."
       }
     },
     {
@@ -3977,9 +3988,9 @@
       "position": "QB",
       "team": "MIA",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Groin"
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Malik Willis is on injured reserve with a groin/core injury and may require surgery, with the earliest possible return being Week 14."
       }
     },
     {
@@ -3999,9 +4010,9 @@
       "position": "RB",
       "team": "KC",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Kenneth Walker III has been designated as questionable for upcoming games."
       }
     },
     {
@@ -4041,7 +4052,7 @@
       "playerId": "00-0038359",
       "name": "Xavier Smith",
       "position": "WR",
-      "team": "SF",
+      "team": "LAR",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4055,8 +4066,8 @@
       "team": "DAL",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Abanikanda reverted to the practice squad but is expected to be elevated for Week 11 as other running backs (Goodson, Davis) are on injured reserve."
       }
     },
     {
@@ -4076,9 +4087,9 @@
       "position": "WR",
       "team": "PHI",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Ankle"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Dontayvion Wicks has been designated as Questionable for upcoming games."
       }
     },
     {
@@ -4087,9 +4098,9 @@
       "position": "TE",
       "team": "IND",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Mallory is dealing with a hamstring injury and did not participate in Monday's practice, facing an uphill battle to play Thursday against the Texans due to the short week."
       }
     },
     {
@@ -4121,8 +4132,8 @@
       "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "McKee recovered from his rib injury and is active for Sunday's game, though he will serve as backup to Joe Milton with Jalen Hurts sidelined."
       }
     },
     {
@@ -4177,7 +4188,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Wrist"
+        "summary": "Zavier Scott was placed on injured reserve with a wrist injury and will miss at least four games."
       }
     },
     {
@@ -4187,8 +4198,8 @@
       "team": "LAC",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Mitchell was cleared to play Monday despite limited practice reps due to a hip injury and will operate in a rotational backfield role."
       }
     },
     {
@@ -4209,8 +4220,8 @@
       "team": "NE",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Tommy DeVito is positioned to start at QB for the Patriots in Week 11 and beyond due to Drake Maye's fractured ankle, though the team may explore other QB options."
       }
     },
     {
@@ -4239,7 +4250,7 @@
       "playerId": "00-0038492",
       "name": "Jason Brownlee",
       "position": "WR",
-      "team": "NYG",
+      "team": "TEN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4250,7 +4261,7 @@
       "playerId": "00-0038496",
       "name": "Xavier Gipson",
       "position": "WR",
-      "team": "PHI",
+      "team": "NYG",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4272,7 +4283,7 @@
       "playerId": "00-0038519",
       "name": "Nikko Remigio",
       "position": "WR",
-      "team": "KC",
+      "team": "HOU",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4318,9 +4329,9 @@
       "position": "TE",
       "team": "DAL",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Groin"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -4338,7 +4349,7 @@
       "playerId": "00-0038551",
       "name": "Kendre Miller",
       "position": "RB",
-      "team": "NO",
+      "team": "DAL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4373,7 +4384,7 @@
       "position": "WR",
       "team": "ARI",
       "newsFlag": {
-        "designation": "Out",
+        "designation": "IR",
         "riskLevel": "high",
         "summary": "Neck"
       }
@@ -4382,7 +4393,7 @@
       "playerId": "00-0038562",
       "name": "Jake Moody",
       "position": "K",
-      "team": "BAL",
+      "team": "ATL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -4439,9 +4450,9 @@
       "position": "WR",
       "team": "NYG",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Thumb"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -4450,9 +4461,9 @@
       "position": "QB",
       "team": "LV",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -4461,7 +4472,7 @@
       "position": "TE",
       "team": "GB",
       "newsFlag": {
-        "designation": "Out",
+        "designation": "IR",
         "riskLevel": "high",
         "summary": "Concussion"
       }
@@ -4538,9 +4549,9 @@
       "position": "WR",
       "team": "HOU",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Hutchinson was checked for a concussion during the fourth quarter of Sunday's game but remained active and finished with four receptions, 58 yards, and a touchdown."
       }
     },
     {
@@ -4551,7 +4562,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Thumb"
+        "summary": "Iosivas was downgraded from doubtful to out for Sunday's game against the Steelers due to a thumb injury and will remain on injured reserve, with his next opportunity to play in Week 11."
       }
     },
     {
@@ -4650,7 +4661,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Knee - ACL"
+        "summary": "Tyrell Shavers was not activated from the reserve/PUP list due to a knee injury and will miss Sunday's game against the Jets, with his next opportunity to play in Week 11 against Miami."
       }
     },
     {
@@ -4659,9 +4670,9 @@
       "position": "RB",
       "team": "GB",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Ankle"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -4671,8 +4682,8 @@
       "team": "HOU",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Demercado is active and may see expanded role in Week 11 if David Montgomery (groin) cannot play, though he remains behind other backs on the depth chart."
       }
     },
     {
@@ -4703,9 +4714,9 @@
       "position": "WR",
       "team": "MIA",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Jared Wayne has been designated as Questionable and his availability status is uncertain for the upcoming game."
       }
     },
     {
@@ -4791,9 +4802,9 @@
       "position": "RB",
       "team": "SEA",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Emanuel Wilson is inactive for Week 10 due to coach's decision as he remains behind Charbonnet, Price, and Holani in the running back rotation."
       }
     },
     {
@@ -4868,9 +4879,9 @@
       "position": "RB",
       "team": "DET",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Neck"
+        "designation": "Healthy",
+        "riskLevel": "low",
+        "summary": "Saylors was a full participant in Wednesday practice after missing Week 9 with a neck injury and is expected to return for Week 10 action."
       }
     },
     {
@@ -4943,11 +4954,11 @@
       "playerId": "00-0038941",
       "name": "Tyler Scott",
       "position": "WR",
-      "team": "LV",
+      "team": "LAR",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Undisclosed"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -5011,9 +5022,9 @@
       "position": "WR",
       "team": "MIN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Jordan Addison will require thumb surgery and miss a few weeks, with the Vikings considering placing him on injured reserve with an anticipated minimum four-game absence."
       }
     },
     {
@@ -5031,7 +5042,7 @@
       "playerId": "00-0038997",
       "name": "Josh Downs",
       "position": "WR",
-      "team": "IND",
+      "team": "KC",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -5056,8 +5067,8 @@
       "team": "CHI",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Roschon Johnson is healthy but faces reduced offensive opportunities with Salvon Ahmed taking snaps ahead of him and Kyle Monangai potentially returning, limiting his fantasy relevance going forward."
       }
     },
     {
@@ -5077,9 +5088,9 @@
       "position": "RB",
       "team": "TEN",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Healthy",
+        "riskLevel": "low",
+        "summary": "Spears returned from a two-game knee injury absence to play 16 snaps in Sunday's loss, but remains in a reduced role behind Tony Pollard with minimal fantasy value."
       }
     },
     {
@@ -5134,7 +5145,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Ankle"
+        "summary": "Jonathan Mingo has been designated as questionable for upcoming games due to an unspecified injury."
       }
     },
     {
@@ -5198,9 +5209,9 @@
       "position": "WR",
       "team": "LAR",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Knee"
+        "designation": "IR",
+        "riskLevel": "high",
+        "summary": "Knee - MCL"
       }
     },
     {
@@ -5341,8 +5352,8 @@
       "position": "RB",
       "team": "LV",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
+        "designation": "Questionable",
+        "riskLevel": "low",
         "summary": "Undisclosed"
       }
     },
@@ -5396,9 +5407,9 @@
       "position": "RB",
       "team": "SEA",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Holani suffered an MCL sprain in Week 10 and is week-to-week, with reevaluation scheduled after Seattle's bye week."
       }
     },
     {
@@ -5451,9 +5462,9 @@
       "position": "TE",
       "team": "LV",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Brock Bowers suffered a significant ankle injury in Sunday's loss to Seattle and is day-to-day, with his availability for next week's game against Denver still to be determined pending further evaluation."
       }
     },
     {
@@ -5462,9 +5473,9 @@
       "position": "WR",
       "team": "CAR",
       "newsFlag": {
-        "designation": "IR",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -5475,7 +5486,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Abdomen"
+        "summary": "Jonathan Brooks has been downgraded to Out for Sunday's game against the Saints due to a groin injury and is not yet fully recovered from his late September IR placement."
       }
     },
     {
@@ -5495,9 +5506,9 @@
       "position": "TE",
       "team": "CAR",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -5506,9 +5517,9 @@
       "position": "TE",
       "team": "HOU",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -5518,8 +5529,8 @@
       "team": "TB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Head coach Todd Bowles plans to reduce Bucky Irving's workload after the bye week to manage his high carry total (167 through 9 games) and preserve his health for the remainder of the season."
       }
     },
     {
@@ -5540,8 +5551,8 @@
       "team": "DET",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Vaki was cleared to play after working through an ankle issue during Week 10 prep and performed in a rotational role behind Gibbs."
       }
     },
     {
@@ -5557,7 +5568,7 @@
     },
     {
       "playerId": "00-0039373",
-      "name": "Audric Estim\u00e9",
+      "name": "Audric Estime",
       "position": "RB",
       "team": "NO",
       "newsFlag": {
@@ -5834,7 +5845,7 @@
       "playerId": "00-0039489",
       "name": "Hayden Rucci",
       "position": "TE",
-      "team": "LAC",
+      "team": "PHI",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -5856,7 +5867,7 @@
       "playerId": "00-0039498",
       "name": "Harrison Mevis",
       "position": "K",
-      "team": "LAR",
+      "team": "BAL",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -6058,7 +6069,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Knee"
+        "summary": "Colson Yankoff is listed as questionable on the ESPN injury report."
       }
     },
     {
@@ -6089,9 +6100,9 @@
       "position": "WR",
       "team": "MIN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Shoulder"
       }
     },
     {
@@ -6146,7 +6157,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Finger"
+        "summary": "Wilson is eligible to return from injured reserve this week with his coach expressing hope he'll play Sunday, but his role could be diminished if fellow receiver Pittman also returns."
       }
     },
     {
@@ -6157,7 +6168,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Foot"
+        "summary": "Will Shipley's 21-day practice window was opened Monday after a partial plantar fascia tear, with a chance to play Sunday against the Steelers but his availability remains uncertain."
       }
     },
     {
@@ -6177,8 +6188,8 @@
       "position": "WR",
       "team": "LAR",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
+        "designation": "IR",
+        "riskLevel": "high",
         "summary": "Back"
       }
     },
@@ -6265,9 +6276,9 @@
       "position": "RB",
       "team": "GB",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Knee"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -6287,9 +6298,9 @@
       "position": "WR",
       "team": "IND",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Anthony Gould sustained a new toe injury and was limited in Monday's walkthrough practice but played in the previous game against Miami."
       }
     },
     {
@@ -6298,9 +6309,9 @@
       "position": "TE",
       "team": "KC",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Jared Wiley suffered a fractured ankle in the first quarter against the Falcons and will likely be placed on injured reserve."
       }
     },
     {
@@ -6331,9 +6342,9 @@
       "position": "WR",
       "team": "HOU",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Marvin Harrison Jr. missed Sunday's game and Monday's practice due to a hamstring injury, putting his availability for Thursday's game against the Colts in serious doubt on a short week."
       }
     },
     {
@@ -6342,9 +6353,9 @@
       "position": "QB",
       "team": "NE",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Doubtful",
+        "riskLevel": "medium",
+        "summary": "Drake Maye sustained an ankle injury in Sunday's game against the Lions and is expected to miss at least the next game on Nov. 29 against the Chargers, with head coach Mike Vrabel indicating he won't be available coming out of the Week 11 bye."
       }
     },
     {
@@ -6355,7 +6366,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Knee - PCL"
+        "summary": "Jalen McMillan (PCL sprain, left knee) is unlikely to return immediately after the Week 10 bye, with the team yet to open his 21-day practice window and the player still experiencing discomfort following a recent medical procedure."
       }
     },
     {
@@ -6375,9 +6386,9 @@
       "position": "RB",
       "team": "MIA",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Quadriceps"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -6441,9 +6452,9 @@
       "position": "WR",
       "team": "KC",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Hamstring"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -6453,8 +6464,8 @@
       "team": "BUF",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Keon Coleman was briefly evaluated for a head injury during Sunday's game but returned to play, resulting in reduced snaps (52%) in the contest."
       }
     },
     {
@@ -6498,7 +6509,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Back"
+        "summary": "Ladd McConkey has been designated as Questionable for the upcoming game, indicating his availability status is uncertain."
       }
     },
     {
@@ -6573,9 +6584,9 @@
       "position": "QB",
       "team": "NYG",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Undisclosed"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -6838,8 +6849,8 @@
       "team": "TB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Egbuka returned from a two-game absence due to concussion protocol and foot injury, catching three passes for 38 yards in Sunday's loss to the Bears."
       }
     },
     {
@@ -6871,8 +6882,8 @@
       "team": "DEN",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Pat Bryant was recently activated from IR after an ankle injury and performed well in Week 9, though he may see increased playing time if teammate Jaylen Waddle's concussion lingers into Week 11."
       }
     },
     {
@@ -6981,8 +6992,8 @@
       "team": "LAC",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Lambert-Smith was active and played 40 snaps with one 50-yard catch, but his role depends on whether teammate Ladd McConkey (back spasms) can play next week."
       }
     },
     {
@@ -7167,9 +7178,9 @@
       "position": "RB",
       "team": "CHI",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Toe"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Monangai is on track to return Sunday against the Saints after missing five games with turf toe and thumb injuries, though he will require orthotics and plates in his cleats for the remainder of the season to manage the lingering toe issue."
       }
     },
     {
@@ -7235,7 +7246,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Groin"
+        "summary": "Croskey-Merritt remains on IR with a groin injury and is trending in the right direction, but his 21-day practice window has not yet been opened, making his Week 11 return uncertain."
       }
     },
     {
@@ -7354,9 +7365,9 @@
       "position": "WR",
       "team": "LAC",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -7497,9 +7508,9 @@
       "position": "TE",
       "team": "DET",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -7717,9 +7728,9 @@
       "position": "QB",
       "team": "MIN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -7959,9 +7970,9 @@
       "position": "WR",
       "team": "LV",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Dont'e Thornton Jr. is listed as questionable for an upcoming game."
       }
     },
     {
@@ -7981,9 +7992,9 @@
       "position": "RB",
       "team": "HOU",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Doubtful",
+        "riskLevel": "medium",
+        "summary": "Woody Marks sustained a concussion during Sunday's game and missed Monday's walkthrough, with the head coach indicating he is unlikely to be cleared to play Thursday against the Colts."
       }
     },
     {
@@ -8366,9 +8377,9 @@
       "position": "QB",
       "team": "CLE",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -8388,9 +8399,9 @@
       "position": "RB",
       "team": "NYG",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Hamstring"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -8454,9 +8465,9 @@
       "position": "RB",
       "team": "NE",
       "newsFlag": {
-        "designation": "Out",
+        "designation": "IR",
         "riskLevel": "high",
-        "summary": "Illness"
+        "summary": "TreVeyon Henderson was placed on injured reserve due to a neurological medical emergency and must miss at least four games, with his next opportunity to play Week 15 against the Chiefs."
       }
     },
     {
@@ -8467,7 +8478,7 @@
       "newsFlag": {
         "designation": "Questionable",
         "riskLevel": "low",
-        "summary": "Undisclosed"
+        "summary": "Burden is working through the NFL concussion protocol after sustaining a concussion on Nov. 8 and his availability for Sunday's game against the Saints remains uncertain pending clearance."
       }
     },
     {
@@ -8565,8 +8576,8 @@
       "team": "CIN",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Meyers is active and productive but may see decreased offensive opportunities once Andrei Iosivas returns from a thumb injury."
       }
     },
     {
@@ -8652,9 +8663,9 @@
       "position": "RB",
       "team": "TEN",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -8676,7 +8687,7 @@
       "newsFlag": {
         "designation": "IR",
         "riskLevel": "high",
-        "summary": "Undisclosed"
+        "summary": "Adam Randall remains on injured reserve with a neck/hamstring injury and was not activated despite being a full practice participant, with his evaluation window closing Wednesday."
       }
     },
     {
@@ -8905,9 +8916,9 @@
       "position": "RB",
       "team": "KC",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Jaydn Ott is listed as Questionable for upcoming availability."
       }
     },
     {
@@ -8916,9 +8927,9 @@
       "position": "RB",
       "team": "KC",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Undisclosed"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -9057,7 +9068,7 @@
       "playerId": "00-0041001",
       "name": "Matt Lauter",
       "position": "TE",
-      "team": "MIN",
+      "team": "NO",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -9180,9 +9191,9 @@
       "position": "WR",
       "team": "CLE",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "medium",
+        "summary": "Boston entered Sunday's game dealing with a toe injury and appeared to aggravate it against Houston, limiting his production despite being listed as active."
       }
     },
     {
@@ -9226,7 +9237,7 @@
       "newsFlag": {
         "designation": "Out",
         "riskLevel": "high",
-        "summary": "Hamstring"
+        "summary": "Zachariah Branch is listed as Out according to the ESPN injury report."
       }
     },
     {
@@ -9247,8 +9258,8 @@
       "team": "TB",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Hurst is active but facing decreased offensive playing time in Week 9 due to the return of Emeka Egbuka and depth chart competition, though no injury is indicated."
       }
     },
     {
@@ -9530,7 +9541,7 @@
       "playerId": "00-0041139",
       "name": "Damon Bankston",
       "position": "RB",
-      "team": "GB",
+      "team": "MIN",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -9761,11 +9772,11 @@
       "playerId": "00-0041203",
       "name": "Joey Aguilar",
       "position": "QB",
-      "team": "JAX",
+      "team": "ARI",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Out",
+        "riskLevel": "high",
+        "summary": "Coach's Decision"
       }
     },
     {
@@ -9959,7 +9970,7 @@
       "playerId": "00-0041252",
       "name": "Kenny Fletcher Jr.",
       "position": "TE",
-      "team": "IND",
+      "team": "GB",
       "newsFlag": {
         "designation": "Healthy",
         "riskLevel": "none",
@@ -10225,9 +10236,9 @@
       "position": "RB",
       "team": "NO",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Shoulder"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "CJ Donaldson has been listed as Questionable, indicating uncertainty about his availability for the upcoming game."
       }
     },
     {
@@ -10368,9 +10379,9 @@
       "position": "TE",
       "team": "LAC",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Undisclosed"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -10489,9 +10500,9 @@
       "position": "WR",
       "team": "TEN",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Shoulder"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Carnell Tate missed his second consecutive game due to a shoulder injury but the Titans coach is hopeful he will return in Week 11 against the Cowboys, pending his return to practice."
       }
     },
     {
@@ -10500,9 +10511,9 @@
       "position": "WR",
       "team": "BUF",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Coach's Decision"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -10709,9 +10720,9 @@
       "position": "WR",
       "team": "NYJ",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Omar Cooper Jr. suffered a right ankle injury in Week 3 against the Bills (same ankle as his Week 1 high-ankle sprain) and will undergo imaging Monday, with his availability for Week 4 against the Chargers uncertain."
       }
     },
     {
@@ -10721,8 +10732,8 @@
       "team": "SEA",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Price is active and playing but saw reduced touches (9 carries) compared to backup Zach Charbonnet (20 carries), suggesting potential shift in backfield workload going forward."
       }
     },
     {
@@ -10742,9 +10753,9 @@
       "position": "TE",
       "team": "MIA",
       "newsFlag": {
-        "designation": "Questionable",
-        "riskLevel": "low",
-        "summary": "Quadriceps"
+        "designation": "Healthy",
+        "riskLevel": "none",
+        "summary": null
       }
     },
     {
@@ -10753,9 +10764,9 @@
       "position": "WR",
       "team": "MIA",
       "newsFlag": {
-        "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Chris Bell has been designated as questionable and his availability status for the upcoming game is uncertain."
       }
     },
     {
@@ -10798,8 +10809,8 @@
       "team": "CLE",
       "newsFlag": {
         "designation": "Healthy",
-        "riskLevel": "none",
-        "summary": null
+        "riskLevel": "low",
+        "summary": "Concepcion departed to the medical tent during the first half with an undisclosed issue but quickly returned and finished the game."
       }
     },
     {
@@ -10808,9 +10819,9 @@
       "position": "WR",
       "team": "LAC",
       "newsFlag": {
-        "designation": "Out",
-        "riskLevel": "high",
-        "summary": "Quadriceps"
+        "designation": "Questionable",
+        "riskLevel": "low",
+        "summary": "Brenen Thompson is inactive for Monday's game against the Ravens due to a hamstring injury after three consecutive days without practice."
       }
     },
     {
