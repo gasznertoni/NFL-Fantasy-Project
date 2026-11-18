@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-11-18-wed",
+      "kind": "wednesday",
+      "generatedAt": "2026-11-18T20:11:20Z",
+      "week": 11,
+      "lineupTotal": 130.1,
+      "changeSummary": "Practice-report run. Clean bill of health across the roster: only HOU and IND have filed Week 11 reports (Thursday-game teams), and Jonathan Taylor (IND) isn't on it at all. One real lineup swap vs Monday -- Bo Nix starts over Tyler Shough at QB, a near-tie under Monday's sandbox numbers (+0.30) that the real CI fixture widens to +1.57. Cam Skattebo now outprojects Jonathan Taylor for the RB2 label (both were starting either way, so no points move). Total rose 123.47 -> 130.10 purely from switching to the live CI fixture, not new injury news. Nothing genuinely uncertain this week; recheck Thursday/Friday as the rest of the league files. Restated the Week 11 triple bye (Stafford/JSN/London) and the Week 13 bye (Taylor, Jets D/ST).",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-11-16-mon",
       "kind": "monday",
       "generatedAt": "2026-11-16T06:21:41Z",
