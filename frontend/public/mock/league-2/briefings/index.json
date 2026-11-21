@@ -3,6 +3,15 @@
   "leagueId": "league-2",
   "briefings": [
     {
+      "slug": "2026-11-21-sat",
+      "kind": "saturday",
+      "generatedAt": "2026-11-21T07:00:00Z",
+      "week": 11,
+      "lineupTotal": 123.15,
+      "changeSummary": "Final-call Saturday. No lineup swaps vs Wednesday -- Nix/Taylor/Skattebo/Higgins/Williams/Likely/Irving/LaPorta/Bates/Jets D/ST all hold. Live nflreadpy.load_injuries(2026) Week 11 overlay (293 rows, 26 teams filed) confirms no new designation for anyone on this roster with a game left to play. The whole 130.10 -> 123.15 drop is Jonathan Taylor's Thursday game going final: HOU beat IND 26-3 and he managed only 6.7 actual points (11 carries/21 yards, 4 catches/6 yards, no TD) against a 14.21 projection -- locked in, not a model error or a new injury. Flagged that final (Friday) designations are running late league-wide as of this pull -- recheck Sunday morning before the 1pm ET lock. Restated the Week 13 bye (Taylor, Jets D/ST), now two weeks out.",
+      "sourceIsLive": false
+    },
+    {
       "slug": "2026-11-18-wed",
       "kind": "wednesday",
       "generatedAt": "2026-11-18T20:11:20Z",

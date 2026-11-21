@@ -1,0 +1,183 @@
+{
+  "slug": "2026-11-21-sat",
+  "leagueId": "league-2",
+  "season": 2026,
+  "week": 11,
+  "kind": "saturday",
+  "generatedAt": "2026-11-21T07:00:00Z",
+  "runUrl": "https://claude.ai/code/session_016tS6ESuVuvCdt61rsJbGM7",
+  "source": {
+    "label": "Committed weekly-report-week-11.json fixture (FantasyPros consensus + ESPN injuries + LLM news, built by CI) overlaid with live nflreadpy.load_injuries(2026) Week 11 practice data and load_player_stats(2026) for Thursday's completed game",
+    "asOf": "2026-11-17T18:47:14Z",
+    "isLive": false,
+    "note": "season_week.load_current_week_nflreadpy(2026) confirms Week 11, matching load_schedules (Thursday IND@HOU already final, Sunday/Monday games ahead). Live nflreadpy.load_injuries(2026) Week 11 now holds 293 rows across 26 teams -- every team with a game left to play this week has filed at least a practice-participation row, and none of this roster's active players appear on any team's report with an actual game-status tag; only HOU/IND (Thursday's teams, game over) carry a final report_status. Read that as clean, not unconfirmed: a team that filed and didn't list a player means cleared, not 'hasn't filed.' No new designation changes anything from Wednesday's briefing. The one real update is Jonathan Taylor's Thursday game (IND @ HOU, 26-3 final) finishing with an actual stat line, pulled via load_player_stats and rescored through this league's real scoring config -- not a projection."
+  },
+  "lineup": [
+    {
+      "slot": "QB",
+      "playerId": "00-0039732",
+      "name": "Bo Nix",
+      "position": "QB",
+      "opponent": "vs LV (Sun 11/22)",
+      "expectedPoints": 17.82,
+      "conditionalPoints": 18.29,
+      "playProbability": 0.974,
+      "designation": "Healthy",
+      "reason": "Clears Tyler Shough by 1.57 expected points, unchanged from Wednesday. DEN is favored by 10.5 over LV (implied total 25.5), no injury row for either team. Start Nix."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0036223",
+      "name": "Jonathan Taylor",
+      "position": "RB",
+      "opponent": "at HOU (Thu 11/19, FINAL 26-3)",
+      "expectedPoints": 6.7,
+      "conditionalPoints": 6.7,
+      "playProbability": 1.0,
+      "designation": "Played -- game final",
+      "reason": "Already locked in. HOU won 26-3; Taylor finished 11 carries for 21 yards and 4 catches for 6 yards, no TD -- 6.7 actual points under this league's real scoring, well under his 14.21 if-he-plays projection. Nothing in this report can change it now."
+    },
+    {
+      "slot": "RB",
+      "playerId": "00-0040715",
+      "name": "Cam Skattebo",
+      "position": "RB",
+      "opponent": "vs JAX (Sun 11/22)",
+      "expectedPoints": 15.56,
+      "conditionalPoints": 16.88,
+      "playProbability": 0.922,
+      "designation": "Healthy",
+      "reason": "Clear #2 RB, unchanged from Wednesday. NYG's injury report lists him with Full Participation (hamstring note, no limitation) -- no concern. NYG favored by 6 over JAX (implied 26.25)."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "position": "WR",
+      "opponent": "at WAS (Mon 11/23)",
+      "expectedPoints": 17.3,
+      "conditionalPoints": 17.79,
+      "playProbability": 0.972,
+      "designation": "Healthy",
+      "reason": "Top WR on the roster. CIN's Week 11 report lists him with Full Participation (knee note, no limitation). Monday night's 53.5-point total is the highest on the slate -- good spot. Start."
+    },
+    {
+      "slot": "WR",
+      "playerId": "00-0037240",
+      "name": "Jameson Williams",
+      "position": "WR",
+      "opponent": "vs TB (Sun 11/22)",
+      "expectedPoints": 11.6,
+      "conditionalPoints": 11.93,
+      "playProbability": 0.972,
+      "designation": "Healthy",
+      "reason": "#2 WR with Smith-Njigba and London both on bye. No DET injury row. Clears bench Jalen Coker (9.54) comfortably."
+    },
+    {
+      "slot": "TE",
+      "playerId": "00-0037838",
+      "name": "Isaiah Likely",
+      "position": "TE",
+      "opponent": "vs JAX (Sun 11/22)",
+      "expectedPoints": 14.02,
+      "conditionalPoints": 14.69,
+      "playProbability": 0.955,
+      "designation": "Healthy",
+      "reason": "Higher of the two rostered TEs. No NYG injury-report row for him. Start."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0039361",
+      "name": "Bucky Irving",
+      "position": "RB",
+      "opponent": "at DET (Sun 11/22)",
+      "expectedPoints": 15.93,
+      "conditionalPoints": 16.61,
+      "playProbability": 0.959,
+      "designation": "Healthy",
+      "reason": "Highest floor on the roster. TB's report lists him DNP Wednesday, coded 'Not injury related - resting player' -- a routine veteran rest day, not a health flag. Start."
+    },
+    {
+      "slot": "FLEX",
+      "playerId": "00-0039065",
+      "name": "Sam LaPorta",
+      "position": "TE",
+      "opponent": "vs TB (Sun 11/22)",
+      "expectedPoints": 11.06,
+      "conditionalPoints": 11.59,
+      "playProbability": 0.955,
+      "designation": "Healthy",
+      "reason": "Second TE-eligible body, started over bench Coker (9.54). No DET injury row."
+    },
+    {
+      "slot": "K",
+      "playerId": "00-0039172",
+      "name": "Jake Bates",
+      "position": "K",
+      "opponent": "vs TB (Sun 11/22)",
+      "expectedPoints": 8.2,
+      "conditionalPoints": 8.31,
+      "playProbability": 0.987,
+      "designation": "Healthy",
+      "reason": "Only rostered kicker. Start."
+    },
+    {
+      "slot": "DEF",
+      "playerId": "NYJ",
+      "name": "Jets D/ST",
+      "position": "DST",
+      "opponent": "at LAC (Sun 11/22)",
+      "expectedPoints": 4.96,
+      "conditionalPoints": 4.96,
+      "playProbability": 1.0,
+      "designation": "Healthy",
+      "reason": "Only rostered defense. LAC favored by 3; a middling matchup and this league scores no return yards or yards allowed, which caps D/ST ceilings generally. Start anyway -- no bench alternative."
+    }
+  ],
+  "lineupTotal": 123.15,
+  "changes": [],
+  "watchList": [
+    {
+      "playerId": null,
+      "name": "Final (Friday) injury designations, league-wide",
+      "why": "As of this run, nflreadpy's Week 11 injury table holds only practice-participation rows for every team but HOU/IND (who already played Thursday) -- no team has posted a final game-status column yet for any of this roster's Sunday/Monday players. That's later than normal for a Saturday pull. Nothing currently flags a problem, but recheck Sunday morning before the 1:00pm ET lock.",
+      "newsDue": "Sunday 11/22, before 1:00pm ET"
+    },
+    {
+      "playerId": "00-0036410",
+      "name": "Tee Higgins",
+      "why": "Monday night's late lock (8:15pm ET) gives the most runway of anyone in this lineup to react to news -- currently Full Participation, no limitation, nothing to act on yet.",
+      "newsDue": "Monday 11/23, before 8:15pm ET"
+    }
+  ],
+  "opponentNotes": [
+    {
+      "playerId": null,
+      "text": "TB @ DET (Sun 1:00pm) involves four of this lineup's players at once: Irving (TB) against LaPorta, Bates and Jameson Williams (all DET). DET is favored by 5.5 with an implied total of 25.5 to TB's 20.0 -- a lean toward the DET side's volume, but Irving's workload is largely game-script independent."
+    },
+    {
+      "playerId": null,
+      "text": "JAX @ NYG (Sun 1:00pm) is a stack for the other side: Skattebo and Likely both play for NYG, favored by 6 with a 26.25 implied total -- the best matchup context in this lineup."
+    },
+    {
+      "playerId": "NYJ",
+      "text": "Jets D/ST draws LAC on the road, favored by 3 -- a middling matchup, no bench alternative at DEF either way."
+    }
+  ],
+  "byesAhead": [
+    {
+      "week": 13,
+      "players": [
+        "Jonathan Taylor (RB, IND)",
+        "Jets D/ST (NYJ)"
+      ]
+    }
+  ],
+  "caveats": [
+    "Jonathan Taylor's Thursday game (IND @ HOU) is already final: HOU won 26-3 and he finished with 6.7 actual points (11 carries/21 yards, 4 catches/6 yards, no TD), well under his 14.21 if-he-plays projection. This report assumes he was actually in the starting lineup before Thursday's kickoff, matching roster.json's current starters -- it cannot verify that against the live Sleeper app, and nothing here can change his score either way now.",
+    "Every expected/conditional/playProbability value in this lineup except Taylor's comes straight from the committed fixture (weekly-report-week-11.json, generated 2026-11-17); this run did not recompute projections, only overlaid live injury data and Taylor's actual result.",
+    "No change in starters vs Wednesday's briefing (2026-11-18). The 6.95-point drop in lineupTotal (130.10 -> 123.15) is entirely Taylor's actual result replacing his pre-game projection, not a new injury or a lineup decision.",
+    "Ten full-PPR starters total 123.15 expected points, within the normal 100-140 range -- sanity check passed."
+  ],
+  "markdown": "# League-2 Start/Sit Briefing -- Week 11, Saturday final call\n\n**Source and freshness:** Committed fixture `weekly-report-week-11.json` (FantasyPros consensus + ESPN injuries + LLM news), generated 2026-11-17T18:47:14Z -- about 3.5 days old. Overlaid with a live `nflreadpy.load_injuries(2026)` Week 11 pull (293 rows across 26 teams) and `load_player_stats(2026)` for Thursday's already-completed game. **Not live** for projections or news; the injury overlay is live and confirms no new designation for anyone on this roster with a game left to play. Thursday's IND @ HOU game is final (HOU 26, IND 3); Jonathan Taylor's actual result replaces his projection below.\n\n## Start these ten\n\n| Slot | Player | Opp | Expected | P(play) | If he plays |\n|---|---|---|---|---|---|\n| QB | Bo Nix | vs LV | **17.82** | 0.974 | 18.29 |\n| RB | Jonathan Taylor | at HOU (FINAL) | **6.70** | 1.000 | 6.70 (actual) |\n| RB | Cam Skattebo | vs JAX | **15.56** | 0.922 | 16.88 |\n| WR | Tee Higgins | at WAS (Mon) | **17.30** | 0.972 | 17.79 |\n| WR | Jameson Williams | vs TB | **11.60** | 0.972 | 11.93 |\n| TE | Isaiah Likely | vs JAX | **14.02** | 0.955 | 14.69 |\n| FLEX | Bucky Irving | at DET | **15.93** | 0.959 | 16.61 |\n| FLEX | Sam LaPorta | vs TB | **11.06** | 0.955 | 11.59 |\n| K | Jake Bates | vs TB | **8.20** | 0.987 | 8.31 |\n| DEF | Jets D/ST | at LAC | **4.96** | 1.000 | 4.96 |\n| **Total** | | | **123.15** | | |\n\n**Bench, sit:** Tyler Shough (QB, 16.25 -- below Nix). Jalen Coker (WR, 9.54 -- below both Williams and LaPorta for the open WR-eligible spot). Matthew Stafford, Jaxon Smith-Njigba and Drake London are all on bye.\n\n**The headline isn't a decision, it's a result.** Jonathan Taylor's game is over. HOU beat IND 26-3, and Taylor finished with 11 carries for 21 yards and 4 catches for 6 yards -- no touchdown, 6.7 actual points under this league's real scoring. That's locked in regardless of anything below, and it's the entire reason the lineup total dropped from Wednesday's 130.10 to 123.15 -- not a new injury, not a lineup change, just a weak game already in the books.\n\n## Changes since Wednesday (2026-11-18)\n\nNo lineup swaps. Every starter is the same player in the same slot as Wednesday's briefing. The only difference is informational: Taylor's Thursday result is now final (6.70 actual vs. 14.21 projected), which is why the total reads lower than Wednesday despite nothing changing hands.\n\n## Watch list\n\n- **League-wide final designations are running late.** As of this pull, every team but HOU/IND (already played) has filed only practice-participation rows for Week 11 -- no final game-status column has posted yet for any Sunday/Monday player on this roster. Nothing currently looks wrong, but recheck Sunday morning before the 1:00pm ET lock, especially for the early Sunday slate.\n- **Tee Higgins** locks last (Monday 8:15pm ET) -- the most time of anyone in this lineup to react to news. Currently clean (Full Participation, no limitation).\n\n## Opponent notes\n\n- **TB @ DET (Sun 1:00pm)** is a four-player game for this roster: Irving (TB) against LaPorta, Bates and Jameson Williams (all DET). DET is a 5.5-point favorite with a 25.5 implied total to TB's 20.0.\n- **JAX @ NYG (Sun 1:00pm)** stacks the other way: Skattebo and Likely both play for NYG, favored by 6 with a 26.25 implied total -- the best game-script spot in this lineup.\n- Jets D/ST is on the road at LAC (LAC favored by 3) -- a middling matchup, but there's no bench alternative at DEF.\n\n## Byes ahead\n\n- **Week 13:** Jonathan Taylor (RB, IND) and the Jets D/ST (NYJ) share a bye, two weeks out. No waiver claim needed yet -- just a planning flag, same as flagged in prior briefings.\n\n## Caveats\n\n- Jonathan Taylor's Thursday result (6.70 actual) is final and cannot be changed by anything in this report; this assumes he was actually started before Thursday's kickoff, which cannot be verified against the live Sleeper app from static roster files.\n- Every number above except Taylor's comes straight from the committed fixture; this run did not recompute projections.\n- No lineup change vs Wednesday -- the 6.95-point total drop is Taylor's actual result, not new information about anyone else.\n- 123.15 expected points across ten full-PPR starters is within the normal 100-140 range. Sanity check passed.\n"
+}
